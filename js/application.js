@@ -37,10 +37,22 @@ Martview.Application = function (params) {
                 var data = Ext.util.JSON.decode(response.responseText);
                 if (current_server) {
                     if (current_query) {
+                        // server + query params
+                        Ext.each(data, function (dataset) {
+                            if (dataset.name == current_query) {
+                                data = dataset.menu;
+                                changeform.menu.add(data);
+                                // add changeForm handler to each dataset menu item
+                                changeform.menu.on('itemclick', changeForm);
+                            }
+                        });
                         if (current_form) {
                             // server + query + form params
-                        } else {
-                            // server + query params
+                            // TODO: supply changeform with correct object
+                            changeForm({
+                                mart_display_name: current_server,
+                                dataset_display_name: current_query
+                            });
                         }
                     } else {
                         // server param
@@ -78,34 +90,25 @@ Martview.Application = function (params) {
         mart = menu_item.mart_display_name;
         footer.findById('tip').setText('Fill in the form and run the query to see the results');
         query.getBottomToolbar().items.first().setText(mart + ' &sdot; <b>' + dataset + '</b> &sdot; default');
-        var genetypes = new Ext.data.SimpleStore({
-            fields: ['id', 'genetype'],
-            data: [['1', 'Coding'], ['2', 'Non-coding']]
+        var chromosome_list = new Ext.data.SimpleStore({
+            fields: ['id', 'chromosome'],
+                                                           data: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['X', 'X'], ['Y', 'Y']]
         });
         query.removeAll();
         query.add([{
             xtype: 'textfield',
             fieldLabel: 'Ensembl Gene ID'
-        },
-        {
-            xtype: 'combo',
-            editable: false,
-            forceSelection: true,
-            lastSearchTerm: false,
-            triggerAction: 'all',
-            fieldLabel: 'Gene type',
-            mode: 'local',
-            store: genetypes,
-            displayField: 'genetype'
-        },
-        {
-            xtype: 'datefield',
-            fieldLabel: 'Updated'
-        },
-        {
-            xtype: 'checkbox',
-            fieldLabel: 'Pseudogene',
-            name: 'ispseudogene'
+//         },
+//         {
+//             xtype: 'combo',
+//             editable: false,
+//             forceSelection: true,
+//             lastSearchTerm: false,
+//             triggerAction: 'all',
+//             fieldLabel: 'Chromosome',
+//             mode: 'local',
+//             store: chromosome_list,
+//             displayField: 'chromosome'
         }]);
         // find a way to replace instead of adding
         viewport.doLayout();
