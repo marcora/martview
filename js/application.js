@@ -57,7 +57,9 @@ Martview.Application = function(params) {
                                     // TODO: supply changeform with correct object
                                     changeForm({
                                         mart_display_name: current_server,
-                                        dataset_display_name: current_query
+                                        dataset_display_name: current_query,
+                                        mart_name: current_server,
+                                        dataset_name: current_query
                                     });
 
                                 }
@@ -94,27 +96,46 @@ Martview.Application = function(params) {
             item.enable();
         });
         changeform.setText('Change form');
-        var dataset = menu_item.dataset_display_name;
-        var mart = menu_item.mart_display_name;
-        footer.findById('tip').setText('Fill in and submit the form to see the results');
+        footer.findById('tip').setText('Fill and submit the form to see the results');
         var tbar = query.getBottomToolbar();
         tbar.removeAll();
         tbar.addItem({
-            text: mart,
+            cls: 'x-btn-icon',
+            iconCls: 'biomart_icon',
+            tooltip: document.title,
+            handler: function() {
+                window.location.search = ''
+            }
+        });
+        tbar.addItem('>');
+        tbar.addItem({
+            text: Ext.util.Format.ellipsis(menu_item.mart_display_name, 20, true),
+            tooltip: menu_item.mart_display_name,
             cls: 'x-btn-text-icon',
             iconCls: 'server_icon',
+            handler: function() {
+                window.location.search = '?server=' + menu_item.mart_name
+            }
         });
         tbar.addItem('>');
         tbar.addItem({
-            text: dataset,
+            text: Ext.util.Format.ellipsis(menu_item.dataset_display_name, 30, true),
+            tooltip: menu_item.dataset_display_name,
             cls: 'x-btn-text-icon',
             iconCls: 'query_icon',
+            handler: function() {
+                window.location.search = '?server=' + menu_item.mart_name + '&query=' + menu_item.dataset_name
+            }
         });
         tbar.addItem('>');
         tbar.addItem({
-            text: 'default',
+            text: Ext.util.Format.ellipsis('default', 20, true),
+            tooltip: 'default',
             cls: 'x-btn-text-icon',
             iconCls: 'form_icon',
+            handler: function() {
+                window.location.search = '?server=' + menu_item.mart_name + '&query=' + menu_item.dataset_name + '&form=default'
+            }
         });
         var chromosome_list = new Ext.data.SimpleStore({
             fields: ['id', 'chromosome'],
@@ -231,10 +252,10 @@ Martview.Application = function(params) {
 };
 
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
+Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
 Ext.onReady(function() {
     Ext.QuickTips.init();
-    Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
     // extract params from query string
     var params = Ext.urlDecode(window.location.search.substring(1));
     // create and init app object

@@ -64,11 +64,6 @@ Martview.Attributes = Ext.extend(Ext.Window, {
     // hard config - cannot be changed from outside
     initComponent: function() {
 
-        var loader = new Ext.tree.TreeLoader({
-            dataUrl: './json/cporcellus_gene_ensembl.attributes.json'
-        });
-        var root = new Ext.tree.AsyncTreeNode();
-
         // add config here
         var config = {
             id: 'attributes',
@@ -97,9 +92,11 @@ Martview.Attributes = Ext.extend(Ext.Window, {
             }],
             items: [{
                 region: 'west',
-                xtype: 'treepanel',
+                xtype: 'checktreepanel',
                 id: 'attributestree',
                 rootVisible: false,
+                bubbleCheck:'none',
+                cascadeCheck:'none',
                 animate: true,
                 enableDD: false,
                 autoScroll: true,
@@ -114,8 +111,8 @@ Martview.Attributes = Ext.extend(Ext.Window, {
                 collapsible: true,
                 collapseMode: 'mini',
                 hideCollapseTool: true,
-                root: root,
-                loader: loader,
+                root: { uiProvider: false },
+                loader: { dataUrl: './json/cporcellus_gene_ensembl.attributes.json' },
                 deferredRender: false,
                 itemCls: 'field_icon',
                 tbar: [{

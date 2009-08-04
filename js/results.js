@@ -12,7 +12,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
             title: 'Results',
             layout: 'fit',
             iconCls: 'view_icon',
-            bbar: ['&nbsp;'],
+            bbar: [{}],
             tbar: [{
                 id: 'changeview',
                 text: 'Select view',
