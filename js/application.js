@@ -144,7 +144,8 @@ Martview.Application = function(params) {
         query.removeAll();
         query.add([{
             xtype: 'textfield',
-            fieldLabel: 'Ensembl Gene ID'
+            fieldLabel: 'Ensembl Gene ID',
+            width: 'auto'
         },
         {
             xtype: 'combo',
@@ -155,7 +156,8 @@ Martview.Application = function(params) {
             fieldLabel: 'Chromosome',
             mode: 'local',
             store: chromosome_list,
-            displayField: 'chromosome'
+            displayField: 'chromosome',
+            width: 'auto'
         }]);
         // find a way to replace instead of adding
         viewport.doLayout();
@@ -196,8 +198,8 @@ Martview.Application = function(params) {
         // create the Grid
         var results_grid = new Ext.grid.GridPanel({
             store: results_store,
-            //enableColumnHide: false,
-            //enableHdMenu: false,
+            enableColumnHide: false,
+            enableHdMenu: false,
             disableSelection: true,
             columns: [{
                 id: 'name',
