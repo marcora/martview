@@ -3,7 +3,7 @@ Ext.namespace('Martview');
 Martview.Query = Ext.extend(Ext.form.FormPanel, {
 
     // hard config - cannot be changed from outside
-    initComponent: function () {
+    initComponent: function() {
 
         // add config here
         var config = {
@@ -18,7 +18,7 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
             iconCls: 'query_icon',
             autoScroll: true,
             padding: 10,
-            bbar: ['&nbsp;'],
+            bbar: [{}],
             tbar: [{
                 id: 'changeform',
                 text: 'Select form',
@@ -37,23 +37,31 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
                 disabled: true,
                 cls: 'x-btn-text-icon',
                 iconCls: 'save_icon',
-                handler: function () {
+                handler: function() {
                     Ext.Msg.show({
                         title: Martview.APP_TITLE,
                         msg: 'Export the query in various formats',
                         buttons: Ext.Msg.OKCANCEL,
                         icon: Ext.MessageBox.INFO,
-                        fn: function (btn) {
+                        fn: function(btn) {
                             if (btn == 'ok') {}
                         }
                     });
                 },
             },
             '->', {
-                text: 'Run query',
-                itemId: 'run',
+                text: 'Submit',
+                itemId: 'submit',
                 disabled: true,
                 iconCls: 'run_icon',
+                cls: 'x-btn-text-icon'
+            },
+            '-',
+            {
+                text: 'Reset',
+                itemId: 'reset',
+                disabled: true,
+                iconCls: 'reset_icon',
                 cls: 'x-btn-text-icon'
             }]
         };
