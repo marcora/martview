@@ -3,7 +3,7 @@ Ext.namespace('Martview');
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
     // hard config - cannot be changed from outside
-    initComponent: function () {
+    initComponent: function() {
 
         // add config here
         var config = {
@@ -16,23 +16,9 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
                 text: 'Select a query form to begin',
                 iconCls: 'tip_icon',
                 cls: 'x-btn-text-icon',
-                handler: function () {
+                handler: function() {
                     Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
                 }
-            },
-            '->', {
-                id: 'counter',
-                text: '',
-                xtype: 'tbtext',
-                // },
-                // {
-                //     itemId: 'license',
-                //     iconCls: 'license_icon',
-                //     cls: 'x-btn-icon',
-                //     iconCls: 'license_icon',
-                //     handler: function() {
-                //         Ext.MessageBox.alert(Martview.APP_TITLE, 'BioMart code is released under the <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">LGPL v3 license</a>');
-                //     }
             }]
         };
 
