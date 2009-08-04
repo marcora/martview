@@ -15,7 +15,7 @@
 
 button.undo_icon { background-image: url('../ico/arrow_undo.png') !important; }
 button.form_icon { background-image: url('../ico/application_form.png') !important; }
-button.run_icon { background-image: url('../ico/cog.png') !important; }
+button.submit_icon { background-image: url('../ico/arrow_right.png') !important; }
 button.print_icon { background-image: url('../ico/printer.png') !important; }
 button.license_icon { background-image: url('../ico/lgplv3.png'); width: 45px !important;; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }
