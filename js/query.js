@@ -13,7 +13,7 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
             collapsible: true,
             collapseMode: 'mini',
             hideCollapseTool: true,
-            width: 400,
+            width: 500,
             title: 'Query',
             iconCls: 'query_icon',
             autoScroll: true,
