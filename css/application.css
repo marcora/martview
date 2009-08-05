@@ -19,6 +19,7 @@ button.submit_icon { background-image: url('../ico/arrow_right.png') !important;
 button.print_icon { background-image: url('../ico/printer.png') !important; }
 button.license_icon { background-image: url('../ico/lgplv3.png'); width: 45px !important;; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }
+button.favicon_icon { background-image: url('../favicon.ico') !important; }
 button.tip_icon { background-image: url('../ico/lightbulb.png') !important; }
 button.alert_icon { background-image: url('../ico/exclamation.png') !important; }
 button.reset_icon { background-image: url('../ico/cross.png') !important; }

@@ -101,7 +101,7 @@ Martview.Application = function(params) {
         tbar.removeAll();
         tbar.addItem({
             cls: 'x-btn-icon',
-            iconCls: 'biomart_icon',
+            iconCls: 'favicon_icon',
             tooltip: document.title,
             handler: function() {
                 window.location.search = ''

@@ -51,18 +51,18 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
                 },
             },
             '->', {
-                text: 'Submit',
-                itemId: 'submit',
-                disabled: true,
-                iconCls: 'submit_icon',
-                cls: 'x-btn-text-icon'
-            },
-            '-',
-            {
                 text: 'Reset',
                 itemId: 'reset',
                 disabled: true,
                 iconCls: 'reset_icon',
+                cls: 'x-btn-text-icon'
+            },
+            '-',
+            {
+                text: 'Submit',
+                itemId: 'submit',
+                disabled: true,
+                iconCls: 'submit_icon',
                 cls: 'x-btn-text-icon'
             }]
         };
