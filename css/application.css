@@ -9,10 +9,12 @@
 .map_view_icon { background-image: url('../ico/application_view_gallery.png') !important; }
 .attribute_icon { background-image: url('../ico/bullet_black.png') !important; }
 .filter_icon { background-image: url('../ico/textfield_rename.png') !important; }
+.file_upload_icon { background-image: url('../ico/page_white_text.png') !important; }
 
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+button.file_upload_icon { background-image: url('../ico/page_white_text.png') !important; }
 button.undo_icon { background-image: url('../ico/arrow_undo.png') !important; }
 button.form_icon { background-image: url('../ico/application_form.png') !important; }
 button.submit_icon { background-image: url('../ico/arrow_right.png') !important; }

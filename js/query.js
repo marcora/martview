@@ -18,7 +18,10 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
       iconCls: 'query_icon',
       autoScroll: true,
       padding: 10,
-      plugins: [new Ext.ux.form.FieldAutoExpand()],
+//       plugins: [new Ext.ux.form.FieldAutoExpand({
+//         offsetFix: 0
+//       })],
+      labelAlign: 'top',
       bbar: [{}],
       tbar: [{
         text: 'Select form',

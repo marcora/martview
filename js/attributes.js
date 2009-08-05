@@ -16,7 +16,6 @@ Martview.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
   trigger1Class: 'x-form-clear-trigger',
   trigger2Class: 'x-form-search-trigger',
   hideTrigger1: true,
-  width: 180,
   hasSearch: false,
   paramName: 'query',
 

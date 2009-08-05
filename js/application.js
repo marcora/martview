@@ -142,12 +142,27 @@ Martview.Application = function (params) {
     });
     query.removeAll();
     query.add([{
-      xtype: 'textfield',
-      fieldLabel: 'Ensembl Gene ID',
-      width: 'auto'
+      xtype: 'fieldpanel',
+      anchor: '100%',
+      border: false,
+      layout: 'anchor',
+      fieldLabel: 'Ensembl Gene IDs',
+      items: [{
+        xtype: 'textarea',
+        anchor: '100%'
+      },
+      {
+        xtype: 'fileuploadfield',
+        buttonText: '',
+        anchor: '100%',
+        buttonCfg: {
+          iconCls: 'file_upload_icon'
+        }
+      }]
     },
     {
       xtype: 'combo',
+      anchor: '100%',
       editable: false,
       forceSelection: true,
       lastSearchTerm: false,
@@ -155,8 +170,7 @@ Martview.Application = function (params) {
       fieldLabel: 'Chromosome',
       mode: 'local',
       store: chromosome_list,
-      displayField: 'chromosome',
-      width: 'auto'
+      displayField: 'chromosome'
     }]);
     // find a way to replace instead of adding
     viewport.doLayout();
