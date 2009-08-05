@@ -2,32 +2,32 @@ Ext.namespace('Martview');
 
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
-    // hard config - cannot be changed from outside
-    initComponent: function() {
+  // hard config - cannot be changed from outside
+  initComponent: function () {
 
-        // add config here
-        var config = {
-            region: 'south',
-            id: 'footer',
-            // FIX: should adjust height automatically
-            height: 26,
-            items: [{
-                id: 'tip',
-                text: 'Select a query form to begin',
-                iconCls: 'tip_icon',
-                cls: 'x-btn-text-icon',
-                handler: function() {
-                    Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
-                }
-            }]
-        };
+    // add config here
+    var config = {
+      region: 'south',
+      id: 'footer',
+      // FIX: should adjust height automatically
+      height: 26,
+      items: [{
+        id: 'tip',
+        text: 'Select a query form to begin',
+        iconCls: 'tip_icon',
+        cls: 'x-btn-text-icon',
+        handler: function () {
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
+        }
+      }]
+    };
 
-        // apply config
-        Ext.apply(this, Ext.apply(this.initialConfig, config));
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
-        // call parent
-        Martview.Footer.superclass.initComponent.apply(this, arguments);
-    }
+    // call parent
+    Martview.Footer.superclass.initComponent.apply(this, arguments);
+  }
 
 });
 
