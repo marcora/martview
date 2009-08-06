@@ -1,39 +1,36 @@
 .server_icon { background-image: url('../ico/server.png') !important; }
-.query_icon { background-image: url('../ico/find.png') !important; }
-.form_icon { background-image: url('../ico/application_form.png') !important; }
-.search_icon { background-image: url('../ico/find.png') !important; }
-.results_icon { background-image: url('../ico/application_view_columns.png') !important; }
-.view_icon { background-image: url('../ico/application_side_list.png') !important; }
-.tabular_view_icon { background-image: url('../ico/application_view_columns.png') !important; }
-.itemized_view_icon { background-image: url('../ico/application_view_list.png') !important; }
-.map_view_icon { background-image: url('../ico/application_view_gallery.png') !important; }
-.attribute_icon { background-image: url('../ico/bullet_black.png') !important; }
-.filter_icon { background-image: url('../ico/textfield_rename.png') !important; }
-.file_upload_icon { background-image: url('../ico/page_white_text.png') !important; }
+.query_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.form_icon { background-image: url('../ico/application-form.png') !important; }
+.results_icon { background-image: url('../ico/application-table.png') !important; }
+.view_icon { background-image: url('../ico/application.png') !important; }
+.tabular_view_icon { background-image: url('../ico/application-table.png') !important; }
+.itemized_view_icon { background-image: url('../ico/application-list.png') !important; }
+.map_view_icon { background-image: url('../ico/application-image.png') !important; }
+.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.filter_icon { background-image: url('../ico/ui-text-field.png') !important; }
+.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
-button.file_upload_icon { background-image: url('../ico/page_white_text.png') !important; }
-button.undo_icon { background-image: url('../ico/arrow_undo.png') !important; }
-button.form_icon { background-image: url('../ico/application_form.png') !important; }
-button.submit_icon { background-image: url('../ico/arrow_right.png') !important; }
-button.print_icon { background-image: url('../ico/printer.png') !important; }
-button.license_icon { background-image: url('../ico/lgplv3.png'); width: 45px !important;; }
+button.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+button.undo_icon { background-image: url('../ico/arrow-circle-315-left.png') !important; }
+button.form_icon { background-image: url('../ico/application-form.png') !important; }
+button.submit_icon { background-image: url('../ico/arrow.png') !important; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }
 button.favicon_icon { background-image: url('../favicon.ico') !important; }
-button.tip_icon { background-image: url('../ico/lightbulb.png') !important; }
+button.tip_icon { background-image: url('../ico/light-bulb.png') !important; }
 button.alert_icon { background-image: url('../ico/exclamation.png') !important; }
 button.reset_icon { background-image: url('../ico/cross.png') !important; }
-button.view_icon { background-image: url('../ico/application_side_list.png') !important; }
-button.tabular_view_icon { background-image: url('../ico/application_view_columns.png') !important; }
-button.itemized_view_icon { background-image: url('../ico/application_view_list.png') !important; }
-button.map_view_icon { background-image: url('../ico/application_view_gallery.png') !important; }
-button.add_icon { background-image: url('../ico/add.png') !important; }
+button.view_icon { background-image: url('../ico/application.png') !important; }
+button.tabular_view_icon { background-image: url('../ico/application-table.png') !important; }
+button.itemized_view_icon { background-image: url('../ico/application-list.png') !important; }
+button.map_view_icon { background-image: url('../ico/application-image.png') !important; }
 button.save_icon { background-image: url('../ico/disk.png') !important; }
 button.edit_icon { background-image: url('../ico/pencil.png') !important; }
-button.help_icon { background-image: url('../ico/help.png') !important; }
+button.help_icon { background-image: url('../ico/question.png') !important; }
 button.user_icon { background-image: url('../ico/user.png') !important; }
+button.count_icon { background-image: url('../ico/counter.png') !important; }
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 

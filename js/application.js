@@ -255,6 +255,7 @@ Martview.Application = function (params) {
     results.add(results_grid);
     results_store.loadData(results_data);
     results.getBottomToolbar().items.first().setText('1 - 50 of 43,678');
+    // results.getBottomToolbar().items.first().setIconClass('count_icon');
     results.selectView();
     results.doLayout();
   });
