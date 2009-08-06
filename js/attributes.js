@@ -73,16 +73,11 @@ Martview.Attributes = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
+      iconCls: 'edit_icon',
       buttons: [{
-        text: 'Submit',
-        disabled: true,
-        handler: function () {
-          // do something here
-          this.ownerCt.ownerCt.hide();
-        }
-      },
-      {
         text: 'Close',
+        cls: 'x-btn-text-icon',
+        iconCls:'close_icon',
         handler: function () {
           this.ownerCt.ownerCt.hide();
         }
@@ -144,33 +139,35 @@ Martview.Attributes = Ext.extend(Ext.Window, {
           dblclick: function (node) {
             if (node.isLeaf()) {
               this.ownerCt.buttons[0].enable();
-              var selattrs = Ext.getCmp('selattrs');
+              var selattributes = Ext.getCmp('selattributes');
               node.disable();
-              selattrs.add({
-                xtype: 'displayfield',
-                name: node.id,
-                fieldLabel: node.attributes.display_name || node.attributes.name,
-                labelSeparator: '&nbsp;<img style="vertical-align:middle;" src="./ico/delete.png" />'
+              selattributes.add({
+                xtype: 'attribute',
+                itemId: node.id,
+                display_name: node.attributes.display_name || node.attributes.name,
+                editable: Boolean(Math.floor(Math.random()*2)) // TODO: remove for production!
               });
-              selattrs.doLayout();
+              selattributes.doLayout();
             }
           }
         }
       },
       {
         region: 'center',
-        id: 'selattrs',
-        xtype: 'form',
-        labelWidth: 200,
+        id: 'selattributes',
         autoScroll: true,
         padding: 10,
         title: 'Selected attributes',
+        bodyStyle: 'background-color:#dfe8f6;',
+        //        layout: 'vbox',
+        //        layoutConfig: {
+        //          align: 'stretch',
+        //          pack: 'start'
+        //        },
         tbar: [{
-
           text: 'Reset to default',
           iconCls: 'undo_icon',
           cls: 'x-btn-text-icon'
-
         }]
       }]
     };

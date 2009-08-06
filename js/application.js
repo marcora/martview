@@ -142,23 +142,26 @@ Martview.Application = function (params) {
     });
     query.removeAll();
     query.add([{
-      xtype: 'fieldpanel',
-      anchor: '100%',
-      border: false,
-      layout: 'anchor',
-      fieldLabel: 'Ensembl Gene IDs',
-      items: [{
-        xtype: 'textarea',
-        anchor: '100%'
-      },
-      {
-        xtype: 'fileuploadfield',
-        buttonText: '',
-        anchor: '100%',
-        buttonCfg: {
-          iconCls: 'file_upload_icon'
-        }
-      }]
+                 xtype: 'textfield',
+                 fieldLabel: 'ENSEMBL Gene ID',
+                 anchor: '100%'
+//       xtype: 'fieldpanel',
+//       anchor: '100%',
+//       border: false,
+//       layout: 'anchor',
+//       fieldLabel: 'Ensembl Gene IDs',
+//       items: [{
+//         xtype: 'textarea',
+//         anchor: '100%'
+//       },
+//       {
+//         xtype: 'fileuploadfield',
+//         buttonText: '',
+//         anchor: '100%',
+//         buttonCfg: {
+//           iconCls: 'file_upload_icon'
+//         }
+//       }]
     },
     {
       xtype: 'combo',
