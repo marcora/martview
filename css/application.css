@@ -2,21 +2,26 @@
 .server_icon { background-image: url('../ico/server.png') !important; }
 .query_icon { background-image: url('../ico/magnifier-left.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
-.results_icon { background-image: url('../ico/application-table.png') !important; }
+.results_icon { background-image: url('../ico/application-detail.png') !important; }
 .view_icon { background-image: url('../ico/application.png') !important; }
 .tabular_view_icon { background-image: url('../ico/application-table.png') !important; }
 .itemized_view_icon { background-image: url('../ico/application-list.png') !important; }
 .map_view_icon { background-image: url('../ico/application-image.png') !important; }
-.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
-.filter_icon { background-image: url('../ico/ui-text-field.png') !important; }
+.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+.node_all_icon { background-image: url('../ico/node.png') !important; }
+.node_selected_icon { background-image: url('../ico/node-select-child.png') !important; }
+.folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
+.folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
 
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+button.move_icon { background-image: url('../ico/arrow-move.png') !important; }
 button.close_icon { background-image: url('../ico/cross.png') !important; }
 button.cancel_icon { background-image: url('../ico/slash.png') !important; }
-button.delete_icon { background-image: url('../ico/bin.png') !important; }
+button.delete_icon { background-image: url('../ico/minus-circle.png') !important; }
 button.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 button.undo_icon { background-image: url('../ico/arrow-circle-315-left.png') !important; }
 button.form_icon { background-image: url('../ico/application-form.png') !important; }
@@ -35,6 +40,7 @@ button.edit_icon { background-image: url('../ico/pencil.png') !important; }
 button.help_icon { background-image: url('../ico/question.png') !important; }
 button.user_icon { background-image: url('../ico/user.png') !important; }
 button.count_icon { background-image: url('../ico/counter.png') !important; }
+button.print_icon { background-image: url('../ico/printer.png') !important; }
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
@@ -47,3 +53,9 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .attribute .x-panel-body {
     margin-bottom: 10px !important;
 }
+
+.x-tree-node-expanded img.x-tree-node-icon { background-image:url('../ico/folder-horizontal-open.png') !important; }
+.x-tree-node-collapsed img.x-tree-node-icon { background-image:url('../ico/folder-horizontal.png') !important; }
+
+#attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-toolbar.png') !important; }
+#filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-toolbar.png') !important; }

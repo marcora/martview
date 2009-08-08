@@ -19,6 +19,15 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
         }
+      },
+      '->', {
+        itemId: 'biomart',
+        text: 'Powered by BioMart &sdot; Biological queries made easy',
+        iconCls: 'biomart_icon',
+        cls: 'x-btn-text-icon',
+        handler: function () {
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'More biomart');
+        }
       }]
     };
 

@@ -11,11 +11,15 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
       region: 'west',
       split: true,
       collapsible: true,
-      collapseMode: 'mini',
-      hideCollapseTool: true,
+      // collapseMode: 'mini',
+      // hideCollapseTool: true,
       width: 500,
-      title: 'Query',
       iconCls: 'query_icon',
+      title: 'Query',
+      tools: [{
+        id: 'save',
+        qtip: 'Export the query in various formats'
+      }],
       autoScroll: true,
       padding: 10,
       //frame: true,
@@ -24,7 +28,6 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
       //         offsetFix: 0
       //       })],
       labelAlign: 'top',
-      bbar: [{}],
       tbar: [{
         text: 'Select form',
         id: 'selectform',
@@ -38,26 +41,26 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
         disabled: true,
         iconCls: 'edit_icon',
         cls: 'x-btn-text-icon'
-      },
-      '-', {
-        text: 'Save query',
-        itemId: 'save',
-        disabled: true,
-        cls: 'x-btn-text-icon',
-        iconCls: 'save_icon',
-        handler: function () {
-          Ext.Msg.show({
-            title: Martview.APP_TITLE,
-            msg: 'Export the query in various formats',
-            buttons: Ext.Msg.OKCANCEL,
-            icon: Ext.MessageBox.INFO,
-            fn: function (btn) {
-              if (btn == 'ok') {}
-            }
-          });
-        },
-      },
-      '->', {
+        //       },
+        //       '->', {
+        //         text: 'Save',
+        //         itemId: 'save',
+        //         disabled: true,
+        //         cls: 'x-btn-text-icon',
+        //         iconCls: 'save_icon',
+        //         handler: function () {
+        //           Ext.Msg.show({
+        //             title: Martview.APP_TITLE,
+        //             msg: 'Export the query in various formats',
+        //             buttons: Ext.Msg.OKCANCEL,
+        //             icon: Ext.MessageBox.INFO,
+        //             fn: function (btn) {
+        //               if (btn == 'ok') {}
+        //             }
+        //           });
+        //         }
+      }],
+      bbar: ['->', {
         text: 'Reset',
         itemId: 'reset',
         disabled: true,

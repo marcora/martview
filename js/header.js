@@ -12,13 +12,49 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       // FIX: should adjust height automatically
       height: 26,
       items: [{
-        itemId: 'logo',
-        text: '<b>BioMart</b> &sdot; Biological queries made easy',
-        iconCls: 'biomart_icon',
+        itemId: 'home',
+        text: document.title,
+        iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
         handler: function () {
-          Ext.MessageBox.alert(Martview.APP_TITLE, 'About BioMart');
+          window.location.search = '';
         }
+      },
+      {
+        text: '>',
+        itemId: 'home_sep',
+        hidden: true
+      },
+      {
+        text: 'mart',
+        cls: 'x-btn-text-icon',
+        iconCls: 'server_icon',
+        itemId: 'mart',
+        hidden: true
+      },
+      {
+        text: '>',
+        itemId: 'mart_sep',
+        hidden: true
+      },
+      {
+        text: 'dataset',
+        cls: 'x-btn-text-icon',
+        iconCls: 'query_icon',
+        itemId: 'dataset',
+        hidden: true
+      },
+      {
+        text: '>',
+        itemId: 'dataset_sep',
+        hidden: true
+      },
+      {
+        text: 'form',
+        cls: 'x-btn-text-icon',
+        iconCls: 'form_icon',
+        itemId: 'form',
+        hidden: true
       },
       '->', {
         itemId: 'login',

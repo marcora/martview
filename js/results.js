@@ -9,9 +9,17 @@ Martview.Results = Ext.extend(Ext.Panel, {
     var config = {
       id: 'results',
       region: 'center',
-      title: 'Results',
       layout: 'fit',
-      iconCls: 'view_icon',
+      iconCls: 'results_icon',
+      title: 'Results',
+      tools: [{
+        id: 'print',
+        qtip: 'Print the results'
+      },
+      {
+        id: 'save',
+        qtip: 'Export the results in various formats'
+      }],
       bbar: [{
         itemId: 'count'
       }],
@@ -40,34 +48,6 @@ Martview.Results = Ext.extend(Ext.Panel, {
         disabled: true,
         iconCls: 'edit_icon',
         cls: 'x-btn-text-icon'
-      },
-      '-', {
-        text: 'Save results',
-        itemId: 'save',
-        disabled: true,
-        iconCls: 'save_icon',
-        cls: 'x-btn-text-icon',
-        handler: function () {
-          Ext.Msg.show({
-            title: Martview.APP_TITLE,
-            msg: 'Export the results in various formats',
-            buttons: Ext.Msg.OKCANCEL,
-            icon: Ext.MessageBox.INFO,
-            fn: function (btn) {
-              if (btn == 'ok') {}
-            }
-          });
-        },
-        /*            },
-            '-', {
-                text: 'Print results',
-                disabled: true,
-                iconCls: 'print_icon',
-                cls: 'x-btn-text-icon',
-                handler: function() {
-                    console.info('You clicked the "Print results" button');
-                }
-*/
       }]
     };
 
@@ -80,19 +60,15 @@ Martview.Results = Ext.extend(Ext.Panel, {
   },
 
   clearView: function () {
-    this.getTopToolbar().items.each(function (item, index) {
+    this.items.first().getTopToolbar().items.each(function (item, index) {
       item.disable();
     });
-    this.getTopToolbar().items.get('selectview').setText('Select view');
-    this.setIconClass('view_icon');
   },
 
   selectView: function (params) {
-    this.getTopToolbar().items.each(function (item, index) {
+    this.items.first().getTopToolbar().items.each(function (item, index) {
       item.enable();
     });
-    this.getTopToolbar().items.get('selectview').setText('Change view');
-    this.setIconClass('tabular_view_icon');
   }
 
   //     simplifyUI: function () {
