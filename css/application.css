@@ -1,6 +1,8 @@
 .edit_icon { background-image: url('../ico/pencil.png') !important; }
-.server_icon { background-image: url('../ico/server.png') !important; }
-.query_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.mart_icon { background-image: url('../ico/database.png') !important; }
+.dataset_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.interface_icon { background-image: url('../ico/application-sidebar.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
 .results_icon { background-image: url('../ico/application-detail.png') !important; }
 .view_icon { background-image: url('../ico/application.png') !important; }
@@ -24,6 +26,7 @@ button.cancel_icon { background-image: url('../ico/slash.png') !important; }
 button.delete_icon { background-image: url('../ico/minus-circle.png') !important; }
 button.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 button.undo_icon { background-image: url('../ico/arrow-circle-315-left.png') !important; }
+button.interface_icon { background-image: url('../ico/application-sidebar.png') !important; }
 button.form_icon { background-image: url('../ico/application-form.png') !important; }
 button.submit_icon { background-image: url('../ico/tick.png') !important; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }

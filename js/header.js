@@ -26,9 +26,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         hidden: true
       },
       {
-        text: 'mart',
+        text: '{{mart}}',
         cls: 'x-btn-text-icon',
-        iconCls: 'server_icon',
+        iconCls: 'mart_icon',
         itemId: 'mart',
         hidden: true
       },
@@ -38,9 +38,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         hidden: true
       },
       {
-        text: 'dataset',
+        text: '{{dataset}}',
         cls: 'x-btn-text-icon',
-        iconCls: 'query_icon',
+        iconCls: 'dataset_icon',
         itemId: 'dataset',
         hidden: true
       },
@@ -50,7 +50,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         hidden: true
       },
       {
-        text: 'form',
+        text: '{{form}}',
         cls: 'x-btn-text-icon',
         iconCls: 'form_icon',
         itemId: 'form',

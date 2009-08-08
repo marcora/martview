@@ -18,7 +18,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       },
       {
         id: 'save',
-        qtip: 'Export the results in various formats'
+        qtip: 'Save the results'
       }],
       bbar: [{
         itemId: 'count'

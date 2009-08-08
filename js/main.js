@@ -13,7 +13,7 @@ Martview.Main = Ext.extend(Ext.Viewport, {
         xtype: 'header'
       },
       {
-        xtype: 'query'
+        xtype: 'search'
       },
       {
         xtype: 'results'

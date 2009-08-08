@@ -44,8 +44,8 @@ Martview.Fields = Ext.extend(Ext.Window, {
         width: 330,
         split: true,
         collapsible: true,
-        // collapseMode: 'mini',
-        // hideCollapseTool: true,
+        collapseMode: 'mini',
+        hideCollapseTool: true,
         root: {
           uiProvider: false
         },

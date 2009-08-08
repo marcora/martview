@@ -1,24 +1,24 @@
 Ext.namespace('Martview');
 
-Martview.Query = Ext.extend(Ext.form.FormPanel, {
+Martview.Search = Ext.extend(Ext.form.FormPanel, {
 
   // hard config - cannot be changed from outside
   initComponent: function () {
 
     // add config here
     var config = {
-      id: 'query',
+      id: 'search',
       region: 'west',
       split: true,
       collapsible: true,
-      // collapseMode: 'mini',
-      // hideCollapseTool: true,
+//       collapseMode: 'mini',
+//       hideCollapseTool: true,
       width: 500,
-      iconCls: 'query_icon',
-      title: 'Query',
+      iconCls: 'search_icon',
+      title: 'Search',
       tools: [{
         id: 'save',
-        qtip: 'Export the query in various formats'
+        qtip: 'Save the search'
       }],
       autoScroll: true,
       padding: 10,
@@ -31,6 +31,7 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
       tbar: [{
         text: 'Select form',
         id: 'selectform',
+        disabled: false,
         iconCls: 'form_icon',
         cls: 'x-btn-text-icon',
         menu: []
@@ -51,7 +52,7 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
         //         handler: function () {
         //           Ext.Msg.show({
         //             title: Martview.APP_TITLE,
-        //             msg: 'Export the query in various formats',
+        //             msg: 'Export the search in various formats',
         //             buttons: Ext.Msg.OKCANCEL,
         //             icon: Ext.MessageBox.INFO,
         //             fn: function (btn) {
@@ -80,10 +81,10 @@ Martview.Query = Ext.extend(Ext.form.FormPanel, {
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
-    Martview.Query.superclass.initComponent.apply(this, arguments);
+    Martview.Search.superclass.initComponent.apply(this, arguments);
 
   }
 
 });
 
-Ext.reg('query', Martview.Query);
+Ext.reg('search', Martview.Search);
