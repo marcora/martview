@@ -4,11 +4,11 @@ Martview.Application = function (params) {
 
   // private attributes
   var conn = new Ext.data.Connection();
-  var viewport = new Martview.Viewport();
-  var header = viewport.getComponent('header');
-  var query = viewport.getComponent('query');
-  var results = viewport.getComponent('results');
-  var footer = viewport.getComponent('footer');
+  var main = new Martview.Main();
+  var header = main.getComponent('header');
+  var query = main.getComponent('query');
+  var results = main.getComponent('results');
+  var footer = main.getComponent('footer');
   var selectform = Ext.getCmp('selectform');
   var selectview = Ext.getCmp('selectview');
   var attributes = new Martview.Fields({
@@ -20,8 +20,8 @@ Martview.Application = function (params) {
     title: 'Customize form'
   });
 
-  var current_server;
-  var current_query;
+  var current_mart;
+  var current_dataset;
   var current_form;
 
   if (Boolean(params.simple)) {
@@ -32,24 +32,24 @@ Martview.Application = function (params) {
     results_tbar.hide();
   }
 
-  if (params.server) {
-    current_server = params.server;
+  if (params.mart) {
+    current_mart = params.mart;
     header.get('home_sep').show();
-    header.get('mart').setText(Ext.util.Format.ellipsis(current_server, 20, true)).setTooltip(current_server).setHandler(function () {
-      window.location.search = '?server=' + current_server;
+    header.get('mart').setText(Ext.util.Format.ellipsis(current_mart, 20, true)).setTooltip(current_mart).setHandler(function () {
+      window.location.search = '?server=' + current_mart;
     }).show();
-    if (params.query) {
-      current_query = params.query;
+    if (params.dataset) {
+      current_dataset = params.dataset;
       header.get('mart_sep').show();
-      header.get('dataset').setText(Ext.util.Format.ellipsis(current_query, 30, true)).setTooltip(current_query).setHandler(function () {
-        window.location.search = '?server=' + current_server + '&query=' + current_query;
+      header.get('dataset').setText(Ext.util.Format.ellipsis(current_dataset, 30, true)).setTooltip(current_dataset).setHandler(function () {
+        window.location.search = '?server=' + current_mart + '&query=' + current_dataset;
       }).show();
 
       if (params.form) {
         current_form = params.form;
         header.get('dataset_sep').show();
         header.get('form').setText(Ext.util.Format.ellipsis('default', 20, true)).setTooltip('default').setHandler(function () {
-          window.location.search = '?server=' + current_server + '&query=' + current_query + '&form=' + current_form;
+          window.location.search = '?server=' + current_mart + '&query=' + current_dataset + '&form=' + current_form;
         }).show();
       }
     }
@@ -61,8 +61,8 @@ Martview.Application = function (params) {
   var init = function () {
 
     var url;
-    if (current_server) {
-      url = './json/' + params.server + '.datasets.json';
+    if (current_mart) {
+      url = './json/' + params.mart + '.datasets.json';
     } else {
       url = './json/marts_and_datasets.json';
     }
@@ -70,11 +70,11 @@ Martview.Application = function (params) {
       url: url,
       success: function (response) {
         var data = Ext.util.JSON.decode(response.responseText);
-        if (current_server) {
-          if (current_query) {
+        if (current_mart) {
+          if (current_dataset) {
             // server + query params
             Ext.each(data, function (dataset) {
-              if (dataset.name == current_query) {
+              if (dataset.name == current_dataset) {
                 data = dataset.menu;
                 selectform.menu.add(data);
                 // add selectForm handler to each dataset menu item
@@ -87,10 +87,10 @@ Martview.Application = function (params) {
                 if (form.text.toLowerCase() == current_form) {
                   // TODO: supply selectform with correct object
                   selectForm({
-                    mart_display_name: current_server,
-                    dataset_display_name: current_query,
-                    mart_name: current_server,
-                    dataset_name: current_query
+                    mart_display_name: current_mart,
+                    dataset_display_name: current_dataset,
+                    mart_name: current_mart,
+                    dataset_name: current_dataset
                   });
                 }
               });
@@ -188,7 +188,7 @@ Martview.Application = function (params) {
       displayField: 'chromosome'
     }]);
     // find a way to replace instead of adding
-    viewport.doLayout();
+    main.doLayout();
     //.setText(menu_item.parentMenu.getText() + ' &sdot; ' + menu_item.getText());
   };
 

@@ -1,13 +1,13 @@
 Ext.namespace('Martview');
 
-Martview.Viewport = Ext.extend(Ext.Viewport, {
+Martview.Main = Ext.extend(Ext.Viewport, {
 
   // hard config - cannot be changed from outside
   initComponent: function () {
 
     // add config here
     var config = {
-      id: 'viewport',
+      id: 'main',
       layout: 'border',
       items: [{
         xtype: 'header'
@@ -27,7 +27,7 @@ Martview.Viewport = Ext.extend(Ext.Viewport, {
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
-    Martview.Viewport.superclass.initComponent.apply(this, arguments);
+    Martview.Main.superclass.initComponent.apply(this, arguments);
 
   },
 
@@ -40,7 +40,7 @@ Martview.Viewport = Ext.extend(Ext.Viewport, {
     });
 
     // call parent
-    Martview.Viewport.superclass.constructor.call(this, config);
+    Martview.Main.superclass.constructor.call(this, config);
   }
 
 });
