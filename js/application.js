@@ -26,91 +26,44 @@ Martview.Application = function (params) {
   // populate the 'Select form' menu button
   var init = function () {
 
-    var url;
-    if (params.mart) {
-      url = './json/' + params.mart + '.datasets.json';
-    } else {
-      url = './json/marts_and_datasets.json';
-    }
+    var url = './json/marts_and_datasets.json';
+
     conn.request({
       url: url,
       success: function (response) {
 
+        // populate select interace menu
         var data = Ext.util.JSON.decode(response.responseText);
+        selectinterface.menu.add(data);
+        // add selectInterface handler to each dataset menu item
+        selectinterface.menu.on('itemclick', selectInterface);
 
-        // set selectinterface menu and breadcrumbs nav
+        // set breadcrumbs nav
         if (params['mart']) {
+          // mart param
           current_mart = params['mart'];
-          header.get('home_sep').show();
-          header.get('mart').setText(current_mart).setTooltip(current_mart).setHandler(function () {
-            window.location.search = '?mart=' + current_mart;
-          }).show();
           if (params['dataset']) {
+
             // mart + dataset params
             current_dataset = params['dataset'];
-            Ext.each(data, function (dataset) {
-              if (dataset.name == current_dataset) {
-                // set breadcrumbs nav
-                header.get('mart_sep').show();
-                header.get('dataset').setText(dataset.display_name || dataset.name).setTooltip(dataset.display_name || dataset.name).setHandler(function () {
-                  window.location.search = '?mart=' + current_mart + '&dataset=' + current_dataset;
-                }).show();
-                // set selectinterface menu
-                data = dataset.menu;
-                selectinterface.menu.add(data);
-                // add selectInterface handler to each dataset menu item
-                selectinterface.menu.on('itemclick', selectInterface);
-              }
-            });
-            if (params['interface']) {
-              // mart + dataset + interface params
-              current_interface = params['interface'];
-              Ext.each(data, function (jnterface) {
-                if (jnterface.text.toLowerCase() == current_interface) {
-                  // set breadcrumbs nav
-                  header.get('dataset_sep').show();
-                  header.get('interface').setText(Ext.util.Format.ellipsis('default', 20, true)).setTooltip('default').setHandler(function () {
-                    window.location.search = '?mart=' + current_mart + '&dataset=' + current_dataset + '&interface=' + current_interface;
-                  }).show();
-
-                  // set selectinterface menu
-                  // TODO: supply selectinterface with correct object
-                  selectInterface({
-                    mart_display_name: current_mart,
-                    dataset_display_name: current_dataset,
-                    mart_name: current_mart,
-                    dataset_name: current_dataset
-                  });
-                }
-              });
-            }
-          } else {
-            // mart param only
-            selectinterface.menu.add(data);
-            // add selectInterface handler to each dataset menu item
-            selectinterface.menu.items.each(function (dataset) {
-              dataset.menu.on('itemclick', selectInterface);
+          }
+          if (params['interface']) {
+            // mart + dataset + interface params
+            current_interface = params['interface'];
+            // set selectinterface menu
+            selectInterface({
+              mart_name: current_mart,
+              mart_display_name: current_mart,
+              dataset_name: current_dataset,
+              dataset_display_name: current_dataset,
+              interface_name: current_interface,
+              interface_display_name: current_interface
             });
           }
         } else {
           // no params
-          selectinterface.menu.add(data);
-          // add selectInterface handler to each dataset menu item
-          selectinterface.menu.items.each(function (mart) {
-            mart.menu.items.each(function (dataset) {
-              dataset.menu.on('itemclick', selectInterface);
-            });
-          });
         }
         header.doLayout();
-        // FIXME: simplify gui
-        if (Boolean(params.simple) && current_interface) {
-          var search_tbar = search.getTopToolbar();
-          var results_tbar = results.getTopToolbar();
-          search_tbar.hide();
-          results_tbar.hide();
-          main.doLayout();
-        }
       },
       failure: function () {
         Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
@@ -121,10 +74,12 @@ Martview.Application = function (params) {
   // event handlers
   var selectInterface = function (menu_item) {
 
-    if (!current_interface) {
-      window.location.search = '?mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name + '&interface=default';
-      return;
-    }
+    header.get('home_sep').show();
+    header.get('mart').setText(menu_item.mart_display_name || menu_item.mart_name).show();
+    header.get('mart_sep').show();
+    header.get('dataset').setText(menu_item.dataset_display_name || menu_item.dataset_name).show();
+    header.get('dataset_sep').show();
+    header.get('interface').setText(menu_item.interface_display_name || menu_item.interface_name).show();
 
     var search_tbar = search.getTopToolbar();
     search_tbar.items.get('customize').on('click', function () {
