@@ -11,44 +11,54 @@ Martview.Results = Ext.extend(Ext.Panel, {
       region: 'center',
       layout: 'fit',
       iconCls: 'results_icon',
-      title: 'Results',
-      tools: [{
-        id: 'print',
-        qtip: 'Print the results'
-      },
-      {
-        id: 'save',
-        qtip: 'Save the results'
-      }],
+      //       title: 'Results',
+      //       tools: [{
+      //         id: 'gear',
+      //         qtip: 'Customize the results panel'
+      //       },
+      //       {
+      //         id: 'save',
+      //         qtip: 'Save the results'
+      //       }],
       bbar: [{
         itemId: 'count'
       }],
-      tbar: [{
-        text: 'Select view',
-        id: 'selectview',
-        iconCls: 'view_icon',
-        cls: 'x-btn-text-icon',
-        disabled: true,
-        menu: [{
-          text: 'Tabular',
-          iconCls: 'tabular_view_icon'
+      tbar: new Ext.Toolbar({
+        cls: 'x-panel-header',
+        height: 26,
+        items: [{
+          text: '<span style="color:#15428B; font-weight:bold">Results</span>',
+          iconCls: 'results_icon',
+          cls: 'x-btn-text-icon',
+          disabled: true,
+          menu: [{
+            text: 'Tabular',
+            iconCls: 'tabular_view_icon'
+          },
+          {
+            text: 'Itemized',
+            iconCls: 'itemized_view_icon'
+          },
+          {
+            text: 'Map',
+            iconCls: 'map_view_icon'
+          }]
+        },
+        '->', {
+          text: 'Customize',
+          itemId: 'customize',
+          disabled: true,
+          iconCls: 'edit_icon',
+          cls: 'x-btn-text-icon'
         },
         {
-          text: 'Itemized',
-          iconCls: 'itemized_view_icon'
-        },
-        {
-          text: 'Map',
-          iconCls: 'map_view_icon'
+          text: 'Save',
+          itemId: 'save',
+          disabled: true,
+          iconCls: 'save_icon',
+          cls: 'x-btn-text-icon'
         }]
-      },
-      '-', {
-        text: 'Customize view',
-        itemId: 'customize',
-        disabled: true,
-        iconCls: 'edit_icon',
-        cls: 'x-btn-text-icon'
-      }]
+      })
     };
 
     // apply config

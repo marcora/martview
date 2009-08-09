@@ -13,7 +13,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       height: 26,
       items: [{
         id: 'tip',
-        text: 'Select a query form to begin',
+        text: 'Select a search to begin',
         iconCls: 'tip_icon',
         cls: 'x-btn-text-icon',
         handler: function () {

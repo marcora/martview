@@ -50,10 +50,10 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         hidden: true
       },
       {
-        text: '{{form}}',
+        text: '{{interface}}',
         cls: 'x-btn-text-icon',
-        iconCls: 'form_icon',
-        itemId: 'form',
+        iconCls: 'interface_icon',
+        itemId: 'interface',
         hidden: true
       },
       '->', {
@@ -62,7 +62,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         iconCls: 'user_icon',
         cls: 'x-btn-text-icon'
       },
-      '-', {
+      {
         itemId: 'help',
         text: 'Help',
         iconCls: 'help_icon',

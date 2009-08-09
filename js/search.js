@@ -11,56 +11,49 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
       region: 'west',
       split: true,
       collapsible: true,
-//       collapseMode: 'mini',
-//       hideCollapseTool: true,
+      collapseMode: 'mini',
+      hideCollapseTool: true,
       width: 500,
       iconCls: 'search_icon',
-      title: 'Search',
-      tools: [{
-        id: 'save',
-        qtip: 'Save the search'
-      }],
+      //       title: 'Search',
+      //       tools: [{
+      //         id: 'gear',
+      //         qtip: 'Customize the search panel'
+      //       },
+      //       {
+      //         id: 'save',
+      //         qtip: 'Save the search'
+      //       }],
       autoScroll: true,
       padding: 10,
-      //frame: true,
       bodyStyle: 'background-color:#dfe8f6;',
-      //       plugins: [new Ext.ux.form.FieldAutoExpand({
-      //         offsetFix: 0
-      //       })],
       labelAlign: 'top',
-      tbar: [{
-        text: 'Select form',
-        id: 'selectform',
-        disabled: false,
-        iconCls: 'form_icon',
-        cls: 'x-btn-text-icon',
-        menu: []
-      },
-      '-', {
-        text: 'Customize form',
-        itemId: 'customize',
-        disabled: true,
-        iconCls: 'edit_icon',
-        cls: 'x-btn-text-icon'
-        //       },
-        //       '->', {
-        //         text: 'Save',
-        //         itemId: 'save',
-        //         disabled: true,
-        //         cls: 'x-btn-text-icon',
-        //         iconCls: 'save_icon',
-        //         handler: function () {
-        //           Ext.Msg.show({
-        //             title: Martview.APP_TITLE,
-        //             msg: 'Export the search in various formats',
-        //             buttons: Ext.Msg.OKCANCEL,
-        //             icon: Ext.MessageBox.INFO,
-        //             fn: function (btn) {
-        //               if (btn == 'ok') {}
-        //             }
-        //           });
-        //         }
-      }],
+      tbar: new Ext.Toolbar({
+        cls: 'x-panel-header',
+        height: 26,
+        items: [{
+          id: 'selectinterface',
+          text: '<span style="color:#15428B; font-weight:bold">Search</span>',
+          iconCls: 'search_icon',
+          cls: 'x-btn-text-icon',
+          disabled: false,
+          menu: []
+        },
+        '->', {
+          text: 'Customize',
+          itemId: 'customize',
+          disabled: true,
+          iconCls: 'edit_icon',
+          cls: 'x-btn-text-icon'
+        },
+        {
+          text: 'Save',
+          itemId: 'save',
+          disabled: true,
+          iconCls: 'save_icon',
+          cls: 'x-btn-text-icon'
+        }]
+      }),
       bbar: ['->', {
         text: 'Reset',
         itemId: 'reset',
@@ -68,7 +61,7 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
         iconCls: 'reset_icon',
         cls: 'x-btn-text-icon'
       },
-      '-', {
+      {
         text: 'Submit',
         itemId: 'submit',
         disabled: true,
