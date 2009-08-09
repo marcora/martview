@@ -17,7 +17,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
         handler: function () {
-          window.location.search = '';
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'About Mart');
         }
       },
       {
@@ -60,13 +60,19 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'login',
         text: 'Login',
         iconCls: 'user_icon',
-        cls: 'x-btn-text-icon'
+        cls: 'x-btn-text-icon',
+        handler: function () {
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'Login');
+        }
       },
       {
         itemId: 'help',
         text: 'Help',
         iconCls: 'help_icon',
-        cls: 'x-btn-text-icon'
+        cls: 'x-btn-text-icon',
+        handler: function () {
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
+        }
       }]
 
     };

@@ -51,7 +51,10 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
           itemId: 'save',
           disabled: true,
           iconCls: 'save_icon',
-          cls: 'x-btn-text-icon'
+          cls: 'x-btn-text-icon',
+          handler: function () {
+            Ext.MessageBox.alert(Martview.APP_TITLE, 'Save search in various formats');
+          }
         }]
       }),
       bbar: ['->', {

@@ -10,15 +10,14 @@ Martview.Application = function (params) {
   var results = main.getComponent('results');
   var footer = main.getComponent('footer');
   var selectinterface = Ext.getCmp('selectinterface');
-  var attributes = new Martview.Fields({
-    id: 'attributes',
-    title: 'Customize search'
-  });
   var filters = new Martview.Fields({
     id: 'filters',
+    title: 'Customize search'
+  });
+  var attributes = new Martview.Fields({
+    id: 'attributes',
     title: 'Customize results'
   });
-
   var current_mart;
   var current_dataset;
   var current_interface;
@@ -36,29 +35,32 @@ Martview.Application = function (params) {
         var data = Ext.util.JSON.decode(response.responseText);
         selectinterface.menu.add(data);
         // add selectInterface handler to each dataset menu item
-        selectinterface.menu.on('itemclick', selectInterface);
+        Ext.each(selectinterface.menu, function (mart) {
+          Ext.each(mart.menu, function (dataset) {
+            dataset.menu.on('itemclick', selectInterface);
+          });
+        });
 
         // set breadcrumbs nav
         if (params['mart']) {
           // mart param
           current_mart = params['mart'];
           if (params['dataset']) {
-
             // mart + dataset params
             current_dataset = params['dataset'];
-          }
-          if (params['interface']) {
-            // mart + dataset + interface params
-            current_interface = params['interface'];
-            // set selectinterface menu
-            selectInterface({
-              mart_name: current_mart,
-              mart_display_name: current_mart,
-              dataset_name: current_dataset,
-              dataset_display_name: current_dataset,
-              interface_name: current_interface,
-              interface_display_name: current_interface
-            });
+            if (params['interface']) {
+              // mart + dataset + interface params
+              current_interface = params['interface'];
+              // set selectinterface menu
+              selectInterface({
+                mart_name: current_mart,
+                mart_display_name: current_mart,
+                dataset_name: current_dataset,
+                dataset_display_name: current_dataset,
+                interface_name: current_interface,
+                interface_display_name: current_interface
+              });
+            }
           }
         } else {
           // no params
@@ -73,6 +75,10 @@ Martview.Application = function (params) {
 
   // event handlers
   var selectInterface = function (menu_item) {
+
+    if (!current_interface) {
+      window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name + '&interface=' + menu_item.interface_name;
+    }
 
     header.get('home_sep').show();
     header.get('mart').setText(menu_item.mart_display_name || menu_item.mart_name).show();
@@ -122,18 +128,18 @@ Martview.Application = function (params) {
       //           iconCls: 'file_upload_icon'
       //         }
       //       }]
-      //     },
-      //     {
-      //       xtype: 'combo',
-      //       anchor: '100%',
-      //       editable: false,
-      //       forceSelection: true,
-      //       lastSearchTerm: false,
-      //       triggerAction: 'all',
-      //       fieldLabel: 'Chromosome',
-      //       mode: 'local',
-      //       store: chromosome_list,
-      //       displayField: 'chromosome'
+    },
+    {
+      xtype: 'combo',
+      anchor: '100%',
+      editable: false,
+      forceSelection: true,
+      lastSearchTerm: false,
+      triggerAction: 'all',
+      fieldLabel: 'Chromosome',
+      mode: 'local',
+      store: chromosome_list,
+      displayField: 'chromosome'
     }]);
     // find a way to replace instead of adding
     main.doLayout();
