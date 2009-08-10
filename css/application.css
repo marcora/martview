@@ -21,6 +21,8 @@
 
 button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 button.move_icon { background-image: url('../ico/arrow-move.png') !important; }
+button.up_icon { background-image: url('../ico/arrow-090.png') !important; }
+button.dn_icon { background-image: url('../ico/arrow-270.png') !important; }
 button.close_icon { background-image: url('../ico/cross.png') !important; }
 button.cancel_icon { background-image: url('../ico/slash.png') !important; }
 button.delete_icon { background-image: url('../ico/minus-circle.png') !important; }
