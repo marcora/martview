@@ -31,17 +31,6 @@ Martview.Application = function (params) {
       url: url,
       success: function (response) {
 
-        // populate select interace menu
-        var data = Ext.util.JSON.decode(response.responseText);
-        selectinterface.menu.add(data);
-        // add selectInterface handler to each dataset menu item
-        Ext.each(selectinterface.menu, function (mart) {
-          Ext.each(mart.menu, function (dataset) {
-            dataset.menu.on('itemclick', selectInterface);
-          });
-        });
-
-        // set breadcrumbs nav
         if (params['mart']) {
           // mart param
           current_mart = params['mart'];
@@ -52,20 +41,37 @@ Martview.Application = function (params) {
               // mart + dataset + interface params
               current_interface = params['interface'];
               // set selectinterface menu
-              selectInterface({
-                mart_name: current_mart,
-                mart_display_name: current_mart,
-                dataset_name: current_dataset,
-                dataset_display_name: current_dataset,
-                interface_name: current_interface,
-                interface_display_name: current_interface
-              });
             }
           }
         } else {
           // no params
         }
-        header.doLayout();
+
+        // populate select interace menu
+        var menu_item = new Object;
+        var data = Ext.util.JSON.decode(response.responseText);
+        selectinterface.menu.add(data);
+        // add selectInterface handler to each dataset menu item
+        selectinterface.menu.items.each(function (mart) {
+          mart.menu.items.each(function (dataset) {
+            dataset.menu.on('itemclick', selectInterface);
+            dataset.menu.items.each(function (jnterface) {
+              if (current_mart == jnterface.mart_name) {
+                menu_item.mart_name = jnterface.mart_name;
+                menu_item.mart_display_name = jnterface.mart_display_name;
+                if (current_dataset == jnterface.dataset_name) {
+                  menu_item.dataset_name = jnterface.dataset_name;
+                  menu_item.dataset_display_name = jnterface.dataset_display_name;
+                  if (current_interface == jnterface.interface_name) {
+                    menu_item.interface_name = jnterface.interface_name;
+                    menu_item.interface_display_name = jnterface.interface_display_name;
+                  }
+                }
+              }
+            });
+          });
+        });
+        if (menu_item.interface_name) selectInterface(menu_item);
       },
       failure: function () {
         Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
@@ -75,11 +81,11 @@ Martview.Application = function (params) {
 
   // event handlers
   var selectInterface = function (menu_item) {
-
-    if (!current_interface) {
+    if (!(current_mart == menu_item.mart_name && current_dataset == menu_item.dataset_name && current_interface == menu_item.interface_name)) {
       window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name + '&interface=' + menu_item.interface_name;
+      return;
     }
-
+    // setup breadcrumbs
     header.get('home_sep').show();
     header.get('mart').setText(menu_item.mart_display_name || menu_item.mart_name).show();
     header.get('mart_sep').show();
