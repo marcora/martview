@@ -1,33 +1,25 @@
 Ext.namespace('Martview');
 
-Martview.Query = function (params) {
-  Ext.applyIf(this, params);
+Martview.Query = Ext.extend(Object, {
 
-  this.filters = new Martview.Fields({
-    id: 'filters',
-    title: 'Customize search'
-  });
+  constructor: function (params) {
+    Ext.applyIf(this, params);
+  },
 
-  this.attributes = new Martview.Fields({
-    id: 'attributes',
-    title: 'Customize results'
-  });
-
-  this.getXml = function (values) {
+  getXml: function (values) {
     var filters = [];
-    this.filters.getComponent('selected_fields').items.each(function (item) {
-      filters.push({
-        name: item.treenode.attributes.name,
-        value: '' // FIXME
-      });
-    });
+    //     Ext.getCmp('attributes').getComponent('selected_fields').items.each(function (item) {
+    //       filters.push({
+    //         name: item.name,
+    //         value: null //item.value
+    //       });
+    //     });
     var attributes = [];
-    this.attributes.getComponent('selected_fields').items.each(function (item) {
+    Ext.getCmp('attributes').getComponent('selected_fields').items.each(function (item) {
       attributes.push({
         name: item.treenode.attributes.name
       });
     });
-
     values = values || new Object;
     Ext.applyIf(values, {
       virtualSchemaName: 'default',
@@ -37,11 +29,12 @@ Martview.Query = function (params) {
       count: 0,
       limitSize: 100,
       datasetConfigVersion: '0.6',
-      datasetName: this.dataset_name,
       datasetInterface: 'default',
+      datasetName: this.dataset_name,
       datasetFilters: filters,
       datasetAttributes: attributes
     });
+    // TODO: raise if datasetName is null!
     var tpl = new Ext.XTemplate('<?xml version="1.0" encoding="UTF-8"?>', //
     '<!DOCTYPE Query>', //
     '<Query virtualSchemaName="{virtualSchemaName}" formatter="{formatter}" header="{header}" uniqueRows="{uniqueRows}" count="{count}" limitSize="{limitSize}" datasetConfigVersion="{datasetConfigVersion}">', //
@@ -54,12 +47,14 @@ Martview.Query = function (params) {
     '</tpl>', //
     '</Dataset>', //
     '</Query>');
-    return tpl.apply(values);
-  };
+    var xml = tpl.apply(values);
+    console.log(xml);
+    return xml;
+  },
 
-  this.getColModel = function () {
+  getColModel: function () {
     var columns = [];
-    this.attributes.getComponent('selected_fields').items.each(function (item) {
+    Ext.getCmp('attributes').getComponent('selected_fields').items.each(function (item) {
       columns.push({
         header: item.treenode.attributes.display_name || item.treenode.attributes.name,
         width: 100,
@@ -67,18 +62,20 @@ Martview.Query = function (params) {
       });
     });
     return new Ext.grid.ColumnModel(columns);
-  };
+  },
 
-  this.getJsonStore = function () {
+  getStore: function () {
     var fields = [];
-    this.attributes.getComponent('selected_fields').items.each(function (item) {
+    Ext.getCmp('attributes').getComponent('selected_fields').items.each(function (item) {
       fields.push({
         name: item.treenode.attributes.name
       });
     });
     return new Ext.data.JsonStore({
+      autoDestroy: true,
       root: 'rows',
       fields: fields
     });
-  };
-};
+  }
+
+});

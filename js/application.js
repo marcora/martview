@@ -7,30 +7,21 @@ Ext.onReady(function () {
   Ext.QuickTips.init();
 
   var query;
+
+  // init viewport and windows
   var main = new Martview.Main();
-              
+  var filters = new Martview.Fields({
+    id: 'filters',
+    title: 'Customize search'
+  });
+  var attributes = new Martview.Fields({
+    id: 'attributes',
+    title: 'Customize results'
+  });
 
   var current_mart;
   var current_dataset;
   var current_search;
-
-  var query_params = {
-    datasetConfigVersion: 0.5,
-    datasetName: 'msd',
-    filters: [{
-      name: 'experiment_type',
-      value: 'Fibre diffraction (X-ray)'
-    }],
-    attributes: [{
-      name: 'pdb_id'
-    },
-    {
-      name: 'experiment_type'
-    },
-    {
-      name: 'resolution'
-    }]
-  };
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
@@ -91,11 +82,12 @@ Ext.onReady(function () {
   // bindings
   main.search.submitButton.on('click', submitSearch);
   main.search.customizeButton.on('click', function () {
-    query.filters.show();
+    filters.show();
   });
   main.results.customizeButton.on('click', function () {
-    query.attributes.show();
+    attributes.show();
   });
+  attributes.on('hide', submitSearch);
 
   // event handlers
   function selectSearch(params) {
@@ -148,10 +140,31 @@ Ext.onReady(function () {
   }
 
   function submitSearch() {
+    var url = 'http://martservice.biomart.org';
+    var store;
+    var colModel;
+
     main.results.enableHeaderButtons();
     main.results.updateCounter('1-100 of 34,560');
-    main.results.load(query);
     main.footer.updateTip('To modify the way the results are displayed press the Customize button or look under the Results menu.');
-  }
 
+    Ext.ux.JSONP.request(url, {
+      callbackKey: 'callback',
+      params: {
+        type: 'query',
+        xml: query.getXml()
+      },
+      callback: function (data) {
+        if (data) {
+          colModel = query.getColModel();
+          store = query.getStore();
+          store.loadData(data);
+          main.results.load(store, colModel);
+        }
+        else {
+          Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
+        }
+      }
+    });
+  }
 });

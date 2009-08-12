@@ -21,8 +21,9 @@ Martview.Fields = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         iconCls: 'close_icon',
         handler: function () {
-          this.ownerCt.ownerCt.hide();
-        }
+          this.hide();
+        },
+        scope: this // scope button to window
       }],
       items: [{
         region: 'west',
