@@ -2,18 +2,17 @@ Ext.namespace('Martview');
 
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
-  // hard config - cannot be changed from outside
   initComponent: function () {
-
-    // add config here
-    var config = {
+    Ext.applyIf(this, {
       region: 'south',
       id: 'footer',
+      ref: '../footer',
       // FIX: should adjust height automatically
       height: 26,
       items: [{
-        id: 'tip',
-        text: 'Select a search to begin',
+        itemId: 'tip',
+        ref: 'tipButton',
+        text: 'To begin, select a search using the Search menu.',
         iconCls: 'tip_icon',
         cls: 'x-btn-text-icon',
         handler: function () {
@@ -22,6 +21,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       },
       '->', {
         itemId: 'biomart',
+        ref: 'biomartButton',
         text: 'Powered by BioMart &sdot; Biological queries made easy',
         iconCls: 'biomart_icon',
         cls: 'x-btn-text-icon',
@@ -29,47 +29,16 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More biomart');
         }
       }]
-    };
-
-    // apply config
-    Ext.apply(this, Ext.apply(this.initialConfig, config));
+    });
 
     // call parent
     Martview.Footer.superclass.initComponent.apply(this, arguments);
-  }
+  },
 
+  updateTip: function (message) {
+    var footer = this;
+    footer.tipButton.setText(message);
+  }
 });
 
 Ext.reg('footer', Martview.Footer);
-
-//   [{
-//      text: 'Mart 1',
-//      iconCls: 'table_multiple_icon',
-//      menu: {
-//        items: [{
-//          text: 'Dataset 1.1',
-//          iconCls: 'table_icon'
-//          },'-',{
-//          text: 'Dataset 1.2',
-//          iconCls: 'table_icon'
-//          },'-',{
-//          text: 'Dataset 1.3',
-//          iconCls: 'table_icon'
-//        }]
-//      }
-//      },'-',{
-//      text: 'Mart 2',
-//      iconCls: 'table_multiple_icon',
-//      menu: {
-//        items: [{
-//          text: 'Dataset 2.1',
-//          iconCls: 'table_icon'
-//          },'-',{
-//          text: 'Dataset 2.2',
-//          iconCls: 'table_icon'
-//          },'-',{
-//          text: 'Dataset 2.3',
-//          iconCls: 'table_icon'
-//        }]
-//      }
-//   }];

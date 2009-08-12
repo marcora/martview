@@ -1,14 +1,11 @@
 Ext.namespace('Martview');
 
 Martview.Search = Ext.extend(Ext.form.FormPanel, {
-
-  // hard config - cannot be changed from outside
   initComponent: function () {
-
-    // add config here
-    var config = {
-      id: 'search',
+    Ext.applyIf(this, {
       region: 'west',
+      id: 'search',
+      ref: '../search',
       split: true,
       collapsible: true,
       collapseMode: 'mini',
@@ -26,13 +23,14 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
       //       }],
       autoScroll: true,
       padding: 10,
-      bodyStyle: 'background-color:#dfe8f6;',
       labelAlign: 'top',
+      bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
         height: 26,
         items: [{
-          id: 'selectinterface',
+          itemId: 'select',
+          ref: '../selectButton',
           text: '<span style="color:#15428B; font-weight:bold">Search</span>',
           iconCls: 'search_icon',
           cls: 'x-btn-text-icon',
@@ -40,15 +38,17 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
           menu: []
         },
         '->', {
-          text: 'Customize',
           itemId: 'customize',
-          disabled: true,
+          ref: '../customizeButton',
+          text: 'Customize',
           iconCls: 'edit_icon',
-          cls: 'x-btn-text-icon'
+          cls: 'x-btn-text-icon',
+          disabled: true
         },
         {
           text: 'Save',
           itemId: 'save',
+          ref: '../saveButton',
           disabled: true,
           iconCls: 'save_icon',
           cls: 'x-btn-text-icon',
@@ -58,27 +58,49 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
         }]
       }),
       bbar: ['->', {
-        text: 'Reset',
         itemId: 'reset',
-        disabled: true,
+        ref: '../resetButton',
+        text: 'Reset',
         iconCls: 'reset_icon',
-        cls: 'x-btn-text-icon'
+        cls: 'x-btn-text-icon',
+        disabled: true
       },
       {
-        text: 'Submit',
         itemId: 'submit',
-        disabled: true,
+        ref: '../submitButton',
+        text: 'Submit',
         iconCls: 'submit_icon',
-        cls: 'x-btn-text-icon'
+        cls: 'x-btn-text-icon',
+        disabled: true
       }]
-    };
-
-    // apply config
-    Ext.apply(this, Ext.apply(this.initialConfig, config));
+    });
 
     // call parent
     Martview.Search.superclass.initComponent.apply(this, arguments);
+  },
 
+  enableHeaderButtons: function () {
+    var search = this;
+    search.customizeButton.enable();
+    search.saveButton.enable();
+  },
+
+  disableHeaderButtons: function () {
+    var search = this;
+    search.customizeButton.disable();
+    search.saveButton.disable();
+  },
+
+  enableFormButtons: function () {
+    var search = this;
+    search.resetButton.enable();
+    search.submitButton.enable();
+  },
+
+  disableFormButtons: function () {
+    var search = this;
+    search.resetButton.disable();
+    search.submitButton.disable();
   }
 
 });

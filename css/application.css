@@ -2,7 +2,6 @@
 .mart_icon { background-image: url('../ico/databases.png') !important; }
 .dataset_icon { background-image: url('../ico/database.png') !important; }
 .search_icon { background-image: url('../ico/magnifier-left.png') !important; }
-.interface_icon { background-image: url('../ico/magnifier-left.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
 .results_icon { background-image: url('../ico/application-detail.png') !important; }
 .view_icon { background-image: url('../ico/application.png') !important; }
@@ -28,7 +27,6 @@ button.cancel_icon { background-image: url('../ico/slash.png') !important; }
 button.delete_icon { background-image: url('../ico/minus-circle.png') !important; }
 button.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 button.undo_icon { background-image: url('../ico/arrow-circle-315-left.png') !important; }
-button.interface_icon { background-image: url('../ico/magnifier-left.png') !important; }
 button.form_icon { background-image: url('../ico/application-form.png') !important; }
 button.submit_icon { background-image: url('../ico/tick.png') !important; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }
@@ -46,6 +44,7 @@ button.help_icon { background-image: url('../ico/question.png') !important; }
 button.user_icon { background-image: url('../ico/user.png') !important; }
 button.count_icon { background-image: url('../ico/counter.png') !important; }
 button.print_icon { background-image: url('../ico/printer.png') !important; }
+button.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
