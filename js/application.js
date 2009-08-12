@@ -6,18 +6,10 @@ Ext.namespace('Martview');
 Ext.onReady(function () {
   Ext.QuickTips.init();
 
-  var query;
-
   // init viewport and windows
   var main = new Martview.Main();
-  var filters = new Martview.Fields({
-    id: 'filters',
-    title: 'Customize search'
-  });
-  var attributes = new Martview.Fields({
-    id: 'attributes',
-    title: 'Customize results'
-  });
+  var filters;
+  var attributes;
 
   var current_mart;
   var current_dataset;
@@ -66,8 +58,22 @@ Ext.onReady(function () {
                 });
               });
             });
-            // init query
-            query = new Martview.Query(params);
+
+            // init filters and attributes windows
+            filters = new Martview.Fields({
+              id: 'filters',
+              title: 'Customize search',
+              dataset_name: current_dataset
+            });
+            filters.on('hide', updateSearch);
+
+            attributes = new Martview.Fields({
+              id: 'attributes',
+              title: 'Customize results',
+              dataset_name: current_dataset
+            });
+            attributes.on('hide', updateSearch);
+
             // call select search
             if (params.search_display_name) selectSearch(params);
           }
@@ -80,14 +86,13 @@ Ext.onReady(function () {
   });
 
   // bindings
-  main.search.submitButton.on('click', submitSearch);
+  main.search.submitButton.on('click', updateSearch);
   main.search.customizeButton.on('click', function () {
     filters.show();
   });
   main.results.customizeButton.on('click', function () {
     attributes.show();
   });
-  attributes.on('hide', submitSearch);
 
   // event handlers
   function selectSearch(params) {
@@ -139,32 +144,101 @@ Ext.onReady(function () {
     return false;
   }
 
-  function submitSearch() {
-    var url = 'http://martservice.biomart.org';
-    var store;
-    var colModel;
+  function updateSearch() {
+    var url = 'http://martservice.biomart.org'; // FIXME
+    var xml = buildQueryXml();
+
+    var store = function () {
+      var fields = [];
+      attributes.get('selected').items.each(function (item) {
+        fields.push({
+          name: item.treenode.attributes.name
+        });
+      });
+      return new Ext.data.JsonStore({
+        autoDestroy: true,
+        root: 'rows',
+        fields: fields
+      });
+    } ();
+
+    var colModel = function () {
+      var columns = [];
+      attributes.get('selected').items.each(function (item) {
+        columns.push({
+          header: item.treenode.attributes.display_name || item.treenode.attributes.name,
+          width: 100,
+          sortable: true
+        });
+      });
+      return new Ext.grid.ColumnModel(columns);
+    } ();
 
     main.results.enableHeaderButtons();
-    main.results.updateCounter('1-100 of 34,560');
     main.footer.updateTip('To modify the way the results are displayed press the Customize button or look under the Results menu.');
 
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
       params: {
         type: 'query',
-        xml: query.getXml()
+        xml: xml
       },
       callback: function (data) {
         if (data) {
-          colModel = query.getColModel();
-          store = query.getStore();
           store.loadData(data);
           main.results.load(store, colModel);
+          main.results.updateCounter('1-' + store.getTotalCount() + ' of 34,560');
         }
         else {
           Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
         }
       }
     });
+  }
+
+  function buildQueryXml(values) {
+    var dataset_filters = [];
+    //     attributes.get('selected').items.each(function (item) {
+    //       dataset_filters.push({
+    //         name: item.name,
+    //         value: null //item.value
+    //       });
+    //     });
+    var dataset_attributes = [];
+    attributes.get('selected').items.each(function (item) {
+      dataset_attributes.push({
+        name: item.treenode.attributes.name
+      });
+    });
+    values = values || new Object;
+    Ext.applyIf(values, {
+      virtualSchemaName: 'default',
+      formatter: 'CSV',
+      header: 0,
+      uniqueRows: 0,
+      count: 0,
+      limitSize: 100,
+      datasetConfigVersion: '0.6',
+      datasetInterface: 'default',
+      datasetName: current_dataset,
+      datasetFilters: dataset_filters,
+      datasetAttributes: dataset_attributes
+    });
+    // TODO: raise if datasetName is null!
+    var tpl = new Ext.XTemplate('<?xml version="1.0" encoding="UTF-8"?>', //
+    '<!DOCTYPE Query>', //
+    '<Query virtualSchemaName="{virtualSchemaName}" formatter="{formatter}" header="{header}" uniqueRows="{uniqueRows}" count="{count}" limitSize="{limitSize}" datasetConfigVersion="{datasetConfigVersion}">', //
+    '<Dataset name="{datasetName}" interface="{datasetInterface}">', //
+    '<tpl for="datasetFilters">', //
+    '<Filter name="{name}" value="{value}"/>', //
+    '</tpl>', //
+    '<tpl for="datasetAttributes">', //
+    '<Attribute name="{name}"/>', //
+    '</tpl>', //
+    '</Dataset>', //
+    '</Query>');
+    var xml = tpl.apply(values);
+    console.log(xml);
+    return xml;
   }
 });

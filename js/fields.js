@@ -1,12 +1,12 @@
 Ext.namespace('Martview');
 
 Martview.Fields = Ext.extend(Ext.Window, {
+  // soft config
+  dataset_name: null,
 
-  // hard config - cannot be changed from outside
+  // hard config
   initComponent: function () {
-
-    // add config here
-    var config = {
+    Ext.applyIf(this, {
       modal: true,
       width: 880,
       height: 600,
@@ -28,7 +28,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
       items: [{
         region: 'west',
         xtype: 'checktreepanel',
-        itemId: 'all_fields',
+        itemId: 'all',
         rootVisible: false,
         bubbleCheck: 'none',
         cascadeCheck: 'none',
@@ -51,7 +51,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
           uiProvider: false
         },
         loader: {
-          dataUrl: './json/cporcellus_gene_ensembl.attributes.json'
+          dataUrl: './json/' + this.dataset_name + '.' + this.getId() + '.json'
         },
         deferredRender: false,
         tbar: [{
@@ -83,14 +83,14 @@ Martview.Fields = Ext.extend(Ext.Window, {
           },
           dblclick: function (node) {
             if (node.isLeaf()) {
-              var selected_fields = this.ownerCt.get('selected_fields');
-              selected_fields.add({
+              var selected = this.ownerCt.get('selected');
+              selected.add({
                 xtype: 'field',
                 treenode: node,
                 display_name: this.field_display_name,
                 iconCls: this.field_iconCls
               });
-              selected_fields.doLayout();
+              selected.doLayout();
               node.disable();
             }
           }
@@ -98,7 +98,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
       },
       {
         region: 'center',
-        itemId: 'selected_fields',
+        itemId: 'selected',
         items: [],
         autoScroll: true,
         padding: 10,
@@ -116,10 +116,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
           cls: 'x-btn-text-icon'
         }]
       }]
-    };
-
-    // apply config
-    Ext.apply(this, Ext.apply(this.initialConfig, config));
+    });
 
     // call parent
     Martview.Fields.superclass.initComponent.apply(this, arguments);
