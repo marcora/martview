@@ -6,20 +6,31 @@ Ext.namespace('Martview');
 Ext.onReady(function () {
   Ext.QuickTips.init();
 
-  // init viewport and filters/attributes windows
+  var query;
   var main = new Martview.Main();
-  var filters = new Martview.Fields({
-    id: 'filters',
-    title: 'Customize search'
-  });
-  var attributes = new Martview.Fields({
-    id: 'attributes',
-    title: 'Customize results'
-  });
+              
 
   var current_mart;
   var current_dataset;
   var current_search;
+
+  var query_params = {
+    datasetConfigVersion: 0.5,
+    datasetName: 'msd',
+    filters: [{
+      name: 'experiment_type',
+      value: 'Fibre diffraction (X-ray)'
+    }],
+    attributes: [{
+      name: 'pdb_id'
+    },
+    {
+      name: 'experiment_type'
+    },
+    {
+      name: 'resolution'
+    }]
+  };
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
@@ -64,6 +75,8 @@ Ext.onReady(function () {
                 });
               });
             });
+            // init query
+            query = new Martview.Query(params);
             // call select search
             if (params.search_display_name) selectSearch(params);
           }
@@ -78,10 +91,10 @@ Ext.onReady(function () {
   // bindings
   main.search.submitButton.on('click', submitSearch);
   main.search.customizeButton.on('click', function () {
-    filters.show();
+    query.filters.show();
   });
   main.results.customizeButton.on('click', function () {
-    attributes.show();
+    query.attributes.show();
   });
 
   // event handlers
@@ -137,7 +150,7 @@ Ext.onReady(function () {
   function submitSearch() {
     main.results.enableHeaderButtons();
     main.results.updateCounter('1-100 of 34,560');
-    main.results.load();
+    main.results.load(query);
     main.footer.updateTip('To modify the way the results are displayed press the Customize button or look under the Results menu.');
   }
 

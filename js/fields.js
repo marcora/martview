@@ -98,6 +98,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
       {
         region: 'center',
         itemId: 'selected_fields',
+        items: [],
         autoScroll: true,
         padding: 10,
         title: 'Selected ' + this.getId(),
