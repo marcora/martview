@@ -10,7 +10,7 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
 
     Ext.apply(this, {
       items: [{
-        text: '<b>'+(this.treenode.attributes.display_name || this.treenode.attributes.name)+'</b>',
+        text: '<b>' + (this.treenode.attributes.display_name || this.treenode.attributes.name) + '</b>',
         tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
         iconCls: 'field_icon',
         cls: 'x-btn-text-icon'
@@ -28,12 +28,7 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
         hidden: !this.editable
       },
       {
-        text: 'Move',
-        iconCls: 'move_icon',
-        cls: 'x-btn-text-icon'
-      },
-      {
-        text: 'Delete',
+        text: 'Remove',
         iconCls: 'delete_icon',
         cls: 'x-btn-text-icon',
         handler: function () {
