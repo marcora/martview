@@ -58,22 +58,6 @@ Ext.onReady(function () {
                 });
               });
             });
-
-            // init filters and attributes windows
-            filters = new Martview.Fields({
-              id: 'filters',
-              title: 'Customize search',
-              dataset_name: current_dataset
-            });
-            filters.on('hide', updateSearch);
-
-            attributes = new Martview.Fields({
-              id: 'attributes',
-              title: 'Customize results',
-              dataset_name: current_dataset
-            });
-            attributes.on('hide', updateSearch);
-
             // call select search
             if (params.search_display_name) selectSearch(params);
           }
@@ -86,7 +70,7 @@ Ext.onReady(function () {
   });
 
   // bindings
-  main.search.submitButton.on('click', updateSearch);
+  main.search.submitButton.on('click', submit);
   main.search.customizeButton.on('click', function () {
     filters.show();
   });
@@ -112,15 +96,20 @@ Ext.onReady(function () {
       fields: ['id', 'chromosome'],
       data: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8'], ['9', '9'], ['10', '10'], ['11', '11'], ['12', '12'], ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16'], ['17', '17'], ['18', '18'], ['19', '19'], ['20', '20'], ['21', '21'], ['22', '22'], ['X', 'X'], ['Y', 'Y']]
     });
-    main.search.removeAll();
+    main.search.items.first().removeAll(); // FIXME: why not main.search.form !!!
     if (params.search_name == 'simple') {
-      main.search.add([{
+      main.search.items.first().add([{ // FIXME: why not main.search.form !!!
         xtype: 'textfield',
         anchor: '100%',
-        fieldLabel: 'Gene name or ID'
+        fieldLabel: 'Enter search terms'
       }]);
+    } else if (params.search_name == 'faceted') {
+      // TODO: faceted search
     } else if (params.search_name == 'advanced') {
-      main.search.add([{
+      showAdvanced();
+    } else if (params.search_name == 'user') {
+      showAdvanced();
+      main.search.items.first().add([{ // FIXME: why not main.search.form !!!
         xtype: 'textfield',
         anchor: '100%',
         fieldLabel: '% GC',
@@ -144,50 +133,70 @@ Ext.onReady(function () {
     return false;
   }
 
-  function updateSearch() {
+  function showAdvanced() {
+    // init filters and attributes windows
+    filters = new Martview.Fields({
+      id: 'filters',
+      title: 'Customize search',
+      dataset_name: current_dataset
+    });
+    filters.on('hide', submit);
+
+    attributes = new Martview.Fields({
+      id: 'attributes',
+      title: 'Customize results',
+      dataset_name: current_dataset
+    });
+    attributes.on('hide', submit);
+
+    // show customize buttons
+    main.search.customizeButton.show();
+    main.results.customizeButton.show();
+  }
+
+  function submit() {
     var url = 'http://martservice.biomart.org'; // FIXME
-    var xml = buildQueryXml();
 
-    var store = function () {
-      var fields = [];
-      attributes.get('selected').items.each(function (item) {
-        fields.push({
-          name: item.treenode.attributes.name
-        });
-      });
-      return new Ext.data.JsonStore({
-        autoDestroy: true,
-        root: 'rows',
-        fields: fields
-      });
-    } ();
-
-    var colModel = function () {
-      var columns = [];
-      attributes.get('selected').items.each(function (item) {
-        columns.push({
-          header: item.treenode.attributes.display_name || item.treenode.attributes.name,
-          width: 100,
-          sortable: true
-        });
-      });
-      return new Ext.grid.ColumnModel(columns);
-    } ();
+    if (current_search == 'simple') {
+      var params = {
+        type: 'search',
+        q: '11ba'
+      };
+    } else if (current_search == 'faceted') {
+      // TODO: faceted search
+    } else if (current_search == 'advanced') {
+      var xml = buildQueryXml();
+      var params = {
+        type: 'query',
+        xml: xml
+      };
+    } else if (current_search == 'user') {
+      var xml = buildQueryXml();
+      var params = {
+        type: 'query',
+        xml: xml
+      };
+    }
 
     main.results.enableHeaderButtons();
     main.footer.updateTip('To modify the way the results are displayed press the Customize button or look under the Results menu.');
 
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
-      params: {
-        type: 'query',
-        xml: xml
-      },
+      params: params,
       callback: function (data) {
         if (data) {
+          console.dir(data);
+          var store = new Ext.data.JsonStore({
+            autoDestroy: true,
+            root: 'rows',
+            idProperty: name,
+            fields: data.fields
+          });
           store.loadData(data);
+          var colModel = new Ext.grid.ColumnModel(data.columns);
           main.results.load(store, colModel);
-          main.results.updateCounter('1-' + store.getTotalCount() + ' of 34,560');
+          main.results.updateCounter('1-' + store.getTotalCount() + ' of ' + data.count);
         }
         else {
           Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');

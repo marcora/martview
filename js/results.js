@@ -1,15 +1,12 @@
 Ext.namespace('Martview');
 
 Martview.Results = Ext.extend(Ext.Panel, {
-
   initComponent: function () {
-
     Ext.applyIf(this, {
       id: 'results',
       ref: '../results',
       region: 'center',
       layout: 'fit',
-      iconCls: 'results_icon',
       //       title: 'Results',
       //       tools: [{
       //         id: 'gear',
@@ -19,10 +16,6 @@ Martview.Results = Ext.extend(Ext.Panel, {
       //         id: 'save',
       //         qtip: 'Save the results'
       //       }],
-      bbar: [{
-        itemId: 'counter',
-        ref: '../counterButton'
-      }],
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
         height: 26,
@@ -53,10 +46,11 @@ Martview.Results = Ext.extend(Ext.Panel, {
         '->', {
           itemId: 'customize',
           ref: '../customizeButton',
-          text: 'Customize',
-          iconCls: 'edit_icon',
+          text: 'Add attribute',
+          iconCls: 'add_icon',
           cls: 'x-btn-text-icon',
-          disabled: true
+          disabled: true,
+          hidden: true
         },
         {
           itemId: 'save',
@@ -69,7 +63,11 @@ Martview.Results = Ext.extend(Ext.Panel, {
             Ext.MessageBox.alert(Martview.APP_TITLE, 'Save results in various formats');
           }
         }]
-      })
+      }),
+      bbar: [{
+        itemId: 'counter',
+        ref: '../counterButton'
+      }]
     });
 
     // call parent

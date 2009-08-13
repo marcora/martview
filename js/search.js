@@ -1,17 +1,18 @@
 Ext.namespace('Martview');
 
-Martview.Search = Ext.extend(Ext.form.FormPanel, {
+Martview.Search = Ext.extend(Ext.Panel, {
   initComponent: function () {
     Ext.applyIf(this, {
-      region: 'west',
       id: 'search',
       ref: '../search',
+      region: 'west',
+      layout: 'fit',
+      width: 500,
       split: true,
       collapsible: true,
       collapseMode: 'mini',
       hideCollapseTool: true,
-      width: 500,
-      iconCls: 'search_icon',
+      bodyStyle: 'background-color:#dfe8f6;',
       //       title: 'Search',
       //       tools: [{
       //         id: 'gear',
@@ -21,10 +22,6 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
       //         id: 'save',
       //         qtip: 'Save the search'
       //       }],
-      autoScroll: true,
-      padding: 10,
-      labelAlign: 'top',
-      bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
         height: 26,
@@ -40,18 +37,18 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
         '->', {
           itemId: 'customize',
           ref: '../customizeButton',
-          text: 'Customize',
-          iconCls: 'edit_icon',
+          text: 'Add filter',
+          iconCls: 'add_icon',
           cls: 'x-btn-text-icon',
-          disabled: true
+          hidden: true
         },
         {
           text: 'Save',
           itemId: 'save',
           ref: '../saveButton',
-          disabled: true,
           iconCls: 'save_icon',
           cls: 'x-btn-text-icon',
+          disabled: true,
           handler: function () {
             Ext.MessageBox.alert(Martview.APP_TITLE, 'Save search in various formats');
           }
@@ -72,6 +69,16 @@ Martview.Search = Ext.extend(Ext.form.FormPanel, {
         iconCls: 'submit_icon',
         cls: 'x-btn-text-icon',
         disabled: true
+      }],
+      items: [{
+        xtype: 'form',
+        itemId: 'form',
+        ref: '../form',
+        border: false,
+        padding: 10,
+        labelAlign: 'top',
+        autoScroll: true,
+        bodyStyle: 'background-color:#dfe8f6;'
       }]
     });
 

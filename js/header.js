@@ -16,7 +16,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         hidden: false,
         handler: function () {
-          Ext.MessageBox.alert(Martview.APP_TITLE, 'About Mart');
+          window.location.search = '';
         }
       },
       {

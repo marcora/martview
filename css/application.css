@@ -40,6 +40,7 @@ button.itemized_view_icon { background-image: url('../ico/application-list.png')
 button.map_view_icon { background-image: url('../ico/application-image.png') !important; }
 button.save_icon { background-image: url('../ico/disk.png') !important; }
 button.edit_icon { background-image: url('../ico/gear.png') !important; }
+button.add_icon { background-image: url('../ico/plus-circle.png') !important; }
 button.help_icon { background-image: url('../ico/question.png') !important; }
 button.user_icon { background-image: url('../ico/user.png') !important; }
 button.count_icon { background-image: url('../ico/counter.png') !important; }
