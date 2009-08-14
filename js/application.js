@@ -1,3 +1,6 @@
+// FIXME: When selecting current search menu gets stuck!
+// TODO: Column order for query results should follow attribute order
+
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -89,7 +92,21 @@ Ext.onReady(function () {
     main.search.enableHeaderButtons();
     main.search.enableFormButtons();
     main.header.updateBreadcrumbs(params);
-    main.footer.updateTip('Fill and submit the search form to get the results. To modify the search form press the Customize button.');
+
+    // init filters and attributes windows
+    filters = new Martview.Fields({
+      id: 'filters',
+      title: 'Customize search',
+      dataset_name: current_dataset
+    });
+    filters.on('hide', submit);
+
+    attributes = new Martview.Fields({
+      id: 'attributes',
+      title: 'Customize results',
+      dataset_name: current_dataset
+    });
+    attributes.on('hide', submit);
 
     // bogus search form
     var chromosome_list = new Ext.data.SimpleStore({
@@ -101,8 +118,16 @@ Ext.onReady(function () {
       main.search.items.first().add([{ // FIXME: why not main.search.form !!!
         xtype: 'textfield',
         anchor: '100%',
-        fieldLabel: 'Enter search terms'
+        fieldLabel: 'Enter search terms',
+        listeners: {
+          specialkey: function (f, o) {
+            if (o.getKey() == 13) {
+              submit();
+            }
+          }
+        }
       }]);
+      main.footer.updateTip('Enter search terms using the Lucene syntax and press the Enter key or the Submit button to fetch the results');
     } else if (params.search_name == 'faceted') {
       // TODO: faceted search
     } else if (params.search_name == 'advanced') {
@@ -129,38 +154,24 @@ Ext.onReady(function () {
         displayField: 'chromosome'
       }]);
     }
+    main.search.items.first().items.first().focus('', 50);
     main.doLayout();
     return false;
   }
 
   function showAdvanced() {
-    // init filters and attributes windows
-    filters = new Martview.Fields({
-      id: 'filters',
-      title: 'Customize search',
-      dataset_name: current_dataset
-    });
-    filters.on('hide', submit);
-
-    attributes = new Martview.Fields({
-      id: 'attributes',
-      title: 'Customize results',
-      dataset_name: current_dataset
-    });
-    attributes.on('hide', submit);
-
     // show customize buttons
     main.search.customizeButton.show();
     main.results.customizeButton.show();
+    main.footer.updateTip('Add filters, fill the form and press the Submit button to fetch the results');
   }
 
   function submit() {
-    var url = 'http://martservice.biomart.org'; // FIXME
-
+    var url = 'http://martservice.biomart.org:3000'; // FIXME: hard-coded!
     if (current_search == 'simple') {
       var params = {
         type: 'search',
-        q: '11ba'
+        q: main.search.items.first().items.first().getRawValue() // FIXME: too verbose!
       };
     } else if (current_search == 'faceted') {
       // TODO: faceted search
@@ -179,7 +190,6 @@ Ext.onReady(function () {
     }
 
     main.results.enableHeaderButtons();
-    main.footer.updateTip('To modify the way the results are displayed press the Customize button or look under the Results menu.');
 
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
@@ -196,7 +206,9 @@ Ext.onReady(function () {
           store.loadData(data);
           var colModel = new Ext.grid.ColumnModel(data.columns);
           main.results.load(store, colModel);
-          main.results.updateCounter('1-' + store.getTotalCount() + ' of ' + data.count);
+          if (data.count) {
+            main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
+          }
         }
         else {
           Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
