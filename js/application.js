@@ -1,6 +1,5 @@
 // FIXME: When selecting current search menu gets stuck!
 // TODO: Column order for query results should follow attribute order
-
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -73,7 +72,7 @@ Ext.onReady(function () {
   });
 
   // bindings
-  main.search.submitButton.on('click', submit);
+  main.search.submitButton.on('click', submitSearch);
   main.search.customizeButton.on('click', function () {
     filters.show();
   });
@@ -99,21 +98,23 @@ Ext.onReady(function () {
       title: 'Customize search',
       dataset_name: current_dataset
     });
-    filters.on('hide', submit);
+    filters.on('hide', submitSearch);
 
     attributes = new Martview.Fields({
       id: 'attributes',
       title: 'Customize results',
       dataset_name: current_dataset
     });
-    attributes.on('hide', submit);
 
-    // bogus search form
-    var chromosome_list = new Ext.data.SimpleStore({
-      fields: ['id', 'chromosome'],
-      data: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8'], ['9', '9'], ['10', '10'], ['11', '11'], ['12', '12'], ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16'], ['17', '17'], ['18', '18'], ['19', '19'], ['20', '20'], ['21', '21'], ['22', '22'], ['X', 'X'], ['Y', 'Y']]
-    });
+    // submit search when attributes windows is "closed"
+    attributes.on('hide', submitSearch);
+
+    // updatesearch when filters windows is "closed"
+    filters.on('hide', showAdvanced);
+
+    // remove all fields from search form
     main.search.items.first().removeAll(); // FIXME: why not main.search.form !!!
+    // add fields to search form
     if (params.search_name == 'simple') {
       main.search.items.first().add([{ // FIXME: why not main.search.form !!!
         xtype: 'textfield',
@@ -122,7 +123,7 @@ Ext.onReady(function () {
         listeners: {
           specialkey: function (f, o) {
             if (o.getKey() == 13) {
-              submit();
+              submitSearch();
             }
           }
         }
@@ -134,27 +135,12 @@ Ext.onReady(function () {
       showAdvanced();
     } else if (params.search_name == 'user') {
       showAdvanced();
-      main.search.items.first().add([{ // FIXME: why not main.search.form !!!
-        xtype: 'textfield',
-        anchor: '100%',
-        fieldLabel: '% GC',
-        value: 80
-      },
-      {
-        xtype: 'combo',
-        anchor: '100%',
-        fieldLabel: 'Chromosome',
-        value: 5,
-        editable: false,
-        forceSelection: true,
-        lastSearchTerm: false,
-        triggerAction: 'all',
-        mode: 'local',
-        store: chromosome_list,
-        displayField: 'chromosome'
-      }]);
     }
-    main.search.items.first().items.first().focus('', 50);
+    try {
+      main.search.items.first().items.first().focus('', 50);
+    } catch(e) {
+      // foo
+    }
     main.doLayout();
     return false;
   }
@@ -164,9 +150,53 @@ Ext.onReady(function () {
     main.search.customizeButton.show();
     main.results.customizeButton.show();
     main.footer.updateTip('Add filters, fill the form and press the Submit button to fetch the results');
+    // add filter fields to form
+    var form = main.search.items.first(); // FIXME: why not main.search.form !!!
+    form.removeAll();
+    filters.get('selected').items.each(function (item) {
+      console.dir(item.treenode.attributes);
+      if (item.treenode.attributes.qualifier in {
+        '=': '',
+        '>': '',
+        '<': ''
+      }) {
+        if (item.treenode.attributes.options) {
+          form.add([{
+            xtype: 'combo',
+            anchor: '100%',
+            name: item.treenode.attributes.name,
+            fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name,
+            editable: false,
+            forceSelection: true,
+            lastSearchTerm: false,
+            triggerAction: 'all',
+            mode: 'local',
+            store: item.treenode.attributes.options.split(',')
+          }]);
+        } else {
+          form.add([{
+            xtype: 'textfield',
+            anchor: '100%',
+            name: item.treenode.attributes.name,
+            fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name
+          }]);
+        }
+      } else if (item.treenode.attributes.qualifier in {
+        'in': ''
+      }) {
+        form.add({
+          xtype: 'textfield',
+          anchor: '100%',
+          name: item.treenode.attributes.name,
+          fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name
+        });
+      }
+    });
+    main.doLayout();
+    return false;
   }
 
-  function submit() {
+  function submitSearch() {
     var url = 'http://martservice.biomart.org:3000'; // FIXME: hard-coded!
     if (current_search == 'simple') {
       var params = {
@@ -189,14 +219,12 @@ Ext.onReady(function () {
       };
     }
 
-    main.results.enableHeaderButtons();
-
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
       params: params,
       callback: function (data) {
         if (data) {
-          console.dir(data);
+          main.results.enableHeaderButtons();
           var store = new Ext.data.JsonStore({
             autoDestroy: true,
             root: 'rows',
@@ -219,12 +247,14 @@ Ext.onReady(function () {
 
   function buildQueryXml(values) {
     var dataset_filters = [];
-    //     attributes.get('selected').items.each(function (item) {
-    //       dataset_filters.push({
-    //         name: item.name,
-    //         value: null //item.value
-    //       });
-    //     });
+    main.search.items.first().items.each(function (item) {
+      if (item.getRawValue().trim()) {
+        dataset_filters.push({
+          name: item.getName(),
+          value: item.getRawValue().trim()
+        });
+      }
+    });
     var dataset_attributes = [];
     attributes.get('selected').items.each(function (item) {
       dataset_attributes.push({
