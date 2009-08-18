@@ -62,9 +62,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
         cls: 'x-btn-text-icon',
         disabled: true,
         handler: function () {
-          this.items.first().getForm().reset(); // FIXME: should be this.form!
+          this.form.getForm().reset(); // FIXME: should be this.form!
         },
-        scope: this // panel scope
+        scope: this // search panel scope
       },
       {
         itemId: 'submit',

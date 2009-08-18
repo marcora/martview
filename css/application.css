@@ -15,6 +15,7 @@
 .folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
 .folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
+.help_icon { background-image: url('../ico/question.png') !important; }
 
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }

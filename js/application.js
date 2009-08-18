@@ -11,24 +11,24 @@ Ext.onReady(function () {
 
   // init viewport and windows
   var main = new Martview.Main();
-  var filters;
-  var attributes;
+  var filters, attributes;
 
-  var current_mart;
-  var current_dataset;
-  var current_search;
+  // init params
+  var current_mart, current_dataset, current_search;
+
+  // init connection
+  var conn = new Ext.data.Connection();
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
 
-  // populate select search menu with json file
-  var select_menu_url = './json/marts_and_datasets.json';
-  var conn = new Ext.data.Connection();
+  // populate select search menu with data from static json file on server
+  var select_search_menu_url = './json/marts_and_datasets.json';
   conn.request({
-    url: select_menu_url,
+    url: select_search_menu_url,
     success: function (response) {
-      var select_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.search.selectButton.menu.add(select_menu_data);
+      var select_search_menu_data = Ext.util.JSON.decode(response.responseText);
+      main.search.selectButton.menu.add(select_search_menu_data);
       // add handler to each select search menu item
       main.search.selectButton.menu.items.each(function (mart_item) {
         mart_item.menu.items.each(function (dataset_item) {
@@ -86,7 +86,6 @@ Ext.onReady(function () {
 
     if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name)) {
       window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name;
-      return false;
     }
 
     main.search.enableHeaderButtons();
@@ -100,7 +99,7 @@ Ext.onReady(function () {
       display_name: 'Fields',
       dataset_name: current_dataset
     });
-    filters.on('hide', submitSearch);
+    filters.on('hide', updateSearch);
 
     attributes = new Martview.Fields({
       id: 'attributes',
@@ -108,54 +107,104 @@ Ext.onReady(function () {
       display_name: 'Columns',
       dataset_name: current_dataset
     });
-
-    // submit search when attributes windows is "closed"
     attributes.on('hide', submitSearch);
 
-    // updatesearch when filters windows is "closed"
-    filters.on('hide', showAdvanced);
-
-    // remove all fields from search form
-    main.search.items.first().removeAll(); // FIXME: why not main.search.form !!!
-    // add fields to search form
-    if (params.search_name == 'simple') {
-      main.search.items.first().add([{ // FIXME: why not main.search.form !!!
-        xtype: 'textfield',
-        anchor: '100%',
-        fieldLabel: 'Enter search terms',
-        listeners: {
-          specialkey: function (f, o) {
-            if (o.getKey() == 13) {
-              submitSearch();
-            }
-          }
-        }
-      }]);
-      main.footer.updateTip('Enter search terms using the Lucene syntax and then press the Enter key or the Submit button to fetch the results');
-    } else if (params.search_name == 'faceted') {
-      // TODO: faceted search
-    } else if (params.search_name == 'advanced') {
-      showAdvanced();
-    } else if (params.search_name == 'user') {
-      showAdvanced();
-    }
-    try {
-      main.search.items.first().items.first().focus('', 50);
-    } catch(e) {
-      // foo
-    }
-    main.doLayout();
-    return false;
+    updateSearch();
   }
 
-  function showAdvanced() {
-    // show customize buttons
+  function updateSearch() {
+    var form = main.search.items.first(); // FIXME: why not main.search.form?!?
+    // add fields to search form
+    if (current_search == 'simple') {
+      showSimple(form);
+    } else if (current_search == 'faceted') {
+      showFaceted(form);
+    } else if (current_search == 'advanced') {
+      showAdvanced(form);
+    } else if (current_search == 'user') {
+      showUserDefined(form);
+    }
+    try {
+      form.items.first().focus('', 50);
+    } catch(e) {
+      // do nothing
+    }
+    form.doLayout();
+  }
+
+  function showSimple(form) {
+    // update gui
+    main.footer.updateTip('Enter search terms and then press the Enter key or the Submit button to fetch the results');
+
+    // remove all fields from search form
+    form.removeAll();
+
+    // add simple search fields to form
+    form.add([{
+      xtype: 'textfield',
+      anchor: '100%',
+      fieldLabel: 'Enter search terms',
+      listeners: {
+        specialkey: function (f, o) {
+          if (o.getKey() == 13) {
+            submitSearch();
+          }
+        }
+      }
+    },
+    {
+      // Lucene query syntax help
+      xtype: 'fieldset',
+      title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+      autoHeight: true,
+      defaultType: 'displayfield',
+      defaults: {
+        labelStyle: 'font-weight: bold;'
+      },
+      items: [{
+        hideLabel: true,
+        value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
+      },
+      {
+        fieldLabel: 'pdb_id',
+        value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
+      },
+      {
+        fieldLabel: 'experiment_type',
+        value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
+      },
+      {
+        fieldLabel: 'resolution',
+        value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
+      },
+      {
+        fieldLabel: 'authors',
+        value: 'search by author name (for example, <code>authors:Mishima</code>)'
+      }]
+    }]);
+  }
+
+  function showFaceted(form) {
+    // update gui
+    main.footer.updateTip('[faceted search tip]');
+
+    // remove all fields from search form
+    form.removeAll();
+
+    // add faceted search fields to form
+    form.add([{}]);
+  }
+
+  function showAdvanced(form) {
+    // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
     main.footer.updateTip('Fill the search form and then press the Submit button to fetch the results');
-    // add filter fields to form
-    var form = main.search.items.first(); // FIXME: why not main.search.form !!!
+
+    // remove all fields from search form
     form.removeAll();
+
+    // add advanced search fields (filters) to form
     filters.get('selected').items.each(function (item) {
       console.dir(item.treenode.attributes);
       if (item.treenode.attributes.qualifier in {
@@ -195,8 +244,17 @@ Ext.onReady(function () {
         });
       }
     });
-    main.doLayout();
-    return false;
+  }
+
+  function showUserDefined(form) {
+    // update gui
+    main.footer.updateTip('[user defined search tip]');
+
+    // remove all fields from search form
+    form.removeAll();
+
+    // add user-defined search fields to form
+    form.add([{}]);
   }
 
   function submitSearch() {
