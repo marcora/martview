@@ -206,7 +206,6 @@ Ext.onReady(function () {
 
     // add advanced search fields (filters) to form
     filters.get('selected').items.each(function (item) {
-      console.dir(item.treenode.attributes);
       if (item.treenode.attributes.qualifier in {
         '=': '',
         '>': '',
@@ -280,6 +279,15 @@ Ext.onReady(function () {
       };
     }
 
+    // log search params
+    try {
+      console.dir(params);
+    } catch(e) {
+      Ext.iterate(params, function (key, val) {
+        log.info(key + ': ' + Ext.util.Format.htmlEncode(val));
+      });
+    }
+
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
       params: params,
@@ -327,7 +335,7 @@ Ext.onReady(function () {
       virtualSchemaName: 'default',
       formatter: 'CSV',
       header: 0,
-      uniqueRows: 0,
+      uniqueRows: 1,
       count: 0,
       limitSize: 100,
       datasetConfigVersion: '0.6',
@@ -350,7 +358,6 @@ Ext.onReady(function () {
     '</Dataset>', //
     '</Query>');
     var xml = tpl.apply(values);
-    console.log(xml);
     return xml;
   }
 });
