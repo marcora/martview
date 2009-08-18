@@ -1,5 +1,6 @@
 // FIXME: When selecting current search menu gets stuck!
 // TODO: Column order for query results should follow attribute order
+// FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -95,14 +96,16 @@ Ext.onReady(function () {
     // init filters and attributes windows
     filters = new Martview.Fields({
       id: 'filters',
-      title: 'Customize search',
+      title: 'Add fields to the search form',
+      display_name: 'Fields',
       dataset_name: current_dataset
     });
     filters.on('hide', submitSearch);
 
     attributes = new Martview.Fields({
       id: 'attributes',
-      title: 'Customize results',
+      title: 'Add columns to the results grid',
+      display_name: 'Columns',
       dataset_name: current_dataset
     });
 
@@ -128,7 +131,7 @@ Ext.onReady(function () {
           }
         }
       }]);
-      main.footer.updateTip('Enter search terms using the Lucene syntax and press the Enter key or the Submit button to fetch the results');
+      main.footer.updateTip('Enter search terms using the Lucene syntax and then press the Enter key or the Submit button to fetch the results');
     } else if (params.search_name == 'faceted') {
       // TODO: faceted search
     } else if (params.search_name == 'advanced') {
@@ -149,7 +152,7 @@ Ext.onReady(function () {
     // show customize buttons
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateTip('Add filters, fill the form and press the Submit button to fetch the results');
+    main.footer.updateTip('Fill the search form and then press the Submit button to fetch the results');
     // add filter fields to form
     var form = main.search.items.first(); // FIXME: why not main.search.form !!!
     form.removeAll();

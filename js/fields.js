@@ -2,6 +2,7 @@ Ext.namespace('Martview');
 
 Martview.Fields = Ext.extend(Ext.Window, {
   // soft config
+  display_name: null,
   dataset_name: null,
 
   // hard config
@@ -15,7 +16,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
-      iconCls: 'edit_icon',
+      iconCls: 'add_icon',
       buttons: [{
         text: 'Close',
         cls: 'x-btn-text-icon',
@@ -40,7 +41,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
         lines: true,
         // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
-        title: 'All ' + this.getId(),
+        title: 'All ' + this.display_name.toLowerCase(),
         iconCls: 'node_all_icon',
         width: 330,
         split: true,
@@ -102,7 +103,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
         items: [],
         autoScroll: true,
         padding: 10,
-        title: 'Selected ' + this.getId(),
+        title: 'Selected ' + this.display_name.toLowerCase(),
         iconCls: 'node_selected_icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //        layout: 'vbox',

@@ -46,7 +46,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         '->', {
           itemId: 'customize',
           ref: '../customizeButton',
-          text: 'Add attribute',
+          text: 'Add column',
           iconCls: 'add_icon',
           cls: 'x-btn-text-icon',
           disabled: true,
