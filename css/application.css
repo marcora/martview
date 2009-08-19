@@ -17,6 +17,8 @@
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
 .help_icon { background-image: url('../ico/question.png') !important; }
 
+div.facet .x-form-display-field { font-weight: bold !important; }
+
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 

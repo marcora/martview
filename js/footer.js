@@ -10,8 +10,8 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       // FIX: should adjust height automatically
       height: 26,
       items: [{
-        itemId: 'tip',
-        ref: 'tipButton',
+        itemId: 'message',
+        ref: 'messageButton',
         text: 'To begin, select a search using the Search menu.',
         iconCls: 'tip_icon',
         cls: 'x-btn-text-icon',
@@ -35,9 +35,11 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
     Martview.Footer.superclass.initComponent.apply(this, arguments);
   },
 
-  updateTip: function (message) {
+  updateMessage: function (type, message) {
     var footer = this;
-    footer.tipButton.setText(message);
+    footer.messageButton.setIconClass(type + '_icon');
+    footer.messageButton.setText(message);
+    footer.doLayout();
   }
 });
 

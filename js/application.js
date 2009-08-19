@@ -1,4 +1,3 @@
-// FIXME: When selecting current search menu gets stuck!
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
@@ -73,13 +72,15 @@ Ext.onReady(function () {
   });
 
   // bindings
-  main.search.submitButton.on('click', submitSearch);
   main.search.customizeButton.on('click', function () {
     filters.show();
   });
+
   main.results.customizeButton.on('click', function () {
     attributes.show();
   });
+
+  main.search.submitButton.on('click', submitSearch);
 
   // event handlers
   function selectSearch(params) {
@@ -134,7 +135,7 @@ Ext.onReady(function () {
 
   function showSimple(form) {
     // update gui
-    main.footer.updateTip('Enter search terms and then press the Enter key or the Submit button to fetch the results');
+    main.footer.updateMessage('tip', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
     // remove all fields from search form
     form.removeAll();
@@ -147,7 +148,7 @@ Ext.onReady(function () {
       listeners: {
         specialkey: function (f, o) {
           if (o.getKey() == 13) {
-            submitSearch();
+            submitSearch(form);
           }
         }
       }
@@ -184,25 +185,78 @@ Ext.onReady(function () {
     }]);
   }
 
-  function showFaceted(form) {
+  function showFaceted(form, facets) {
     // update gui
-    main.footer.updateTip('[faceted search tip]');
+    main.footer.updateMessage('tip', '[faceted search tip]');
+
+    // reassign submit/reset button handlers
+    main.search.submitButton.purgeListeners();
+    main.search.submitButton.setHandler(function () {
+      return false;
+    });
+    main.search.resetButton.purgeListeners();
+    main.search.resetButton.setHandler(function () {
+      window.location.href = window.location.href;
+    });
 
     // remove all fields from search form
-    form.removeAll();
+    form.getForm().items.each(function (field) {
+      field.destroy();
+    });
+
+    // remove all fields from search form
+    form.getForm().items.each(function (field) {
+      field.destroy();
+    });
 
     // add faceted search fields to form
-    form.add([{}]);
+    if (facets) {
+      form.add(facets);
+      form.items.each(function (item) {
+        if (item.xtype == 'combo') {
+          item.on('select', function (combo) {
+            form.add({
+              xtype: 'hidden',
+              name: combo.getName(),
+              value: combo.getValue()
+            });
+            submitSearch(form);
+          });
+        }
+      });
+      form.doLayout();
+    } else {
+      submitSearch(form);
+    }
+
   }
 
   function showAdvanced(form) {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateTip('Fill the search form and then press the Submit button to fetch the results');
+    main.footer.updateMessage('tip', 'Fill the search form and then press the Submit button to fetch the results');
 
     // remove all fields from search form
     form.removeAll();
+
+//     // add help if no filters are selected
+//     if (filters.get('selected').items.getCount() == 0) {
+//       form.add([{
+//         // Lucene query syntax help
+//         xtype: 'fieldset',
+//         title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+//         autoHeight: true,
+//         defaultType: 'displayfield',
+//         defaults: {
+//           labelStyle: 'font-weight: bold;'
+//         },
+//         items: [{
+//           hideLabel: true,
+//           value: 'Add fields to the form if you want to narrow down the search'
+//         }]
+//       }]);
+//     }
 
     // add advanced search fields (filters) to form
     filters.get('selected').items.each(function (item) {
@@ -247,24 +301,45 @@ Ext.onReady(function () {
 
   function showUserDefined(form) {
     // update gui
-    main.footer.updateTip('[user defined search tip]');
+    main.footer.updateMessage('tip', '[user defined search tip]');
 
     // remove all fields from search form
     form.removeAll();
 
     // add user-defined search fields to form
-    form.add([{}]);
+    //form.add([{}]);
   }
 
-  function submitSearch() {
-    var url = 'http://martservice.biomart.org:3000'; // FIXME: hard-coded!
+  function submitSearch(form) {
     if (current_search == 'simple') {
+      var query = form.items.first().getRawValue().trim(); // FIXME: too verbose!
+      if (!query) return; // abort submit if no search terms
       var params = {
         type: 'search',
-        q: main.search.items.first().items.first().getRawValue() // FIXME: too verbose!
+        q: query // FIXME: too verbose!
       };
     } else if (current_search == 'faceted') {
-      // TODO: faceted search
+      filters = [];
+      form.items.each(function (item) {
+        if (item.xtype in {
+          'hidden': '',
+          'displayfield': ''
+        }) {
+          var name = item.getName();
+          var value = item.getRawValue();
+          var re = /^[^"].*\s+.*[^"]$/i;
+          if (re.test(value)) {
+            value = '"' + value + '"';
+          }
+          filters.push(name + ':' + value);
+        }
+      });
+      var params = {
+        type: 'search',
+        q: '*:*',
+        facet_fields: 'experiment_type|resolution|space_group',
+        filters: filters.join('|')
+      };
     } else if (current_search == 'advanced') {
       var xml = buildQueryXml();
       var params = {
@@ -288,11 +363,14 @@ Ext.onReady(function () {
       });
     }
 
+    // submit
+    var url = 'http://martservice.biomart.org:3000'; // FIXME: hard-coded!
     Ext.ux.JSONP.request(url, {
       callbackKey: 'callback',
       params: params,
       callback: function (data) {
         if (data) {
+          console.dir(data);
           main.results.enableHeaderButtons();
           var store = new Ext.data.JsonStore({
             autoDestroy: true,
@@ -305,6 +383,10 @@ Ext.onReady(function () {
           main.results.load(store, colModel);
           if (data.count) {
             main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
+          }
+          // build faceted search form
+          if (current_search == 'faceted') {
+            showFaceted(form, data.facets);
           }
         }
         else {
