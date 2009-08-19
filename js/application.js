@@ -300,7 +300,9 @@ Ext.onReady(function () {
 
   function showUserDefined(form) {
     // update gui
-    main.footer.updateMessage('tip', '[user defined search tip]');
+    main.search.customizeButton.show();
+    main.results.customizeButton.show();
+    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. If you want to narrow down the results, add fields to the search form');
 
     // remove all fields from search form
     form.removeAll();
