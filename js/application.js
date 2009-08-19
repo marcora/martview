@@ -235,29 +235,28 @@ Ext.onReady(function () {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateMessage('tip', 'Fill the search form and then press the Submit button to fetch the results');
+    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. If you want to narrow down the results, add fields to the search form');
 
     // remove all fields from search form
     form.removeAll();
 
-//     // add help if no filters are selected
-//     if (filters.get('selected').items.getCount() == 0) {
-//       form.add([{
-//         // Lucene query syntax help
-//         xtype: 'fieldset',
-//         title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
-//         autoHeight: true,
-//         defaultType: 'displayfield',
-//         defaults: {
-//           labelStyle: 'font-weight: bold;'
-//         },
-//         items: [{
-//           hideLabel: true,
-//           value: 'Add fields to the form if you want to narrow down the search'
-//         }]
-//       }]);
-//     }
-
+    //     // add help if no filters are selected
+    //     if (filters.get('selected').items.getCount() == 0) {
+    //       form.add([{
+    //         // Lucene query syntax help
+    //         xtype: 'fieldset',
+    //         title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+    //         autoHeight: true,
+    //         defaultType: 'displayfield',
+    //         defaults: {
+    //           labelStyle: 'font-weight: bold;'
+    //         },
+    //         items: [{
+    //           hideLabel: true,
+    //           value: 'Add fields to the form if you want to narrow down the search'
+    //         }]
+    //       }]);
+    //     }
     // add advanced search fields (filters) to form
     filters.get('selected').items.each(function (item) {
       if (item.treenode.attributes.qualifier in {
@@ -306,8 +305,26 @@ Ext.onReady(function () {
     // remove all fields from search form
     form.removeAll();
 
-    // add user-defined search fields to form
-    //form.add([{}]);
+    // TODO: Add user-defined search fields to form
+    // bogus search form
+    form.add([{
+      xtype: 'textfield',
+      anchor: '100%',
+      fieldLabel: '% GC',
+      value: 80
+    },
+    {
+      xtype: 'combo',
+      anchor: '100%',
+      fieldLabel: 'Chromosome',
+      value: 5,
+      editable: false,
+      forceSelection: true,
+      lastSearchTerm: false,
+      triggerAction: 'all',
+      mode: 'local',
+      store: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8'], ['9', '9'], ['10', '10'], ['11', '11'], ['12', '12'], ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16'], ['17', '17'], ['18', '18'], ['19', '19'], ['20', '20'], ['21', '21'], ['22', '22'], ['X', 'X'], ['Y', 'Y']]
+    }]);
   }
 
   function submitSearch(form) {
