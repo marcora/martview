@@ -94,7 +94,7 @@ Ext.onReady(function () {
     main.header.updateBreadcrumbs(params);
 
     // init filters and attributes windows
-    filters = new Martview.Fields({
+    filters = new Martview.windows.Fields({
       id: 'filters',
       title: 'Add fields to the search form',
       display_name: 'Fields',
@@ -102,7 +102,7 @@ Ext.onReady(function () {
     });
     filters.on('hide', updateSearch);
 
-    attributes = new Martview.Fields({
+    attributes = new Martview.windows.Fields({
       id: 'attributes',
       title: 'Add columns to the results grid',
       display_name: 'Columns',
