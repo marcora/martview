@@ -115,6 +115,7 @@ Ext.onReady(function () {
     });
     attributes.on('hide', submitSearch);
 
+    // call update search
     updateSearch();
   }
 
@@ -194,11 +195,8 @@ Ext.onReady(function () {
     // update gui
     main.footer.updateMessage('tip', '[faceted search tip]');
 
-    // reassign submit/reset button handlers
-    main.search.submitButton.purgeListeners();
-    main.search.submitButton.setHandler(function () {
-      return false;
-    });
+    // disable submit button and reassign reset button handlers
+    main.search.submitButton.disable();
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(function () {
       window.location.href = window.location.href;

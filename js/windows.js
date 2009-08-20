@@ -1,29 +1,19 @@
 Ext.namespace('Martview.windows');
 
-Martview.windows.Loading = Ext.extend(Ext.Window, {
-  // hard config
-  initComponent: function () {
-    Ext.applyIf(this, {
-      title: Martview.APP_TITLE,
-      modal: true,
-      width: 236,
-      autoHeight: true,
-      plain: true,
-      closable: false,
-      resizable: false,
-      html: '<div id="loading-dialog"><div class="loading-indicator"></div></div>'
-    });
-    // call parent
-    Martview.windows.Loading.superclass.initComponent.apply(this, arguments);
-  },
+Martview.windows.Loading = Ext.extend(Object, {
   start: function () {
-    if (!this.isVisible()) {
-      this.show();
-    }
+    this.msg = Ext.Msg.show({
+      title: Martview.APP_TITLE,
+      msg: 'Loading...',
+      wait: true,
+      waitConfig: {
+        interval: 200
+      }
+    });
   },
   stop: function () {
-    if (this.isVisible()) {
-      this.hide();
+    if (this.msg && this.msg.isVisible()) {
+      this.msg.hide();
     }
   }
 });
