@@ -376,7 +376,7 @@ Ext.onReady(function () {
 
     // log search params
     try {
-//      console.dir(params);
+      console.dir(params);
     } catch(e) {
       Ext.iterate(params, function (key, val) {
         log.info(key + ': ' + Ext.util.Format.htmlEncode(val));
@@ -389,7 +389,11 @@ Ext.onReady(function () {
       params: params,
       success: function (response) {
         var data = Ext.util.JSON.decode(response.responseText);
-//        console.dir(data);
+        try {
+          console.dir(data);
+        } catch(e) {
+          // foo
+        }
         main.results.enableHeaderButtons();
         var store = new Ext.data.JsonStore({
           autoDestroy: true,
@@ -400,9 +404,7 @@ Ext.onReady(function () {
         store.loadData(data);
         var colModel = new Ext.grid.ColumnModel(data.columns);
         main.results.load(store, colModel);
-        if (data.count) {
-          main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
-        }
+        main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
         // build faceted search form
         if (current_search == 'faceted') {
           showFaceted(form, data.facets);
