@@ -1,3 +1,5 @@
+#loading-dialog .loading-indicator {background:url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
+
 .edit_icon { background-image: url('../ico/gear.png') !important; }
 .mart_icon { background-image: url('../ico/databases.png') !important; }
 .dataset_icon { background-image: url('../ico/database.png') !important; }

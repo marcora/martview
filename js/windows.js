@@ -1,15 +1,32 @@
 Ext.namespace('Martview.windows');
 
 Martview.windows.Loading = Ext.extend(Ext.Window, {
-  id: 'loading',
-  title: Martview.APP_TITLE,
-  modal: true,
-  height: 400,
-  width: 300,
-  html: 'biomart loading'
+  // hard config
+  initComponent: function () {
+    Ext.applyIf(this, {
+      title: Martview.APP_TITLE,
+      modal: true,
+      width: 236,
+      autoHeight: true,
+      plain: true,
+      closable: false,
+      resizable: false,
+      html: '<div id="loading-dialog"><div class="loading-indicator"></div></div>'
+    });
+    // call parent
+    Martview.windows.Loading.superclass.initComponent.apply(this, arguments);
+  },
+  start: function () {
+    if (!this.isVisible()) {
+      this.show();
+    }
+  },
+  stop: function () {
+    if (this.isVisible()) {
+      this.hide();
+    }
+  }
 });
-
-Ext.reg('loading', Martview.windows.Loading);
 
 Martview.windows.Help = Ext.extend(Ext.Window, {
   id: 'help',
@@ -19,8 +36,6 @@ Martview.windows.Help = Ext.extend(Ext.Window, {
   width: 300,
   html: 'biomart help'
 });
-
-Ext.reg('help', Martview.windows.Help);
 
 Martview.windows.Fields = Ext.extend(Ext.Window, {
   // soft config
@@ -146,5 +161,3 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
   }
 });
-
-Ext.reg('fields', Martview.windows.Fields);

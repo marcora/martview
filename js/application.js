@@ -6,10 +6,12 @@ Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 Ext.namespace('Martview');
 
 Ext.onReady(function () {
+
   Ext.QuickTips.init();
 
   // init viewport and windows
   var main = new Martview.Main();
+  var loading = new Martview.windows.Loading();
   var filters, attributes;
 
   // init params
@@ -23,6 +25,7 @@ Ext.onReady(function () {
 
   // populate select search menu with data from static json file on server
   var select_search_menu_url = './json/marts_and_datasets.json';
+  loading.start();
   conn.request({
     url: select_search_menu_url,
     success: function (response) {
@@ -65,8 +68,10 @@ Ext.onReady(function () {
           }
         }
       }
+      loading.stop();
     },
     failure: function () {
+      loading.stop();
       Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
     }
   });
@@ -384,6 +389,7 @@ Ext.onReady(function () {
     }
 
     // submit
+    loading.start();
     conn.request({
       url: '/martservice',
       params: params,
@@ -409,8 +415,10 @@ Ext.onReady(function () {
         if (current_search == 'faceted') {
           showFaceted(form, data.facets);
         }
+        loading.stop();
       },
       failure: function () {
+        loading.stop();
         Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
       }
     });
