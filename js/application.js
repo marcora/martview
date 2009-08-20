@@ -11,6 +11,7 @@ Ext.onReady(function () {
 
   // init viewport and windows
   var main = new Martview.Main();
+  var form = main.search.items.first(); // FIXME: why not main.search.form?!?
   var loading = new Martview.windows.Loading();
   var filters, attributes;
 
@@ -85,7 +86,9 @@ Ext.onReady(function () {
     attributes.show();
   });
 
-  main.search.submitButton.on('click', submitSearch);
+  main.search.submitButton.on('click', function () {
+    submitSearch();
+  });
 
   // event handlers
   function selectSearch(params) {
@@ -103,7 +106,8 @@ Ext.onReady(function () {
       id: 'filters',
       title: 'Add fields to the search form',
       display_name: 'Fields',
-      dataset_name: current_dataset
+      dataset_name: current_dataset,
+      field_iconCls: 'filter_icon'
     });
     filters.on('hide', updateSearch);
 
@@ -111,7 +115,8 @@ Ext.onReady(function () {
       id: 'attributes',
       title: 'Add columns to the results grid',
       display_name: 'Columns',
-      dataset_name: current_dataset
+      dataset_name: current_dataset,
+      field_iconCls: 'attribute_icon'
     });
     attributes.on('hide', submitSearch);
 
@@ -120,16 +125,15 @@ Ext.onReady(function () {
   }
 
   function updateSearch() {
-    var form = main.search.items.first(); // FIXME: why not main.search.form?!?
     // add fields to search form
     if (current_search == 'simple') {
-      showSimple(form);
+      showSimpleSearch();
     } else if (current_search == 'faceted') {
-      showFaceted(form);
+      showFacetedSearch();
     } else if (current_search == 'advanced') {
-      showAdvanced(form);
+      showAdvancedSearch();
     } else if (current_search == 'user') {
-      showUserDefined(form);
+      showUserSearch();
     }
     try {
       form.items.first().focus('', 50);
@@ -139,7 +143,7 @@ Ext.onReady(function () {
     form.doLayout();
   }
 
-  function showSimple(form) {
+  function showSimpleSearch() {
     // update gui
     main.footer.updateMessage('tip', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
@@ -154,7 +158,7 @@ Ext.onReady(function () {
       listeners: {
         specialkey: function (f, o) {
           if (o.getKey() == 13) {
-            submitSearch(form);
+            submitSearch();
           }
         }
       }
@@ -191,9 +195,9 @@ Ext.onReady(function () {
     }]);
   }
 
-  function showFaceted(form, facets) {
+  function showFacetedSearch(facets) {
     // update gui
-    main.footer.updateMessage('tip', '[faceted search tip]');
+    main.footer.updateMessage('tip', 'Use the drop-down boxes to make the search more specific and narrow the results');
 
     // disable submit button and reassign reset button handlers
     main.search.submitButton.disable();
@@ -223,22 +227,22 @@ Ext.onReady(function () {
               name: combo.getName(),
               value: combo.getValue()
             });
-            submitSearch(form);
+            submitSearch();
           });
         }
       });
       form.doLayout();
     } else {
-      submitSearch(form);
+      submitSearch();
     }
 
   }
 
-  function showAdvanced(form) {
+  function showAdvancedSearch() {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. If you want to narrow down the results, add fields to the search form');
+    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add fields to the search form to make the search more specific and narrow the results');
 
     // remove all fields from search form
     form.removeAll();
@@ -301,11 +305,11 @@ Ext.onReady(function () {
     });
   }
 
-  function showUserDefined(form) {
+  function showUserSearch() {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. If you want to narrow down the results, add fields to the search form');
+    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results.');
 
     // remove all fields from search form
     form.removeAll();
@@ -332,7 +336,7 @@ Ext.onReady(function () {
     }]);
   }
 
-  function submitSearch(form) {
+  function submitSearch() {
     // build search params
     if (current_search == 'simple') {
       var query = form.items.first().getRawValue().trim(); // FIXME: too verbose!
@@ -411,7 +415,7 @@ Ext.onReady(function () {
         main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
         // build faceted search form
         if (current_search == 'faceted') {
-          showFaceted(form, data.facets);
+          showFacetedSearch(data.facets);
         }
         loading.stop();
       },

@@ -2,14 +2,16 @@ Ext.namespace('Martview.windows');
 
 Martview.windows.Loading = Ext.extend(Object, {
   start: function () {
-    this.msg = Ext.Msg.show({
-      title: Martview.APP_TITLE,
-      msg: 'Loading...',
-      wait: true,
-      waitConfig: {
-        interval: 200
-      }
-    });
+    if (!this.msg || !this.msg.isVisible()) {
+      this.msg = Ext.Msg.show({
+        title: Martview.APP_TITLE,
+        msg: 'Loading...',
+        wait: true,
+        waitConfig: {
+          interval: 200
+        }
+      });
+    }
   },
   stop: function () {
     if (this.msg && this.msg.isVisible()) {
@@ -22,8 +24,8 @@ Martview.windows.Help = Ext.extend(Ext.Window, {
   id: 'help',
   title: Martview.APP_TITLE,
   modal: true,
-  height: 400,
-  width: 300,
+  width: 400,
+  height: 300,
   html: 'biomart help'
 });
 
@@ -31,13 +33,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // soft config
   display_name: null,
   dataset_name: null,
+  field_iconCls: null,
 
   // hard config
   initComponent: function () {
     Ext.applyIf(this, {
       modal: true,
       width: 880,
-      height: 600,
+      height: 550,
       layout: 'border',
       closeAction: 'hide',
       plain: true,
@@ -116,8 +119,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               selected.add({
                 xtype: 'field',
                 treenode: node,
-                display_name: this.field_display_name,
-                iconCls: this.field_iconCls
+                field_iconCls: selected.ownerCt.field_iconCls
               });
               selected.doLayout();
               node.disable();

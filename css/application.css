@@ -1,5 +1,7 @@
 #loading-dialog .loading-indicator {background:url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
 
+.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
 .mart_icon { background-image: url('../ico/databases.png') !important; }
 .dataset_icon { background-image: url('../ico/database.png') !important; }
@@ -24,6 +26,8 @@ div.facet .x-form-display-field { font-weight: bold !important; }
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+button.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+button.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 button.move_icon { background-image: url('../ico/arrow-move.png') !important; }
 button.up_icon { background-image: url('../ico/arrow-090.png') !important; }
@@ -69,4 +73,4 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .x-tree-node-collapsed img.x-tree-node-icon { background-image:url('../ico/folder-horizontal.png') !important; }
 
 #attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-toolbar.png') !important; }
-#filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-toolbar.png') !important; }
+#filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-search-field.png') !important; }

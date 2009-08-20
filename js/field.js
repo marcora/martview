@@ -1,18 +1,19 @@
 Ext.namespace('Martview');
 
 Martview.Field = Ext.extend(Ext.Toolbar, {
+  // soft config
   treenode: null,
+  editable: false,
+  field_iconCls: null,
 
+  // hard config
   initComponent: function () {
-
-    this.editable = false;
-    this.itemId = this.treenode.id;
-
     Ext.apply(this, {
+      itemId: this.treenode.id,
       items: [{
         text: '<b>' + (this.treenode.attributes.display_name || this.treenode.attributes.name) + '</b>',
         tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
-        iconCls: 'field_icon',
+        iconCls: this.field_iconCls,
         cls: 'x-btn-text-icon'
       },
       {
