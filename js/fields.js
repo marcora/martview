@@ -52,6 +52,7 @@ Martview.Fields = Ext.extend(Ext.Window, {
           uiProvider: false
         },
         loader: {
+          requestMethod: 'GET',
           dataUrl: './json/' + this.dataset_name + '.' + this.getId() + '.json'
         },
         deferredRender: false,

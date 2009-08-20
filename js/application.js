@@ -156,7 +156,7 @@ Ext.onReady(function () {
     {
       // Lucene query syntax help
       xtype: 'fieldset',
-      title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+      title: '<img src="./ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
       defaultType: 'displayfield',
       defaults: {
@@ -330,6 +330,7 @@ Ext.onReady(function () {
   }
 
   function submitSearch(form) {
+    // build search params
     if (current_search == 'simple') {
       var query = form.items.first().getRawValue().trim(); // FIXME: too verbose!
       if (!query) return; // abort submit if no search terms
@@ -375,7 +376,7 @@ Ext.onReady(function () {
 
     // log search params
     try {
-      console.dir(params);
+//      console.dir(params);
     } catch(e) {
       Ext.iterate(params, function (key, val) {
         log.info(key + ': ' + Ext.util.Format.htmlEncode(val));
@@ -383,38 +384,35 @@ Ext.onReady(function () {
     }
 
     // submit
-    var url = 'http://martservice.biomart.org:3000'; // FIXME: hard-coded!
-    Ext.ux.JSONP.request(url, {
-      callbackKey: 'callback',
+    conn.request({
+      url: '/martservice',
       params: params,
-      callback: function (data) {
-        if (data) {
-          console.dir(data);
-          main.results.enableHeaderButtons();
-          var store = new Ext.data.JsonStore({
-            autoDestroy: true,
-            root: 'rows',
-            idProperty: name,
-            fields: data.fields
-          });
-          store.loadData(data);
-          var colModel = new Ext.grid.ColumnModel(data.columns);
-          main.results.load(store, colModel);
-          if (data.count) {
-            main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
-          }
-          // build faceted search form
-          if (current_search == 'faceted') {
-            showFaceted(form, data.facets);
-          }
+      success: function (response) {
+        var data = Ext.util.JSON.decode(response.responseText);
+//        console.dir(data);
+        main.results.enableHeaderButtons();
+        var store = new Ext.data.JsonStore({
+          autoDestroy: true,
+          root: 'rows',
+          idProperty: name,
+          fields: data.fields
+        });
+        store.loadData(data);
+        var colModel = new Ext.grid.ColumnModel(data.columns);
+        main.results.load(store, colModel);
+        if (data.count) {
+          main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
         }
-        else {
-          Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
+        // build faceted search form
+        if (current_search == 'faceted') {
+          showFaceted(form, data.facets);
         }
+      },
+      failure: function () {
+        Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
       }
     });
   }
-
   function buildQueryXml(values) {
     var dataset_filters = [];
     main.search.items.first().items.each(function (item) {
