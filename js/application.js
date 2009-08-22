@@ -15,6 +15,8 @@ Ext.onReady(function () {
   var form = main.search.items.first(); // FIXME: why not main.search.form?!?
   var loading = new Martview.windows.Loading();
   var filters, attributes;
+  var default_filters = [];
+  var default_attributes = [];
 
   // init params
   var current_mart, current_dataset, current_search;
@@ -107,6 +109,19 @@ Ext.onReady(function () {
     main.search.enableFormButtons();
     main.header.updateBreadcrumbs(params);
 
+    // extract array of default attributes/filters from tree
+    function extractDefaults(array, defaults) {
+      Ext.each(array, function (node) {
+        if (node['leaf']) {
+          if (node['default']) {
+            defaults.push(node);
+          }
+        } else {
+          extractDefaults(node['children'], defaults);
+        }
+      });
+    }
+
     // init filters and attributes windows
     var filters_url = './json/' + current_dataset + '.filters.json';
     loading.start();
@@ -114,6 +129,7 @@ Ext.onReady(function () {
       url: filters_url,
       success: function (response) {
         var children = Ext.util.JSON.decode(response.responseText);
+        extractDefaults(children, default_filters);
         filters = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filters to the search form',
@@ -130,6 +146,7 @@ Ext.onReady(function () {
           url: attributes_url,
           success: function (response) {
             var children = Ext.util.JSON.decode(response.responseText);
+            extractDefaults(children, default_filters);
             attributes = new Martview.windows.Fields({
               id: 'attributes',
               title: 'Add columns to the results grid',

@@ -34,9 +34,8 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         handler: function () {
           var field = this.ownerCt;
-          var fields_tree = field.treenode.getOwnerTree();
           var selected_fields = field.ownerCt;
-          fields_tree.getNodeById(field.getItemId()).enable();
+          field.treenode.enable();
           selected_fields.remove(field);
         }
       }]
