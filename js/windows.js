@@ -34,6 +34,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   display_name: null,
   dataset_name: null,
   field_iconCls: null,
+  children: [],
 
   // hard config
   initComponent: function () {
@@ -58,19 +59,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       }],
       items: [{
         region: 'west',
-        xtype: 'checktreepanel',
+        xtype: 'arraytreepanel',
+        ref: '../all',
         itemId: 'all',
-        rootVisible: false,
-        bubbleCheck: 'none',
-        cascadeCheck: 'none',
-        animate: true,
-        enableDD: false,
-        autoScroll: true,
-        // containerScroll: true,
-        loader: new Ext.tree.TreeLoader(),
-        lines: true,
-        // singleExpand: true,
-        // selModel: new Ext.tree.MultiSelectionModel(),
         title: 'All ' + this.display_name.toLowerCase(),
         iconCls: 'node_all_icon',
         width: 330,
@@ -78,14 +69,16 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         collapsible: true,
         collapseMode: 'mini',
         hideCollapseTool: true,
-        root: {
-          uiProvider: false
-        },
-        loader: {
-          requestMethod: 'GET',
-          dataUrl: './json/' + this.dataset_name + '.' + this.getId() + '.json'
-        },
-        deferredRender: false,
+        rootVisible: false,
+        defaultTools: false,
+        children: this.children,
+        animate: true,
+        enableDD: false,
+        autoScroll: true,
+        lines: true,
+        // containerScroll: true,
+        // singleExpand: true,
+        // selModel: new Ext.tree.MultiSelectionModel(),
         tbar: [{
           xtype: 'treefilterfield',
           itemId: 'search',
@@ -113,6 +106,20 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               expandOnFilter: true
             });
           },
+//           load: function (node) {
+//             log.info(node.id);
+//             if (node.isLeaf() && node.attributes.default) {
+//               var selected = this.get('selected');
+//               selected.add({
+//                 xtype:
+//                 'field',
+//                 treenode: node,
+//                 field_iconCls: selected.ownerCt.field_iconCls
+//               });
+//               selected.doLayout();
+//               node.disable();
+//             }
+//           },
           dblclick: function (node) {
             if (node.isLeaf()) {
               var selected = this.ownerCt.get('selected');
@@ -130,6 +137,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       {
         region: 'center',
         itemId: 'selected',
+        ref: '../selected',
         items: [],
         autoScroll: true,
         padding: 10,

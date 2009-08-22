@@ -37,7 +37,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         '->', {
           itemId: 'customize',
           ref: '../customizeButton',
-          text: 'Add field',
+          text: 'Add filter',
           iconCls: 'add_icon',
           cls: 'x-btn-text-icon',
           hidden: true

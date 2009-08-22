@@ -1,3 +1,4 @@
+// FIXME: Loading dialog gets stuck if error
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
@@ -73,7 +74,12 @@ Ext.onReady(function () {
     },
     failure: function () {
       loading.stop();
-      Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
+      Ext.Msg.show({
+        title: Martview.APP_TITLE,
+        msg: Martview.CONN_ERR_MSG,
+        closable: false,
+        width: 300
+      });
     }
   });
 
@@ -102,45 +108,81 @@ Ext.onReady(function () {
     main.header.updateBreadcrumbs(params);
 
     // init filters and attributes windows
-    filters = new Martview.windows.Fields({
-      id: 'filters',
-      title: 'Add fields to the search form',
-      display_name: 'Fields',
-      dataset_name: current_dataset,
-      field_iconCls: 'filter_icon'
+    var filters_url = './json/' + current_dataset + '.filters.json';
+    loading.start();
+    conn.request({
+      url: filters_url,
+      success: function (response) {
+        var children = Ext.util.JSON.decode(response.responseText);
+        filters = new Martview.windows.Fields({
+          id: 'filters',
+          title: 'Add filters to the search form',
+          display_name: 'Filters',
+          field_iconCls: 'filter_icon',
+          children: children
+        });
+        filters.on('hide', function () {
+          updateSearch(false);
+        });
+        var attributes_url = './json/' + current_dataset + '.attributes.json';
+        loading.start();
+        conn.request({
+          url: attributes_url,
+          success: function (response) {
+            var children = Ext.util.JSON.decode(response.responseText);
+            attributes = new Martview.windows.Fields({
+              id: 'attributes',
+              title: 'Add columns to the results grid',
+              display_name: 'Attributes',
+              field_iconCls: 'attributes_icon',
+              children: children
+            });
+            attributes.on('hide', function () {
+              submitSearch();
+            });
+            updateSearch(true);
+            loading.stop();
+          },
+          failure: function () {
+            loading.stop();
+            Ext.Msg.show({
+              title: Martview.APP_TITLE,
+              msg: Martview.CONN_ERR_MSG,
+              closable: false,
+              width: 300
+            });
+          }
+        });
+        loading.stop();
+      },
+      failure: function () {
+        loading.stop();
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERR_MSG,
+          closable: false,
+          width: 300
+        });
+      }
     });
-    filters.on('hide', updateSearch);
-
-    attributes = new Martview.windows.Fields({
-      id: 'attributes',
-      title: 'Add columns to the results grid',
-      display_name: 'Columns',
-      dataset_name: current_dataset,
-      field_iconCls: 'attribute_icon'
-    });
-    attributes.on('hide', submitSearch);
-
-    // call update search
-    updateSearch();
   }
 
-  function updateSearch() {
+  function updateSearch(submit) {
     // add fields to search form
     if (current_search == 'simple') {
       showSimpleSearch();
     } else if (current_search == 'faceted') {
       showFacetedSearch();
     } else if (current_search == 'advanced') {
-      showAdvancedSearch();
+      showAdvancedSearch(submit);
     } else if (current_search == 'user') {
-      showUserSearch();
+      showUserSearch(submit);
     }
     try {
       form.items.first().focus('', 50);
     } catch(e) {
       // do nothing
     }
-    form.doLayout();
   }
 
   function showSimpleSearch() {
@@ -166,7 +208,7 @@ Ext.onReady(function () {
     {
       // Lucene query syntax help
       xtype: 'fieldset',
-      title: '<img src="./ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+      title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
       defaultType: 'displayfield',
       defaults: {
@@ -193,6 +235,7 @@ Ext.onReady(function () {
         value: 'search by author name (for example, <code>authors:Mishima</code>)'
       }]
     }]);
+    form.doLayout();
   }
 
   function showFacetedSearch(facets) {
@@ -211,34 +254,33 @@ Ext.onReady(function () {
       field.destroy();
     });
 
-    // remove all fields from search form
-    form.getForm().items.each(function (field) {
-      field.destroy();
-    });
-
     // add faceted search fields to form
     if (facets) {
       form.add(facets);
       form.items.each(function (item) {
         if (item.xtype == 'combo') {
-          item.on('select', function (combo) {
+          item.on('select', function () {
             form.add({
               xtype: 'hidden',
-              name: combo.getName(),
-              value: combo.getValue()
+              name: this.getName(),
+              value: this.getValue()
             });
+            submitSearch();
+          });
+        } else if (item.xtype == 'facetfield') {
+          item.on('triggerclick', function () {
             submitSearch();
           });
         }
       });
       form.doLayout();
     } else {
+      form.doLayout();
       submitSearch();
     }
-
   }
 
-  function showAdvancedSearch() {
+  function showAdvancedSearch(submit) {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
@@ -252,7 +294,7 @@ Ext.onReady(function () {
     //       form.add([{
     //         // Lucene query syntax help
     //         xtype: 'fieldset',
-    //         title: '<img src="../ico/question.png" style="vertical-align: bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+    //         title: '<img src="../ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
     //         autoHeight: true,
     //         defaultType: 'displayfield',
     //         defaults: {
@@ -303,9 +345,13 @@ Ext.onReady(function () {
         });
       }
     });
+    form.doLayout();
+    if (submit) {
+      submitSearch();
+    }
   }
 
-  function showUserSearch() {
+  function showUserSearch(submit) {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
@@ -334,6 +380,10 @@ Ext.onReady(function () {
       mode: 'local',
       store: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8'], ['9', '9'], ['10', '10'], ['11', '11'], ['12', '12'], ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16'], ['17', '17'], ['18', '18'], ['19', '19'], ['20', '20'], ['21', '21'], ['22', '22'], ['X', 'X'], ['Y', 'Y']]
     }]);
+    form.doLayout();
+    if (submit) {
+      submitSearch();
+    }
   }
 
   function submitSearch() {
@@ -350,14 +400,10 @@ Ext.onReady(function () {
       form.items.each(function (item) {
         if (item.xtype in {
           'hidden': '',
-          'displayfield': ''
+          'facetfield': ''
         }) {
           var name = item.getName();
           var value = item.getRawValue();
-          var re = /^[^"].*\s+.*[^"]$/i;
-          if (re.test(value)) {
-            value = '"' + value + '"';
-          }
           filters.push(name + ':' + value);
         }
       });
@@ -421,7 +467,12 @@ Ext.onReady(function () {
       },
       failure: function () {
         loading.stop();
-        Ext.Msg.alert(Martview.APP_TITLE, 'Unable to connect to the BioMart service.');
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERR_MSG,
+          closable: false,
+          width: 300
+        });
       }
     });
   }
