@@ -227,6 +227,8 @@ Ext.onReady(function () {
       xtype: 'fieldset',
       title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
+//       collapsed: true,
+//       collapsible: true,
       defaultType: 'displayfield',
       defaults: {
         labelStyle: 'font-weight: bold;'
