@@ -1,6 +1,7 @@
 // FIXME: Loading dialog gets stuck if error
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
+
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -34,9 +35,9 @@ Ext.onReady(function () {
     url: select_search_menu_url,
     success: function (response) {
       var select_search_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.search.selectButton.menu.add(select_search_menu_data);
+      main.header.homeButton.menu.add(select_search_menu_data);
       // add handler to each select search menu item
-      main.search.selectButton.menu.items.each(function (mart_item) {
+      main.header.homeButton.menu.items.each(function (mart_item) {
         mart_item.menu.items.each(function (dataset_item) {
           dataset_item.menu.on('itemclick', selectSearch);
         });

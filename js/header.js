@@ -11,13 +11,11 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'home',
         ref: 'homeButton',
-        text: document.title,
-        iconCls: 'favicon_icon',
+        text: 'Select the dataset to search',
+        iconCls: 'selectdb_icon',
         cls: 'x-btn-text-icon',
         hidden: false,
-        handler: function () {
-          window.location.search = '';
-        }
+        menu: []
       },
       {
         itemId: 'home_sep',
@@ -43,19 +41,6 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: '{{dataset}}',
         cls: 'x-btn-text-icon',
         iconCls: 'dataset_icon',
-        hidden: true
-      },
-      {
-        itemId: 'dataset_sep',
-        text: '>',
-        hidden: true
-      },
-      {
-        itemId: 'search',
-        ref: 'searchButton',
-        text: '{{search}}',
-        cls: 'x-btn-text-icon',
-        iconCls: 'search_icon',
         hidden: true
       },
       '->', {

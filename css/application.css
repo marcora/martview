@@ -1,5 +1,6 @@
 #loading-dialog .loading-indicator {background:url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
 
+.selectdb_icon { background-image: url('../ico/database-export.png') !important; }
 .attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
@@ -26,6 +27,7 @@
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+button.selectdb_icon { background-image: url('../ico/database-export.png') !important; }
 button.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 button.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
