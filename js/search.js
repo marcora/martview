@@ -31,32 +31,33 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: '<span style="color:#15428B; font-weight:bold">Search</span>',
           iconCls: 'search_icon',
           cls: 'x-btn-text-icon',
-          disabled: true,
-          menu: [{
-            itemId:'simple',
-            text: 'Simple',
-            iconCls: 'simple-search_icon',
-            checked: true,
-            group: 'view'
-          },
-          {
-            itemId:'guided',
-            text: 'Guided',
-            iconCls: 'guided-search_icon',
-            group: 'view'
-          },
-          {
-            itemId:'advanced',
-            text: 'Advanced',
-            iconCls: 'advanced-search_icon',
-            group: 'view'
-          },
-          {
-            itemId:'user',
-            text: 'Dimeric protein structures at high-res',
-            iconCls: 'user-search_icon',
-            group: 'view'
-          }]
+          disabled: false,
+          menu: []
+          //           menu: [{
+          //             itemId:'simple',
+          //             text: 'Simple',
+          //             iconCls: 'simple-search_icon',
+          //             checked: true,
+          //             group: 'view'
+          //           },
+          //           {
+          //             itemId:'guided',
+          //             text: 'Guided',
+          //             iconCls: 'guided-search_icon',
+          //             group: 'view'
+          //           },
+          //           {
+          //             itemId:'advanced',
+          //             text: 'Advanced',
+          //             iconCls: 'advanced-search_icon',
+          //             group: 'view'
+          //           },
+          //           {
+          //             itemId:'user',
+          //             text: 'Dimeric protein structures at high-res',
+          //             iconCls: 'user-search_icon',
+          //             group: 'view'
+          //           }]
         },
         '->', {
           itemId: 'customize',
@@ -116,14 +117,12 @@ Martview.Search = Ext.extend(Ext.Panel, {
 
   enableHeaderButtons: function () {
     var search = this;
-    search.selectButton.enable();
     search.customizeButton.enable();
     search.saveButton.enable();
   },
 
   disableHeaderButtons: function () {
     var search = this;
-    search.selectButton.disable();
     search.customizeButton.disable();
     search.saveButton.disable();
   },

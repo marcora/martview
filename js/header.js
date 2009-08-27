@@ -9,27 +9,18 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       // FIX: should adjust height automatically
       height: 26,
       items: [{
-        itemId: 'select',
-        ref: 'selectButton',
+        itemId: 'home',
+        ref: 'homeButton',
         text: document.title,
         iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
-        hidden: false,
-        menu: []
-      },
-      {
-        itemId: 'select_sep',
-        ref: 'selectSeparator',
-        text: '&lArr;',
         hidden: false
       },
       {
-        itemId: 'tip',
-        ref: 'tipButton',
-        text: 'Select database to search',
-        iconCls: 'dataset_icon',
-        cls: 'x-btn-text-icon',
-        hidden: false
+        itemId: 'home_sep',
+        ref: 'homeSeparator',
+        text: '>',
+        hidden: true
       },
       {
         itemId: 'mart',
@@ -42,7 +33,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'mart_sep',
         ref: 'martSeparator',
-        text: '&gt;',
+        text: '>',
         hidden: true
       },
       {
@@ -51,6 +42,20 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: '{{dataset}}',
         cls: 'x-btn-text-icon',
         iconCls: 'dataset_icon',
+        hidden: true
+      },
+      {
+        itemId: 'dataset_sep',
+        ref: 'datasetSeparator',
+        text: '>',
+        hidden: true
+      },
+      {
+        itemId: 'search',
+        ref: 'searchButton',
+        text: '{{search}}',
+        cls: 'x-btn-text-icon',
+        iconCls: 'search_icon',
         hidden: true
       },
       '->', {
@@ -82,11 +87,13 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
 
   updateBreadcrumbs: function (params) {
     header = this;
-    header.tipButton.hide();
-    header.selectSeparator.setText('>');
+    header.homeSeparator.show();
     header.martButton.setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
+    header.datasetSeparator.show();
+    header.searchButton.setIconClass(params.search_name + '_search_icon');
+    header.searchButton.setText(params.search_display_name || params.search_name).show();
   }
 
 });

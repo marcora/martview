@@ -19,6 +19,10 @@ Ext.onReady(function () {
   var default_filters = [];
   var default_attributes = [];
 
+  var spot = new Ext.ux.Spotlight({
+    easing: 'easeOut'
+  });
+
   // init connection
   var conn = new Ext.data.Connection();
 
@@ -31,16 +35,18 @@ Ext.onReady(function () {
   });
 
   // populate select search menu with data from static json file on server
-  var select_dataset_menu_url = './json/marts_and_datasets.json';
+  var select_search_menu_url = './json/marts_and_datasets.json';
   loading.start();
   conn.request({
-    url: select_dataset_menu_url,
+    url: select_search_menu_url,
     success: function (response) {
-      var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.header.selectButton.menu.add(select_dataset_menu_data);
+      var select_search_menu_data = Ext.util.JSON.decode(response.responseText);
+      main.search.selectButton.menu.add(select_search_menu_data);
       // add handler to each select search menu item
-      main.header.selectButton.menu.items.each(function (mart_item) {
-        mart_item.menu.on('itemclick', selectSearch);
+      main.search.selectButton.menu.items.each(function (mart_item) {
+        mart_item.menu.items.each(function (dataset_item) {
+          dataset_item.menu.on('itemclick', selectSearch);
+        });
       });
       // call select search if params are valid
       if (params.mart) {
@@ -49,18 +55,29 @@ Ext.onReady(function () {
         if (params.dataset) {
           // mart + dataset params
           current_dataset = params.dataset_name = params.dataset;
-          current_search = params.search;
-          current_results = params.results;
-          main.header.selectButton.menu.items.each(function (item) {
-            item.menu.items.each(function (item) {
-              if (params.mart_name == item.mart_name && params.dataset_name == item.dataset_name) {
-                params.mart_display_name = item.mart_display_name || item.mart_name;
-                params.dataset_display_name = item.dataset_display_name || item.dataset_name;
-              }
+          if (params.search) {
+            // mart + dataset + search params
+            current_search = params.search_name = params.search;
+            current_results = params.results_name = params.results;
+            main.search.selectButton.menu.items.each(function (item) {
+              item.menu.items.each(function (item) {
+                item.menu.items.each(function (item) {
+                  if (params.mart_name == item.mart_name && params.dataset_name == item.dataset_name && params.search_name == item.search_name) {
+                    params.mart_display_name = item.mart_display_name || item.mart_name;
+                    params.dataset_display_name = item.dataset_display_name || item.dataset_name;
+                    params.search_display_name = item.search_display_name || item.search_name;
+                  }
+                });
+              });
             });
-          });
-          // call select search
-          if (params.dataset_display_name) selectSearch(params);
+            // call select search or spotlight on select search button
+            if (params.search_display_name) {
+              if (spot.active) spot.hide();
+              selectSearch(params);
+            } else {
+              if (!spot.active) spot.show(main.search.selectButton.getId());
+            }
+          }
         }
       }
       loading.stop();
@@ -120,8 +137,8 @@ Ext.onReady(function () {
       results: 'tabular'
     });
 
-    if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search && current_results == params.results)) {
-      window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search + '&results=' + params.results;
+    if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name && current_results == params.results_name)) {
+      window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name + '&results=' + params.results_name;
     }
 
     main.search.enableHeaderButtons();
@@ -257,7 +274,16 @@ Ext.onReady(function () {
     main.search.submitButton.disable();
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(function () {
-      window.location.href = window.location.href;
+      form.items.each(function (item) {
+        if (item.xtype == 'facetfield') {
+          form.add({
+            xtype: 'unfacetfield',
+            name: item.getName(),
+            value: item.getValue()
+          });
+          submitSearch();
+        }
+      });
     });
 
     // remove all fields from search form
