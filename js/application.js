@@ -450,7 +450,6 @@ Ext.onReady(function () {
           'hidden': '',
           'facetfield': ''
         }) {
-          console.info(item.xtype + ' < facet or hidden ' + filter.name);
           filters.push(filter.name + ':' + filter.value);
         }
       });
@@ -462,7 +461,6 @@ Ext.onReady(function () {
         if (item.xtype in {
           'unfacetfield': ''
         }) {
-          console.info(item.xtype + ' < unfacet ' + filter.name);
           filters.remove(filter.name + ':' + filter.value);
         }
       });
