@@ -9,18 +9,27 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       // FIX: should adjust height automatically
       height: 26,
       items: [{
-        itemId: 'home',
-        ref: 'homeButton',
-        text: 'Select the dataset to search',
-        iconCls: 'selectdb_icon',
+        itemId: 'select',
+        ref: 'selectButton',
+        text: document.title,
+        iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
         hidden: false,
         menu: []
       },
       {
-        itemId: 'home_sep',
-        text: '>',
-        hidden: true
+        itemId: 'select_sep',
+        ref: 'selectSeparator',
+        text: '&lArr;',
+        hidden: false
+      },
+      {
+        itemId: 'tip',
+        ref: 'tipButton',
+        text: 'Select database to search',
+        iconCls: 'dataset_icon',
+        cls: 'x-btn-text-icon',
+        hidden: false
       },
       {
         itemId: 'mart',
@@ -32,7 +41,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       },
       {
         itemId: 'mart_sep',
-        text: '>',
+        ref: 'martSeparator',
+        text: '&gt;',
         hidden: true
       },
       {
@@ -72,12 +82,11 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
 
   updateBreadcrumbs: function (params) {
     header = this;
-    header.get('home_sep').show();
-    header.get('mart').setText(params.mart_display_name || params.mart_name).show();
-    header.get('mart_sep').show();
-    header.get('dataset').setText(params.dataset_display_name || params.dataset_name).show();
-    header.get('dataset_sep').show();
-    header.get('search').setText(params.search_display_name || params.search_name).show();
+    header.tipButton.hide();
+    header.selectSeparator.setText('>');
+    header.martButton.setText(params.mart_display_name || params.mart_name).show();
+    header.martSeparator.show();
+    header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
   }
 
 });

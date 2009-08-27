@@ -1,7 +1,6 @@
 // FIXME: Loading dialog gets stuck if error
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
-
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -11,36 +10,37 @@ Ext.onReady(function () {
 
   Ext.QuickTips.init();
 
-  // init viewport and windows
+  // init viewport, windows and vars
   var main = new Martview.Main();
   var form = main.search.items.first(); // FIXME: why not main.search.form?!?
   var loading = new Martview.windows.Loading();
+  var current_mart, current_dataset, current_search, current_results;
   var filters, attributes;
   var default_filters = [];
   var default_attributes = [];
-
-  // init params
-  var current_mart, current_dataset, current_search;
 
   // init connection
   var conn = new Ext.data.Connection();
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
+  // if not specified the default search is 'simple' and the default results is 'tabular'
+  Ext.applyIf(params, {
+    search: 'simple',
+    results: 'tabular'
+  });
 
   // populate select search menu with data from static json file on server
-  var select_search_menu_url = './json/marts_and_datasets.json';
+  var select_dataset_menu_url = './json/marts_and_datasets.json';
   loading.start();
   conn.request({
-    url: select_search_menu_url,
+    url: select_dataset_menu_url,
     success: function (response) {
-      var select_search_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.header.homeButton.menu.add(select_search_menu_data);
+      var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
+      main.header.selectButton.menu.add(select_dataset_menu_data);
       // add handler to each select search menu item
-      main.header.homeButton.menu.items.each(function (mart_item) {
-        mart_item.menu.items.each(function (dataset_item) {
-          dataset_item.menu.on('itemclick', selectSearch);
-        });
+      main.header.selectButton.menu.items.each(function (mart_item) {
+        mart_item.menu.on('itemclick', selectSearch);
       });
       // call select search if params are valid
       if (params.mart) {
@@ -49,28 +49,18 @@ Ext.onReady(function () {
         if (params.dataset) {
           // mart + dataset params
           current_dataset = params.dataset_name = params.dataset;
-          if (params.search) {
-            // mart + dataset + search params
-            current_search = params.search_name = params.search;
-            main.search.selectButton.menu.items.each(function (mart_item) {
-              if (params.mart_name == mart_item.name) {
-                params.mart_display_name = mart_item.display_name || mart_item.name;
+          current_search = params.search;
+          current_results = params.results;
+          main.header.selectButton.menu.items.each(function (item) {
+            item.menu.items.each(function (item) {
+              if (params.mart_name == item.mart_name && params.dataset_name == item.dataset_name) {
+                params.mart_display_name = item.mart_display_name || item.mart_name;
+                params.dataset_display_name = item.dataset_display_name || item.dataset_name;
               }
-              mart_item.menu.items.each(function (dataset_item) {
-                if (params.dataset_name == dataset_item.name) {
-                  params.dataset_display_name = dataset_item.display_name || dataset_item.name;
-                }
-                dataset_item.menu.items.each(function (search_item) {
-                  // FIXME: inconsisten name and display name properties of search item
-                  if (params.search_name == search_item.search_name) {
-                    params.search_display_name = search_item.search_display_name || search_item.search_name;
-                  }
-                });
-              });
             });
-            // call select search
-            if (params.search_display_name) selectSearch(params);
-          }
+          });
+          // call select search
+          if (params.dataset_display_name) selectSearch(params);
         }
       }
       loading.stop();
@@ -99,78 +89,79 @@ Ext.onReady(function () {
     submitSearch();
   });
 
+  main.search.selectButton.menu.on('itemclick', function (item) {
+    selectSearch({
+      mart_name: current_mart,
+      dataset_name: current_dataset,
+      search: item.getItemId(),
+      results: current_results
+    });
+  });
+
+  // extract array of default attributes/filters from tree
+  function extractDefaults(array, defaults) {
+    Ext.each(array, function (node) {
+      if (node['leaf']) {
+        if (node['default']) {
+          defaults.push(node);
+        }
+      } else {
+        extractDefaults(node['children'], defaults);
+      }
+    });
+  }
+
   // event handlers
   function selectSearch(params) {
 
-    if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name)) {
-      window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name;
+    // if not specified the default search is 'simple' and the default results is 'tabular'
+    Ext.applyIf(params, {
+      search: 'simple',
+      results: 'tabular'
+    });
+
+    if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search && current_results == params.results)) {
+      window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search + '&results=' + params.results;
     }
 
     main.search.enableHeaderButtons();
     main.search.enableFormButtons();
     main.header.updateBreadcrumbs(params);
 
-    // extract array of default attributes/filters from tree
-    function extractDefaults(array, defaults) {
-      Ext.each(array, function (node) {
-        if (node['leaf']) {
-          if (node['default']) {
-            defaults.push(node);
-          }
-        } else {
-          extractDefaults(node['children'], defaults);
-        }
-      });
-    }
-
     // init filters and attributes windows
-    var filters_url = './json/' + current_dataset + '.filters.json';
+    var dataset_url = './json/' + current_mart + '.' + current_dataset + '.json';
     loading.start();
     conn.request({
-      url: filters_url,
+      url: dataset_url,
       success: function (response) {
-        var children = Ext.util.JSON.decode(response.responseText);
-        extractDefaults(children, default_filters);
+        var dataset = Ext.util.JSON.decode(response.responseText);
+
+        // filters
+        extractDefaults(dataset.filters, default_filters);
         filters = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filters to the search form',
           display_name: 'Filters',
           field_iconCls: 'filter_icon',
-          children: children
+          children: dataset.filters
         });
         filters.on('hide', function () {
           updateSearch(false);
         });
-        var attributes_url = './json/' + current_dataset + '.attributes.json';
-        loading.start();
-        conn.request({
-          url: attributes_url,
-          success: function (response) {
-            var children = Ext.util.JSON.decode(response.responseText);
-            extractDefaults(children, default_filters);
-            attributes = new Martview.windows.Fields({
-              id: 'attributes',
-              title: 'Add columns to the results grid',
-              display_name: 'Attributes',
-              field_iconCls: 'attributes_icon',
-              children: children
-            });
-            attributes.on('hide', function () {
-              submitSearch();
-            });
-            updateSearch(true);
-            loading.stop();
-          },
-          failure: function () {
-            loading.stop();
-            Ext.Msg.show({
-              title: Martview.APP_TITLE,
-              msg: Martview.CONN_ERR_MSG,
-              closable: false,
-              width: 300
-            });
-          }
+
+        // attributes
+        extractDefaults(dataset.attributes, default_attributes);
+        attributes = new Martview.windows.Fields({
+          id: 'attributes',
+          title: 'Add columns to the results grid',
+          display_name: 'Attributes',
+          field_iconCls: 'attributes_icon',
+          children: dataset.attributes
         });
+        attributes.on('hide', function () {
+          submitSearch();
+        });
+        updateSearch(true);
         loading.stop();
       },
       failure: function () {
@@ -189,8 +180,8 @@ Ext.onReady(function () {
     // add fields to search form
     if (current_search == 'simple') {
       showSimpleSearch();
-    } else if (current_search == 'faceted') {
-      showFacetedSearch();
+    } else if (current_search == 'guided') {
+      showGuidedSearch();
     } else if (current_search == 'advanced') {
       showAdvancedSearch(submit);
     } else if (current_search == 'user') {
@@ -228,8 +219,8 @@ Ext.onReady(function () {
       xtype: 'fieldset',
       title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
-//       collapsed: true,
-//       collapsible: true,
+      //       collapsed: true,
+      //       collapsible: true,
       defaultType: 'displayfield',
       defaults: {
         labelStyle: 'font-weight: bold;'
@@ -258,7 +249,7 @@ Ext.onReady(function () {
     form.doLayout();
   }
 
-  function showFacetedSearch(facets) {
+  function showGuidedSearch(facets) {
     // update gui
     main.footer.updateMessage('tip', 'Use the drop-down boxes to make the search more specific and narrow the results');
 
@@ -270,25 +261,32 @@ Ext.onReady(function () {
     });
 
     // remove all fields from search form
+    // FIXME: this is way to intricate and indeed it's a bug that should be fixed in Ext v3.1
+    form.items.clear();
     form.getForm().items.each(function (field) {
       field.destroy();
     });
 
-    // add faceted search fields to form
+    // add guided search fields to form
     if (facets) {
       form.add(facets);
       form.items.each(function (item) {
         if (item.xtype == 'combo') {
-          item.on('select', function () {
+          item.on('select', function (item) {
             form.add({
               xtype: 'hidden',
-              name: this.getName(),
-              value: this.getValue()
+              name: item.getName(),
+              value: item.getValue()
             });
             submitSearch();
           });
         } else if (item.xtype == 'facetfield') {
-          item.on('triggerclick', function () {
+          item.on('triggerclick', function (item) {
+            form.add({
+              xtype: 'unfacetfield',
+              name: item.getName(),
+              value: item.getValue()
+            });
             submitSearch();
           });
         }
@@ -304,7 +302,7 @@ Ext.onReady(function () {
     // update gui
     main.search.customizeButton.show();
     main.results.customizeButton.show();
-    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add fields to the search form to make the search more specific and narrow the results');
+    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
     // remove all fields from search form
     form.removeAll();
@@ -415,16 +413,31 @@ Ext.onReady(function () {
         type: 'search',
         q: query // FIXME: too verbose!
       };
-    } else if (current_search == 'faceted') {
-      filters = [];
+    } else if (current_search == 'guided') {
+      var filters = [];
       form.items.each(function (item) {
+        var filter = {
+          name: item.getName(),
+          value: item.getRawValue()
+        };
         if (item.xtype in {
           'hidden': '',
           'facetfield': ''
         }) {
-          var name = item.getName();
-          var value = item.getRawValue();
-          filters.push(name + ':' + value);
+          console.info(item.xtype + ' < facet or hidden ' + filter.name);
+          filters.push(filter.name + ':' + filter.value);
+        }
+      });
+      form.items.each(function (item) {
+        var filter = {
+          name: item.getName(),
+          value: item.getRawValue()
+        };
+        if (item.xtype in {
+          'unfacetfield': ''
+        }) {
+          console.info(item.xtype + ' < unfacet ' + filter.name);
+          filters.remove(filter.name + ':' + filter.value);
         }
       });
       var params = {
@@ -479,9 +492,9 @@ Ext.onReady(function () {
         var colModel = new Ext.grid.ColumnModel(data.columns);
         main.results.load(store, colModel);
         main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
-        // build faceted search form
-        if (current_search == 'faceted') {
-          showFacetedSearch(data.facets);
+        // build guided search form
+        if (current_search == 'guided') {
+          showGuidedSearch(data.facets);
         }
         loading.stop();
       },

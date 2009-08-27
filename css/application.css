@@ -1,12 +1,15 @@
 #loading-dialog .loading-indicator {background:url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
 
-.selectdb_icon { background-image: url('../ico/database-export.png') !important; }
 .attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
 .mart_icon { background-image: url('../ico/databases.png') !important; }
 .dataset_icon { background-image: url('../ico/database.png') !important; }
 .search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.simple-search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided-search_icon { background-image: url('../ico/compass.png') !important; }
+.advanced-search_icon { background-image: url('../ico/binocular.png') !important; }
+.user-search_icon { background-image: url('../ico/user.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
 .results_icon { background-image: url('../ico/application-detail.png') !important; }
 .view_icon { background-image: url('../ico/application.png') !important; }
@@ -27,7 +30,6 @@
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
-button.selectdb_icon { background-image: url('../ico/database-export.png') !important; }
 button.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 button.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }

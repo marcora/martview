@@ -16,3 +16,7 @@ Martview.form.FacetField = Ext.extend(Ext.form.TriggerField, {
 });
 
 Ext.reg('facetfield', Martview.form.FacetField);
+
+Martview.form.UnFacetField = Ext.extend(Ext.form.Hidden, {});
+
+Ext.reg('unfacetfield', Martview.form.UnFacetField);
