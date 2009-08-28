@@ -35,6 +35,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   dataset_name: null,
   field_iconCls: null,
   children: [],
+  default_fields: [],
 
   // hard config
   initComponent: function () {
@@ -60,7 +61,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       items: [{
         region: 'west',
         xtype: 'arraytreepanel',
-        ref: '../all',
+        ref: 'all',
         itemId: 'all',
         title: 'All ' + this.display_name.toLowerCase(),
         iconCls: 'node_all_icon',
@@ -106,23 +107,23 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               expandOnFilter: true
             });
           },
-//           load: function (node) {
-//             log.info(node.id);
-//             if (node.isLeaf() && node.attributes.default) {
-//               var selected = this.get('selected');
-//               selected.add({
-//                 xtype:
-//                 'field',
-//                 treenode: node,
-//                 field_iconCls: selected.ownerCt.field_iconCls
-//               });
-//               selected.doLayout();
-//               node.disable();
-//             }
-//           },
+          afterrender: function () {
+            var all = this.ownerCt.get('all'); // FIXME: why not this.ownerCt.all?!?
+            var selected = this.ownerCt.get('selected'); // FIXME: why not this.ownerCt.selected?!?
+            Ext.each(this.ownerCt.default_fields, function (default_field) {
+              var node = all.getNodeById(default_field.id);
+              selected.add({
+                xtype: 'field',
+                treenode: node,
+                field_iconCls: selected.ownerCt.field_iconCls
+              });
+              node.disable();
+            });
+            selected.doLayout();
+          },
           dblclick: function (node) {
             if (node.isLeaf()) {
-              var selected = this.ownerCt.get('selected');
+              var selected = this.ownerCt.selected;
               selected.add({
                 xtype: 'field',
                 treenode: node,
@@ -137,7 +138,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       {
         region: 'center',
         itemId: 'selected',
-        ref: '../selected',
+        ref: 'selected',
         items: [],
         autoScroll: true,
         padding: 10,
@@ -152,12 +153,34 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         tbar: [{
           text: 'Reset to default',
           iconCls: 'undo_icon',
-          cls: 'x-btn-text-icon'
+          cls: 'x-btn-text-icon',
+          handler: this.resetToDefaultFields,
+          scope: this
         }]
       }]
     });
 
     // call parent
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
+  },
+
+  resetToDefaultFields: function () {
+    var all = this.get('all'); // FIXME: why not this.selected?!?
+    var selected = this.get('selected'); // FIXME: why not this.selected?!?
+    selected.items.each(function (item) {
+      item.treenode.enable();
+      selected.remove(item);
+    });
+    Ext.each(this.default_fields, function (default_field) {
+      var node = all.getNodeById(default_field.id);
+      selected.add({
+        xtype: 'field',
+        treenode: node,
+        field_iconCls: this.field_iconCls
+      });
+      node.disable();
+    },
+    this);
+    selected.doLayout();
   }
 });

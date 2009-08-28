@@ -14,7 +14,10 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: document.title,
         iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
-        hidden: false
+        hidden: false,
+        handler: function () {
+          window.location.search = '';
+        }
       },
       {
         itemId: 'home_sep',

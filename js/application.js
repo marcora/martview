@@ -12,10 +12,10 @@ Ext.onReady(function () {
 
   // init viewport, windows and vars
   var main = new Martview.Main();
-  var form = main.search.items.first(); // FIXME: why not main.search.form?!?
+  var form = main.search.form;
   var loading = new Martview.windows.Loading();
   var current_mart, current_dataset, current_search, current_results;
-  var filters, attributes;
+  var filters_win, attributes_win;
   var default_filters = [];
   var default_attributes = [];
 
@@ -95,11 +95,11 @@ Ext.onReady(function () {
 
   // bindings
   main.search.customizeButton.on('click', function () {
-    filters.show();
+    filters_win.show();
   });
 
   main.results.customizeButton.on('click', function () {
-    attributes.show();
+    attributes_win.show();
   });
 
   main.search.submitButton.on('click', function () {
@@ -155,27 +155,29 @@ Ext.onReady(function () {
 
         // filters
         extractDefaults(dataset.filters, default_filters);
-        filters = new Martview.windows.Fields({
+        filters_win = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filters to the search form',
           display_name: 'Filters',
           field_iconCls: 'filter_icon',
-          children: dataset.filters
+          children: dataset.filters,
+          default_fields: default_filters
         });
-        filters.on('hide', function () {
+        filters_win.on('hide', function () {
           updateSearch(false);
         });
 
         // attributes
         extractDefaults(dataset.attributes, default_attributes);
-        attributes = new Martview.windows.Fields({
+        attributes_win = new Martview.windows.Fields({
           id: 'attributes',
           title: 'Add columns to the results grid',
           display_name: 'Attributes',
-          field_iconCls: 'attributes_icon',
-          children: dataset.attributes
+          field_iconCls: 'attribute_icon',
+          children: dataset.attributes,
+          default_fields: default_attributes
         });
-        attributes.on('hide', function () {
+        attributes_win.on('hide', function () {
           submitSearch();
         });
         updateSearch(true);
@@ -200,78 +202,46 @@ Ext.onReady(function () {
     } else if (current_search == 'guided') {
       showGuidedSearch();
     } else if (current_search == 'advanced') {
-      showAdvancedSearch(submit);
+      if (filters_win.rendered) {
+        var filters = [];
+        filters_win.selected.items.each(function (item) {
+          filters.push(item.treenode.attributes);
+        });
+      } else {
+        var filters = default_filters;
+      }
+      showAdvancedSearch(filters);
+      if (submit) submitSearch();
     } else if (current_search == 'user') {
-      showUserSearch(submit);
-    }
-    try {
-      form.items.first().focus('', 50);
-    } catch(e) {
-      // do nothing
+      var filters = []; // TODO: get filters from saved user search, with values!?!
+      showAdvancedSearch(filters);
+      if (submit) submitSearch();
     }
   }
 
   function showSimpleSearch() {
-    // update gui
+    // update message
     main.footer.updateMessage('tip', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
-    // remove all fields from search form
-    form.removeAll();
+    // show simple form
+    main.search.showSimpleForm();
 
-    // add simple search fields to form
-    form.add([{
-      xtype: 'textfield',
-      anchor: '100%',
-      fieldLabel: 'Enter search terms',
-      listeners: {
-        specialkey: function (f, o) {
-          if (o.getKey() == 13) {
-            submitSearch();
-          }
-        }
+    // add handlers to field
+    form.items.first().on('specialkey', function (f, o) {
+      if (o.getKey() == 13) {
+        submitSearch();
       }
-    },
-    {
-      // Lucene query syntax help
-      xtype: 'fieldset',
-      title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
-      autoHeight: true,
-      //       collapsed: true,
-      //       collapsible: true,
-      defaultType: 'displayfield',
-      defaults: {
-        labelStyle: 'font-weight: bold;'
-      },
-      items: [{
-        hideLabel: true,
-        value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
-      },
-      {
-        fieldLabel: 'pdb_id',
-        value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
-      },
-      {
-        fieldLabel: 'experiment_type',
-        value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
-      },
-      {
-        fieldLabel: 'resolution',
-        value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
-      },
-      {
-        fieldLabel: 'authors',
-        value: 'search by author name (for example, <code>authors:Mishima</code>)'
-      }]
-    }]);
-    form.doLayout();
+    });
   }
 
   function showGuidedSearch(facets) {
-    // update gui
+    // update message
     main.footer.updateMessage('tip', 'Use the drop-down boxes to make the search more specific and narrow the results');
 
-    // disable submit button and reassign reset button handlers
-    main.search.submitButton.disable();
+    // show guided form
+    main.search.showGuidedForm(facets);
+
+    // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(function () {
       form.items.each(function (item) {
@@ -281,21 +251,13 @@ Ext.onReady(function () {
             name: item.getName(),
             value: item.getValue()
           });
-          submitSearch();
         }
       });
+      submitSearch();
     });
 
-    // remove all fields from search form
-    // FIXME: this is way to intricate and indeed it's a bug that should be fixed in Ext v3.1
-    form.items.clear();
-    form.getForm().items.each(function (field) {
-      field.destroy();
-    });
-
-    // add guided search fields to form
+    // add handlers to fields
     if (facets) {
-      form.add(facets);
       form.items.each(function (item) {
         if (item.xtype == 'combo') {
           item.on('select', function (item) {
@@ -317,117 +279,17 @@ Ext.onReady(function () {
           });
         }
       });
-      form.doLayout();
     } else {
-      form.doLayout();
       submitSearch();
     }
   }
 
-  function showAdvancedSearch(submit) {
-    // update gui
-    main.search.customizeButton.show();
-    main.results.customizeButton.show();
+  function showAdvancedSearch(filters) {
+    // update message
     main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
-    // remove all fields from search form
-    form.removeAll();
-
-    //     // add help if no filters are selected
-    //     if (filters.get('selected').items.getCount() == 0) {
-    //       form.add([{
-    //         // Lucene query syntax help
-    //         xtype: 'fieldset',
-    //         title: '<img src="../ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
-    //         autoHeight: true,
-    //         defaultType: 'displayfield',
-    //         defaults: {
-    //           labelStyle: 'font-weight: bold;'
-    //         },
-    //         items: [{
-    //           hideLabel: true,
-    //           value: 'Add fields to the form if you want to narrow down the search'
-    //         }]
-    //       }]);
-    //     }
-    // add advanced search fields (filters) to form
-    filters.get('selected').items.each(function (item) {
-      if (item.treenode.attributes.qualifier in {
-        '=': '',
-        '>': '',
-        '<': ''
-      }) {
-        if (item.treenode.attributes.options) {
-          form.add([{
-            xtype: 'combo',
-            anchor: '100%',
-            name: item.treenode.attributes.name,
-            fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name,
-            editable: false,
-            forceSelection: true,
-            lastSearchTerm: false,
-            triggerAction: 'all',
-            mode: 'local',
-            store: item.treenode.attributes.options.split(',')
-          }]);
-        } else {
-          form.add([{
-            xtype: 'textfield',
-            anchor: '100%',
-            name: item.treenode.attributes.name,
-            fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name
-          }]);
-        }
-      } else if (item.treenode.attributes.qualifier in {
-        'in': ''
-      }) {
-        form.add({
-          xtype: 'textfield',
-          anchor: '100%',
-          name: item.treenode.attributes.name,
-          fieldLabel: item.treenode.attributes.display_name || item.treenode.attributes.name
-        });
-      }
-    });
-    form.doLayout();
-    if (submit) {
-      submitSearch();
-    }
-  }
-
-  function showUserSearch(submit) {
-    // update gui
-    main.search.customizeButton.show();
-    main.results.customizeButton.show();
-    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results.');
-
-    // remove all fields from search form
-    form.removeAll();
-
-    // TODO: Add user-defined search fields to form
-    // bogus search form
-    form.add([{
-      xtype: 'textfield',
-      anchor: '100%',
-      fieldLabel: '% GC',
-      value: 80
-    },
-    {
-      xtype: 'combo',
-      anchor: '100%',
-      fieldLabel: 'Chromosome',
-      value: 5,
-      editable: false,
-      forceSelection: true,
-      lastSearchTerm: false,
-      triggerAction: 'all',
-      mode: 'local',
-      store: [['1', '1'], ['2', '2'], ['3', '3'], ['4', '4'], ['5', '5'], ['6', '6'], ['7', '7'], ['8', '8'], ['9', '9'], ['10', '10'], ['11', '11'], ['12', '12'], ['13', '13'], ['14', '14'], ['15', '15'], ['16', '16'], ['17', '17'], ['18', '18'], ['19', '19'], ['20', '20'], ['21', '21'], ['22', '22'], ['X', 'X'], ['Y', 'Y']]
-    }]);
-    form.doLayout();
-    if (submit) {
-      submitSearch();
-    }
+    // show advanced search form
+    main.search.showAdvancedForm(filters || filters_win.get('selected'));
   }
 
   function submitSearch() {
@@ -499,13 +361,13 @@ Ext.onReady(function () {
       url: '/martservice',
       params: params,
       success: function (response) {
+        main.results.enableHeaderButtons((current_search == 'advanced'));
         var data = Ext.util.JSON.decode(response.responseText);
         try {
           console.dir(data);
         } catch(e) {
           // foo
         }
-        main.results.enableHeaderButtons();
         var store = new Ext.data.JsonStore({
           autoDestroy: true,
           root: 'rows',
@@ -533,6 +395,7 @@ Ext.onReady(function () {
       }
     });
   }
+
   function buildQueryXml(values) {
     var dataset_filters = [];
     main.search.items.first().items.each(function (item) {
@@ -544,7 +407,7 @@ Ext.onReady(function () {
       }
     });
     var dataset_attributes = [];
-    attributes.get('selected').items.each(function (item) {
+    attributes_win.get('selected').items.each(function (item) {
       dataset_attributes.push({
         name: item.treenode.attributes.name
       });

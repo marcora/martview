@@ -9,7 +9,7 @@
 .simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
 .guided_search_icon { background-image: url('../ico/compass.png') !important; }
 .advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
-.user_search_icon { background-image: url('../ico/user-green.png') !important; }
+.user_search_icon { background-image: url('../ico/flashlight.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
 .results_icon { background-image: url('../ico/application-detail.png') !important; }
 .view_icon { background-image: url('../ico/application.png') !important; }
@@ -25,7 +25,7 @@
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
 .help_icon { background-image: url('../ico/question.png') !important; }
 
-.x-form-facet-field { font-size: 1em !important; }
+.x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
 
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }

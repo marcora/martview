@@ -87,7 +87,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         cls: 'x-btn-text-icon',
         disabled: true,
         handler: function () {
-          this.items.first().getForm().reset(); // FIXME: should be this.form!
+          this.form.getForm().reset(); // FIXME: should be this.form!
         },
         scope: this // search panel scope
       },
@@ -102,7 +102,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       items: [{
         xtype: 'form',
         itemId: 'form',
-        ref: '../form',
+        ref: 'form',
         border: false,
         padding: 10,
         labelAlign: 'top',
@@ -115,16 +115,10 @@ Martview.Search = Ext.extend(Ext.Panel, {
     Martview.Search.superclass.initComponent.apply(this, arguments);
   },
 
-  enableHeaderButtons: function () {
+  enableHeaderButtons: function (customize) {
     var search = this;
-    search.customizeButton.enable();
+    if (customize) search.customizeButton.show();
     search.saveButton.enable();
-  },
-
-  disableHeaderButtons: function () {
-    var search = this;
-    search.customizeButton.disable();
-    search.saveButton.disable();
   },
 
   enableFormButtons: function () {
@@ -133,10 +127,147 @@ Martview.Search = Ext.extend(Ext.Panel, {
     search.submitButton.enable();
   },
 
-  disableFormButtons: function () {
+  showSimpleForm: function () {
     var search = this;
-    search.resetButton.disable();
+    var form = this.form;
+
+    // enable header buttons
+    this.enableHeaderButtons();
+
+    // remove all fields from search form
+    form.removeAll();
+
+    // add field to search form
+    form.add([{
+      xtype: 'textfield',
+      anchor: '100%',
+      fieldLabel: 'Enter search terms'
+    },
+    {
+      // Lucene query syntax help
+      xtype: 'fieldset',
+      title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+      autoHeight: true,
+      //       collapsed: true,
+      //       collapsible: true,
+      defaultType: 'displayfield',
+      defaults: {
+        labelStyle: 'font-weight: bold;'
+      },
+      items: [{
+        hideLabel: true,
+        value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
+      },
+      {
+        fieldLabel: 'pdb_id',
+        value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
+      },
+      {
+        fieldLabel: 'experiment_type',
+        value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
+      },
+      {
+        fieldLabel: 'resolution',
+        value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
+      },
+      {
+        fieldLabel: 'authors',
+        value: 'search by author name (for example, <code>authors:Mishima</code>)'
+      }]
+    }]);
+
+    // refresh form layout
+    form.doLayout();
+
+    // focus first field
+    form.items.first().focus('', 50);
+  },
+
+  showGuidedForm: function (facets) {
+    var search = this;
+    var form = search.form;
+
+    // enable header buttons
+    this.enableHeaderButtons();
+
+    // disable submit button
     search.submitButton.disable();
+
+    // remove all fields from search form
+    // FIXME: this is way to intricate and indeed it's a bug that should be fixed in Ext v3.1
+    form.items.clear();
+    form.getForm().items.each(function (field) {
+      field.destroy();
+    });
+
+    // add fields to search form
+    if (facets) {
+      form.add(facets);
+    }
+
+    // refresh form layout
+    form.doLayout();
+  },
+
+  showAdvancedForm: function (filters) {
+    var search = this;
+    var form = search.form;
+
+    // enable header buttons
+    this.enableHeaderButtons(true);
+
+    // remove all fields from search form
+    form.removeAll();
+
+    // add fields to search form
+    Ext.each(filters, function (filter) {
+      if (filter.qualifier in {
+        '=': '',
+        '>': '',
+        '<': ''
+      }) {
+        if (filter.options) {
+          form.add([{
+            xtype: 'combo',
+            anchor: '100%',
+            name: filter.name,
+            fieldLabel: filter.display_name || filter.name,
+            editable: false,
+            forceSelection: true,
+            lastSearchTerm: false,
+            triggerAction: 'all',
+            mode: 'local',
+            store: filter.options.split(',')
+          }]);
+        } else {
+          form.add([{
+            xtype: 'textfield',
+            anchor: '100%',
+            name: filter.name,
+            fieldLabel: filter.display_name || filter.name
+          }]);
+        }
+      } else if (filter.qualifier in {
+        'in': ''
+      }) {
+        form.add({
+          xtype: 'textfield',
+          anchor: '100%',
+          name: filter.name,
+          fieldLabel: filter.display_name || filter.name
+        });
+      }
+    });
+
+    // refresh form layout
+    form.doLayout();
+
+    // focus first field
+    try {
+      form.items.first().focus('', 50);
+    } catch(e) {
+      // do nothing
+    }
   }
 
 });

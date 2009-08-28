@@ -49,8 +49,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Add column',
           iconCls: 'add_icon',
           cls: 'x-btn-text-icon',
-          disabled: true,
-          hidden: true
+          disabled: true
         },
         {
           itemId: 'save',
@@ -79,13 +78,6 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.selectButton.enable();
     results.customizeButton.enable();
     results.saveButton.enable();
-  },
-
-  disableHeaderButtons: function () {
-    var results = this;
-    results.selectButton.disable();
-    results.customizeButton.disable();
-    results.saveButton.disable();
   },
 
   updateCounter: function (message) {
