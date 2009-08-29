@@ -10,21 +10,33 @@ Ext.onReady(function () {
 
   Ext.QuickTips.init();
 
-  // init viewport, windows and vars
+  // init viewport, windows and global vars
   var main = new Martview.Main();
   var form = main.search.form;
   var loading = new Martview.windows.Loading();
-  var current_mart, current_dataset, current_search, current_results;
   var filters_win, attributes_win;
-  var default_filters = [];
-  var default_attributes = [];
+  var default_filters, default_attributes;
+  var current_mart, current_dataset, current_search, current_results;
 
+  // init spot
   var spot = new Ext.ux.Spotlight({
     easing: 'easeOut'
   });
 
   // init connection
-  var conn = new Ext.data.Connection();
+  var conn = new Ext.data.Connection({
+    listeners: {
+      beforerequest: function () {
+        loading.start();
+      },
+      requestcomplete: function () {
+        loading.stop();
+      },
+      requestexception: function () {
+        loading.stop();
+      }
+    }
+  });
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
@@ -36,7 +48,6 @@ Ext.onReady(function () {
 
   // populate select search menu with data from static json file on server
   var select_search_menu_url = './json/marts_and_datasets.json';
-  loading.start();
   conn.request({
     url: select_search_menu_url,
     success: function (response) {
@@ -80,10 +91,8 @@ Ext.onReady(function () {
           }
         }
       }
-      loading.stop();
     },
     failure: function () {
-      loading.stop();
       Ext.Msg.show({
         title: Martview.APP_TITLE,
         msg: Martview.CONN_ERR_MSG,
@@ -104,15 +113,6 @@ Ext.onReady(function () {
 
   main.search.submitButton.on('click', function () {
     submitSearch();
-  });
-
-  main.search.selectButton.menu.on('itemclick', function (item) {
-    selectSearch({
-      mart_name: current_mart,
-      dataset_name: current_dataset,
-      search: item.getItemId(),
-      results: current_results
-    });
   });
 
   // extract array of default attributes/filters from tree
@@ -145,9 +145,13 @@ Ext.onReady(function () {
     main.search.enableFormButtons();
     main.header.updateBreadcrumbs(params);
 
+    // reset default filters and attributes
+    default_filters = [];
+    default_attributes = [];
+
     // init filters and attributes windows
     var dataset_url = './json/' + current_mart + '.' + current_dataset + '.json';
-    loading.start();
+
     conn.request({
       url: dataset_url,
       success: function (response) {
@@ -181,10 +185,8 @@ Ext.onReady(function () {
           submitSearch();
         });
         updateSearch(true);
-        loading.stop();
       },
       failure: function () {
-        loading.stop();
         Ext.Msg.show({
           title: Martview.APP_TITLE,
           msg: Martview.CONN_ERR_MSG,
@@ -289,7 +291,7 @@ Ext.onReady(function () {
     main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
     // show advanced search form
-    main.search.showAdvancedForm(filters || filters_win.get('selected'));
+    main.search.showAdvancedForm(filters);
   }
 
   function submitSearch() {
@@ -356,7 +358,6 @@ Ext.onReady(function () {
     }
 
     // submit
-    loading.start();
     conn.request({
       url: '/martservice',
       params: params,
@@ -382,16 +383,16 @@ Ext.onReady(function () {
         if (current_search == 'guided') {
           showGuidedSearch(data.facets);
         }
-        loading.stop();
+        form.focus();
       },
       failure: function () {
-        loading.stop();
         Ext.Msg.show({
           title: Martview.APP_TITLE,
           msg: Martview.CONN_ERR_MSG,
           closable: false,
           width: 300
         });
+        form.focus();
       }
     });
   }
@@ -407,11 +408,19 @@ Ext.onReady(function () {
       }
     });
     var dataset_attributes = [];
-    attributes_win.get('selected').items.each(function (item) {
-      dataset_attributes.push({
-        name: item.treenode.attributes.name
+    if (attributes_win.rendered) {
+      attributes_win.get('selected').items.each(function (item) {
+        dataset_attributes.push({
+          name: item.treenode.attributes.name
+        });
       });
-    });
+    } else {
+      Ext.each(default_attributes, function (default_attribute) {
+        dataset_attributes.push({
+          name: default_attribute.name
+        });
+      });
+    }
     values = values || new Object;
     Ext.applyIf(values, {
       virtualSchemaName: 'default',

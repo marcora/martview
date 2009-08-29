@@ -41,3 +41,13 @@ Ext.override(Ext.form.Field, {
   }
 });
 
+// add the focus method to Ext.form.FormPanel
+Ext.override(Ext.form.FormPanel, {
+  focus: function () {
+    try {
+      this.items.first().focus('', 50);
+    } catch(e) {
+      // do nothing if no form fields
+    }
+  }
+});

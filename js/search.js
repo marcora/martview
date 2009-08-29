@@ -87,7 +87,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
         cls: 'x-btn-text-icon',
         disabled: true,
         handler: function () {
-          this.form.getForm().reset(); // FIXME: should be this.form!
+          this.form.getForm().reset();
+          this.form.focus();
         },
         scope: this // search panel scope
       },
@@ -176,11 +177,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       }]
     }]);
 
-    // refresh form layout
+    // refresh form layout and focus
     form.doLayout();
-
-    // focus first field
-    form.items.first().focus('', 50);
+    form.focus();
   },
 
   showGuidedForm: function (facets) {
@@ -205,8 +204,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       form.add(facets);
     }
 
-    // refresh form layout
+    // refresh form layout and focus
     form.doLayout();
+    form.focus();
   },
 
   showAdvancedForm: function (filters) {
@@ -220,6 +220,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     form.removeAll();
 
     // add fields to search form
+    var field;
     Ext.each(filters, function (filter) {
       if (filter.qualifier in {
         '=': '',
@@ -227,7 +228,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         '<': ''
       }) {
         if (filter.options) {
-          form.add([{
+          field = form.add([{
             xtype: 'combo',
             anchor: '100%',
             name: filter.name,
@@ -240,7 +241,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
             store: filter.options.split(',')
           }]);
         } else {
-          form.add([{
+          field = form.add([{
             xtype: 'textfield',
             anchor: '100%',
             name: filter.name,
@@ -250,24 +251,20 @@ Martview.Search = Ext.extend(Ext.Panel, {
       } else if (filter.qualifier in {
         'in': ''
       }) {
-        form.add({
+        field = form.add({
           xtype: 'textfield',
           anchor: '100%',
           name: filter.name,
           fieldLabel: filter.display_name || filter.name
         });
       }
+      // set field value if defined
+      if (filter.value) field.setValue(filter.value);
     });
 
-    // refresh form layout
+    // refresh form layout and focus
     form.doLayout();
-
-    // focus first field
-    try {
-      form.items.first().focus('', 50);
-    } catch(e) {
-      // do nothing
-    }
+    form.focus();
   }
 
 });
