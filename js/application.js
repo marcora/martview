@@ -174,14 +174,6 @@ Ext.onReady(function () {
           submitSearch();
         });
         updateSearch(true);
-      },
-      failure: function () {
-        Ext.Msg.show({
-          title: Martview.APP_TITLE,
-          msg: Martview.CONN_ERR_MSG,
-          closable: false,
-          width: 300
-        });
       }
     });
   }
@@ -356,7 +348,7 @@ Ext.onReady(function () {
         try {
           console.dir(data);
         } catch(e) {
-          // foo
+          // pass
         }
         var store = new Ext.data.JsonStore({
           autoDestroy: true,
@@ -375,12 +367,6 @@ Ext.onReady(function () {
         form.focus();
       },
       failure: function () {
-        Ext.Msg.show({
-          title: Martview.APP_TITLE,
-          msg: Martview.CONN_ERR_MSG,
-          closable: false,
-          width: 300
-        });
         form.focus();
       }
     });

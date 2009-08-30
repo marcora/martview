@@ -13,15 +13,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
       collapseMode: 'mini',
       hideCollapseTool: true,
       bodyStyle: 'background-color:#dfe8f6;',
-      //       title: 'Search',
-      //       tools: [{
-      //         id: 'gear',
-      //         qtip: 'Customize the search panel'
-      //       },
-      //       {
-      //         id: 'save',
-      //         qtip: 'Save the search'
-      //       }],
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
         height: 26,
