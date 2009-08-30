@@ -138,7 +138,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
     {
       // Lucene query syntax help
       xtype: 'fieldset',
-      title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
+      title: 'Help',
+      // title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
       //       collapsed: true,
       //       collapsible: true,
