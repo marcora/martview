@@ -11,7 +11,7 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
     Ext.apply(this, {
       itemId: this.treenode.id,
       items: [{
-        text: '<b>' + (this.treenode.attributes.display_name || this.treenode.attributes.name) + '</b>',
+        text: this.treenode.attributes.display_name || this.treenode.attributes.name,
         tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
         iconCls: this.field_iconCls,
         cls: 'x-btn-text-icon'

@@ -26,16 +26,14 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
 .mart_icon { background-image: url('../ico/databases.png') !important; }
 .dataset_icon { background-image: url('../ico/database.png') !important; }
-.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
 .simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
 .guided_search_icon { background-image: url('../ico/compass.png') !important; }
 .advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
 .user_search_icon { background-image: url('../ico/user.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
-.results_icon { background-image: url('../ico/application-detail.png') !important; }
-.tabular_results_icon { background-image: url('../ico/application-table.png') !important; }
-.itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
-.map_results_icon { background-image: url('../ico/application-image.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
+.itemized_results_icon { background-image: url('../ico/card-address.png') !important; }
+.map_results_icon { background-image: url('../ico/map.png') !important; }
 .field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 .node_all_icon { background-image: url('../ico/node.png') !important; }
@@ -65,9 +63,6 @@ button.tip_icon { background-image: url('../ico/light-bulb.png') !important; }
 button.alert_icon { background-image: url('../ico/exclamation.png') !important; }
 button.reset_icon { background-image: url('../ico/cross.png') !important; }
 button.view_icon { background-image: url('../ico/application.png') !important; }
-button.tabular_view_icon { background-image: url('../ico/application-table.png') !important; }
-button.itemized_view_icon { background-image: url('../ico/application-list.png') !important; }
-button.map_view_icon { background-image: url('../ico/application-image.png') !important; }
 button.save_icon { background-image: url('../ico/disk.png') !important; }
 button.edit_icon { background-image: url('../ico/gear.png') !important; }
 button.add_icon { background-image: url('../ico/plus-circle.png') !important; }
@@ -75,4 +70,3 @@ button.help_icon { background-image: url('../ico/question.png') !important; }
 button.user_icon { background-image: url('../ico/user.png') !important; }
 button.count_icon { background-image: url('../ico/counter.png') !important; }
 button.print_icon { background-image: url('../ico/printer.png') !important; }
-button.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
