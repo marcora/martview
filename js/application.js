@@ -29,12 +29,7 @@ Ext.onReady(function () {
       },
       requestexception: function () {
         loading.stop();
-        Ext.Msg.show({
-          title: Martview.APP_TITLE,
-          msg: Martview.CONN_ERR_MSG,
-          closable: false,
-          width: 300
-        });
+        Ext.Msg.alert(Martview.APP_TITLE, Martview.CONN_ERR_MSG);
       }
     }
   });
@@ -97,6 +92,16 @@ Ext.onReady(function () {
     submitSearch();
   });
 
+  main.search.selectButton.menu.on('itemclick', function (item) {
+    params.search_name = item.getItemId();
+    selectSearch(params);
+  });
+
+  main.results.selectButton.menu.on('itemclick', function (item) {
+    params.results_name = item.getItemId();
+    selectSearch(params);
+  });
+
   // extract array of default attributes/filters from tree
   function extractDefaults(array, defaults) {
     Ext.each(array, function (node) {
@@ -115,14 +120,16 @@ Ext.onReady(function () {
 
     // if not specified the default search is 'simple' and the default results is 'tabular'
     Ext.applyIf(params, {
-      search: 'simple',
-      results: 'tabular'
+      search_name: 'simple',
+      results_name: 'tabular'
     });
 
     if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name && current_results == params.results_name)) {
       window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name + '&results=' + params.results_name;
     }
 
+    main.search.selectButton.setIconClass(params.search_name + '_search_icon');
+    main.results.selectButton.setIconClass(params.results_name + '_results_icon');
     main.search.enableHeaderButtons();
     main.search.enableFormButtons();
     main.header.updateBreadcrumbs(params);

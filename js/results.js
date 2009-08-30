@@ -23,23 +23,26 @@ Martview.Results = Ext.extend(Ext.Panel, {
           itemId: 'select',
           ref: '../selectButton',
           text: '<span style="color:#15428B; font-weight:bold">Results</span>',
-          iconCls: 'results_icon',
+          iconCls: 'tabular_results_icon',
           cls: 'x-btn-text-icon',
           disabled: true,
           menu: [{
             text: 'Tabular',
-            iconCls: 'tabular_view_icon',
+            itemId: 'tabular',
+            iconCls: 'tabular_results_icon',
             checked: true,
             group: 'formt'
           },
           {
             text: 'Itemized',
-            iconCls: 'itemized_view_icon',
+            itemId: 'itemized',
+            iconCls: 'itemized_results_icon',
             group: 'format'
           },
           {
             text: 'Map',
-            iconCls: 'map_view_icon',
+            itemId: 'map',
+            iconCls: 'map_results_icon',
             group: 'format'
           }]
         },

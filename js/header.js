@@ -20,16 +20,16 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'home_sep',
         ref: 'homeSeparator',
-        text: '>',
-        hidden: true
+        text: '&lArr;',
+        hidden: false
       },
       {
         itemId: 'mart',
         ref: 'martButton',
-        text: '{{mart}}',
+        text: 'Select the dataset to search',
         cls: 'x-btn-text-icon',
-        iconCls: 'mart_icon',
-        hidden: true
+        iconCls: 'alert_icon',
+        hidden: false
       },
       {
         itemId: 'mart_sep',
@@ -40,7 +40,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'dataset',
         ref: 'datasetButton',
-        text: '{{dataset}}',
+        text: 'dataset_name',
         cls: 'x-btn-text-icon',
         iconCls: 'dataset_icon',
         hidden: true
@@ -75,8 +75,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
   updateBreadcrumbs: function (params) {
     header = this;
     header.homeButton.addClass('no-menu-arrow');
-    header.homeSeparator.show();
-    header.martButton.setText(params.mart_display_name || params.mart_name).show();
+    header.homeSeparator.setText('>');
+    header.martButton.setIconClass('mart_icon').setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
   }
