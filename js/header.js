@@ -15,9 +15,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
         hidden: false,
-        handler: function () {
-          window.location.search = '';
-        }
+        menu: []
       },
       {
         itemId: 'home_sep',
@@ -45,20 +43,6 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: '{{dataset}}',
         cls: 'x-btn-text-icon',
         iconCls: 'dataset_icon',
-        hidden: true
-      },
-      {
-        itemId: 'dataset_sep',
-        ref: 'datasetSeparator',
-        text: '>',
-        hidden: true
-      },
-      {
-        itemId: 'search',
-        ref: 'searchButton',
-        text: '{{search}}',
-        cls: 'x-btn-text-icon',
-        iconCls: 'search_icon',
         hidden: true
       },
       '->', {
@@ -90,13 +74,11 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
 
   updateBreadcrumbs: function (params) {
     header = this;
+    header.homeButton.addClass('no-menu-arrow');
     header.homeSeparator.show();
     header.martButton.setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
-    header.datasetSeparator.show();
-    header.searchButton.setIconClass(params.search_name + '_search_icon');
-    header.searchButton.setText(params.search_display_name || params.search_name).show();
   }
 
 });

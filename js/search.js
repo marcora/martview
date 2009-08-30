@@ -32,32 +32,31 @@ Martview.Search = Ext.extend(Ext.Panel, {
           iconCls: 'search_icon',
           cls: 'x-btn-text-icon',
           disabled: false,
-          menu: []
-          //           menu: [{
-          //             itemId:'simple',
-          //             text: 'Simple',
-          //             iconCls: 'simple-search_icon',
-          //             checked: true,
-          //             group: 'view'
-          //           },
-          //           {
-          //             itemId:'guided',
-          //             text: 'Guided',
-          //             iconCls: 'guided-search_icon',
-          //             group: 'view'
-          //           },
-          //           {
-          //             itemId:'advanced',
-          //             text: 'Advanced',
-          //             iconCls: 'advanced-search_icon',
-          //             group: 'view'
-          //           },
-          //           {
-          //             itemId:'user',
-          //             text: 'Dimeric protein structures at high-res',
-          //             iconCls: 'user-search_icon',
-          //             group: 'view'
-          //           }]
+          menu: [{
+            itemId: 'simple',
+            text: 'Simple',
+            iconCls: 'simple_search_icon',
+            checked: true,
+            group: 'format'
+          },
+          {
+            itemId: 'guided',
+            text: 'Guided',
+            iconCls: 'guided_search_icon',
+            group: 'format'
+          },
+          {
+            itemId: 'advanced',
+            text: 'Advanced',
+            iconCls: 'advanced_search_icon',
+            group: 'format'
+          },
+          {
+            itemId: 'user',
+            text: 'Dimeric protein structures at high-res',
+            iconCls: 'user_search_icon',
+            group: 'format'
+          }]
         },
         '->', {
           itemId: 'customize',

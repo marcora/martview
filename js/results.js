@@ -30,17 +30,17 @@ Martview.Results = Ext.extend(Ext.Panel, {
             text: 'Tabular',
             iconCls: 'tabular_view_icon',
             checked: true,
-            group: 'view'
+            group: 'formt'
           },
           {
             text: 'Itemized',
             iconCls: 'itemized_view_icon',
-            group: 'view'
+            group: 'format'
           },
           {
             text: 'Map',
             iconCls: 'map_view_icon',
-            group: 'view'
+            group: 'format'
           }]
         },
         '->', {

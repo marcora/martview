@@ -18,11 +18,6 @@ Ext.onReady(function () {
   var default_filters, default_attributes;
   var current_mart, current_dataset, current_search, current_results;
 
-  // init spot
-  var spot = new Ext.ux.Spotlight({
-    easing: 'easeOut'
-  });
-
   // init connection
   var conn = new Ext.data.Connection({
     listeners: {
@@ -34,6 +29,12 @@ Ext.onReady(function () {
       },
       requestexception: function () {
         loading.stop();
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERR_MSG,
+          closable: false,
+          width: 300
+        });
       }
     }
   });
@@ -47,17 +48,15 @@ Ext.onReady(function () {
   });
 
   // populate select search menu with data from static json file on server
-  var select_search_menu_url = './json/marts_and_datasets.json';
+  var select_dataset_menu_url = './json/marts_and_datasets.json';
   conn.request({
-    url: select_search_menu_url,
+    url: select_dataset_menu_url,
     success: function (response) {
-      var select_search_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.search.selectButton.menu.add(select_search_menu_data);
-      // add handler to each select search menu item
-      main.search.selectButton.menu.items.each(function (mart_item) {
-        mart_item.menu.items.each(function (dataset_item) {
-          dataset_item.menu.on('itemclick', selectSearch);
-        });
+      var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
+      main.header.homeButton.menu.add(select_dataset_menu_data);
+      // add handler to each select dataset menu item
+      main.header.homeButton.menu.items.each(function (mart_item) {
+        mart_item.menu.on('itemclick', selectSearch);
       });
       // call select search if params are valid
       if (params.mart) {
@@ -66,39 +65,22 @@ Ext.onReady(function () {
         if (params.dataset) {
           // mart + dataset params
           current_dataset = params.dataset_name = params.dataset;
-          if (params.search) {
-            // mart + dataset + search params
-            current_search = params.search_name = params.search;
-            current_results = params.results_name = params.results;
-            main.search.selectButton.menu.items.each(function (item) {
-              item.menu.items.each(function (item) {
-                item.menu.items.each(function (item) {
-                  if (params.mart_name == item.mart_name && params.dataset_name == item.dataset_name && params.search_name == item.search_name) {
-                    params.mart_display_name = item.mart_display_name || item.mart_name;
-                    params.dataset_display_name = item.dataset_display_name || item.dataset_name;
-                    params.search_display_name = item.search_display_name || item.search_name;
-                  }
-                });
-              });
+          current_search = params.search_name = params.search;
+          current_results = params.results_name = params.results;
+          main.header.homeButton.menu.items.each(function (mart_item) {
+            mart_item.menu.items.each(function (dataset_item) {
+              if (params.mart_name == dataset_item.mart_name && params.dataset_name == dataset_item.dataset_name) {
+                params.mart_display_name = dataset_item.mart_display_name || dataset_item.mart_name;
+                params.dataset_display_name = dataset_item.dataset_display_name || dataset_item.dataset_name;
+              }
             });
-            // call select search or spotlight on select search button
-            if (params.search_display_name) {
-              if (spot.active) spot.hide();
-              selectSearch(params);
-            } else {
-              if (!spot.active) spot.show(main.search.selectButton.getId());
-            }
+          });
+          // call select search
+          if (params.dataset_display_name) {
+            selectSearch(params);
           }
         }
       }
-    },
-    failure: function () {
-      Ext.Msg.show({
-        title: Martview.APP_TITLE,
-        msg: Martview.CONN_ERR_MSG,
-        closable: false,
-        width: 300
-      });
     }
   });
 
