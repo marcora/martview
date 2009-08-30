@@ -271,6 +271,9 @@ Ext.onReady(function () {
     // update message
     main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
+    // show customize results button
+    main.results.customizeButton.show();
+
     // show advanced search form
     main.search.showAdvancedForm(filters);
   }
@@ -343,7 +346,7 @@ Ext.onReady(function () {
       url: '/martservice',
       params: params,
       success: function (response) {
-        main.results.enableHeaderButtons((current_search == 'advanced'));
+        main.results.enableHeaderButtons();
         var data = Ext.util.JSON.decode(response.responseText);
         try {
           console.dir(data);
