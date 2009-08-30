@@ -2,7 +2,7 @@
 
 #loading-dialog .loading-indicator {background:url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
 
-.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
 .mart_icon { background-image: url('../ico/databases.png') !important; }
@@ -14,8 +14,7 @@
 .user_search_icon { background-image: url('../ico/user.png') !important; }
 .form_icon { background-image: url('../ico/application-form.png') !important; }
 .results_icon { background-image: url('../ico/application-detail.png') !important; }
-.results_icon { background-image: url('../ico/application.png') !important; }
-.tabular_results_icon { background-image: url('../ico/application-table.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
 .itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
 .map_results_icon { background-image: url('../ico/application-image.png') !important; }
 .field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
@@ -33,7 +32,127 @@
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
 button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
-button.attribute_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
+button.filter_icon { background-image: url('../ico/.png') !important; }
+.edit_icon { background-image: url('../ico/gear.png') !important; }
+.mart_icon { background-image: url('../ico/databases.png') !important; }
+.dataset_icon { background-image: url('../ico/database.png') !important; }
+.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided_search_icon { background-image: url('../ico/compass.png') !important; }
+.advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
+.user_search_icon { background-image: url('../ico/user.png') !important; }
+.form_icon { background-image: url('../ico/application-form.png') !important; }
+.results_icon { background-image: url('../ico/application-detail.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
+.itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
+.map_results_icon { background-image: url('../ico/application-image.png') !important; }
+.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+.node_all_icon { background-image: url('../ico/node.png') !important; }
+.node_selected_icon { background-image: url('../ico/node-select-child.png') !important; }
+.folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
+.folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
+.add_icon { background-image: url('../ico/plus-circle.png') !important; }
+.help_icon { background-image: url('../ico/question.png') !important; }
+
+.x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
+
+.icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
+.icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
+
+button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
+button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
+button.filter_icon { background-image: url('../ico/.png') !important; }
+.edit_icon { background-image: url('../ico/gear.png') !important; }
+.mart_icon { background-image: url('../ico/databases.png') !important; }
+.dataset_icon { background-image: url('../ico/database.png') !important; }
+.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided_search_icon { background-image: url('../ico/compass.png') !important; }
+.advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
+.user_search_icon { background-image: url('../ico/user.png') !important; }
+.form_icon { background-image: url('../ico/application-form.png') !important; }
+.results_icon { background-image: url('../ico/application-detail.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
+.itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
+.map_results_icon { background-image: url('../ico/application-image.png') !important; }
+.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+.node_all_icon { background-image: url('../ico/node.png') !important; }
+.node_selected_icon { background-image: url('../ico/node-select-child.png') !important; }
+.folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
+.folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
+.add_icon { background-image: url('../ico/plus-circle.png') !important; }
+.help_icon { background-image: url('../ico/question.png') !important; }
+
+.x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
+
+.icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
+.icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
+
+button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
+button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
+button.filter_icon { background-image: url('../ico/.png') !important; }
+.edit_icon { background-image: url('../ico/gear.png') !important; }
+.mart_icon { background-image: url('../ico/databases.png') !important; }
+.dataset_icon { background-image: url('../ico/database.png') !important; }
+.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided_search_icon { background-image: url('../ico/compass.png') !important; }
+.advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
+.user_search_icon { background-image: url('../ico/user.png') !important; }
+.form_icon { background-image: url('../ico/application-form.png') !important; }
+.results_icon { background-image: url('../ico/application-detail.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
+.itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
+.map_results_icon { background-image: url('../ico/application-image.png') !important; }
+.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+.node_all_icon { background-image: url('../ico/node.png') !important; }
+.node_selected_icon { background-image: url('../ico/node-select-child.png') !important; }
+.folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
+.folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
+.add_icon { background-image: url('../ico/plus-circle.png') !important; }
+.help_icon { background-image: url('../ico/question.png') !important; }
+
+.x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
+
+.icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
+.icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
+
+button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
+button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
+button.filter_icon { background-image: url('../ico/.png') !important; }
+.edit_icon { background-image: url('../ico/gear.png') !important; }
+.mart_icon { background-image: url('../ico/databases.png') !important; }
+.dataset_icon { background-image: url('../ico/database.png') !important; }
+.search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.simple_search_icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided_search_icon { background-image: url('../ico/compass.png') !important; }
+.advanced_search_icon { background-image: url('../ico/binocular.png') !important; }
+.user_search_icon { background-image: url('../ico/user.png') !important; }
+.form_icon { background-image: url('../ico/application-form.png') !important; }
+.results_icon { background-image: url('../ico/application-detail.png') !important; }
+.tabular_results_icon { background-image: url('../ico/table.png') !important; }
+.itemized_results_icon { background-image: url('../ico/application-list.png') !important; }
+.map_results_icon { background-image: url('../ico/application-image.png') !important; }
+.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
+.file_upload_icon { background-image: url('../ico/document-list.png') !important; }
+.node_all_icon { background-image: url('../ico/node.png') !important; }
+.node_selected_icon { background-image: url('../ico/node-select-child.png') !important; }
+.folder_icon { background-image: url('../ico/folder-horizontal.png') !important; }
+.folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
+.add_icon { background-image: url('../ico/plus-circle.png') !important; }
+.help_icon { background-image: url('../ico/question.png') !important; }
+
+.x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
+
+.icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
+.icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
+
+button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
+button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 button.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 button.field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 button.move_icon { background-image: url('../ico/arrow-move.png') !important; }
@@ -79,5 +198,5 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .x-tree-node-expanded img.x-tree-node-icon { background-image:url('../ico/folder-horizontal-open.png') !important; }
 .x-tree-node-collapsed img.x-tree-node-icon { background-image:url('../ico/folder-horizontal.png') !important; }
 
-#attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-toolbar.png') !important; }
+#attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/table-select-column.png') !important; }
 #filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-search-field.png') !important; }

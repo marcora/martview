@@ -210,6 +210,15 @@ Martview.Search = Ext.extend(Ext.Panel, {
     // remove all fields from search form
     form.removeAll();
 
+    // add 'filters' fieldset
+    var fieldset = form.add({
+      // Lucene query syntax help
+      xtype: 'fieldset',
+      ref: 'filters',
+      title: 'Filters',
+      autoHeight: true
+    });
+
     // add fields to search form
     var field;
     Ext.each(filters, function (filter) {
@@ -219,7 +228,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         '<': ''
       }) {
         if (filter.options) {
-          field = form.add([{
+          field = fieldset.add([{
             xtype: 'combo',
             anchor: '100%',
             name: filter.name,
@@ -232,7 +241,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
             store: filter.options.split(',')
           }]);
         } else {
-          field = form.add([{
+          field = fieldset.add([{
             xtype: 'textfield',
             anchor: '100%',
             name: filter.name,
@@ -242,7 +251,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       } else if (filter.qualifier in {
         'in': ''
       }) {
-        field = form.add({
+        field = fieldset.add({
           xtype: 'textfield',
           anchor: '100%',
           name: filter.name,

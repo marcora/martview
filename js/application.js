@@ -165,7 +165,7 @@ Ext.onReady(function () {
         attributes_win = new Martview.windows.Fields({
           id: 'attributes',
           title: 'Add columns to the results grid',
-          display_name: 'Attributes',
+          display_name: 'Columns',
           field_iconCls: 'attribute_icon',
           children: dataset.attributes,
           default_fields: default_attributes
@@ -374,7 +374,7 @@ Ext.onReady(function () {
 
   function buildQueryXml(values) {
     var dataset_filters = [];
-    main.search.items.first().items.each(function (item) {
+    form.filters.items.each(function (item) {
       if (item.getRawValue().trim()) {
         dataset_filters.push({
           name: item.getName(),
