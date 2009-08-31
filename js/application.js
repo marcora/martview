@@ -30,6 +30,7 @@ Ext.onReady(function () {
       },
       requestexception: function () {
         loading.stop();
+        conn.abort();
         Ext.Msg.alert(Martview.APP_TITLE, Martview.CONN_ERR_MSG);
       }
     }
