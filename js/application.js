@@ -30,8 +30,12 @@ Ext.onReady(function () {
       },
       requestexception: function () {
         loading.stop();
-        conn.abort();
-        Ext.Msg.alert(Martview.APP_TITLE, Martview.CONN_ERR_MSG);
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERR_MSG,
+          closable: false,
+          width: 300
+        });
       }
     }
   });
