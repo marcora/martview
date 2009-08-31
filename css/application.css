@@ -21,6 +21,10 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+.item { padding: 10px !important; font: normal 11px arial,helvetica,tahoma,sans-serif !important; }
+.item .title { font-weight: bold !important; color: #333 !important; }
+.item .attribute { color: #666 !important; }
+
 .attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }

@@ -26,7 +26,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'mart',
         ref: 'martButton',
-        text: 'Select the dataset you want to search',
+        text: 'Select the database you want to search',
         cls: 'x-btn-text-icon',
         iconCls: 'larrow_icon',
         hidden: false

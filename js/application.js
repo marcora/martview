@@ -45,7 +45,7 @@ Ext.onReady(function () {
   // if not specified the default search is 'simple' and the default results is 'tabular'
   Ext.applyIf(params, {
     search: 'simple',
-    results: 'tabular'
+    results: 'itemized'
   });
 
   // populate select search menu with data from static json file on server
@@ -127,7 +127,7 @@ Ext.onReady(function () {
     // if not specified the default search is 'simple' and the default results is 'tabular'
     Ext.applyIf(params, {
       search_name: 'simple',
-      results_name: 'tabular'
+      results_name: 'itemized'
     });
 
     if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name && current_results == params.results_name)) {
@@ -215,7 +215,7 @@ Ext.onReady(function () {
     // show simple form
     main.search.showSimpleForm();
 
-    // add handlers to field
+    // add handler to search field
     form.items.first().on('specialkey', function (f, o) {
       if (o.getKey() == 13) {
         submitSearch();
@@ -282,6 +282,15 @@ Ext.onReady(function () {
 
     // show advanced search form
     main.search.showAdvancedForm(filters);
+
+    // add handlers to fields
+    form.items.each(function (item) {
+      item.on('specialkey', function (f, o) {
+        if (o.getKey() == 13) {
+          submitSearch();
+        }
+      });
+    });
   }
 
   function submitSearch() {
@@ -359,15 +368,15 @@ Ext.onReady(function () {
           // pass
         }
 
-        // load data into results panel
-        main.results.enableHeaderButtons();
-        main.results.load(data);
-
         // build guided search form
         if (current_search == 'guided') {
           showGuidedSearch(data.facets);
         }
         form.focus();
+
+        // load data into results panel
+        main.results.enableHeaderButtons();
+        main.results.load(data, current_results);
       },
       failure: function () {
         form.focus();

@@ -12,7 +12,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'message',
         ref: 'messageButton',
-        text: 'To begin, please select the dataset you want to search',
+        text: 'To begin, please select the database you want to search',
         iconCls: 'tip_icon',
         cls: 'x-btn-text-icon',
         handler: function () {

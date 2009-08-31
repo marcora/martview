@@ -7,6 +7,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       ref: '../results',
       region: 'center',
       layout: 'fit',
+      autoScroll: true,
       //       title: 'Results',
       //       tools: [{
       //         id: 'gear',
@@ -29,21 +30,17 @@ Martview.Results = Ext.extend(Ext.Panel, {
           menu: [{
             text: 'Tabular',
             itemId: 'tabular',
-            iconCls: 'tabular_results_icon',
-            checked: true,
-            group: 'formt'
+            iconCls: 'tabular_results_icon'
           },
           {
             text: 'Itemized',
             itemId: 'itemized',
-            iconCls: 'itemized_results_icon',
-            group: 'format'
+            iconCls: 'itemized_results_icon'
           },
           {
             text: 'Map',
             itemId: 'map',
-            iconCls: 'map_results_icon',
-            group: 'format'
+            iconCls: 'map_results_icon'
           }]
         },
         '->', {
@@ -84,12 +81,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.saveButton.enable();
   },
 
-  updateCounter: function (message) {
-    var results = this;
-    results.counterButton.setText(message);
-  },
-
-  load: function (data) {
+  load: function (data, format) {
     var results = this;
 
     var store = new Ext.data.JsonStore({
@@ -99,19 +91,47 @@ Martview.Results = Ext.extend(Ext.Panel, {
       fields: data.fields
     });
     store.loadData(data);
-    var colModel = new Ext.grid.ColumnModel(data.columns);
-    results.updateCounter(store.getTotalCount() + ' of ' + data.count);
 
-    var rows = new Ext.grid.GridPanel({
-      store: store,
-      colModel: colModel,
-      enableColumnHide: false,
-      enableHdMenu: false,
-      disableSelection: true,
-      stripeRows: true,
-      // autoExpandColumn: 'gene_name',
-      border: false
-    });
+    results.counterButton.setText(store.getTotalCount() + ' of ' + data.count);
+
+    if (format == 'tabular') {
+      var colModel = new Ext.grid.ColumnModel(data.columns);
+      var rows = new Ext.grid.GridPanel({
+        store: store,
+        colModel: colModel,
+        enableColumnHide: false,
+        enableHdMenu: false,
+        disableSelection: true,
+        stripeRows: true,
+        // autoExpandColumn: 'col',
+        border: false
+      });
+    } else if (format == 'itemized') {
+      var tpl = new Ext.XTemplate('<tpl for=".">',
+                                  '<table class="item" style="margin-bottom: 5px;">',
+                                  '<tr class="title">',
+                                  '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>',
+                                  '</tr>',
+                                  '<tr>',
+                                  '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>',
+                                  '<td>',
+                                  '<div class="attribute">Experiment type: {experiment_type}</div>',
+                                  '<div class="attribute">Resolution: {resolution}</div>',
+                                  '<div class="attribute">Space group: {space_group}</div>',
+                                  '<div class="attribute">R work: {r_work}</div>',
+                                  '</td>',
+                                  '</tr>',
+                                  '</table>',
+                                  '</tpl>',
+                                  '<div class="x-clear"></div>');
+      var rows = new Ext.DataView({
+        store: store,
+        tpl: tpl,
+        autoHeight: true,
+        emptyText: 'No items to display',
+        border: false
+      });
+    }
     results.removeAll();
     results.add(rows);
     results.doLayout();
