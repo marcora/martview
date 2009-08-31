@@ -20,6 +20,7 @@ Ext.onReady(function () {
 
   // init connection
   var conn = new Ext.data.Connection({
+    autoAbort: true,
     listeners: {
       beforerequest: function () {
         loading.start();
@@ -346,23 +347,17 @@ Ext.onReady(function () {
       url: '/martservice',
       params: params,
       success: function (response) {
-        main.results.enableHeaderButtons();
         var data = Ext.util.JSON.decode(response.responseText);
         try {
           console.dir(data);
         } catch(e) {
           // pass
         }
-        var store = new Ext.data.JsonStore({
-          autoDestroy: true,
-          root: 'rows',
-          idProperty: name,
-          fields: data.fields
-        });
-        store.loadData(data);
-        var colModel = new Ext.grid.ColumnModel(data.columns);
-        main.results.load(store, colModel);
-        main.results.updateCounter(store.getTotalCount() + ' of ' + data.count);
+
+        // load data into results panel
+        main.results.enableHeaderButtons();
+        main.results.load(data);
+
         // build guided search form
         if (current_search == 'guided') {
           showGuidedSearch(data.facets);

@@ -89,9 +89,20 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.counterButton.setText(message);
   },
 
-  load: function (store, colModel) {
+  load: function (data) {
     var results = this;
-    var grid = new Ext.grid.GridPanel({
+
+    var store = new Ext.data.JsonStore({
+      autoDestroy: true,
+      root: 'rows',
+      idProperty: name,
+      fields: data.fields
+    });
+    store.loadData(data);
+    var colModel = new Ext.grid.ColumnModel(data.columns);
+    results.updateCounter(store.getTotalCount() + ' of ' + data.count);
+
+    var rows = new Ext.grid.GridPanel({
       store: store,
       colModel: colModel,
       enableColumnHide: false,
@@ -102,7 +113,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       border: false
     });
     results.removeAll();
-    results.add(grid);
+    results.add(rows);
     results.doLayout();
   }
 });
