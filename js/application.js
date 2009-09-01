@@ -330,7 +330,7 @@ Ext.onReady(function () {
       var params = {
         type: 'search',
         q: '*:*',
-        facet_fields: 'experiment_type|resolution|space_group',
+        facet_fields: 'experiment_type|resolution|space_group|r_work',
         filters: filters.join('|')
       };
     } else if (current_search == 'advanced') {
