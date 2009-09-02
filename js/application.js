@@ -1,4 +1,3 @@
-// FIXME: Loading dialog gets stuck if error
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
@@ -15,6 +14,8 @@ Ext.onReady(function () {
   var form = main.search.form;
   var loading = new Martview.windows.Loading();
   var filters_win, attributes_win;
+  var reset_filters_win_to_defaults = true; // FIXME
+  var reset_attributes_win_to_defaults = true; // FIXME
   var default_filters, default_attributes;
   var current_mart, current_dataset, current_search, current_results;
 
@@ -42,13 +43,13 @@ Ext.onReady(function () {
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
-  // if not specified the default search is 'simple' and the default results is 'tabular'
+  // if not specified the default search is 'simple' and the default results is 'itemized'
   Ext.applyIf(params, {
     search: 'simple',
     results: 'itemized'
   });
 
-  // populate select search menu with data from static json file on server
+  // populate select dataset menu with data from static json file on server
   var select_dataset_menu_url = './json/marts_and_datasets.json';
   conn.request({
     url: select_dataset_menu_url,
@@ -68,6 +69,7 @@ Ext.onReady(function () {
           current_dataset = params.dataset_name = params.dataset;
           current_search = params.search_name = params.search;
           current_results = params.results_name = params.results;
+          // validate params
           main.header.homeButton.menu.items.each(function (mart_item) {
             mart_item.menu.items.each(function (dataset_item) {
               if (params.mart_name == dataset_item.mart_name && params.dataset_name == dataset_item.dataset_name) {
@@ -85,19 +87,27 @@ Ext.onReady(function () {
     }
   });
 
-  // bindings
+  /** bindings **/
+
+  // show filters/attributes window on customize button click
   main.search.customizeButton.on('click', function () {
     filters_win.show();
+    if (reset_filters_win_to_defaults) filters_win.resetToDefaultFields();
+    reset_filters_win_to_defaults = false;
   });
 
   main.results.customizeButton.on('click', function () {
     attributes_win.show();
+    if (reset_attributes_win_to_defaults) attributes_win.resetToDefaultFields();
+    reset_attributes_win_to_defaults = false;
   });
 
+  // submit search on submit button click
   main.search.submitButton.on('click', function () {
     submitSearch();
   });
 
+  // select search on search/results menu click
   main.search.selectButton.menu.on('itemclick', function (item) {
     params.search_name = item.getItemId();
     selectSearch(params);
@@ -121,7 +131,8 @@ Ext.onReady(function () {
     });
   }
 
-  // event handlers
+  /** event handlers **/
+
   function selectSearch(params) {
 
     // if not specified the default search is 'simple' and the default results is 'tabular'
@@ -190,7 +201,7 @@ Ext.onReady(function () {
       showSimpleSearch();
     } else if (current_search == 'guided') {
       showGuidedSearch();
-    } else if (current_search == 'advanced') {
+    } else if (current_search == 'advanced' || current_search == 'user') {
       if (filters_win.rendered) {
         var filters = [];
         filters_win.selected.items.each(function (item) {
@@ -201,21 +212,17 @@ Ext.onReady(function () {
       }
       showAdvancedSearch(filters);
       if (submit) submitSearch();
-    } else if (current_search == 'user') {
-      var filters = []; // TODO: get filters from saved user search, with values!?!
-      showAdvancedSearch(filters);
-      if (submit) submitSearch();
     }
   }
 
   function showSimpleSearch() {
-    // update message
+    // update footer message
     main.footer.updateMessage('tip', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
     // show simple form
     main.search.showSimpleForm();
 
-    // add handler to search field
+    // submit search on enter key
     form.items.first().on('specialkey', function (f, o) {
       if (o.getKey() == 13) {
         submitSearch();
@@ -224,7 +231,7 @@ Ext.onReady(function () {
   }
 
   function showGuidedSearch(facets) {
-    // update message
+    // update footer message
     main.footer.updateMessage('tip', 'Use the drop-down boxes to make the search more specific and narrow the results');
 
     // show guided form
@@ -245,7 +252,7 @@ Ext.onReady(function () {
       submitSearch();
     });
 
-    // add handlers to fields
+    // add handlers to combo/facet fields
     if (facets) {
       form.items.each(function (item) {
         if (item.xtype == 'combo') {
@@ -274,7 +281,7 @@ Ext.onReady(function () {
   }
 
   function showAdvancedSearch(filters) {
-    // update message
+    // update footer message
     main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
     // show customize results button
@@ -283,7 +290,8 @@ Ext.onReady(function () {
     // show advanced search form
     main.search.showAdvancedForm(filters);
 
-    // add handlers to fields
+    // submit key on enter key
+    // FIXME: it doesn't work!
     form.items.each(function (item) {
       item.on('specialkey', function (f, o) {
         if (o.getKey() == 13) {
@@ -300,7 +308,7 @@ Ext.onReady(function () {
       if (!query) return; // abort submit if no search terms
       var params = {
         type: 'search',
-        q: query // FIXME: too verbose!
+        q: query
       };
     } else if (current_search == 'guided') {
       var filters = [];
@@ -333,13 +341,7 @@ Ext.onReady(function () {
         facet_fields: 'experiment_type|resolution|space_group|r_work',
         filters: filters.join('|')
       };
-    } else if (current_search == 'advanced') {
-      var xml = buildQueryXml();
-      var params = {
-        type: 'query',
-        xml: xml
-      };
-    } else if (current_search == 'user') {
+    } else if (current_search == 'advanced' || current_search == 'user') {
       var xml = buildQueryXml();
       var params = {
         type: 'query',

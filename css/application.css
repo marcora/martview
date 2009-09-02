@@ -4,9 +4,7 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
 #header, #footer { border-width: 0  !important; }
 
-#filters .x-grid3-header { display:none !important; }
-
-.attribute .x-panel-body { margin-bottom: 10px !important; }
+#filters .x-grid3-header { display: none !important; }
 
 .x-tree-node-expanded img.x-tree-node-icon { background-image:url('../ico/folder-horizontal-open.png') !important; }
 .x-tree-node-collapsed img.x-tree-node-icon { background-image:url('../ico/folder-horizontal.png') !important; }
@@ -47,6 +45,9 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
 .help_icon { background-image: url('../ico/question.png') !important; }
 
+button.moveup_icon { background-image: url('../ico/arrow-090.png') !important; }
+button.movedn_icon { background-image: url('../ico/arrow-270.png') !important; }
+button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
 button.larrow_icon { background-image: url('../ico/arrow-180.png') !important; }
 button.attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 button.filter_icon { background-image: url('../ico/ui-search-field.png') !important; }

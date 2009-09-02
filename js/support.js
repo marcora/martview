@@ -1,3 +1,37 @@
+// add the moveUp and moveDn methods to Ext.util.MixedCollection
+// Array.prototype.array_move = function  (int_source, int_target)
+// {
+//   if  (int_source < 0 || int_source >= this.length || int_target < 0 || int_target >= this.length) {
+//     trace('### ERROR ###\n\targuments are not elements of the array ');
+//     return false;
+//   }
+//   var val = this.splice(int_source, 1);
+//   this.splice(int_target, 0, val);
+// }
+Ext.override(Ext.util.MixedCollection, {
+  moveUp: function (item) {
+    var pos = this.indexOf(item);
+    if ((pos - 1) >= 0) {
+      this.removeAt(pos);
+      this.insert(pos - 1, item);
+      return true;
+    } else {
+      return false;
+    }
+
+  },
+  moveDn: function (item) {
+    var pos = this.indexOf(item);
+    if ((pos + 1) < this.getCount()) {
+      this.removeAt(pos);
+      this.insert(pos + 1, item);
+      return true;
+    } else {
+      return false;
+    }
+  }
+});
+
 // add the getText method to Ext.menu.item to match the setText method
 Ext.override(Ext.menu.BaseItem, {
   getText: function () {

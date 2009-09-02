@@ -1,6 +1,6 @@
 Ext.namespace('Martview');
 
-Martview.Field = Ext.extend(Ext.Toolbar, {
+Martview.Field = Ext.extend(Ext.Panel, {
   // soft config
   treenode: null,
   editable: false,
@@ -10,7 +10,9 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
   initComponent: function () {
     Ext.apply(this, {
       itemId: this.treenode.id,
-      items: [{
+      draggable: true,
+      cls: 'field',
+      tbar: [{
         text: this.treenode.attributes.display_name || this.treenode.attributes.name,
         tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
         iconCls: this.field_iconCls,
@@ -28,12 +30,35 @@ Martview.Field = Ext.extend(Ext.Toolbar, {
         xtype: 'tbspacer',
         hidden: !this.editable
       },
+      //       {
+      //         text: 'Move up',
+      //         iconCls: 'moveup_icon',
+      //         cls: 'x-btn-text-icon',
+      //         handler: function () {
+      //           console.log('move up');
+      //           var field = this.ownerCt;
+      //           var selected_fields = field.ownerCt;
+      //           // move up
+      //         }
+      //       },
+      //       {
+      //         text: 'Move dn',
+      //         iconCls: 'movedn_icon',
+      //         cls: 'x-btn-text-icon',
+      //         handler: function () {
+      //           console.log('move dn');
+      //           var field = this.ownerCt;
+      //           var selected_fields = field.ownerCt;
+      //           // move dn
+      //         }
+      //       },
       {
         text: 'Remove',
         iconCls: 'delete_icon',
         cls: 'x-btn-text-icon',
+        scope: this,
         handler: function () {
-          var field = this.ownerCt;
+          var field = this;
           var selected_fields = field.ownerCt;
           field.treenode.enable();
           selected_fields.remove(field);

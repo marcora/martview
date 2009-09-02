@@ -107,30 +107,16 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               expandOnFilter: true
             });
           },
-          afterrender: function () {
-            var all = this.ownerCt.get('all'); // FIXME: why not this.ownerCt.all?!?
-            var selected = this.ownerCt.get('selected'); // FIXME: why not this.ownerCt.selected?!?
-            Ext.each(this.ownerCt.default_fields, function (default_field) {
-              var node = all.getNodeById(default_field.id);
-              selected.add({
-                xtype: 'field',
-                treenode: node,
-                field_iconCls: selected.ownerCt.field_iconCls
-              });
-              node.disable();
-            });
-            selected.doLayout();
-          },
           dblclick: function (node) {
             if (node.isLeaf()) {
               var selected = this.ownerCt.selected;
-              selected.add({
+              var field = selected.add({
                 xtype: 'field',
                 treenode: node,
                 field_iconCls: selected.ownerCt.field_iconCls
               });
-              selected.doLayout();
               node.disable();
+              selected.doLayout();
             }
           }
         }
@@ -145,11 +131,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         title: 'Selected ' + this.display_name.toLowerCase(),
         iconCls: 'node_selected_icon',
         bodyStyle: 'background-color:#dfe8f6;',
-        //        layout: 'vbox',
-        //        layoutConfig: {
-        //          align: 'stretch',
-        //          pack: 'start'
-        //        },
+        //         layout: 'vbox',
+        //         layoutConfig: {
+        //           align: 'stretch',
+        //           pack: 'start'
+        //         },
         tbar: [{
           text: 'Reset to default',
           iconCls: 'undo_icon',
@@ -173,7 +159,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     });
     Ext.each(this.default_fields, function (default_field) {
       var node = all.getNodeById(default_field.id);
-      selected.add({
+      var field = selected.add({
         xtype: 'field',
         treenode: node,
         field_iconCls: this.field_iconCls

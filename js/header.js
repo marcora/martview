@@ -8,6 +8,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       ref: '../header',
       // FIX: should adjust height automatically
       height: 26,
+      border: false,
       items: [{
         itemId: 'home',
         ref: 'homeButton',
