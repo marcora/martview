@@ -1,3 +1,8 @@
+// add the has method to array
+Array.prototype.has = function(o) {
+  return this.indexOf(o) > -1;
+};
+
 // add the moveUp and moveDn methods to Ext.util.MixedCollection
 // Array.prototype.array_move = function  (int_source, int_target)
 // {

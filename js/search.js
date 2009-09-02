@@ -141,6 +141,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       title: 'Help',
       // title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
+      anchor: '100%',
       //       collapsed: true,
       //       collapsible: true,
       defaultType: 'displayfield',
@@ -148,22 +149,27 @@ Martview.Search = Ext.extend(Ext.Panel, {
         labelStyle: 'font-weight: bold;'
       },
       items: [{
+        anchor: '100%',
         hideLabel: true,
         value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
       },
       {
+        anchor: '100%',
         fieldLabel: 'pdb_id',
         value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
       },
       {
+        anchor: '100%',
         fieldLabel: 'experiment_type',
         value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
       },
       {
+        anchor: '100%',
         fieldLabel: 'resolution',
         value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
       },
       {
+        anchor: '100%',
         fieldLabel: 'authors',
         value: 'search by author name (for example, <code>authors:Mishima</code>)'
       }]
@@ -217,6 +223,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       xtype: 'fieldset',
       ref: 'filters',
       title: 'Filters',
+      anchor: '100%',
       autoHeight: true
     });
 
@@ -230,8 +237,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
       }) {
         if (filter.options) {
           field = fieldset.add([{
-            xtype: 'combo',
             anchor: '100%',
+            xtype: 'combo',
             name: filter.name,
             fieldLabel: filter.display_name || filter.name,
             editable: false,
@@ -243,8 +250,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
           }]);
         } else {
           field = fieldset.add([{
-            xtype: 'textfield',
             anchor: '100%',
+            xtype: 'textfield',
             name: filter.name,
             fieldLabel: filter.display_name || filter.name
           }]);
@@ -253,8 +260,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
         'in': ''
       }) {
         field = fieldset.add({
-          xtype: 'textfield',
           anchor: '100%',
+          xtype: 'textfield',
           name: filter.name,
           fieldLabel: filter.display_name || filter.name
         });

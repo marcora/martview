@@ -43,7 +43,8 @@ Ext.onReady(function () {
 
   // extract params from query string
   var params = Ext.urlDecode(window.location.search.substring(1));
-  // if not specified the default search is 'simple' and the default results is 'itemized'
+
+  // if not specified the default search is 'simple' and the default results is 'tabular'
   Ext.applyIf(params, {
     search: 'simple',
     results: 'itemized'
@@ -67,8 +68,10 @@ Ext.onReady(function () {
         if (params.dataset) {
           // mart + dataset params
           current_dataset = params.dataset_name = params.dataset;
+
           current_search = params.search_name = params.search;
           current_results = params.results_name = params.results;
+
           // validate params
           main.header.homeButton.menu.items.each(function (mart_item) {
             mart_item.menu.items.each(function (dataset_item) {
@@ -119,14 +122,20 @@ Ext.onReady(function () {
   });
 
   // extract array of default attributes/filters from tree
-  function extractDefaults(array, defaults) {
-    Ext.each(array, function (node) {
+  function extractDefaults(tree, default_fields, include_fields) {
+    Ext.each(tree, function (node) {
       if (node['leaf']) {
-        if (node['default']) {
-          defaults.push(node);
+        if (include_fields) {
+          if (include_fields.has(node['name'])) {
+            default_fields.push(node);
+          }
+        } else {
+          if (node['default']) {
+            default_fields.push(node);
+          }
         }
       } else {
-        extractDefaults(node['children'], defaults);
+        extractDefaults(node['children'], default_fields, include_fields);
       }
     });
   }
@@ -142,7 +151,14 @@ Ext.onReady(function () {
     });
 
     if (! (current_mart == params.mart_name && current_dataset == params.dataset_name && current_search == params.search_name && current_results == params.results_name)) {
-      window.location.search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name + '&results=' + params.results_name;
+      var window_search = 'mart=' + params.mart_name + '&dataset=' + params.dataset_name + '&search=' + params.search_name + '&results=' + params.results_name;
+      if (params.filters) {
+        window_search = window_search + ('&filters=' + params.filters);
+      }
+      if (params.attributes) {
+        window_search = window_search + ('&attributes=' + params.attributes);
+      }
+      window.location.search = window_search;
     }
 
     main.search.selectButton.setIconClass(params.search_name + '_search_icon');
@@ -164,7 +180,10 @@ Ext.onReady(function () {
         var dataset = Ext.util.JSON.decode(response.responseText);
 
         // filters
-        extractDefaults(dataset.filters, default_filters);
+        if (params.filters) {
+          var include_filters = params.filters.split('|');
+        }
+        extractDefaults(dataset.filters, default_filters, include_filters);
         filters_win = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filters to the search form',
@@ -178,7 +197,10 @@ Ext.onReady(function () {
         });
 
         // attributes
-        extractDefaults(dataset.attributes, default_attributes);
+        if (params.attributes) {
+          var include_attributes = params.attributes.split('|');
+        }
+        extractDefaults(dataset.attributes, default_attributes, include_attributes);
         attributes_win = new Martview.windows.Fields({
           id: 'attributes',
           title: 'Add columns to the results grid',
