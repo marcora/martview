@@ -85,9 +85,9 @@ Ext.override(Ext.form.FormPanel, {
   focus: function () {
     try {
       if (this.items.first().isXType('fieldset')) {
-        this.items.first().items.first().focus('', 200);
+        this.items.first().items.first().focus('', 500);
       } else {
-        this.items.first().focus('', 200);
+        this.items.first().focus('', 500);
       }
     } catch(e) {
       // do nothing if no form fields

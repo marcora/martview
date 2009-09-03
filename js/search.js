@@ -9,9 +9,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       layout: 'fit',
       width: 500,
       split: true,
-      collapsible: true,
-      collapseMode: 'mini',
-      hideCollapseTool: true,
+      //       collapsible: true,
+      //       collapseMode: 'mini',
+      //       hideCollapseTool: true,
       bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
@@ -121,7 +121,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     search.submitButton.enable();
   },
 
-  //   clearForm: function () {
+  //   clear: function () {
   //     var search = this;
   //     var form = this.form;
   //     var config = form.initialConfig;
@@ -294,9 +294,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     // refresh form layout and focus
     form.doLayout();
     form.focus();
-
   }
-
 });
 
 Ext.reg('search', Martview.Search);
