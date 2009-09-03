@@ -84,7 +84,7 @@ Ext.override(Ext.form.Field, {
 Ext.override(Ext.form.FormPanel, {
   focus: function () {
     try {
-      if (this.items.first().getXType == 'fieldset') {
+      if (this.items.first().isXType('fieldset')) {
         this.items.first().items.first().focus('', 100);
       } else {
         this.items.first().focus('', 100);
