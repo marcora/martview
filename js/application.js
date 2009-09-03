@@ -169,10 +169,12 @@ Ext.onReady(function () {
       results_format: 'itemized'
     });
 
-    // set some ui elems
+    // update breadcrumbs
+    main.header.updateBreadcrumbs(params);
+
+    // set search/results format icon
     main.search.selectButton.setIconClass(params.search_format + '_search_icon');
     main.results.selectButton.setIconClass(params.results_format + '_results_icon');
-    main.header.updateBreadcrumbs(params);
 
     // reset default filters and attributes
     default_filters = [];
@@ -189,7 +191,6 @@ Ext.onReady(function () {
         // TODO: this is a mock implementation of user-defined searches
         if (params.search_format == 'user') {
           var include_filters = parseIncludeFields('assembly_type:DIMERIC|resolution_less_than:2|resolution_more_than:0');
-          console.dir(params.filters);
         }
 
         // filters
@@ -258,8 +259,23 @@ Ext.onReady(function () {
     // hide customize results button
     main.results.customizeButton.hide();
 
+    // clear results
+    main.results.clear();
+
+    // clear counter
+    main.results.counterButton.setText('');
+
     // show simple form
     main.search.showSimpleForm();
+
+    // reassign reset button handler
+    main.search.resetButton.purgeListeners();
+    main.search.resetButton.setHandler(function () {
+      main.results.clear();
+      main.results.counterButton.setText('');
+      form.getForm().reset();
+      form.focus();
+    });
 
     // submit search on enter key
     form.items.first().on('specialkey', function (f, o) {
@@ -321,6 +337,14 @@ Ext.onReady(function () {
     // show advanced search form
     main.search.showAdvancedForm(filters);
 
+    // reassign reset button handler
+    main.search.resetButton.purgeListeners();
+    main.search.resetButton.setHandler(function () {
+      form.getForm().reset();
+      form.focus();
+      submitSearch();
+    });
+
     // submit key on enter key
     form.filters.items.each(function (item) {
       item.on('specialkey', function (f, o) {
@@ -345,6 +369,10 @@ Ext.onReady(function () {
   }
 
   function submitSearch() {
+    // set search/results format icon
+    main.search.selectButton.setIconClass(params.search_format + '_search_icon');
+    main.results.selectButton.setIconClass(params.results_format + '_results_icon');
+
     var search_params = new Object;
     // build search params
     if (params.search_format == 'simple') {

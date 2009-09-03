@@ -75,12 +75,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         text: 'Reset',
         iconCls: 'reset_icon',
         cls: 'x-btn-text-icon',
-        disabled: true,
-        handler: function () {
-          this.form.getForm().reset();
-          this.form.focus();
-        },
-        scope: this // search panel scope
+        disabled: true
       },
       {
         itemId: 'submit',
