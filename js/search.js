@@ -98,7 +98,10 @@ Martview.Search = Ext.extend(Ext.Panel, {
         padding: 10,
         labelAlign: 'top',
         autoScroll: true,
-        bodyStyle: 'background-color:#dfe8f6;'
+        bodyStyle: 'background-color:#dfe8f6;',
+        defaults: {
+          anchor: '100%'
+        }
       }]
     });
 
@@ -109,7 +112,11 @@ Martview.Search = Ext.extend(Ext.Panel, {
   enableHeaderButtons: function (customize) {
     var search = this;
     search.selectButton.enable();
-    if (customize) search.customizeButton.show();
+    if (customize) {
+      search.customizeButton.show();
+    } else {
+      search.customizeButton.hide();
+    }
     search.saveButton.enable();
   },
 
@@ -119,57 +126,62 @@ Martview.Search = Ext.extend(Ext.Panel, {
     search.submitButton.enable();
   },
 
+  //   clearForm: function () {
+  //     var search = this;
+  //     var form = this.form;
+  //     var config = form.initialConfig;
+  //     search.remove(form, true);
+  //     form = search.add(new Ext.form.FormPanel(config));
+  //     search.doLayout();
+  //     return form;
+  //   },
   showSimpleForm: function () {
     var search = this;
     var form = this.form;
 
-    // enable header buttons
-    this.enableHeaderButtons();
+    // enable header and form buttons
+    search.enableHeaderButtons();
+    search.enableFormButtons();
 
-    // remove all fields from search form
+    // remove fields from search form
     form.removeAll();
 
-    // add field to search form
+    // add fields to search form
     form.add([{
       xtype: 'textfield',
-      anchor: '100%',
       fieldLabel: 'Enter search terms'
     },
     {
       // Lucene query syntax help
       xtype: 'fieldset',
+      itemId: 'help',
       title: 'Help',
       // title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
       autoHeight: true,
-      anchor: '100%',
       //       collapsed: true,
       //       collapsible: true,
       defaultType: 'displayfield',
       defaults: {
-        labelStyle: 'font-weight: bold;'
+        labelStyle: 'font-weight: bold;',
+        anchor: '100%'
       },
       items: [{
-        anchor: '100%',
         hideLabel: true,
         value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
       },
       {
-        anchor: '100%',
         fieldLabel: 'pdb_id',
         value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
       },
       {
-        anchor: '100%',
         fieldLabel: 'experiment_type',
         value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
       },
       {
-        anchor: '100%',
         fieldLabel: 'resolution',
         value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
       },
       {
-        anchor: '100%',
         fieldLabel: 'authors',
         value: 'search by author name (for example, <code>authors:Mishima</code>)'
       }]
@@ -184,26 +196,35 @@ Martview.Search = Ext.extend(Ext.Panel, {
     var search = this;
     var form = search.form;
 
-    // enable header buttons
-    this.enableHeaderButtons();
+    // enable header and form buttons
+    search.enableHeaderButtons();
+    search.enableFormButtons();
 
     // disable submit button
     search.submitButton.disable();
 
-    // remove all fields from search form
-    // FIXME: this is way to intricate and indeed it's a bug that should be fixed in Ext v3.1
-    form.items.clear();
-    form.getForm().items.each(function (field) {
-      field.destroy();
+    // remove fields from search form
+    form.removeAll();
+
+    // add fields to search form
+    var fieldset = form.add({
+      xtype: 'fieldset',
+      title: 'Filters',
+      itemId: 'filters',
+      ref: 'filters',
+      autoHeight: true,
+      defaults: {
+        anchor: '100%'
+      }
     });
+    form.doLayout();
 
     // add fields to search form
     if (facets) {
-      form.add(facets);
+      fieldset.add(facets);
     }
 
     // refresh form layout and focus
-    form.doLayout();
     form.focus();
   },
 
@@ -211,23 +232,25 @@ Martview.Search = Ext.extend(Ext.Panel, {
     var search = this;
     var form = search.form;
 
-    // enable header buttons
-    this.enableHeaderButtons(true);
+    // enable header and form buttons
+    search.enableHeaderButtons(true);
+    search.enableFormButtons();
 
-    // remove all fields from search form
+    // remove fields from search form
     form.removeAll();
 
-    // add 'filters' fieldset
+    // add fields to search form
     var fieldset = form.add({
-      // Lucene query syntax help
       xtype: 'fieldset',
-      ref: 'filters',
       title: 'Filters',
-      anchor: '100%',
-      autoHeight: true
+      itemId: 'filters',
+      ref: 'filters',
+      autoHeight: true,
+      defaults: {
+        anchor: '100%'
+      }
     });
 
-    // add fields to search form
     var field;
     Ext.each(filters, function (filter) {
       if (filter.qualifier in {
@@ -237,7 +260,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
       }) {
         if (filter.options) {
           field = fieldset.add([{
-            anchor: '100%',
             xtype: 'combo',
             name: filter.name,
             fieldLabel: filter.display_name || filter.name,
@@ -250,7 +272,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
           }]);
         } else {
           field = fieldset.add([{
-            anchor: '100%',
             xtype: 'textfield',
             name: filter.name,
             fieldLabel: filter.display_name || filter.name
@@ -260,7 +281,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
         'in': ''
       }) {
         field = fieldset.add({
-          anchor: '100%',
           xtype: 'textfield',
           name: filter.name,
           fieldLabel: filter.display_name || filter.name
