@@ -16,6 +16,9 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
 .x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
 
+.item-selector { width: 100% !important; }
+.selected-item { background: #f0f0f0 !important; }
+
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
