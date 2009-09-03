@@ -251,7 +251,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
       }
     });
 
-    var field;
     Ext.each(filters, function (filter) {
       if (filter.qualifier in {
         '=': '',
@@ -259,8 +258,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
         '<': ''
       }) {
         if (filter.options) {
-          field = fieldset.add([{
+          fieldset.add([{
             xtype: 'combo',
+            itemId: filter.name,
             name: filter.name,
             fieldLabel: filter.display_name || filter.name,
             editable: false,
@@ -271,8 +271,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
             store: filter.options.split(',')
           }]);
         } else {
-          field = fieldset.add([{
+          fieldset.add([{
             xtype: 'textfield',
+            itemId: filter.name,
             name: filter.name,
             fieldLabel: filter.display_name || filter.name
           }]);
@@ -280,19 +281,25 @@ Martview.Search = Ext.extend(Ext.Panel, {
       } else if (filter.qualifier in {
         'in': ''
       }) {
-        field = fieldset.add({
+        fieldset.add({
           xtype: 'textfield',
+          itemId: filter.name,
           name: filter.name,
           fieldLabel: filter.display_name || filter.name
         });
       }
+
       // set field value if defined
-      if (filter.value) field.setValue(filter.value);
+      var field = fieldset.get(filter.name);
+      if (field && filter.value) {
+        field.setValue(filter.value);
+      }
     });
 
     // refresh form layout and focus
     form.doLayout();
     form.focus();
+
   }
 
 });

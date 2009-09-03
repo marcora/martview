@@ -130,7 +130,9 @@ Ext.onReady(function () {
     Ext.each(tree, function (node) {
       if (node['leaf']) {
         if (include_fields) {
-          if (include_fields.has(node['name'])) {
+          if (node['name'] in include_fields) {
+            var value = include_fields[node['name']];
+            if (value) node['value'] = value;
             default_fields.push(node);
           }
         } else {
@@ -142,6 +144,16 @@ Ext.onReady(function () {
         extractDefaults(node['children'], default_fields, include_fields);
       }
     });
+  }
+
+  // parse query string into include_fields object
+  function parseIncludeFields(include_fields) {
+    var parsed = new Object;
+    Ext.each(include_fields.split('|'), function (include_field) {
+      var name_value = include_field.split(':');
+      parsed[name_value[0]] = name_value[1];
+    });
+    return parsed;
   }
 
   /** event handlers **/
@@ -174,10 +186,17 @@ Ext.onReady(function () {
       success: function (response) {
         var dataset = Ext.util.JSON.decode(response.responseText);
 
+        // TODO: this is a mock implementation of user-defined searches
+        if (params.search_format == 'user') {
+          var include_filters = parseIncludeFields('assembly_type:DIMERIC|resolution_less_than:2|resolution_more_than:0');
+          console.dir(params.filters);
+        }
+
         // filters
         if (params.filters) {
-          var include_filters = params.filters.split('|');
+          var include_filters = parseIncludeFields(params.filters);
         }
+
         extractDefaults(dataset.filters, default_filters, include_filters);
         filters_win = new Martview.windows.Fields({
           id: 'filters',
@@ -193,7 +212,7 @@ Ext.onReady(function () {
 
         // attributes
         if (params.attributes) {
-          var include_attributes = params.attributes.split('|');
+          var include_attributes = parseIncludeFields(params.attributes);
         }
         extractDefaults(dataset.attributes, default_attributes, include_attributes);
         attributes_win = new Martview.windows.Fields({
