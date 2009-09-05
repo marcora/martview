@@ -55,7 +55,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         {
           itemId: 'save',
           ref: '../saveButton',
-          text: 'Save',
+          text: 'Save results',
           iconCls: 'save_icon',
           cls: 'x-btn-text-icon',
           disabled: true,

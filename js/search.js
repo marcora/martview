@@ -58,7 +58,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           hidden: true
         },
         {
-          text: 'Save',
+          text: 'Save search',
           itemId: 'save',
           ref: '../saveButton',
           iconCls: 'save_icon',
