@@ -81,9 +81,18 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.saveButton.enable();
   },
 
+  disableHeaderButtons: function () {
+    var results = this;
+    results.selectButton.disable();
+    results.customizeButton.disable();
+    results.saveButton.disable();
+  },
+
   clear: function () {
     try {
       this.items.first().getStore().removeAll();
+      this.disableHeaderButtons();
+      this.counterButton.setText('');
       return true;
     } catch(e) {
       return false;
@@ -121,11 +130,9 @@ Martview.Results = Ext.extend(Ext.Panel, {
         store: store,
         tpl: tpl,
         autoHeight: true,
-        emptyText: 'No items to display',
         itemSelector: 'div.item-selector',
         overClass: 'selected-item',
         singleSelect: true,
-        deferEmptyText: true,
         border: false
       });
     }

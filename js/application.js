@@ -60,9 +60,40 @@ Ext.onReady(function () {
       main.header.homeButton.menu.add(select_dataset_menu_data);
       // add handler to each select dataset menu item
       main.header.homeButton.menu.items.each(function (mart_item) {
-        mart_item.menu.on('itemclick', function (menu_item) {
-          window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
-        });
+        if (!mart_item.multiselect) {
+          mart_item.menu.on('itemclick', function (menu_item) {
+            window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+          });
+        } else {
+          mart_item.menu.add([{
+            text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Select checked database(s)',
+            itemId: 'select',
+            handler: function () {
+              var checked_datasets = [];
+              this.parentMenu.items.each(function (dataset_item) {
+                if (dataset_item.checked) checked_datasets.push(dataset_item);
+              });
+              //               var checked_datasets_log = [];
+              //               Ext.each(checked_datasets, function (checked_dataset) {
+              //                 checked_datasets_log.push(checked_dataset.name);
+              //               });
+              //               if (checked_datasets.length > 0) {
+              //                 checked_datasets_log = checked_datasets_log.join(' and ');
+              //               } else {
+              //                 checked_datasets_log = 'No selected dataset(s)';
+              //               }
+              //               try {
+              //                 console.info(checked_datasets_log);
+              //               } catch(e) {
+              //                 log.info(checked_datasets_log);
+              //               }
+              if (checked_datasets.length > 0) {
+                var menu_item = checked_datasets[0];
+                window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+              }
+            }
+          }]);
+        }
       });
       // call select search if params are valid
       if (params.mart) {
@@ -272,7 +303,6 @@ Ext.onReady(function () {
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(function () {
       main.results.clear();
-      main.results.counterButton.setText('');
       form.getForm().reset();
       form.focus();
     });

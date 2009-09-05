@@ -26,6 +26,8 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .item .title { font-weight: bold !important; color: #333 !important; }
 .item .attribute { color: #666 !important; }
 
+.field { border-bottom-color: transparent !important; }
+
 .attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
@@ -47,6 +49,7 @@ noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 .folder_open_icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
 .help_icon { background-image: url('../ico/question.png') !important; }
+.submit_icon { background-image: url('../ico/tick.png') !important; }
 
 button.moveup_icon { background-image: url('../ico/arrow-090.png') !important; }
 button.movedn_icon { background-image: url('../ico/arrow-270.png') !important; }
