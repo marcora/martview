@@ -1,3 +1,4 @@
+// FIXME: Do not reload search/results when user select same search/results as current
 // TODO: Column order for query results should follow attribute order
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
