@@ -67,7 +67,7 @@ Ext.onReady(function () {
           });
         } else {
           mart_item.menu.add([{
-            text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Select checked database(s)',
+            text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Select the checked database(s)',
             itemId: 'select',
             handler: function () {
               var checked_datasets = [];

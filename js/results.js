@@ -113,7 +113,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.counterButton.setText(store.getTotalCount() + ' of ' + data.count);
 
     if (format == 'tabular') {
-      var colModel = new Ext.grid.ColumnModel(data.columns);
+      var colModel = new Ext.grid.ColumnModel([new Ext.grid.RowNumberer()].concat(data.columns));
       var rows = new Ext.grid.GridPanel({
         store: store,
         colModel: colModel,
