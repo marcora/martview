@@ -2,124 +2,124 @@
   "text": "EBI",
   "iconCls": "favicon_icon",
   "menu": [{
-    "text": "Genomics",
-    "menu": [{
-      "text": "ENSEMBL",
-      "menu": [{
-        "text": "Mus musculus genes",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ENSEMBL",
-        "dataset_name": "msd",
-        "dataset_display_name": "Mus musculus genes"
-      },
-      {
-        "text": "Homo sapiens genes",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ENSEMBL",
-        "dataset_name": "msd",
-        "dataset_display_name": "Homo sapiens genes"
-      }]
-    },
-    {
-      "text": "Wormbase C. elegans genes",
-      "leaf": true,
-      "mart_name": "msd",
-      "mart_display_name": "Wormbase",
-      "dataset_name": "msd",
-      "dataset_display_name": "C. elegans genes"
-    }]
-  },
-  {
-    "text": "Proteomics",
-    "menu": [{
-      "text": "PRIDE proteins",
-      "leaf": true,
-      "mart_name": "msd",
-      "mart_display_name": "PRIDE",
-      "dataset_name": "msd",
-      "dataset_display_name": "Proteins"
-    },
-    {
-      "text": "UNIPROT proteins",
-      "leaf": true,
-      "mart_name": "msd",
-      "mart_display_name": "UNIPROT",
-      "dataset_name": "msd",
-      "dataset_display_name": "Proteins"
-    }]
-  },
-  {
-    "text": "Cancer",
-    "menu": [{
-      "text": "Genes",
-      "menu": [{
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Pancreatic cancer genes",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Pancreatic cancer genes"
-      },
-      {
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Liver cancer genes",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Liver cancer genes"
-      },
-      {
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Breast cancer genes",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Breast cancer genes"
-      }]
-    },
-    {
-      "text": "Specimens",
-      "menu": [{
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Pancreatic cancer specimens",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Pancreatic cancer specimens"
-      },
-      {
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Liver cancer specimens",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Liver cancer specimens"
-      },
-      {
-        "checked": false,
-        "hideOnClick": false,
-        "text": "Breast cancer specimens",
-        "leaf": true,
-        "mart_name": "msd",
-        "mart_display_name": "ICGC",
-        "dataset_name": "msd",
-        "dataset_display_name": "Breast cancer specimens"
-      }]
-    }]
-  },
-  {
+//     "text": "Genomics",
+//     "menu": [{
+//       "text": "ENSEMBL",
+//       "menu": [{
+//         "text": "Mus musculus genes",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ENSEMBL",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Mus musculus genes"
+//       },
+//       {
+//         "text": "Homo sapiens genes",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ENSEMBL",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Homo sapiens genes"
+//       }]
+//     },
+//     {
+//       "text": "Wormbase C. elegans genes",
+//       "leaf": true,
+//       "mart_name": "msd",
+//       "mart_display_name": "Wormbase",
+//       "dataset_name": "msd",
+//       "dataset_display_name": "C. elegans genes"
+//     }]
+//   },
+//   {
+//     "text": "Proteomics",
+//     "menu": [{
+//       "text": "PRIDE proteins",
+//       "leaf": true,
+//       "mart_name": "msd",
+//       "mart_display_name": "PRIDE",
+//       "dataset_name": "msd",
+//       "dataset_display_name": "Proteins"
+//     },
+//     {
+//       "text": "UNIPROT proteins",
+//       "leaf": true,
+//       "mart_name": "msd",
+//       "mart_display_name": "UNIPROT",
+//       "dataset_name": "msd",
+//       "dataset_display_name": "Proteins"
+//     }]
+//   },
+//   {
+//     "text": "Cancer",
+//     "menu": [{
+//       "text": "Genes",
+//       "menu": [{
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Pancreatic cancer genes",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Pancreatic cancer genes"
+//       },
+//       {
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Liver cancer genes",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Liver cancer genes"
+//       },
+//       {
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Breast cancer genes",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Breast cancer genes"
+//       }]
+//     },
+//     {
+//       "text": "Specimens",
+//       "menu": [{
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Pancreatic cancer specimens",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Pancreatic cancer specimens"
+//       },
+//       {
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Liver cancer specimens",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Liver cancer specimens"
+//       },
+//       {
+//         "checked": false,
+//         "hideOnClick": false,
+//         "text": "Breast cancer specimens",
+//         "leaf": true,
+//         "mart_name": "msd",
+//         "mart_display_name": "ICGC",
+//         "dataset_name": "msd",
+//         "dataset_display_name": "Breast cancer specimens"
+//       }]
+//     }]
+//   },
+//   {
     "text": "MSD protein structures",
     "leaf": true,
     "mart_name": "msd",

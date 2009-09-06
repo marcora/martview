@@ -9,7 +9,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       layout: 'fit',
       autoScroll: true,
       border: true,
-      width: 500,
+      width: 400,
       split: true,
       bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({

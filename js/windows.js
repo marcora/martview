@@ -48,6 +48,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
+      cls: 'fields',
       iconCls: 'add_icon',
       buttons: [{
         text: 'Close',

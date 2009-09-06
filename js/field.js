@@ -12,6 +12,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
       itemId: this.treenode.id,
       draggable: true,
       cls: 'field',
+      border: false,
       tbar: [{
         text: this.treenode.attributes.display_name || this.treenode.attributes.name,
         tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
