@@ -37,17 +37,17 @@ Ext.override(Ext.util.MixedCollection, {
   }
 });
 
-// add the getText method to Ext.menu.item to match the setText method
+// add the getText method to Ext.menu.BaseItem to match the setText method
 Ext.override(Ext.menu.BaseItem, {
   getText: function () {
-    return this.el.select('span.x-menu-item-text').first().dom.innerHTML;
+    return this.el.child('.x-menu-item-text').dom.innerHTML;
   }
 });
 
 // add the getText method to Ext.menu.Menu to match the setText method
 Ext.override(Ext.menu.Menu, {
   getText: function () {
-    return this.el.select('span.x-menu-item-text').first().dom.innerHTML;
+    return this.el.child('.x-menu-item-text').dom.innerHTML;
   }
 });
 

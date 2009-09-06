@@ -12,9 +12,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'home',
         ref: 'homeButton',
-        text: document.title,
-        iconCls: 'favicon_icon',
         cls: 'x-btn-text-icon',
+        text: 'Home',
+        iconCls: 'home_icon',
         hidden: false,
         menu: []
       },
@@ -66,11 +66,53 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
         }
       }]
-
     });
 
     // call parent
     Martview.Header.superclass.initComponent.apply(this, arguments);
+  },
+
+  load: function (data) {
+    header = this;
+    header.homeButton.setText(data.text);
+    header.homeButton.setIconClass(data.iconCls);
+    header.homeButton.menu.add(data.menu);
+
+    function setHandlers(menu) {
+      menu.items.each(function (menu_item) {
+        if (menu_item.leaf) {
+          if (menu_item.isXType('menucheckitem')) {
+            menu_item.setText('<img style=\"vertical-align: top !important;\" src=\"./ico/database.png\" />&nbsp;' + menu_item.text);
+            if (!menu.items.get('select')) {
+              menu.add([{
+                text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Search the checked database(s)',
+                itemId: 'select',
+                leaf: true, // important to not upset params validation with multiselect menus!
+                handler: function () {
+                  var checked_datasets = [];
+                  this.parentMenu.items.each(function (dataset_item) {
+                    if (dataset_item.checked) checked_datasets.push(dataset_item);
+                  });
+                  if (checked_datasets.length > 0) {
+                    var menu_item = checked_datasets[0];
+                    window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+                  }
+                }
+              }]);
+            }
+          } else {
+            menu_item.setIconClass('dataset_icon');
+            menu_item.on('click', function (menu_item) {
+              window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+            });
+          }
+        } else {
+          menu_item.setIconClass('folder_icon');
+          setHandlers(menu_item.menu);
+        }
+      });
+    }
+    setHandlers(header.homeButton.menu);
   },
 
   updateBreadcrumbs: function (params) {

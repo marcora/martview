@@ -54,80 +54,48 @@ Ext.onReady(function () {
   });
 
   // populate select dataset menu with data from static json file on server
-  var select_dataset_menu_url = './json/marts_and_datasets.json';
+  var select_dataset_menu_url = './json/msd.datasets.json';
   conn.request({
     url: select_dataset_menu_url,
     success: function (response) {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.header.homeButton.menu.add(select_dataset_menu_data);
-      // add handler to each select dataset menu item
-      main.header.homeButton.menu.items.each(function (mart_item) {
-        if (!mart_item.multiselect) {
-          mart_item.menu.on('itemclick', function (menu_item) {
-            window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
-          });
-        } else {
-          mart_item.menu.add([{
-            text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Select the checked database(s)',
-            itemId: 'select',
-            handler: function () {
-              var checked_datasets = [];
-              this.parentMenu.items.each(function (dataset_item) {
-                if (dataset_item.checked) checked_datasets.push(dataset_item);
-              });
-              //               var checked_datasets_log = [];
-              //               Ext.each(checked_datasets, function (checked_dataset) {
-              //                 checked_datasets_log.push(checked_dataset.name);
-              //               });
-              //               if (checked_datasets.length > 0) {
-              //                 checked_datasets_log = checked_datasets_log.join(' and ');
-              //               } else {
-              //                 checked_datasets_log = 'No selected dataset(s)';
-              //               }
-              //               try {
-              //                 console.info(checked_datasets_log);
-              //               } catch(e) {
-              //                 log.info(checked_datasets_log);
-              //               }
-              if (checked_datasets.length > 0) {
-                var menu_item = checked_datasets[0];
-                window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
-              }
+      main.header.load(select_dataset_menu_data);
+
+      params.mart_name = params.mart;
+      params.dataset_name = params.dataset;
+      params.search_format = params.search;
+      params.results_format = params.results;
+
+      // validate params by recursively matching the select dataset menu
+      var dataset_counter = 0;
+      var single_dataset;
+      function validateParams(menu) {
+        menu.items.each(function (menu_item) {
+          if (menu_item.leaf) {
+            dataset_counter++;
+            single_dataset = menu_item;
+            if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && search_formats.has(params.search_format) && results_formats.has(params.results_format)) {
+              params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
+              params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
             }
-          }]);
-        }
-      });
-      // call select search if params are valid
-      if (params.mart) {
-        // mart param
-        params.mart_name = params.mart;
-        if (params.dataset) {
-          // mart + dataset params
-          params.dataset_name = params.dataset;
-
-          // search and results params
-          params.search_format = params.search;
-          params.results_format = params.results;
-
-          // validate params
-          main.header.homeButton.menu.items.each(function (mart_item) {
-            mart_item.menu.items.each(function (dataset_item) {
-              if (params.mart_name == dataset_item.mart_name && params.dataset_name == dataset_item.dataset_name && search_formats.has(params.search_format) && results_formats.has(params.results_format)) {
-                params.mart_display_name = dataset_item.mart_display_name || dataset_item.mart_name;
-                params.dataset_display_name = dataset_item.dataset_display_name || dataset_item.dataset_name;
-              }
-            });
-          });
-          // call select search
-          if (params.dataset_display_name) {
-            selectSearch(params);
+          } else {
+            validateParams(menu_item.menu);
           }
-        }
+        });
+      }
+      validateParams(main.header.homeButton.menu);
+
+      // call select search if params are valid
+      if (params.dataset_display_name) {
+        selectSearch(params);
+      } else if (dataset_counter == 1) {
+        // if only one dataset and even if not specified in params, select it automagically
+        selectSearch(single_dataset);
+      } else {
+        // wait for select dataset menu click event
       }
     }
   });
-
-  /** bindings **/
 
   // show filters/attributes window on customize button click
   main.search.customizeButton.on('click', function () {
@@ -189,10 +157,7 @@ Ext.onReady(function () {
     return parsed;
   }
 
-  /** event handlers **/
-
   function selectSearch(menu_item) {
-
     // if called from menu
     if (menu_item) params = menu_item;
 

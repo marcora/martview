@@ -1,0 +1,12 @@
+{
+  "text": "MSD",
+  "iconCls": "favicon_icon",
+  "menu": [{
+    "text": "MSD protein structures",
+    "leaf": true,
+    "mart_name": "msd",
+    "mart_display_name": "MSD",
+    "dataset_name": "msd",
+    "dataset_display_name": "Protein structures"
+  }]
+}
