@@ -54,7 +54,7 @@ Ext.onReady(function () {
   });
 
   // populate select dataset menu with data from static json file on server
-  var select_dataset_menu_url = './json/icgc.datasets.json';
+  var select_dataset_menu_url = './json/select_dataset_menu.json';
   conn.request({
     url: select_dataset_menu_url,
     success: function (response) {
