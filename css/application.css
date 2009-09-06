@@ -2,7 +2,23 @@
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
-#header, #footer { border-width: 0  !important; }
+body > .x-toolbar-layout-ct {
+    background-color: #dfe8f6 !important;
+    background-image: none !important;
+    border-top: 0  !important;
+    border-bottom: 1px #9cbfee solid  !important;
+    border-right: 1px #9cbfee solid  !important;
+    border-left: 1px #9cbfee solid  !important;
+}
+
+body > .x-toolbar-layout-ct:first-child {
+    background-color: #dfe8f6 !important;
+    background-image: none !important;
+    border-top: 1px #9cbfee solid  !important;
+    border-bottom: 0 !important;
+    border-right: 1px #9cbfee solid  !important;
+    border-left: 1px #9cbfee solid  !important;
+}
 
 #filters .x-grid3-header { display: none !important; }
 

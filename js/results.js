@@ -8,6 +8,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       region: 'center',
       layout: 'fit',
       autoScroll: true,
+      border: true,
       //       title: 'Results',
       //       tools: [{
       //         id: 'gear',
@@ -66,7 +67,11 @@ Martview.Results = Ext.extend(Ext.Panel, {
       }),
       bbar: [{
         itemId: 'counter',
-        ref: '../counterButton'
+        ref: '../counterButton',
+        text: ''
+      }],
+      items: [{
+        border: false
       }]
     });
 

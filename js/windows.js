@@ -41,8 +41,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   initComponent: function () {
     Ext.applyIf(this, {
       modal: true,
-      width: 880,
-      height: 550,
+      width: 750,
+      height: 500,
       layout: 'border',
       closeAction: 'hide',
       plain: true,
@@ -65,11 +65,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         itemId: 'all',
         title: 'All ' + this.display_name.toLowerCase(),
         iconCls: 'node_all_icon',
-        width: 330,
+        width: 300,
         split: true,
-        collapsible: true,
-        collapseMode: 'mini',
-        hideCollapseTool: true,
         rootVisible: false,
         defaultTools: false,
         children: this.children,

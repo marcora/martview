@@ -9,6 +9,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       ref: '../footer',
       // FIX: should adjust height automatically
       height: 26,
+      border: false,
       items: [{
         itemId: 'message',
         ref: 'messageButton',

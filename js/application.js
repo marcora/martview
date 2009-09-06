@@ -260,9 +260,6 @@ Ext.onReady(function () {
     // clear results
     main.results.clear();
 
-    // clear counter
-    main.results.counterButton.setText('');
-
     // show simple form
     main.search.showSimpleForm();
 

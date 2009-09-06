@@ -7,6 +7,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
       ref: '../search',
       region: 'west',
       layout: 'fit',
+      autoScroll: true,
+      border: true,
       width: 500,
       split: true,
       //       collapsible: true,
@@ -92,7 +94,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
         border: false,
         padding: 10,
         labelAlign: 'top',
-        autoScroll: true,
         bodyStyle: 'background-color:#dfe8f6;',
         defaults: {
           anchor: '100%'
