@@ -54,12 +54,12 @@ Ext.onReady(function () {
   });
 
   // populate select dataset menu with data from static json file on server
-  var select_dataset_menu_url = './json/msd.datasets.json';
+  var select_dataset_menu_url = './json/icgc.datasets.json';
   conn.request({
     url: select_dataset_menu_url,
     success: function (response) {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.header.load(select_dataset_menu_data);
+      main.header.load(select_dataset_menu_data, selectSearch);
 
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
@@ -90,7 +90,7 @@ Ext.onReady(function () {
         selectSearch(params);
       } else if (dataset_counter == 1) {
         // if only one dataset and even if not specified in params, select it automagically
-        selectSearch(single_dataset);
+        selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
       } else {
         // wait for select dataset menu click event
       }

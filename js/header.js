@@ -13,8 +13,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'home',
         ref: 'homeButton',
         cls: 'x-btn-text-icon',
-        text: 'Home',
-        iconCls: 'home_icon',
+//         text: 'Home',
+//         iconCls: 'home_icon',
         hidden: false,
         menu: []
       },
@@ -72,13 +72,13 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     Martview.Header.superclass.initComponent.apply(this, arguments);
   },
 
-  load: function (data) {
+  load: function (data, handler) {
     header = this;
     header.homeButton.setText(data.text);
     header.homeButton.setIconClass(data.iconCls);
     header.homeButton.menu.add(data.menu);
 
-    function setHandlers(menu) {
+    function setHandler(menu) {
       menu.items.each(function (menu_item) {
         if (menu_item.leaf) {
           if (menu_item.isXType('menucheckitem')) {
@@ -87,7 +87,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
               menu.add([{
                 text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Search the checked database(s)',
                 itemId: 'select',
-                leaf: true, // important to not upset params validation with multiselect menus!
+                leaf: true,
+                // important to not upset params validation with multiselect menus!
                 handler: function () {
                   var checked_datasets = [];
                   this.parentMenu.items.each(function (dataset_item) {
@@ -95,7 +96,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
                   });
                   if (checked_datasets.length > 0) {
                     var menu_item = checked_datasets[0];
-                    window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+                    handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
                   }
                 }
               }]);
@@ -103,16 +104,16 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
           } else {
             menu_item.setIconClass('dataset_icon');
             menu_item.on('click', function (menu_item) {
-              window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
+              handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
             });
           }
         } else {
           menu_item.setIconClass('folder_icon');
-          setHandlers(menu_item.menu);
+          setHandler(menu_item.menu);
         }
       });
     }
-    setHandlers(header.homeButton.menu);
+    setHandler(header.homeButton.menu);
   },
 
   updateBreadcrumbs: function (params) {
