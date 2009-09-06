@@ -6,14 +6,11 @@ Martview.Search = Ext.extend(Ext.Panel, {
       id: 'search',
       ref: '../search',
       region: 'west',
-      layout: 'fit',
+      // layout: 'fit', keep it commented out!
       autoScroll: true,
       border: true,
       width: 500,
       split: true,
-      //       collapsible: true,
-      //       collapseMode: 'mini',
-      //       hideCollapseTool: true,
       bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',

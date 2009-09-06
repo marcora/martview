@@ -6,18 +6,9 @@ Martview.Results = Ext.extend(Ext.Panel, {
       id: 'results',
       ref: '../results',
       region: 'center',
-      layout: 'fit',
+      // layout: 'fit', keep it commented out!
       autoScroll: true,
       border: true,
-      //       title: 'Results',
-      //       tools: [{
-      //         id: 'gear',
-      //         qtip: 'Customize the results panel'
-      //       },
-      //       {
-      //         id: 'save',
-      //         qtip: 'Save the results'
-      //       }],
       tbar: new Ext.Toolbar({
         cls: 'x-panel-header',
         height: 26,
