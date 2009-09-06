@@ -6,8 +6,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       id: 'search',
       ref: '../search',
       region: 'west',
-      // layout: 'fit', keep it commented out!
-      autoScroll: true,
+      layout: 'fit',
       border: true,
       width: 500,
       split: true,

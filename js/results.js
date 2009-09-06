@@ -6,7 +6,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       id: 'results',
       ref: '../results',
       region: 'center',
-      // layout: 'fit', keep it commented out!
+      // layout: 'fit',
       autoScroll: true,
       border: true,
       tbar: new Ext.Toolbar({
