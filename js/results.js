@@ -6,7 +6,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
       id: 'results',
       ref: '../results',
       region: 'center',
-      // layout: 'fit',
+      layout: 'fit',
       autoScroll: true,
       border: true,
       tbar: new Ext.Toolbar({
@@ -60,9 +60,6 @@ Martview.Results = Ext.extend(Ext.Panel, {
         itemId: 'counter',
         ref: '../counterButton',
         text: ''
-      }],
-      items: [{
-        border: false
       }]
     });
 
@@ -125,11 +122,13 @@ Martview.Results = Ext.extend(Ext.Panel, {
       var rows = new Ext.DataView({
         store: store,
         tpl: tpl,
-        autoHeight: true,
         itemSelector: 'div.item-selector',
         overClass: 'selected-item',
         singleSelect: true,
-        border: false
+        border: false,
+        autoHeight: true,
+        autoWidth: true,
+        fitToFrame: true
       });
     }
     results.removeAll();
