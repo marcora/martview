@@ -74,6 +74,7 @@ body > .x-toolbar-layout-ct:first-child {
 .add_icon { background-image: url('../ico/plus-circle.png') !important; }
 .help_icon { background-image: url('../ico/question.png') !important; }
 .submit_icon { background-image: url('../ico/tick.png') !important; }
+.save_icon { background-image: url('../ico/disk.png') !important; }
 
 button.moveup_icon { background-image: url('../ico/arrow-090.png') !important; }
 button.movedn_icon { background-image: url('../ico/arrow-270.png') !important; }

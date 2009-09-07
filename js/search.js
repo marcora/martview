@@ -64,7 +64,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
           cls: 'x-btn-text-icon',
           disabled: true,
           handler: function () {
-            Ext.MessageBox.alert(Martview.APP_TITLE, 'Save search in various formats');
+            var save_search = new Martview.windows.SaveSearch();
+            save_search.show();
           }
         }]
       }),

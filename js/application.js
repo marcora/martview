@@ -71,15 +71,15 @@ Ext.onReady(function () {
       var single_dataset;
       function validateParams(menu) {
         menu.items.each(function (menu_item) {
-          if (menu_item.leaf) {
+          if (menu_item.menu) {
+            validateParams(menu_item.menu);
+          } else {
             dataset_counter++;
             single_dataset = menu_item;
             if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && search_formats.has(params.search_format) && results_formats.has(params.results_format)) {
               params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
               params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
             }
-          } else {
-            validateParams(menu_item.menu);
           }
         });
       }
@@ -199,7 +199,7 @@ Ext.onReady(function () {
         extractDefaults(dataset.filters, default_filters, include_filters);
         filters_win = new Martview.windows.Fields({
           id: 'filters',
-          title: 'Add filters to the search form',
+          title: 'Add filter(s) to search form',
           display_name: 'Filters',
           field_iconCls: 'filter_icon',
           children: dataset.filters,
@@ -216,7 +216,7 @@ Ext.onReady(function () {
         extractDefaults(dataset.attributes, default_attributes, include_attributes);
         attributes_win = new Martview.windows.Fields({
           id: 'attributes',
-          title: 'Add columns to the results grid',
+          title: 'Add column(s) to results grid',
           display_name: 'Columns',
           field_iconCls: 'attribute_icon',
           children: dataset.attributes,

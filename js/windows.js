@@ -168,3 +168,89 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     selected.doLayout();
   }
 });
+
+Martview.windows.SaveResults = Ext.extend(Ext.Window, {
+
+  // hard config
+  initComponent: function () {
+    Ext.applyIf(this, {
+      title: 'Save results',
+      modal: true,
+      width: 750,
+      height: 500,
+      layout: 'fit',
+      closeAction: 'hide',
+      plain: true,
+      border: false,
+      autoDestroy: true,
+      iconCls: 'save_icon',
+      buttons: [{
+        text: 'Cancel',
+        cls: 'x-btn-text-icon',
+        iconCls: 'close_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      },
+      {
+        text: 'Ok',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      }],
+      items: [{
+        xtype: 'form'
+      }]
+    });
+
+    // call parent
+    Martview.windows.SaveResults.superclass.initComponent.apply(this, arguments);
+  }
+});
+
+Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
+
+  // hard config
+  initComponent: function () {
+    Ext.applyIf(this, {
+      title: 'Save search',
+      modal: true,
+      width: 750,
+      height: 500,
+      layout: 'fit',
+      closeAction: 'hide',
+      plain: true,
+      border: false,
+      autoDestroy: true,
+      iconCls: 'save_icon',
+      buttons: [{
+        text: 'Cancel',
+        cls: 'x-btn-text-icon',
+        iconCls: 'close_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      },
+      {
+        text: 'Ok',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      }],
+      items: [{
+        xtype: 'form'
+      }]
+    });
+
+    // call parent
+    Martview.windows.SaveSearch.superclass.initComponent.apply(this, arguments);
+  }
+});

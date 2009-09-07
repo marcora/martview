@@ -13,8 +13,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'home',
         ref: 'homeButton',
         cls: 'x-btn-text-icon',
-//         text: 'Home',
-//         iconCls: 'home_icon',
+        //         text: 'Home',
+        //         iconCls: 'home_icon',
         hidden: false,
         menu: []
       },
@@ -80,14 +80,16 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
 
     function setHandler(menu) {
       menu.items.each(function (menu_item) {
-        if (menu_item.leaf) {
+        if (menu_item.menu) {
+          menu_item.setIconClass('folder_icon');
+          setHandler(menu_item.menu);
+        } else {
           if (menu_item.isXType('menucheckitem')) {
             menu_item.setText('<img style=\"vertical-align: top !important;\" src=\"./ico/database.png\" />&nbsp;' + menu_item.text);
             if (!menu.items.get('select')) {
               menu.add([{
                 text: '<img style=\"vertical-align: top !important;\" src=\"./ico/tick.png\" />&nbsp;Search the checked database(s)',
                 itemId: 'select',
-                leaf: true,
                 // important to not upset params validation with multiselect menus!
                 handler: function () {
                   var checked_datasets = [];
@@ -107,9 +109,6 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
               handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
             });
           }
-        } else {
-          menu_item.setIconClass('folder_icon');
-          setHandler(menu_item.menu);
         }
       });
     }

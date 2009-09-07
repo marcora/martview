@@ -52,7 +52,8 @@ Martview.Results = Ext.extend(Ext.Panel, {
           cls: 'x-btn-text-icon',
           disabled: true,
           handler: function () {
-            Ext.MessageBox.alert(Martview.APP_TITLE, 'Save results in various formats');
+            var save_results = new Martview.windows.SaveResults();
+            save_results.show();
           }
         }]
       }),
