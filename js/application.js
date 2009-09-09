@@ -61,6 +61,9 @@ Ext.onReady(function () {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
       main.header.load(select_dataset_menu_data, selectSearch);
 
+      // set document title to match portal name
+      document.title = main.header.getTitle();
+
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
       params.search_format = params.search;
@@ -481,7 +484,7 @@ Ext.onReady(function () {
       virtualSchemaName: 'default',
       formatter: 'CSV',
       header: 0,
-      uniqueRows: 0,
+      uniqueRows: 1,
       count: 0,
       limitSize: 50,
       datasetConfigVersion: '0.6',

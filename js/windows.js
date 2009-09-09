@@ -169,49 +169,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   }
 });
 
-Martview.windows.SaveResults = Ext.extend(Ext.Window, {
-
-  // hard config
-  initComponent: function () {
-    Ext.applyIf(this, {
-      title: 'Save results',
-      modal: true,
-      width: 750,
-      height: 500,
-      layout: 'fit',
-      closeAction: 'hide',
-      plain: true,
-      border: false,
-      autoDestroy: true,
-      iconCls: 'save_icon',
-      buttons: [{
-        text: 'Cancel',
-        cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
-        handler: function () {
-          this.hide();
-        },
-        scope: this // scope button to window
-      },
-      {
-        text: 'Ok',
-        cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon',
-        handler: function () {
-          this.hide();
-        },
-        scope: this // scope button to window
-      }],
-      items: [{
-        xtype: 'form'
-      }]
-    });
-
-    // call parent
-    Martview.windows.SaveResults.superclass.initComponent.apply(this, arguments);
-  }
-});
-
 Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
 
   // hard config
@@ -219,9 +176,9 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
     Ext.applyIf(this, {
       title: 'Save search',
       modal: true,
-      width: 750,
-      height: 500,
       layout: 'fit',
+      autoHeight: true,
+      autoWidth: true,
       closeAction: 'hide',
       plain: true,
       border: false,
@@ -237,7 +194,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         scope: this // scope button to window
       },
       {
-        text: 'Ok',
+        text: 'Save',
         cls: 'x-btn-text-icon',
         iconCls: 'submit_icon',
         handler: function () {
@@ -246,11 +203,91 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         scope: this // scope button to window
       }],
       items: [{
-        xtype: 'form'
+        xtype: 'form',
+        frame: true,
+        autoHeight: true,
+        autoWidth: true,
+        bodyStyle: 'padding:5px',
+        items: [{
+          xtype: 'combo',
+          name: 'format',
+          anchor: '100%',
+          fieldLabel: 'Save current search as',
+          editable: false,
+          forceSelection: true,
+          lastSearchTerm: false,
+          triggerAction: 'all',
+          mode: 'local',
+          store: [['url', 'URL'], ['xml', 'XML'], ['perl', 'Perl'], ['ruby', 'Ruby'], ['remote', 'Remote']]
+        }]
       }]
     });
 
     // call parent
     Martview.windows.SaveSearch.superclass.initComponent.apply(this, arguments);
+  }
+});
+
+Martview.windows.SaveResults = Ext.extend(Ext.Window, {
+
+  // hard config
+  initComponent: function () {
+    Ext.applyIf(this, {
+      title: 'Save results',
+      modal: true,
+      layout: 'fit',
+      autoHeight: true,
+      autoWidth: true,
+      closeAction: 'hide',
+      plain: true,
+      border: false,
+      autoDestroy: true,
+      iconCls: 'save_icon',
+      buttons: [{
+        text: 'Cancel',
+        cls: 'x-btn-text-icon',
+        iconCls: 'close_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      },
+      {
+        text: 'Save',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit_icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
+      }],
+      items: [{
+        xtype: 'form',
+        frame: true,
+        autoHeight: true,
+        autoWidth: true,
+        bodyStyle: 'padding:5px',
+        items: [{
+          xtype: 'combo',
+          name: 'format',
+          anchor: '100%',
+          fieldLabel: 'Save current results as',
+          editable: false,
+          forceSelection: true,
+          lastSearchTerm: false,
+          triggerAction: 'all',
+          mode: 'local',
+          store: [['csv', 'CSV'], ['tsv', 'TSV'], ['excel', 'Excel'], ['xml', 'XML'], ['json', 'JSON']]
+        },
+        {
+          xtype: 'textfield',
+          anchor: '100%',
+          fieldLabel: 'Email results to (optional)'
+        }]
+      }]
+    });
+
+    // call parent
+    Martview.windows.SaveResults.superclass.initComponent.apply(this, arguments);
   }
 });

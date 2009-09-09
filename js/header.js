@@ -122,6 +122,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     header.martButton.setIconClass('mart_icon').setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
+    // update document title to match breadcrumbs
+    document.title = header.homeButton.getText() + ' > ' + params.mart_display_name + ' > ' + params.dataset_display_name;
   }
 
 });
