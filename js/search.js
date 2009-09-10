@@ -97,6 +97,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         autoWidth: true,
         autoHeight: true,
         fitToFrame: true,
+        // trackResetOnLoad: false,
         defaults: {
           anchor: '100%'
         }

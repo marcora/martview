@@ -1,7 +1,9 @@
 // FIXME: Abort conn on timeout
 // FIXME: Do not reload search/results when user select same search/results as current
 // TODO: Column order for query results should follow attribute order
+// TODO: Do not resubmit search to server when changing results format
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
+// FIXME: Search form customization does not work when search format is set to 'user'
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -244,7 +246,7 @@ Ext.onReady(function () {
           filters.push(item.treenode.attributes);
         });
       } else {
-        var filters = default_filters;
+        var filters = default_filters.slice(); // copy array, do not pass by ref!
       }
 
       // add values to filters if previously set in the search form
@@ -253,7 +255,7 @@ Ext.onReady(function () {
         var value = values[filter.name];
         if (value) filter['value'] = value;
       });
-      
+
       showAdvancedSearch(filters);
       if (submit) submitSearch();
     }
@@ -343,7 +345,9 @@ Ext.onReady(function () {
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(function () {
-      form.getForm().reset();
+      form.getForm().items.each(function (item) {
+        item.setValue('');
+      }); // form.getForm().reset(); does not work in this context
       form.focus();
       submitSearch();
     });
