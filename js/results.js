@@ -54,6 +54,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           handler: function () {
             var save_results = new Martview.windows.SaveResults();
             save_results.show();
+            save_results.center();
           }
         }]
       }),

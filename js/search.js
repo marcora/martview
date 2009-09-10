@@ -66,6 +66,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           handler: function () {
             var save_search = new Martview.windows.SaveSearch();
             save_search.show();
+            save_search.center();
           }
         }]
       }),

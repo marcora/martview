@@ -61,9 +61,6 @@ Ext.onReady(function () {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
       main.header.load(select_dataset_menu_data, selectSearch);
 
-      // set document title to match portal name
-      document.title = main.header.getTitle();
-
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
       params.search_format = params.search;

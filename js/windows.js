@@ -207,6 +207,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         frame: true,
         autoHeight: true,
         autoWidth: true,
+        labelAlign: 'top',
         bodyStyle: 'padding:5px',
         items: [{
           xtype: 'combo',
@@ -266,6 +267,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         frame: true,
         autoHeight: true,
         autoWidth: true,
+        labelAlign: 'top',
         bodyStyle: 'padding:5px',
         items: [{
           xtype: 'combo',
@@ -282,7 +284,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         {
           xtype: 'textfield',
           anchor: '100%',
-          fieldLabel: 'Email results to (optional)'
+          fieldLabel: 'Email to (optional but recommended when the numbers of results is large)'
         }]
       }]
     });
