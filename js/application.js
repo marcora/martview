@@ -197,6 +197,7 @@ Ext.onReady(function () {
         }
 
         extractDefaults(dataset.filters, default_filters, include_filters);
+
         filters_win = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filter(s) to search form',
@@ -245,6 +246,14 @@ Ext.onReady(function () {
       } else {
         var filters = default_filters;
       }
+
+      // add values to filters if previously set in the search form
+      var values = form.getForm().getValues();
+      Ext.each(filters, function (filter) {
+        var value = values[filter.name];
+        if (value) filter['value'] = value;
+      });
+      
       showAdvancedSearch(filters);
       if (submit) submitSearch();
     }
