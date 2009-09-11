@@ -246,7 +246,7 @@ Ext.onReady(function () {
           filters.push(item.treenode.attributes);
         });
       } else {
-        var filters = default_filters.slice(); // copy array, do not pass by ref!
+        var filters = default_filters.slice(); // copy not ref!
       }
 
       // add values to filters if previously set in the search form

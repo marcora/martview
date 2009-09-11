@@ -284,7 +284,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         {
           xtype: 'textfield',
           anchor: '100%',
-          fieldLabel: 'Email to (optional but recommended when the numbers of results is large)'
+          fieldLabel: 'Email to (optional)'
         }]
       }]
     });
