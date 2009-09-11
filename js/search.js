@@ -19,7 +19,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           itemId: 'select',
           ref: '../selectButton',
           text: '<span style="color:#15428B; font-weight:bold">Search</span>',
-          iconCls: 'simple_search_icon',
+          iconCls: 'advanced_search_icon',
           cls: 'x-btn-text-icon',
           disabled: true,
           menu: [{

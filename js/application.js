@@ -51,8 +51,8 @@ Ext.onReady(function () {
 
   // if not specified the default search is 'simple' and the default results is 'tabular'
   Ext.applyIf(params, {
-    search: 'simple',
-    results: 'itemized'
+    search: 'advanced',
+    results: 'tabular'
   });
 
   // populate select dataset menu with data from static json file on server
@@ -165,8 +165,8 @@ Ext.onReady(function () {
 
     // if not specified the default search format is 'simple' and the default results format is 'tabular'
     Ext.applyIf(params, {
-      search_format: 'simple',
-      results_format: 'itemized'
+      search_format: 'advanced',
+      results_format: 'tabular'
     });
 
     // update breadcrumbs
@@ -176,9 +176,13 @@ Ext.onReady(function () {
     main.search.selectButton.setIconClass(params.search_format + '_search_icon');
     main.results.selectButton.setIconClass(params.results_format + '_results_icon');
 
-    // reset default filters and attributes
+    // reset filters and attributes
     default_filters = [];
     default_attributes = [];
+    reset_filters_win_to_defaults = true;
+    reset_attributes_win_to_defaults = true;
+    if (filters_win) filters_win.destroy();
+    if (attributes_win) attributes_win.destroy();
 
     // init filters and attributes windows
     var dataset_url = './json/' + params.mart_name + '.' + params.dataset_name + '.json';
@@ -197,9 +201,7 @@ Ext.onReady(function () {
         if (params.filters) {
           var include_filters = parseIncludeFields(params.filters);
         }
-
         extractDefaults(dataset.filters, default_filters, include_filters);
-
         filters_win = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filter(s) to search form',
@@ -228,6 +230,8 @@ Ext.onReady(function () {
         attributes_win.on('hide', function () {
           submitSearch();
         });
+
+        // call update search
         updateSearch(true);
       }
     });
