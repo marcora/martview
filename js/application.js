@@ -1,9 +1,13 @@
+// FIXME: Attributes with the same name are included in results even if not selected
+//        Disambiguate attribute name by its position in hierarchy!
+//        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
 // FIXME: Abort conn on timeout
 // FIXME: Do not reload search/results when user select same search/results as current
-// TODO: Column order for query results should follow attribute order
-// TODO: Do not resubmit search to server when changing results format
+// TODO:  Column order for query results should follow attribute order
+// TODO:  Do not resubmit search to server when changing results format
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 // FIXME: Search form customization does not work when search format is set to 'user'
+
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
