@@ -184,6 +184,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
       border: false,
       autoDestroy: true,
       iconCls: 'save_icon',
+      buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
@@ -244,6 +245,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
       border: false,
       autoDestroy: true,
       iconCls: 'save_icon',
+      buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
