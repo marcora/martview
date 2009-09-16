@@ -30,7 +30,7 @@ Ext.onReady(function () {
 
   // init connection
   var conn = new Ext.data.Connection({
-    timeout: 60000,
+    timeout: 240000,
     listeners: {
       beforerequest: function () {
         loading.start();
