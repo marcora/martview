@@ -8,6 +8,8 @@
 // FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 // FIXME: Search form customization does not work when search format is set to 'user'
 
+// console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
+
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
@@ -437,13 +439,7 @@ Ext.onReady(function () {
     }
 
     // log search params
-    try {
-      console.dir(params);
-    } catch(e) {
-      Ext.iterate(params, function (key, val) {
-        log.info(key + ': ' + Ext.util.Format.htmlEncode(val));
-      });
-    }
+    console.dir(params);
 
     // submit query
     conn.request({
@@ -451,11 +447,7 @@ Ext.onReady(function () {
       params: search_params,
       success: function (response) {
         var data = Ext.util.JSON.decode(response.responseText);
-        try {
-          console.dir(data);
-        } catch(e) {
-          // pass
-        }
+        console.dir(data);
 
         // build guided search form
         if (params.search_format == 'guided') {
