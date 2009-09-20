@@ -50,7 +50,6 @@ Ext.onReady(function () {
         Ext.Msg.show({
           title: Martview.APP_TITLE,
           msg: Martview.CONN_ERR_MSG,
-          closable: false,
           width: 300
         });
       }

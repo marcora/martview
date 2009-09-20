@@ -6,6 +6,7 @@ Martview.windows.Loading = Ext.extend(Object, {
       this.msg = Ext.Msg.show({
         title: Martview.APP_TITLE,
         msg: 'Loading...',
+        width: 300,
         wait: true,
         waitConfig: {
           interval: 200
