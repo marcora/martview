@@ -179,7 +179,8 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
       modal: true,
       layout: 'fit',
       autoHeight: true,
-      autoWidth: true,
+      // autoWidth: true,
+      width: 300,
       closeAction: 'hide',
       plain: true,
       border: false,
@@ -221,7 +222,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           lastSearchTerm: false,
           triggerAction: 'all',
           mode: 'local',
-          store: [['url', 'URL'], ['xml', 'XML'], ['perl', 'Perl'], ['ruby', 'Ruby'], ['remote', 'Remote']]
+          store: [['url', 'URL'], ['xml', 'XML'], ['perl', 'Perl'], ['ruby', 'Ruby'], ['user', 'User search on server']]
         }]
       }]
     });
@@ -240,7 +241,8 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
       modal: true,
       layout: 'fit',
       autoHeight: true,
-      autoWidth: true,
+      // autoWidth: true,
+      width: 300,
       closeAction: 'hide',
       plain: true,
       border: false,
@@ -287,7 +289,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         {
           xtype: 'textfield',
           anchor: '100%',
-          fieldLabel: 'Email to (optional)'
+          fieldLabel: 'Email to (optional but recommended for large datasets)'
         }]
       }]
     });
