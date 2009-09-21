@@ -4,7 +4,7 @@ Martview.Main = Ext.extend(Ext.Viewport, {
 
   initComponent: function () {
 
-    Ext.applyIf(this, {
+    var config = {
       id: 'main',
       layout: 'border',
       items: [{
@@ -19,7 +19,10 @@ Martview.Main = Ext.extend(Ext.Viewport, {
       {
         xtype: 'footer'
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.Main.superclass.initComponent.apply(this, arguments);

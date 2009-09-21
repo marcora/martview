@@ -72,7 +72,7 @@ Ext.onReady(function () {
     success: function (response) {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
       main.header.load(select_dataset_menu_data, selectSearch);
-
+      main.footer.updateMessage('tip', 'To begin, please select the database you want to search');
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
       params.search_format = params.search;

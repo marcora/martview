@@ -2,7 +2,7 @@ Ext.namespace('Martview');
 
 Martview.Search = Ext.extend(Ext.Panel, {
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       id: 'search',
       ref: '../search',
       region: 'west',
@@ -102,7 +102,10 @@ Martview.Search = Ext.extend(Ext.Panel, {
           anchor: '100%'
         }
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.Search.superclass.initComponent.apply(this, arguments);

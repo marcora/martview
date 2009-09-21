@@ -40,7 +40,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
   // hard config
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       modal: true,
       width: 750,
       height: 500,
@@ -143,7 +143,10 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           scope: this
         }]
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
@@ -174,7 +177,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
 
   // hard config
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       title: 'Save search',
       modal: true,
       layout: 'fit',
@@ -225,7 +228,10 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           store: [['url', 'URL'], ['xml', 'XML'], ['perl', 'Perl'], ['ruby', 'Ruby'], ['user', 'User search on server']]
         }]
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.windows.SaveSearch.superclass.initComponent.apply(this, arguments);
@@ -236,7 +242,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
 
   // hard config
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       title: 'Save results',
       modal: true,
       layout: 'fit',
@@ -292,7 +298,10 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
           fieldLabel: 'Email to (optional but recommended for large datasets)'
         }]
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.windows.SaveResults.superclass.initComponent.apply(this, arguments);

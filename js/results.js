@@ -2,7 +2,7 @@ Ext.namespace('Martview');
 
 Martview.Results = Ext.extend(Ext.Panel, {
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       id: 'results',
       ref: '../results',
       region: 'center',
@@ -63,7 +63,10 @@ Martview.Results = Ext.extend(Ext.Panel, {
         ref: '../counterButton',
         text: ''
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.Results.superclass.initComponent.apply(this, arguments);
@@ -120,19 +123,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         border: false
       });
     } else if (format == 'itemized') {
-      var tpl = new Ext.XTemplate('<tpl for=".">',
-                                  '<div class="item-selector {[ xindex % 2 === 0 ? "item-even" : "item-odd" ]}">',
-                                  '<table class="item">',
-                                  '<tr class="title">',
-                                  '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>',
-                                  '</tr>',
-                                  '<tr>',
-                                  '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div class="attribute">Experiment type: {experiment_type}</div>', '<div class="attribute">Resolution: {resolution}</div>', '<div class="attribute">Space group: {space_group}</div>', '<div class="attribute">R work: {r_work}</div></td>',
-                                  '</tr>',
-                                  '</table>',
-                                  '</div>',
-                                  '</tpl>',
-                                  '<div class="x-clear"></div>');
+      var tpl = new Ext.XTemplate('<tpl for=".">', '<div class="item-selector {[ xindex % 2 === 0 ? "item-even" : "item-odd" ]}">', '<table class="item">', '<tr class="title">', '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>', '</tr>', '<tr>', '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div class="attribute">Experiment type: {experiment_type}</div>', '<div class="attribute">Resolution: {resolution}</div>', '<div class="attribute">Space group: {space_group}</div>', '<div class="attribute">R work: {r_work}</div></td>', '</tr>', '</table>', '</div>', '</tpl>', '<div class="x-clear"></div>');
       var rows = new Ext.DataView({
         store: store,
         tpl: tpl,

@@ -3,7 +3,7 @@ Ext.namespace('Martview');
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       region: 'south',
       id: 'footer',
       ref: '../footer',
@@ -13,9 +13,10 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'message',
         ref: 'messageButton',
-        text: 'To begin, please select the database you want to search',
-        iconCls: 'tip_icon',
+        text: '',
+        iconCls: '',
         cls: 'x-btn-text-icon',
+        hidden: true,
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
         }
@@ -30,7 +31,10 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More biomart');
         }
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.Footer.superclass.initComponent.apply(this, arguments);
@@ -38,6 +42,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
 
   updateMessage: function (type, message) {
     var footer = this;
+    footer.messageButton.show();
     footer.messageButton.setIconClass(type + '_icon');
     footer.messageButton.setText(message);
     footer.doLayout();

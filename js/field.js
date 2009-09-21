@@ -8,7 +8,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
 
   // hard config
   initComponent: function () {
-    Ext.apply(this, {
+    var config = {
       itemId: this.treenode.id,
       draggable: true,
       cls: 'field',
@@ -65,8 +65,12 @@ Martview.Field = Ext.extend(Ext.Panel, {
           selected_fields.remove(field);
         }
       }]
-    });
+    };
 
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
+
+    // call parent
     Martview.Field.superclass.initComponent.apply(this, arguments);
   }
 });

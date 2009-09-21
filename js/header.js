@@ -2,7 +2,7 @@ Ext.namespace('Martview');
 
 Martview.Header = Ext.extend(Ext.Toolbar, {
   initComponent: function () {
-    Ext.applyIf(this, {
+    var config = {
       region: 'north',
       id: 'header',
       ref: '../header',
@@ -15,7 +15,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         //         text: 'Home',
         //         iconCls: 'home_icon',
-        hidden: false,
+        hidden: true,
         menu: []
       },
       {
@@ -30,7 +30,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'Select the database you want to search',
         cls: 'x-btn-text-icon',
         iconCls: 'larrow_icon',
-        hidden: false
+        hidden: true
       },
       {
         itemId: 'mart_sep',
@@ -66,7 +66,10 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
         }
       }]
-    });
+    };
+
+    // apply config
+    Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.Header.superclass.initComponent.apply(this, arguments);
@@ -77,6 +80,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     header.homeButton.setText(data.text);
     header.homeButton.setIconClass(data.iconCls);
     header.homeButton.menu.add(data.menu);
+    header.homeButton.show();
+    header.martButton.show();
 
     function setHandler(menu) {
       menu.items.each(function (menu_item) {
