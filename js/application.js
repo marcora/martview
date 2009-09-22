@@ -1,17 +1,14 @@
 // FIXME: Attributes with the same name are included in results even if not selected
 //        Disambiguate attribute name by its position in hierarchy!
 //        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
-// FIXME: Abort conn on timeout
 // FIXME: Do not reload search/results when user select same search/results as current
 // TODO:  Column order for query results should follow attribute order
 // TODO:  Do not resubmit search to server when changing results format
-// FIXME: When adding lots of filters to search form, an ugly horizontal scroll bar appears because fields do not resize when vertical scroll bar appears
 // FIXME: Search form customization does not work when search format is set to 'user'
-
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
   var debug = true;
-} catch (e) {
+} catch(e) {
   var debug = false;
 }
 
@@ -185,6 +182,48 @@ Ext.onReady(function () {
     // set search/results format icon
     main.search.selectButton.setIconClass(params.search_format + '_search_icon');
     main.results.selectButton.setIconClass(params.results_format + '_results_icon');
+
+    // assign save search button handler
+    main.search.saveButton.setHandler(function () {
+      // show save search dialog
+      var dialog = new Martview.windows.SaveSearch();
+      dialog.show();
+      dialog.center();
+      dialog.saveButton.on('click', function () {
+        // post save request to martservice
+        var params = {
+          type: 'savesearch',
+          xml: buildQueryXml({
+            formatter: dialog.form.format.getValue().toUpperCase(),
+            limitSize: 0
+          })
+        };
+        post('../martservice', params);
+        this.destroy();
+      },
+      dialog);
+    });
+
+    // assign save results button handler
+    main.results.saveButton.setHandler(function () {
+      // show save search dialog
+      var dialog = new Martview.windows.SaveResults();
+      dialog.show();
+      dialog.center();
+      dialog.saveButton.on('click', function () {
+        // post save request to martservice
+        var params = {
+          type: 'saveresults',
+          xml: buildQueryXml({
+            formatter: dialog.form.format.getValue().toUpperCase(),
+            limitSize: 0
+          })
+        };
+        post('../martservice', params);
+        this.destroy();
+      },
+      dialog);
+    });
 
     // reset filters and attributes
     default_filters = [];
@@ -501,7 +540,7 @@ Ext.onReady(function () {
       uniqueRows: 1,
       count: 0,
       limitSize: 50,
-      datasetConfigVersion: '0.6',
+      // datasetConfigVersion: '0.7',
       datasetInterface: 'default',
       datasetName: params.dataset_name,
       datasetFilters: dataset_filters,

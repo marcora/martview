@@ -50,12 +50,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Save results',
           iconCls: 'save_icon',
           cls: 'x-btn-text-icon',
-          disabled: true,
-          handler: function () {
-            var save_results = new Martview.windows.SaveResults();
-            save_results.show();
-            save_results.center();
-          }
+          disabled: true
         }]
       }),
       bbar: [{

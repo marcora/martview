@@ -62,12 +62,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           ref: '../saveButton',
           iconCls: 'save_icon',
           cls: 'x-btn-text-icon',
-          disabled: true,
-          handler: function () {
-            var save_search = new Martview.windows.SaveSearch();
-            save_search.show();
-            save_search.center();
-          }
+          disabled: true
         }]
       }),
       bbar: ['->', {

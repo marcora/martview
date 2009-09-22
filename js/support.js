@@ -1,3 +1,21 @@
+// post data to another page
+function post(url, data) {
+  var form = document.createElement('form');
+  form.method = 'post';
+  form.action = url;
+  form.target = '_blank';
+  for (var key in data) {
+    var input = document.createElement("input");
+    input.setAttribute('name', key);
+    input.setAttribute('type', 'hidden');
+    input.setAttribute('value', data[key]);
+    form.appendChild(input);
+  }
+  document.body.appendChild(form);
+  form.submit();
+  document.body.removeChild(form);
+}
+
 // add the has method to array
 Array.prototype.has = function (o) {
   return this.indexOf(o) > -1;

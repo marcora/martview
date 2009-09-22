@@ -195,21 +195,19 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         iconCls: 'close_icon',
         handler: function () {
-          this.hide();
+          this.destroy();
         },
         scope: this // scope button to window
       },
       {
         text: 'Save',
+        ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon',
-        handler: function () {
-          this.hide();
-        },
-        scope: this // scope button to window
+        iconCls: 'submit_icon'
       }],
       items: [{
         xtype: 'form',
+        ref: '../form',
         frame: true,
         autoHeight: true,
         autoWidth: true,
@@ -218,6 +216,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         items: [{
           xtype: 'combo',
           name: 'format',
+          ref: 'format',
           anchor: '100%',
           fieldLabel: 'Save current search as',
           editable: false,
@@ -225,7 +224,8 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           lastSearchTerm: false,
           triggerAction: 'all',
           mode: 'local',
-          store: [['url', 'URL'], ['xml', 'XML'], ['perl', 'Perl'], ['ruby', 'Ruby'], ['user', 'User search on server']]
+          value: 'xml',
+          store: [['url', 'URL'], ['xml', 'XML'], ['java', 'Java source'], ['pl', 'Perl script'], ['py', 'Python script'], ['rb', 'Ruby script'], ['user', 'User-defined search on server']]
         }]
       }]
     };
@@ -260,21 +260,19 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         iconCls: 'close_icon',
         handler: function () {
-          this.hide();
+          this.destroy();
         },
         scope: this // scope button to window
       },
       {
         text: 'Save',
+        ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon',
-        handler: function () {
-          this.hide();
-        },
-        scope: this // scope button to window
+        iconCls: 'submit_icon'
       }],
       items: [{
         xtype: 'form',
+        ref: '../form',
         frame: true,
         autoHeight: true,
         autoWidth: true,
@@ -283,6 +281,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         items: [{
           xtype: 'combo',
           name: 'format',
+          ref: 'format',
           anchor: '100%',
           fieldLabel: 'Save current results as',
           editable: false,
@@ -290,7 +289,8 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
           lastSearchTerm: false,
           triggerAction: 'all',
           mode: 'local',
-          store: [['csv', 'CSV'], ['tsv', 'TSV'], ['excel', 'Excel'], ['xml', 'XML'], ['json', 'JSON']]
+          value: 'xls',
+          store: [['csv', 'Comma-separated values'], ['tsv', 'Tab-separated values'], ['xls', 'Excel spreadsheet'], ['xml', 'XML'], ['json', 'JSON']]
         },
         {
           xtype: 'textfield',
