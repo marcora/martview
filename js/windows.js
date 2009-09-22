@@ -225,7 +225,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           triggerAction: 'all',
           mode: 'local',
           value: 'xml',
-          store: [['url', 'URL'], ['xml', 'XML'], ['java', 'Java source'], ['pl', 'Perl script'], ['py', 'Python script'], ['rb', 'Ruby script'], ['user', 'User-defined search on server']]
+          store: [['url', 'URL'], ['xml', 'XML'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
         }]
       }]
     };
@@ -289,8 +289,8 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
           lastSearchTerm: false,
           triggerAction: 'all',
           mode: 'local',
-          value: 'xls',
-          store: [['csv', 'Comma-separated values'], ['tsv', 'Tab-separated values'], ['xls', 'Excel spreadsheet'], ['xml', 'XML'], ['json', 'JSON']]
+          value: 'csv',
+          store: [['csv', 'CSV'], ['tsv', 'TSV'], ['xls', 'Excel'], ['xml', 'XML'], ['json', 'JSON']]
         },
         {
           xtype: 'textfield',
