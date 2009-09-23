@@ -103,6 +103,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
                   });
                   if (checked_datasets.length > 0) {
                     var menu_item = checked_datasets[0];
+                    if (checked_datasets.length > 1) menu_item.dataset_display_name += ' + ' + checked_datasets[1].dataset_display_name;
                     handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
                   }
                 }

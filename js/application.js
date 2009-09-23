@@ -329,11 +329,7 @@ Ext.onReady(function () {
 
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
-    main.search.resetButton.setHandler(function () {
-      main.results.clear();
-      form.getForm().reset();
-      form.focus();
-    });
+    main.search.resetButton.setHandler(resetSimpleSearch);
 
     // submit search on enter key
     form.items.first().on('specialkey', function (f, o) {
@@ -341,6 +337,12 @@ Ext.onReady(function () {
         submitSearch();
       }
     });
+  }
+
+  function resetSimpleSearch() {
+    main.results.clear();
+    form.getForm().reset();
+    form.focus();
   }
 
   function showGuidedSearch(facets) {
@@ -385,6 +387,19 @@ Ext.onReady(function () {
     }
   }
 
+  function resetGuidedSearch() {
+    form.filters.items.each(function (item) {
+      if (item.xtype == 'facetfield') {
+        form.filters.add({
+          xtype: 'unfacetfield',
+          name: item.getName(),
+          value: item.getValue()
+        });
+      }
+    });
+    submitSearch();
+  }
+
   function showAdvancedSearch(filters) {
     // update footer message
     main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
@@ -397,13 +412,7 @@ Ext.onReady(function () {
 
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
-    main.search.resetButton.setHandler(function () {
-      form.getForm().items.each(function (item) {
-        item.setValue('');
-      }); // form.getForm().reset(); does not work in this context
-      form.focus();
-      submitSearch();
-    });
+    main.search.resetButton.setHandler(resetAdvancedSearch);
 
     // submit key on enter key
     form.filters.items.each(function (item) {
@@ -415,16 +424,11 @@ Ext.onReady(function () {
     });
   }
 
-  function resetGuidedSearch() {
-    form.filters.items.each(function (item) {
-      if (item.xtype == 'facetfield') {
-        form.filters.add({
-          xtype: 'unfacetfield',
-          name: item.getName(),
-          value: item.getValue()
-        });
-      }
-    });
+  function resetAdvancedSearch() {
+    form.getForm().items.each(function (item) {
+      item.setValue('');
+    }); // form.getForm().reset(); does not work in this context
+    form.focus();
     submitSearch();
   }
 
