@@ -4,6 +4,17 @@
       "children": [{
         "children": [{
           "children": null,
+          "text": "Cancer Type",
+          "leaf": true,
+          "description": null,
+          "name": "cancer_type",
+          "default": true,
+          "model_reference": null,
+          "id": "cancer_type",
+          "display_name": "Cancer Type"
+        },
+        {
+          "children": null,
           "text": "SNP/Mutation ID",
           "leaf": true,
           "description": null,
