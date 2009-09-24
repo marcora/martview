@@ -525,6 +525,26 @@
       "children": [{
         "children": [{
           "children": null,
+          "text": "Cancer type",
+          "leaf": true,
+          "description": null,
+          "name": "cancer_type",
+          "options": "pancreatic,breast",
+          "qualifier": "=",
+          "default": true,
+          "model_reference": null,
+          "id": "cancer_type",
+          "display_name": "Cancer type"
+        }],
+        "text": "Cancer_type",
+        "leaf": false,
+        "name": "_cancer_type",
+        "id": "_cancer_type",
+        "display_name": "Cancer type"
+      },
+      {
+        "children": [{
+          "children": null,
           "text": "Cnv id",
           "leaf": true,
           "description": null,
