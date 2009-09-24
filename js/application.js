@@ -433,6 +433,9 @@ Ext.onReady(function () {
   }
 
   function submitSearch() {
+    // validate form
+    if (!form.getForm().isValid()) return;
+
     // set search/results format icon
     main.search.selectButton.setIconClass(params.search_format + '_search_icon');
     main.results.selectButton.setIconClass(params.results_format + '_results_icon');
@@ -541,7 +544,7 @@ Ext.onReady(function () {
       virtualSchemaName: 'default',
       formatter: 'CSV',
       header: 0,
-      uniqueRows: 1,
+      uniqueRows: 0,
       count: 0,
       limitSize: 50,
       // datasetConfigVersion: '0.7',
