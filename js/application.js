@@ -176,6 +176,13 @@ Ext.onReady(function () {
       results_format: 'tabular'
     });
 
+    // try resetting the form
+    try {
+      form.reset(); // the appropriate reset method is attached to form at render time
+    } catch (e) {
+      // pass
+    }
+
     // update breadcrumbs
     main.header.updateBreadcrumbs(params);
 
@@ -243,7 +250,7 @@ Ext.onReady(function () {
 
         // TODO: this is a mock implementation of user-defined searches
         if (params.search_format == 'user') {
-          var include_filters = parseIncludeFields('assembly_type:DIMERIC|resolution_less_than:2|resolution_more_than:0');
+          var include_filters = parseIncludeFields('cancer_type:breast|resolution_more_than:0');
         }
 
         // filters
@@ -253,7 +260,7 @@ Ext.onReady(function () {
         extractDefaults(dataset.filters, default_filters, include_filters);
         filters_win = new Martview.windows.Fields({
           id: 'filters',
-          title: 'Add filter(s) to search form',
+          title: 'Add filter to search form',
           display_name: 'Filters',
           field_iconCls: 'filter_icon',
           children: dataset.filters,
@@ -270,7 +277,7 @@ Ext.onReady(function () {
         extractDefaults(dataset.attributes, default_attributes, include_attributes);
         attributes_win = new Martview.windows.Fields({
           id: 'attributes',
-          title: 'Add column(s) to results grid',
+          title: 'Add column to results grid',
           display_name: 'Columns',
           field_iconCls: 'attribute_icon',
           children: dataset.attributes,
@@ -331,6 +338,9 @@ Ext.onReady(function () {
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetSimpleSearch);
 
+    // reassign reset form method
+    form.reset = resetSimpleSearch;
+
     // submit search on enter key
     form.items.first().on('specialkey', function (f, o) {
       if (o.getKey() == 13) {
@@ -358,6 +368,9 @@ Ext.onReady(function () {
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetGuidedSearch);
+
+    // reassing reset form method
+    form.reset = resetGuidedSearch;
 
     // add handlers to combo/facet fields
     if (facets) {
@@ -413,6 +426,9 @@ Ext.onReady(function () {
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetAdvancedSearch);
+
+    // reassing reset form method
+    form.reset = resetAdvancedSearch;
 
     // submit key on enter key
     form.filters.items.each(function (item) {
