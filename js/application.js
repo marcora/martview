@@ -176,9 +176,11 @@ Ext.onReady(function () {
       results_format: 'tabular'
     });
 
-    // try resetting the form
+    // clear prev ui if present
     try {
-      form.reset(); // the appropriate reset method is attached to form at render time
+      main.results.clear();
+      // reset search form w/o submit
+      main.search.form.reset(false); // the appropriate reset method is attached to form at render time
     } catch (e) {
       // pass
     }
@@ -400,7 +402,7 @@ Ext.onReady(function () {
     }
   }
 
-  function resetGuidedSearch() {
+  function resetGuidedSearch(submit) {
     form.filters.items.each(function (item) {
       if (item.xtype == 'facetfield') {
         form.filters.add({
@@ -410,7 +412,9 @@ Ext.onReady(function () {
         });
       }
     });
-    submitSearch();
+    // default submit to true
+    submit = typeof(submit) == 'undefined' ? true : submit;
+    if (submit) submitSearch();
   }
 
   function showAdvancedSearch(filters) {
@@ -440,12 +444,14 @@ Ext.onReady(function () {
     });
   }
 
-  function resetAdvancedSearch() {
+  function resetAdvancedSearch(submit) {
     form.getForm().items.each(function (item) {
       item.setValue('');
     }); // form.getForm().reset(); does not work in this context
     form.focus();
-    submitSearch();
+    // default submit to true
+    submit = typeof(submit) == 'undefined' ? true : submit;
+    if (submit) submitSearch();
   }
 
   function submitSearch() {
@@ -560,7 +566,7 @@ Ext.onReady(function () {
       virtualSchemaName: 'default',
       formatter: 'CSV',
       header: 0,
-      uniqueRows: 0,
+      uniqueRows: 1,
       count: 0,
       limitSize: 50,
       // datasetConfigVersion: '0.7',
