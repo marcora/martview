@@ -25,6 +25,13 @@ body > .x-toolbar-layout-ct:first-child {
     border-top: 0 !important;
 }
 
+.x-form-radio-group .x-panel-body {
+    background-color: transparent !important;;
+}
+
+legend { font-weight: normal !important; }
+.x-grid3-hd { color: #333 !important; font-weight: bold !important; font-size: 8pt !important; }
+
 .fields .field:first-child .x-toolbar-layout-ct {
     border-top: 1px #b5b8c8 solid  !important;
 }

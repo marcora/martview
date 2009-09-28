@@ -181,7 +181,7 @@ Ext.onReady(function () {
       main.results.clear();
       // reset search form w/o submit
       main.search.form.reset(false); // the appropriate reset method is attached to form at render time
-    } catch (e) {
+    } catch(e) {
       // pass
     }
 
@@ -445,9 +445,14 @@ Ext.onReady(function () {
   }
 
   function resetAdvancedSearch(submit) {
-    form.getForm().items.each(function (item) {
-      item.setValue('');
-    }); // form.getForm().reset(); does not work in this context
+    form.filters.items.each(function (item) {
+      try {
+        item.reset();
+        item.setValue('');
+      } catch(e) {
+        // pass
+      }
+    }); // form.getForm().reset(); doesnt quite work for some reason!
     form.focus();
     // default submit to true
     submit = typeof(submit) == 'undefined' ? true : submit;
@@ -465,7 +470,7 @@ Ext.onReady(function () {
     var search_params = new Object;
     // build search params
     if (params.search_format == 'simple') {
-      var query = form.items.first().getRawValue().trim(); // FIXME: too verbose!
+      var query = form.items.first().getValue().trim(); // FIXME: too verbose!
       if (!query) return; // abort submit if no search terms
       Ext.apply(search_params, {
         type: 'search',
@@ -476,7 +481,7 @@ Ext.onReady(function () {
       form.filters.items.each(function (item) {
         var filter = {
           name: item.getName(),
-          value: item.getRawValue()
+          value: item.getValue()
         };
         if (item.xtype in {
           'hidden': '',
@@ -488,7 +493,7 @@ Ext.onReady(function () {
       form.filters.items.each(function (item) {
         var filter = {
           name: item.getName(),
-          value: item.getRawValue()
+          value: item.getValue()
         };
         if (item.xtype in {
           'unfacetfield': ''
@@ -540,11 +545,32 @@ Ext.onReady(function () {
   function buildQueryXml(values) {
     var dataset_filters = [];
     form.filters.items.each(function (item) {
-      if (item.getRawValue().trim()) {
-        dataset_filters.push({
-          name: item.getName(),
-          value: item.getRawValue().trim()
-        });
+      if (item.isXType('radiogroup')) {
+        try {
+          dataset_filters.push({
+            name: item.getName(),
+            excluded: (item.getValue().getGroupValue() == 'excluded') ? 1 : 0
+          });
+        } catch(e) {
+          // pass in case no radio is selected
+        }
+      } else if (item.isXType('fileuploadfield')) {
+        // pass for now
+      } else if (item.isXType('textarea')) {
+        var list = item.getValue().split('\n').join(',');
+        if (list) {
+          dataset_filters.push({
+            name: item.getName(),
+            value: list
+          });
+        }
+      } else if (item.isXType('textfield') || item.isXType('combo')) {
+        if (item.getValue().trim()) {
+          dataset_filters.push({
+            name: item.getName(),
+            value: item.getValue().trim()
+          });
+        }
       }
     });
     var dataset_attributes = [];
@@ -581,7 +607,12 @@ Ext.onReady(function () {
     '<Query virtualSchemaName="{virtualSchemaName}" formatter="{formatter}" header="{header}" uniqueRows="{uniqueRows}" count="{count}" limitSize="{limitSize}" datasetConfigVersion="{datasetConfigVersion}">', //
     '<Dataset name="{datasetName}" interface="{datasetInterface}">', //
     '<tpl for="datasetFilters">', //
+    '<tpl if="typeof(value) == \'undefined\'">', //
+    '<Filter name="{name}" excluded="{excluded}"/>', //
+    '</tpl>', //
+    '<tpl if="typeof(excluded) == \'undefined\'">', //
     '<Filter name="{name}" value="{value}"/>', //
+    '</tpl>', //
     '</tpl>', //
     '<tpl for="datasetAttributes">', //
     '<Attribute name="{name}"/>', //

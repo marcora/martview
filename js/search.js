@@ -244,7 +244,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
       ref: 'filters',
       autoHeight: true,
       defaults: {
-        anchor: '100%'
+        anchor: '100%',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #333 !important;'
       }
     });
 
@@ -252,7 +253,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       if (filter.qualifier in {
         '=': '',
         '>': '',
-        '<': ''
+        '<': '',
+        '>=': '',
+        '<=': ''
       }) {
         if (filter.options) {
           fieldset.add([{
@@ -275,14 +278,44 @@ Martview.Search = Ext.extend(Ext.Panel, {
             fieldLabel: filter.display_name || filter.name
           }]);
         }
-      } else if (filter.qualifier in {
+      } else if (filter.qualifier.split(',').remove('=') in {
         'in': ''
       }) {
         fieldset.add({
-          xtype: 'textfield',
-          itemId: filter.name,
+          xtype: 'textarea',
+          height: '100',
+          itemId: filter.name + '_text',
           name: filter.name,
           fieldLabel: filter.display_name || filter.name
+        });
+        fieldset.add({
+          xtype: 'fileuploadfield',
+          itemId: filter.name + '_file',
+          name: filter.name,
+          hideLabel: true,
+          // buttonOnly: true,
+          buttonText: 'Upload list...'
+        });
+      } else if (filter.qualifier.split(',')[0] in {
+        'only': '',
+        'excluded': ''
+      }) {
+        var items = [];
+        Ext.each(filter.qualifier.split(','), function (item) {
+          items.push({
+            inputValue: item,
+            name: filter.name,
+            boxLabel: item
+          });
+        });
+        fieldset.add({
+          xtype: 'radiogroup',
+          itemId: filter.name,
+          name: filter.name,
+          fieldLabel: filter.display_name || filter.name,
+          items: items
+          // vertical: true,
+          // columns: 1,
         });
       }
 
