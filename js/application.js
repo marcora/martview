@@ -520,7 +520,7 @@ Ext.onReady(function () {
 
     // submit query
     conn.request({
-      url: '/martservice',
+      url: '../martservice',
       params: search_params,
       success: function (response) {
         var data = Ext.util.JSON.decode(response.responseText);
