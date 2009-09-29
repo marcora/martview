@@ -245,7 +245,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
       autoHeight: true,
       defaults: {
         anchor: '100%',
-        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #333 !important;'
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;',
+        labelSeparator: ''
       }
     });
 
