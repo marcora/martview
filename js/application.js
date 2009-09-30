@@ -13,6 +13,8 @@ try {
 }
 
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
+Ext.chart.Chart.CHART_URL = './ext/resources/charts.swf';
+
 Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
 
 Ext.namespace('Martview');
@@ -594,8 +596,8 @@ Ext.onReady(function () {
       header: 0,
       uniqueRows: 1,
       count: 0,
-      limitSize: 50,
-      // datasetConfigVersion: '0.7',
+      limitSize: 100,
+      datasetConfigVersion: '0.6',
       datasetInterface: 'default',
       datasetName: params.dataset_name,
       datasetFilters: dataset_filters,
