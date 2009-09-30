@@ -30,7 +30,7 @@
           "leaf": true,
           "description": null,
           "name": "informed_consent_acquired",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "6wny6x9s",
           "display_name": "Informed consent acquired"
@@ -41,7 +41,7 @@
           "leaf": true,
           "description": null,
           "name": "gender",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "541oar3d",
           "display_name": "Gender"
@@ -52,7 +52,7 @@
           "leaf": true,
           "description": null,
           "name": "race",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "twl8ifm6",
           "display_name": "Race"
@@ -63,7 +63,7 @@
           "leaf": true,
           "description": null,
           "name": "age_at_recruitment",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "qz9s8tq9",
           "display_name": "Age at recruitment"
@@ -112,17 +112,17 @@
           "id": "aduogilb",
           "display_name": "Date of death"
         },
-        {
-          "children": null,
-          "text": "Cancer type",
-          "leaf": true,
-          "description": null,
-          "name": "cancer_type",
-          "default": false,
-          "model_reference": null,
-          "id": "7n2b367j",
-          "display_name": "Cancer type"
-        },
+        // {
+        //   "children": null,
+        //   "text": "Cancer type",
+        //   "leaf": true,
+        //   "description": null,
+        //   "name": "cancer_type",
+        //   "default": false,
+        //   "model_reference": null,
+        //   "id": "7n2b367j",
+        //   "display_name": "Cancer type"
+        // },
         {
           "children": null,
           "text": "Vital status",
@@ -326,7 +326,7 @@
           "leaf": true,
           "description": null,
           "name": "specimen_id",
-          "default": false,
+          "default": true,
           "model_reference": null,
           "id": "eopvhf02",
           "display_name": "Specimen ID"
@@ -1180,7 +1180,7 @@
           "name": "informed_consent_acquired",
           "options": "Y",
           "qualifier": "=",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "23bn6nw3",
           "display_name": "Informed consent acquired"
@@ -1243,7 +1243,7 @@
           "default": true,
           "model_reference": null,
           "id": "gv46w0rw",
-          "display_name": "Age at recruitment_gt"
+          "display_name": "Age at recruitment greater than"
         }],
         "text": "Age at recruitment >",
         "leaf": false,
@@ -1263,7 +1263,7 @@
           "default": true,
           "model_reference": null,
           "id": "wr7fwbp8",
-          "display_name": "Age at recruitment_lt"
+          "display_name": "Age at recruitment less than"
         }],
         "text": "Age at recruitment <",
         "leaf": false,

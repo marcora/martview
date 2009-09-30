@@ -63,7 +63,7 @@
           "leaf": true,
           "description": null,
           "name": "description",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "srocdqeu",
           "display_name": "Description"
@@ -85,7 +85,7 @@
           "leaf": true,
           "description": "Start Coordinate of the gene in chromosomal coordinates.",
           "name": "start_position",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "ccdokt6o",
           "display_name": "Gene Start (bp)"
@@ -96,7 +96,7 @@
           "leaf": true,
           "description": "End Coordinate of the gene in chromosomal coordinates.",
           "name": "end_position",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "zmjjo85v",
           "display_name": "Gene End (bp)"
@@ -107,7 +107,7 @@
           "leaf": true,
           "description": "Orientation of genes on chromosome.",
           "name": "strand",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "mvbd31y0",
           "display_name": "Strand"
@@ -4348,7 +4348,7 @@
           "name": "ensembl_gene_id",
           "options": null,
           "qualifier": "=,in",
-          "default": false,
+          "default": true,
           "model_reference": "http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#gene",
           "id": "wjz3wkty",
           "display_name": "Ensembl Gene ID(s)"
@@ -10884,7 +10884,7 @@
           "name": "chromosome_name",
           "options": "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,X,Y,c5_H2,c6_COX,c6_QBL,MT,NT_113870,NT_113871,NT_113872,NT_113874,NT_113878,NT_113880,NT_113881,NT_113884,NT_113885,NT_113886,NT_113888,NT_113889,NT_113890,NT_113898,NT_113899,NT_113901,NT_113902,NT_113903,NT_113906,NT_113908,NT_113909,NT_113910,NT_113911,NT_113912,NT_113915,NT_113916,NT_113917,NT_113923,NT_113924,NT_113925,NT_113926,NT_113927,NT_113929,NT_113930,NT_113931,NT_113932,NT_113933,NT_113934,NT_113935,NT_113936,NT_113937,NT_113939,NT_113943,NT_113944,NT_113946,NT_113949,NT_113951,NT_113953,NT_113954,NT_113956,NT_113957,NT_113958,NT_113960,NT_113961,NT_113962,NT_113963,NT_113964,NT_113965,NT_113966",
           "qualifier": "=",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "cbmuqdt7",
           "display_name": "Chromosome name"
@@ -11043,7 +11043,7 @@
           "name": "strand",
           "options": null,
           "qualifier": "=",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "512u0wr",
           "display_name": "Strand"
