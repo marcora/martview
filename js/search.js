@@ -159,8 +159,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       //       collapsible: true,
       defaultType: 'displayfield',
       defaults: {
-        labelStyle: 'font-weight: bold;',
-        anchor: '100%'
+        anchor: '100%',
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       },
       items: [{
         hideLabel: true,
@@ -211,7 +212,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       ref: 'filters',
       autoHeight: true,
       defaults: {
-        anchor: '100%'
+        anchor: '100%',
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       }
     });
     form.doLayout();
@@ -245,85 +248,87 @@ Martview.Search = Ext.extend(Ext.Panel, {
       autoHeight: true,
       defaults: {
         anchor: '100%',
-        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;',
-        labelSeparator: ''
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       }
     });
 
     Ext.each(filters, function (filter) {
-      if (filter.qualifier in {
-        '=': '',
-        '>': '',
-        '<': '',
-        '>=': '',
-        '<=': ''
-      }) {
-        if (filter.options) {
-          fieldset.add([{
-            xtype: 'combo',
+      if (filter.qualifier) { // filter.qualifier should never be null or undefined!
+        if (filter.qualifier in {
+          '=': '',
+          '>': '',
+          '<': '',
+          '>=': '',
+          '<=': ''
+        }) {
+          if (filter.options) {
+            fieldset.add([{
+              xtype: 'combo',
+              itemId: filter.name,
+              name: filter.name,
+              fieldLabel: filter.display_name || filter.name,
+              editable: false,
+              forceSelection: true,
+              lastSearchTerm: false,
+              triggerAction: 'all',
+              mode: 'local',
+              store: filter.options.split(',')
+            }]);
+          } else {
+            fieldset.add([{
+              xtype: 'textfield',
+              itemId: filter.name,
+              name: filter.name,
+              fieldLabel: filter.display_name || filter.name
+            }]);
+          }
+        } else if (filter.qualifier.split(',').remove('=') in {
+          'in': ''
+        }) {
+          fieldset.add({
+            xtype: 'textarea',
+            height: '100',
+            itemId: filter.name + '_text',
+            name: filter.name,
+            fieldLabel: filter.display_name || filter.name
+          });
+          fieldset.add({
+            xtype: 'fileuploadfield',
+            itemId: filter.name + '_file',
+            name: filter.name,
+            hideLabel: true,
+            // buttonOnly: true,
+            buttonText: 'Upload list...'
+          });
+        } else if (filter.qualifier.split(',')[0] in {
+          'only': '',
+          'excluded': ''
+        }) {
+          var items = [];
+          Ext.each(filter.qualifier.split(','), function (item) {
+            items.push({
+              inputValue: item,
+              name: filter.name,
+              boxLabel: item
+            });
+          });
+          fieldset.add({
+            xtype: 'radiogroup',
             itemId: filter.name,
             name: filter.name,
             fieldLabel: filter.display_name || filter.name,
-            editable: false,
-            forceSelection: true,
-            lastSearchTerm: false,
-            triggerAction: 'all',
-            mode: 'local',
-            store: filter.options.split(',')
-          }]);
-        } else {
-          fieldset.add([{
-            xtype: 'textfield',
-            itemId: filter.name,
-            name: filter.name,
-            fieldLabel: filter.display_name || filter.name
-          }]);
-        }
-      } else if (filter.qualifier.split(',').remove('=') in {
-        'in': ''
-      }) {
-        fieldset.add({
-          xtype: 'textarea',
-          height: '100',
-          itemId: filter.name + '_text',
-          name: filter.name,
-          fieldLabel: filter.display_name || filter.name
-        });
-        fieldset.add({
-          xtype: 'fileuploadfield',
-          itemId: filter.name + '_file',
-          name: filter.name,
-          hideLabel: true,
-          // buttonOnly: true,
-          buttonText: 'Upload list...'
-        });
-      } else if (filter.qualifier.split(',')[0] in {
-        'only': '',
-        'excluded': ''
-      }) {
-        var items = [];
-        Ext.each(filter.qualifier.split(','), function (item) {
-          items.push({
-            inputValue: item,
-            name: filter.name,
-            boxLabel: item
+            items: items
+            // vertical: true,
+            // columns: 1,
           });
-        });
-        fieldset.add({
-          xtype: 'radiogroup',
-          itemId: filter.name,
-          name: filter.name,
-          fieldLabel: filter.display_name || filter.name,
-          items: items
-          // vertical: true,
-          // columns: 1,
-        });
-      }
+        }
 
-      // set field value if defined
-      var field = fieldset.get(filter.name);
-      if (field && filter.value) {
-        field.setValue(filter.value);
+        // set field value if defined
+        var field = fieldset.get(filter.name);
+        if (field && filter.value) {
+          field.setValue(filter.value);
+        }
       }
     });
 

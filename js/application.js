@@ -34,7 +34,7 @@ Ext.onReady(function () {
 
   // init connection
   var conn = new Ext.data.Connection({
-    timeout: 240000,
+    timeout: 60000,
     listeners: {
       beforerequest: function () {
         loading.start();
@@ -252,7 +252,7 @@ Ext.onReady(function () {
 
         // TODO: this is a mock implementation of user-defined searches
         if (params.search_format == 'user') {
-          var include_filters = parseIncludeFields('cancer_type:breast|resolution_more_than:0');
+          var include_filters = parseIncludeFields('assembly_type:DIMERIC|resolution_less_than:2|resolution_more_than:0');
         }
 
         // filters
