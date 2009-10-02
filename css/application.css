@@ -91,6 +91,7 @@ legend { font-weight: normal !important; }
 .tabular_results_icon { background-image: url('../ico/table.png') !important; }
 .itemized_results_icon { background-image: url('../ico/card-address.png') !important; }
 .map_results_icon { background-image: url('../ico/map.png') !important; }
+.chart_results_icon { background-image: url('../ico/chart.png') !important; }
 .field_icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .file_upload_icon { background-image: url('../ico/document-list.png') !important; }
 .node_all_icon { background-image: url('../ico/node.png') !important; }

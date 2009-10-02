@@ -30,9 +30,9 @@ Martview.Results = Ext.extend(Ext.Panel, {
             iconCls: 'itemized_results_icon'
           },
           {
-            text: 'Map',
-            itemId: 'map',
-            iconCls: 'map_results_icon'
+            text: 'Chart',
+            itemId: 'chart',
+            iconCls: 'chart_results_icon'
           }]
         },
         '->', {
@@ -136,7 +136,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         autoWidth: true,
         fitToFrame: true
       });
-    } else if (format == 'map') {
+    } else if (format == 'chart') {
       store.filter('chromosome_name', '1');
       var chromosome_1 = store.getCount();
       if (debug) console.log('chromosome_1:' + chromosome_1);

@@ -34,11 +34,11 @@ Ext.onReady(function () {
   var reset_attributes_win_to_defaults = true;
   var default_filters, default_attributes;
   var search_formats = ['simple', 'guided', 'advanced', 'user'];
-  var results_formats = ['tabular', 'itemized', 'map'];
+  var results_formats = ['tabular', 'itemized', 'chart'];
 
   // init connection
   var conn = new Ext.data.Connection({
-    timeout: 60000,
+    timeout: 120000,
     listeners: {
       beforerequest: function () {
         loading.start();
