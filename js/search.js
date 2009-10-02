@@ -146,7 +146,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
     // add fields to search form
     form.add([{
       xtype: 'textfield',
-      fieldLabel: 'Enter search terms'
+      fieldLabel: 'Enter search terms',
+      // labelSeparator: '',
+      labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
     },
     {
       // Lucene query syntax help
