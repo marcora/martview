@@ -23,8 +23,9 @@ Martview.windows.Loading = Ext.extend(Object, {
   start: function () {
     if (!this.msg || !this.msg.isVisible()) {
       this.msg = Ext.Msg.show({
+        cls: 'loading',
         title: Martview.APP_TITLE,
-        msg: 'Loading...',
+        msg: 'Connecting to BioMart...',
         width: 300,
         wait: true,
         waitConfig: {

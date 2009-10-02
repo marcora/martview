@@ -44,7 +44,6 @@ Ext.onReady(function () {
       },
       requestcomplete: function () {
         loading.stop();
-        main.footer.clearMessage();
       },
       requestexception: function () {
         loading.stop();
@@ -540,6 +539,7 @@ Ext.onReady(function () {
         // load data into results panel
         main.results.enableHeaderButtons();
         main.results.load(data, params.results_format);
+        main.footer.updateMessage('info', Martview.SAVE_RESULTS_MSG);
       },
       failure: function () {
         form.focus();
