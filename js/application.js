@@ -27,6 +27,7 @@ Ext.onReady(function () {
   var main = new Martview.Main();
   var form = main.search.form;
   var loading = new Martview.windows.Loading();
+  var flash = new Martview.windows.Flash();
   var filters_win, attributes_win;
   var reset_filters_win_to_defaults = true;
   var reset_attributes_win_to_defaults = true;
@@ -43,14 +44,16 @@ Ext.onReady(function () {
       },
       requestcomplete: function () {
         loading.stop();
+        main.footer.clearMessage();
       },
       requestexception: function () {
         loading.stop();
-        Ext.Msg.show({
-          title: Martview.APP_TITLE,
-          msg: Martview.CONN_ERR_MSG,
-          width: 300
-        });
+        main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
+        // Ext.Msg.show({
+        //   title: Martview.APP_TITLE,
+        //   msg: Martview.CONN_ERR_MSG,
+        //   width: 300
+        // });
       }
     }
   });
@@ -71,7 +74,7 @@ Ext.onReady(function () {
     success: function (response) {
       var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
       main.header.load(select_dataset_menu_data, selectSearch);
-      main.footer.updateMessage('tip', 'To begin, please select the database you want to search');
+      main.footer.updateMessage('info', 'To begin, please select the database you want to search');
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
       params.search_format = params.search;
@@ -327,7 +330,7 @@ Ext.onReady(function () {
 
   function showSimpleSearch() {
     // update footer message
-    main.footer.updateMessage('tip', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
+    main.footer.updateMessage('info', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
     // hide customize results button
     main.results.customizeButton.hide();
@@ -361,7 +364,7 @@ Ext.onReady(function () {
 
   function showGuidedSearch(facets) {
     // update footer message
-    main.footer.updateMessage('tip', 'Use the drop-down boxes to make the search more specific and narrow the results');
+    main.footer.updateMessage('info', 'Use the drop-down boxes to make the search more specific and narrow the results');
 
     // hide customize results button
     main.results.customizeButton.hide();
@@ -421,7 +424,7 @@ Ext.onReady(function () {
 
   function showAdvancedSearch(filters) {
     // update footer message
-    main.footer.updateMessage('tip', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
+    main.footer.updateMessage('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
     // show customize results button
     main.results.customizeButton.show();

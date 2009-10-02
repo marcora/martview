@@ -1,3 +1,15 @@
+.flash .x-box-mc {
+    font-size:12px;
+}
+
+#flash {
+    position:absolute;
+    left:35%;
+    top:10px;
+    width:250px;
+    z-index:20000;
+}
+
 .no-menu-arrow em.x-btn-arrow { background:transparent !important; padding-right:0px !important; }
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
@@ -11,7 +23,7 @@ body > .x-toolbar-layout-ct {
     border-top: 0  !important;
 }
 
-body > .x-toolbar-layout-ct:first-child {
+#header {
     border-top: 1px #9cbfee solid  !important;
     border-bottom: 0 !important;
 }
@@ -59,6 +71,11 @@ legend { font-weight: normal !important; }
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
+.tip-msg { }
+.success-msg { }
+.alert-msg { }
+.error-msg { color: #d00000 !important }
+
 .attribute_icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter_icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit_icon { background-image: url('../ico/gear.png') !important; }
@@ -102,8 +119,10 @@ button.form_icon { background-image: url('../ico/application-form.png') !importa
 button.submit_icon { background-image: url('../ico/tick.png') !important; }
 button.biomart_icon { background-image: url('../ico/biomart.png') !important; }
 button.favicon_icon { background-image: url('../favicon.ico') !important; }
-button.tip_icon { background-image: url('../ico/light-bulb.png') !important; }
+button.info_icon { background-image: url('../ico/information.png') !important; }
 button.alert_icon { background-image: url('../ico/exclamation.png') !important; }
+button.error_icon { background-image: url('../ico/cross-circle.png') !important; }
+button.success_icon { background-image: url('../ico/tick-circle.png') !important; }
 button.reset_icon { background-image: url('../ico/cross.png') !important; }
 button.view_icon { background-image: url('../ico/application.png') !important; }
 button.save_icon { background-image: url('../ico/disk.png') !important; }

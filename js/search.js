@@ -299,7 +299,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
             name: filter.name,
             hideLabel: true,
             // buttonOnly: true,
-            buttonText: 'Upload list...'
+            buttonText: 'Upload file&hellip;'
           });
         } else if (filter.qualifier.split(',')[0] in {
           'only': '',

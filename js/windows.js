@@ -1,5 +1,24 @@
 Ext.namespace('Martview.windows');
 
+Martview.windows.Flash = Ext.extend(Object, {
+  show: function (type, message) {
+    if (!this.flashCt) {
+      this.flashCt = Ext.DomHelper.insertFirst(document.body, {
+        id: 'flash'
+      },
+      true);
+    }
+    this.flashCt.alignTo(document, 't-t');
+    var box = Ext.DomHelper.append(this.flashCt, {
+      html: ['<div class="flash">', '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>', '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">', message, '</div></div></div>', '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>', '</div>'].join('')
+    },
+    true);
+    box.slideIn('t').pause(1).ghost("t", {
+      remove: true
+    });
+  }
+});
+
 Martview.windows.Loading = Ext.extend(Object, {
   start: function () {
     if (!this.msg || !this.msg.isVisible()) {

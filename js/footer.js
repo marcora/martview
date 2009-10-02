@@ -16,10 +16,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         text: '',
         iconCls: '',
         cls: 'x-btn-text-icon',
-        hidden: true,
-        handler: function () {
-          Ext.MessageBox.alert(Martview.APP_TITLE, 'More tip');
-        }
+        hidden: true
       },
       '->', {
         itemId: 'biomart',
@@ -28,7 +25,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         iconCls: 'biomart_icon',
         cls: 'x-btn-text-icon',
         handler: function () {
-          Ext.MessageBox.alert(Martview.APP_TITLE, 'More biomart');
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'More about biomart (credits, license, feedback)');
         }
       }]
     };
@@ -40,11 +37,17 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
     Martview.Footer.superclass.initComponent.apply(this, arguments);
   },
 
+  clearMessage: function () {
+    var footer = this;
+    footer.messageButton.hide();
+    footer.doLayout();
+  },
+
   updateMessage: function (type, message) {
     var footer = this;
-    footer.messageButton.show();
     footer.messageButton.setIconClass(type + '_icon');
-    footer.messageButton.setText(message);
+    footer.messageButton.setText('<span class="' + type + '-msg">' + message + '</span>');
+    footer.messageButton.show();
     footer.doLayout();
   }
 });
