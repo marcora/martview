@@ -245,7 +245,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           triggerAction: 'all',
           mode: 'local',
           value: 'xml',
-          store: [['url', 'URL'], ['xml', 'XML'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
+          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
         }]
       }]
     };
