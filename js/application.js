@@ -28,6 +28,7 @@ Ext.onReady(function () {
   var form = main.search.form;
   var loading = new Martview.windows.Loading();
   var flash = new Martview.windows.Flash();
+  var clear_message;
   var filters_win, attributes_win;
   var reset_filters_win_to_defaults = true;
   var reset_attributes_win_to_defaults = true;
@@ -44,9 +45,11 @@ Ext.onReady(function () {
       },
       requestcomplete: function () {
         loading.stop();
+        if (clear_message) main.footer.updateMessage('info', Martview.SAVE_RESULTS_MSG);
       },
       requestexception: function () {
         loading.stop();
+        clear_message = true;
         main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
         // Ext.Msg.show({
         //   title: Martview.APP_TITLE,
@@ -539,7 +542,6 @@ Ext.onReady(function () {
         // load data into results panel
         main.results.enableHeaderButtons();
         main.results.load(data, params.results_format);
-        main.footer.updateMessage('info', Martview.SAVE_RESULTS_MSG);
       },
       failure: function () {
         form.focus();
