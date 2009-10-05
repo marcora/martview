@@ -2,6 +2,10 @@ Ext.namespace('Martview');
 
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
+  // soft config
+  has_error_message: false,
+
+  // hard config
   initComponent: function () {
     var config = {
       region: 'south',
@@ -22,7 +26,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         itemId: 'biomart',
         ref: 'biomartButton',
         text: 'Powered by BioMart &sdot; Biological queries made easy',
-        iconCls: 'biomart_icon',
+        iconCls: 'biomart-icon',
         cls: 'x-btn-text-icon',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More about biomart (credits, license, feedback)');
@@ -45,10 +49,18 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
 
   updateMessage: function (type, message) {
     var footer = this;
-    footer.messageButton.setIconClass(type + '_icon');
+    if (type == 'error') {
+      footer.has_error_message = true;
+    }
+    footer.messageButton.setIconClass(type + '-icon');
     footer.messageButton.setText('<span class="' + type + '-msg">' + message + '</span>');
     footer.messageButton.show();
     footer.doLayout();
+  },
+
+  updateMessageIfError: function (type, message) {
+    var footer = this;
+    if (footer.has_error_message) updateMessage(type, message);
   }
 });
 

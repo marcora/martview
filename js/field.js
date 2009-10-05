@@ -1,6 +1,7 @@
 Ext.namespace('Martview');
 
 Martview.Field = Ext.extend(Ext.Panel, {
+
   // soft config
   treenode: null,
   editable: false,

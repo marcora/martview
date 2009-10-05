@@ -1,5 +1,8 @@
 Ext.namespace('Martview.windows');
 
+/* ------------
+   Flash window
+   ------------ */
 Martview.windows.Flash = Ext.extend(Object, {
   show: function (type, message) {
     if (!this.flashCt) {
@@ -19,6 +22,9 @@ Martview.windows.Flash = Ext.extend(Object, {
   }
 });
 
+/* --------------
+   Loading window
+   -------------- */
 Martview.windows.Loading = Ext.extend(Object, {
   start: function () {
     if (!this.msg || !this.msg.isVisible()) {
@@ -41,6 +47,9 @@ Martview.windows.Loading = Ext.extend(Object, {
   }
 });
 
+/* -----------
+   Help window
+   ----------- */
 Martview.windows.Help = Ext.extend(Ext.Window, {
   id: 'help',
   title: Martview.APP_TITLE,
@@ -50,6 +59,9 @@ Martview.windows.Help = Ext.extend(Ext.Window, {
   html: 'biomart help'
 });
 
+/* -------------------------
+   Filters/attributes window
+   ------------------------- */
 Martview.windows.Fields = Ext.extend(Ext.Window, {
   // soft config
   display_name: null,
@@ -70,11 +82,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       border: false,
       autoDestroy: true,
       cls: 'fields',
-      iconCls: 'add_icon',
+      iconCls: 'add-icon',
       buttons: [{
         text: 'Close',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'close-icon',
         handler: function () {
           this.hide();
         },
@@ -86,7 +98,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: 'all',
         itemId: 'all',
         title: 'All ' + this.display_name.toLowerCase(),
-        iconCls: 'node_all_icon',
+        iconCls: 'node-all-icon',
         width: 300,
         split: true,
         rootVisible: false,
@@ -148,7 +160,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         autoScroll: true,
         padding: 10,
         title: 'Selected ' + this.display_name.toLowerCase(),
-        iconCls: 'node_selected_icon',
+        iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //         layout: 'vbox',
         //         layoutConfig: {
@@ -157,7 +169,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //         },
         tbar: [{
           text: 'Reset to default',
-          iconCls: 'undo_icon',
+          iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
           handler: this.resetToDefaultFields,
           scope: this
@@ -193,6 +205,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   }
 });
 
+/* ------------------
+   Save search window
+   ------------------ */
 Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
 
   // hard config
@@ -208,12 +223,12 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
-      iconCls: 'save_icon',
+      iconCls: 'save-icon',
       buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'close-icon',
         handler: function () {
           this.destroy();
         },
@@ -223,7 +238,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         text: 'Save',
         ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon'
+        iconCls: 'submit-icon'
       }],
       items: [{
         xtype: 'form',
@@ -258,6 +273,9 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
   }
 });
 
+/* -------------------
+   Save results window
+   ------------------- */
 Martview.windows.SaveResults = Ext.extend(Ext.Window, {
 
   // hard config
@@ -273,12 +291,12 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
-      iconCls: 'save_icon',
+      iconCls: 'save-icon',
       buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'close-icon',
         handler: function () {
           this.destroy();
         },
@@ -288,7 +306,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         text: 'Save',
         ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon'
+        iconCls: 'submit-icon'
       }],
       items: [{
         xtype: 'form',

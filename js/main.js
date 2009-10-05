@@ -2,8 +2,8 @@ Ext.namespace('Martview');
 
 Martview.Main = Ext.extend(Ext.Viewport, {
 
+  // hard config
   initComponent: function () {
-
     var config = {
       id: 'main',
       layout: 'border',

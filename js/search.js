@@ -1,6 +1,8 @@
 Ext.namespace('Martview');
 
 Martview.Search = Ext.extend(Ext.Panel, {
+
+  // hard config
   initComponent: function () {
     var config = {
       id: 'search',
@@ -19,32 +21,32 @@ Martview.Search = Ext.extend(Ext.Panel, {
           itemId: 'select',
           ref: '../selectButton',
           text: '<span style="color:#15428B; font-weight:bold">Search</span>',
-          iconCls: 'advanced_search_icon',
+          iconCls: 'advanced-search-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
           menu: [{
             itemId: 'simple',
             text: 'Simple',
-            iconCls: 'simple_search_icon',
+            iconCls: 'simple-search-icon',
             checked: true,
             group: 'format'
           },
           {
             itemId: 'guided',
             text: 'Guided',
-            iconCls: 'guided_search_icon',
+            iconCls: 'guided-search-icon',
             group: 'format'
           },
           {
             itemId: 'advanced',
             text: 'Advanced',
-            iconCls: 'advanced_search_icon',
+            iconCls: 'advanced-search-icon',
             group: 'format'
           },
           {
             itemId: 'user',
             text: 'Dimeric protein structures at high-res',
-            iconCls: 'user_search_icon',
+            iconCls: 'user-search-icon',
             group: 'format'
           }]
         },
@@ -52,7 +54,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           itemId: 'customize',
           ref: '../customizeButton',
           text: 'Add filter',
-          iconCls: 'add_icon',
+          iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
           hidden: true
         },
@@ -60,7 +62,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: 'Save search',
           itemId: 'save',
           ref: '../saveButton',
-          iconCls: 'save_icon',
+          iconCls: 'save-icon',
           cls: 'x-btn-text-icon',
           disabled: true
         }]
@@ -69,7 +71,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         itemId: 'reset',
         ref: '../resetButton',
         text: 'Reset',
-        iconCls: 'reset_icon',
+        iconCls: 'reset-icon',
         cls: 'x-btn-text-icon',
         disabled: true
       },
@@ -77,7 +79,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         itemId: 'submit',
         ref: '../submitButton',
         text: 'Submit',
-        iconCls: 'submit_icon',
+        iconCls: 'submit-icon',
         cls: 'x-btn-text-icon',
         disabled: true
       }],

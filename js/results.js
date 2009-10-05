@@ -1,6 +1,8 @@
 Ext.namespace('Martview');
 
 Martview.Results = Ext.extend(Ext.Panel, {
+
+  // hard config
   initComponent: function () {
     var config = {
       id: 'results',
@@ -16,30 +18,30 @@ Martview.Results = Ext.extend(Ext.Panel, {
           itemId: 'select',
           ref: '../selectButton',
           text: '<span style="color:#15428B; font-weight:bold">Results</span>',
-          iconCls: 'tabular_results_icon',
+          iconCls: 'tabular-results-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
           menu: [{
             text: 'Tabular',
             itemId: 'tabular',
-            iconCls: 'tabular_results_icon'
+            iconCls: 'tabular-results-icon'
           },
           {
             text: 'Itemized',
             itemId: 'itemized',
-            iconCls: 'itemized_results_icon'
+            iconCls: 'itemized-results-icon'
           },
           {
             text: 'Chart',
             itemId: 'chart',
-            iconCls: 'chart_results_icon'
+            iconCls: 'chart-results-icon'
           }]
         },
         '->', {
           itemId: 'customize',
           ref: '../customizeButton',
           text: 'Add column',
-          iconCls: 'add_icon',
+          iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
           hidden: true,
           disabled: true
@@ -48,7 +50,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           itemId: 'save',
           ref: '../saveButton',
           text: 'Save results',
-          iconCls: 'save_icon',
+          iconCls: 'save-icon',
           cls: 'x-btn-text-icon',
           disabled: true
         }]
