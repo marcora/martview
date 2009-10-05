@@ -60,7 +60,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
 
   updateMessageIfError: function (type, message) {
     var footer = this;
-    if (footer.has_error_message) updateMessage(type, message);
+    if (footer.has_error_message) footer.updateMessage(type, message);
   }
 });
 
