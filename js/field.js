@@ -56,7 +56,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
       //       },
       {
         text: 'Remove',
-        iconCls: 'delete_icon',
+        iconCls: 'delete-icon',
         cls: 'x-btn-text-icon',
         scope: this,
         handler: function () {

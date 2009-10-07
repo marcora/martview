@@ -102,6 +102,11 @@ legend { font-weight: normal !important; }
 .help-icon { background-image: url('../ico/question.png') !important; }
 .submit-icon { background-image: url('../ico/tick.png') !important; }
 .save-icon { background-image: url('../ico/disk.png') !important; }
+.alert-icon { background-image: url('../ico/exclamation.png') !important; }
+.error-icon { background-image: url('../ico/cross-circle.png') !important; }
+.success-icon { background-image: url('../ico/tick-circle.png') !important; }
+
+
 
 button.moveup-icon { background-image: url('../ico/arrow-090.png') !important; }
 button.movedn-icon { background-image: url('../ico/arrow-270.png') !important; }

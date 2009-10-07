@@ -48,17 +48,19 @@ Ext.onReady(function () {
       },
       requestcomplete: function () {
         loading.stop();
-        main.footer.updateMessageIfError('info', Martview.SAVE_RESULTS_MSG);
+        // main.footer.updateMessageIfError('info', Martview.SAVE_RESULTS_MSG);
       },
       requestexception: function () {
         loading.stop();
-        clear_message = true;
-        main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
-        // Ext.Msg.show({
-        //   title: Martview.APP_TITLE,
-        //   msg: Martview.CONN_ERR_MSG,
-        //   width: 300
-        // });
+        // main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERROR_MSG,
+          // icon: Ext.Msg.ERROR,
+          buttons: Ext.Msg.OK,
+          closable: false,
+          width: 300
+        });
       }
     }
   });
