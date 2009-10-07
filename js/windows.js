@@ -69,6 +69,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   field_iconCls: null,
   children: [],
   default_fields: [],
+  current_fields: [],
+  fields_changed: false,
 
   // hard config
   initComponent: function () {
@@ -84,10 +86,22 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       cls: 'fields',
       iconCls: 'add-icon',
       buttons: [{
-        text: 'Close',
+        text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close-icon',
+        iconCls: 'reset-icon',
         handler: function () {
+          this.fields_changed = false;
+          this.hide();
+          this.resetToCurrentFields();
+        },
+        scope: this // scope button to window
+      },
+      {
+        text: 'Apply',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit-icon',
+        handler: function () {
+          this.fields_changed = true;
           this.hide();
         },
         scope: this // scope button to window
@@ -182,6 +196,35 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
     // call parent
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
+  },
+
+  rememberCurrentFields: function () {
+    var selected = this.get('selected'); // FIXME: why not this.selected?!?
+    this.current_fields = [];
+    selected.items.each(function (item) {
+      this.current_fields.push(item.treenode);
+    },
+    this);
+  },
+
+  resetToCurrentFields: function () {
+    var all = this.get('all'); // FIXME: why not this.selected?!?
+    var selected = this.get('selected'); // FIXME: why not this.selected?!?
+    selected.items.each(function (item) {
+      item.treenode.enable();
+      selected.remove(item);
+    });
+    Ext.each(this.current_fields, function (current_field) {
+      var node = all.getNodeById(current_field.id);
+      var field = selected.add({
+        xtype: 'field',
+        treenode: node,
+        field_iconCls: this.field_iconCls
+      });
+      node.disable();
+    },
+    this);
+    selected.doLayout();
   },
 
   resetToDefaultFields: function () {

@@ -244,6 +244,7 @@ Ext.onReady(function () {
     filters_win.show();
     if (reset_filters_win_to_defaults) filters_win.resetToDefaultFields();
     reset_filters_win_to_defaults = false;
+    filters_win.rememberCurrentFields();
   });
 
   // show attributes window on customize button click
@@ -251,6 +252,7 @@ Ext.onReady(function () {
     attributes_win.show();
     if (reset_attributes_win_to_defaults) attributes_win.resetToDefaultFields();
     reset_attributes_win_to_defaults = false;
+    attributes_win.rememberCurrentFields();
   });
 
   // submit search on submit button click
@@ -383,7 +385,7 @@ Ext.onReady(function () {
           default_fields: default_filters
         });
         filters_win.on('hide', function () {
-          updateSearch(false);
+          if (filters_win.fields_changed) updateSearch(false);
         });
 
         // attributes
@@ -400,7 +402,7 @@ Ext.onReady(function () {
           default_fields: default_attributes
         });
         attributes_win.on('hide', function () {
-          submitSearch();
+          if (attributes_win.fields_changed) submitSearch();
         });
 
         // call update search
