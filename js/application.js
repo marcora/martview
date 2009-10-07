@@ -58,6 +58,15 @@ Ext.onReady(function () {
           msg: Martview.CONN_ERROR_MSG,
           // icon: Ext.Msg.ERROR,
           buttons: Ext.Msg.OK,
+          // buttons: [{
+          //   text: 'OK',
+          //   cls: 'x-btn-text-icon',
+          //   iconCls: 'submit-icon',
+          //   handler: function () {
+          //     this.hide();
+          //   },
+          //   scope: this // scope button to window
+          // }],
           closable: false,
           width: 300
         });
