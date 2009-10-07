@@ -272,13 +272,14 @@ Ext.onReady(function () {
   // select search format on search menu click
   main.search.selectButton.menu.on('itemclick', function (item) {
     params.search_format = item.getItemId();
+    main.search.setIconClass(params.search_format + '-search-icon');
     selectSearch(params);
   });
 
   // select results format on results menu click
   main.results.selectButton.menu.on('itemclick', function (item) {
     params.results_format = item.getItemId();
-    main.results.selectButton.setIconClass(params.results_format + '-results-icon');
+    main.results.setIconClass(params.results_format + '-results-icon');
     main.results.load(data, params.results_format);
   });
 
@@ -299,6 +300,10 @@ Ext.onReady(function () {
       results_format: 'tabular'
     });
 
+    // set search/results view icon
+    main.search.setIconClass(params.search_format + '-search-icon');
+    main.results.setIconClass(params.results_format + '-results-icon');
+
     // clear search/results panel, if present
     try {
       main.results.clear();
@@ -310,12 +315,6 @@ Ext.onReady(function () {
 
     // update breadcrumbs
     main.header.updateBreadcrumbs(params);
-
-    // set search format icon
-    main.search.selectButton.setIconClass(params.search_format + '-search-icon');
-
-    // set results format icon
-    main.results.selectButton.setIconClass(params.results_format + '-results-icon');
 
     // assign save search button handler
     main.search.saveButton.setHandler(function () {

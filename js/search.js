@@ -13,16 +13,16 @@ Martview.Search = Ext.extend(Ext.Panel, {
       border: true,
       width: 400,
       split: true,
+      title: 'Search',
+      iconCls: 'simple-search-icon',
       bodyStyle: 'background-color:#dfe8f6;',
       tbar: new Ext.Toolbar({
-        cls: 'x-panel-header',
-        height: 26,
         items: [{
           itemId: 'select',
           ref: '../selectButton',
-          text: '<span style="color:#15428B; font-weight:bold">Search</span>',
-          iconCls: 'advanced-search-icon',
+          text: 'Change view',
           cls: 'x-btn-text-icon',
+          iconCls: 'view-icon',
           disabled: true,
           menu: [{
             itemId: 'simple',
@@ -50,7 +50,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
             group: 'format'
           }]
         },
-        '->', {
+        {
           itemId: 'customize',
           ref: '../customizeButton',
           text: 'Add filter',
@@ -58,7 +58,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           cls: 'x-btn-text-icon',
           hidden: true
         },
-        {
+        '->', {
           text: 'Save search',
           itemId: 'save',
           ref: '../saveButton',

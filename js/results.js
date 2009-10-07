@@ -11,15 +11,15 @@ Martview.Results = Ext.extend(Ext.Panel, {
       layout: 'fit',
       autoScroll: true,
       border: true,
+      title: 'Results',
+      iconCls: 'tabular-results-icon',
       tbar: new Ext.Toolbar({
-        cls: 'x-panel-header',
-        height: 26,
         items: [{
           itemId: 'select',
           ref: '../selectButton',
-          text: '<span style="color:#15428B; font-weight:bold">Results</span>',
-          iconCls: 'tabular-results-icon',
+          text: 'Change view',
           cls: 'x-btn-text-icon',
+          iconCls: 'view-icon',
           disabled: true,
           menu: [{
             text: 'Tabular',
@@ -37,7 +37,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
             iconCls: 'chart-results-icon'
           }]
         },
-        '->', {
+        {
           itemId: 'customize',
           ref: '../customizeButton',
           text: 'Add column',
@@ -46,7 +46,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           hidden: true,
           disabled: true
         },
-        {
+        '->', {
           itemId: 'save',
           ref: '../saveButton',
           text: 'Save results',

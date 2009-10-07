@@ -107,7 +107,6 @@ legend { font-weight: normal !important; }
 .success-icon { background-image: url('../ico/tick-circle.png') !important; }
 
 
-
 button.moveup-icon { background-image: url('../ico/arrow-090.png') !important; }
 button.movedn-icon { background-image: url('../ico/arrow-270.png') !important; }
 button.larrow-icon { background-image: url('../ico/arrow-180.png') !important; }
@@ -141,3 +140,4 @@ button.user-icon { background-image: url('../ico/user.png') !important; }
 button.count-icon { background-image: url('../ico/counter.png') !important; }
 button.print-icon { background-image: url('../ico/printer.png') !important; }
 button.home-icon { background-image: url('../ico/home.png') !important; }
+button.view-icon { background-image: url('../ico/gear.png') !important; }
