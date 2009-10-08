@@ -111,6 +111,19 @@ Ext.onReady(function () {
         selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
       } else {
         // pass and wait for select dataset menu click event
+        main.header.homeButton.getEl().highlight('e0e8f3', {
+          endColor: 'ffcc66'
+        }).highlight('ffcc66', {
+          endColor: 'dfe8f6'
+        }).highlight('dfe8f6', {
+          endColor: 'ffcc66'
+        }).highlight('ffcc66', {
+          endColor: 'dfe8f6'
+        }).highlight('dfe8f6', {
+          endColor: 'ffcc66'
+        }).highlight('ffcc66', {
+          endColor: 'dfe8f6'
+        });
       }
     }
   });

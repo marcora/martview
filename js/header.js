@@ -29,7 +29,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'mart',
         ref: 'martButton',
-        text: '<span style="color: #444 !important; font-weight: bold !important">Select the database you want to search</span>',
+        text: '<span style="color: #444 !important; font-weight: bold !important">Select the database you want to search</span>', // 'Select the database you want to search'
         cls: 'x-btn-text-icon',
         iconCls: 'larrow-icon',
         hidden: true
