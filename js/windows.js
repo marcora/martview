@@ -137,27 +137,30 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         // containerScroll: true,
         // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
-        tbar: [{
-          xtype: 'treefilterfield',
-          itemId: 'search',
-          width: 200
+        tbar: {
+          layout: 'hbox',
+          items: [{
+            xtype: 'treefilterfield',
+            itemId: 'search',
+            flex: 1
+          },
+          ' ', {
+            itemId: 'collapse_all',
+            iconCls: 'icon-collapse-all',
+            tooltip: 'Collapse All',
+            handler: function () {
+              this.ownerCt.ownerCt.root.collapse(true);
+            }
+          },
+          {
+            itemId: 'expand_all',
+            iconCls: 'icon-expand-all',
+            tooltip: 'Expand All',
+            handler: function () {
+              this.ownerCt.ownerCt.root.expand(true);
+            }
+          }]
         },
-        '->', {
-          itemId: 'collapse_all',
-          iconCls: 'icon-collapse-all',
-          tooltip: 'Collapse All',
-          handler: function () {
-            this.ownerCt.ownerCt.root.collapse(true);
-          }
-        },
-        {
-          itemId: 'expand_all',
-          iconCls: 'icon-expand-all',
-          tooltip: 'Expand All',
-          handler: function () {
-            this.ownerCt.ownerCt.root.expand(true);
-          }
-        }],
         listeners: {
           beforerender: function () {
             this.filter = new Ext.ux.tree.TreeFilterX(this, {
