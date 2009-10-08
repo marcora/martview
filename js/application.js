@@ -27,17 +27,15 @@ Ext.onReady(function () {
   Ext.QuickTips.init();
 
   // init viewport, dialogs, windows and global state vars
-  var main = new Martview.Main();
-  var form = main.search.form;
-  var data;
-  var loading = new Martview.windows.Loading();
-  var flash = new Martview.windows.Flash();
-  var filters_win, attributes_win;
+  var main = new Martview.Main(); // application viewport
+  var form = main.search.form; // search form
+  var data; // container for results
+  var loading = new Martview.windows.Loading(); // loading window
+  var flash = new Martview.windows.Flash(); // flash window
+  var filters_win, attributes_win; // filters/attributes windows
   var reset_filters_win_to_defaults = true;
   var reset_attributes_win_to_defaults = true;
   var default_filters, default_attributes;
-  var search_formats = ['simple', 'guided', 'advanced', 'user'];
-  var results_formats = ['tabular', 'itemized', 'chart'];
 
   // init ajax connection
   var conn = new Ext.data.Connection({
@@ -53,16 +51,15 @@ Ext.onReady(function () {
       requestexception: function () {
         loading.stop();
         // main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
-        flash.show('error', Martview.CONN_ERROR_MSG);
+        // flash.show('error', Martview.CONN_ERROR_MSG);
         // alert(Martview.CONN_ERROR_MSG);
-        // Ext.Msg.show({
-        //   title: Martview.APP_TITLE,
-        //   msg: Martview.CONN_ERROR_MSG,
-        //   icon: Ext.Msg.ERROR,
-        //   buttons: Ext.Msg.OK,
-        //   closable: false,
-        //   width: 300
-        // });
+        Ext.Msg.show({
+          title: Martview.APP_TITLE,
+          msg: Martview.CONN_ERROR_MSG,
+          icon: Ext.Msg.ERROR,
+          buttons: Ext.Msg.OK,
+          width: 300
+        });
       }
     }
   });
@@ -86,8 +83,6 @@ Ext.onReady(function () {
       main.footer.updateMessage('info', 'To begin, please select the database you want to search');
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
-      params.search_format = params.search;
-      params.results_format = params.results;
 
       // validate query params by recursively matching with the select dataset menu items
       var dataset_counter = 0;
@@ -99,7 +94,7 @@ Ext.onReady(function () {
           } else {
             dataset_counter++;
             single_dataset = menu_item;
-            if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && search_formats.has(params.search_format) && results_formats.has(params.results_format)) {
+            if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && Martview.ALLOWED_SEARCH_PARAMS.has(params.search) && Martview.ALLOWED_RESULTS_PARAMS.has(params.results)) {
               params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
               params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
             }
@@ -264,15 +259,15 @@ Ext.onReady(function () {
 
   // select search format on search menu click
   main.search.selectButton.menu.on('itemclick', function (item) {
-    params.search_format = item.getItemId();
+    params.search = item.getItemId();
     selectSearch(params);
   });
 
   // select results format on results menu click
   main.results.selectButton.menu.on('itemclick', function (item) {
-    params.results_format = item.getItemId();
-    main.results.selectButton.setIconClass(params.results_format + '-results-icon');
-    main.results.load(data, params.results_format);
+    params.results = item.getItemId();
+    main.results.selectButton.setIconClass(params.results + '-results-icon');
+    main.results.load(data, params.results);
   });
 
   /* ==============
@@ -288,8 +283,8 @@ Ext.onReady(function () {
 
     // if not specified the default search format is 'advanced' and the default results format is 'tabular'
     Ext.applyIf(params, {
-      search_format: 'advanced',
-      results_format: 'tabular'
+      search: 'advanced',
+      results: 'tabular'
     });
 
     // clear search/results panel, if present
@@ -305,10 +300,10 @@ Ext.onReady(function () {
     main.header.updateBreadcrumbs(params);
 
     // set search format icon
-    main.search.selectButton.setIconClass(params.search_format + '-search-icon');
+    main.search.selectButton.setIconClass(params.search + '-search-icon');
 
     // set results format icon
-    main.results.selectButton.setIconClass(params.results_format + '-results-icon');
+    main.results.selectButton.setIconClass(params.results + '-results-icon');
 
     // assign save search button handler
     main.search.saveButton.setHandler(function () {
@@ -369,7 +364,7 @@ Ext.onReady(function () {
         var dataset = Ext.util.JSON.decode(response.responseText);
 
         // TODO: this is a mock implementation of user-defined searches
-        if (params.search_format == 'user') {
+        if (params.search == 'user') {
           var include_filters = parseIncludeFields('assembly_type:DIMERIC|resolution_less_than:2|resolution_more_than:0');
         }
 
@@ -419,11 +414,11 @@ Ext.onReady(function () {
   function updateSearch(submit) {
 
     // add fields to search form
-    if (params.search_format == 'simple') {
+    if (params.search == 'simple') {
       showSimpleSearch();
-    } else if (params.search_format == 'guided') {
+    } else if (params.search == 'guided') {
       showGuidedSearch();
-    } else if (params.search_format == 'advanced' || params.search_format == 'user') {
+    } else if (params.search == 'advanced' || params.search == 'user') {
       if (filters_win.rendered) {
         var filters = [];
         filters_win.selected.items.each(function (item) {
@@ -602,14 +597,14 @@ Ext.onReady(function () {
 
     // build search params
     var search_params = new Object;
-    if (params.search_format == 'simple') {
+    if (params.search == 'simple') {
       var query = form.items.first().getValue().trim(); // FIXME: too verbose!
       if (!query) return; // abort submit if no search terms
       Ext.apply(search_params, {
         type: 'search',
         q: query
       });
-    } else if (params.search_format == 'guided') {
+    } else if (params.search == 'guided') {
       var filters = [];
       form.filters.items.each(function (item) {
         var filter = {
@@ -640,7 +635,7 @@ Ext.onReady(function () {
         facet_fields: 'experiment_type|resolution|space_group|r_work',
         filters: filters.join('|')
       });
-    } else if (params.search_format == 'advanced' || params.search_format == 'user') {
+    } else if (params.search == 'advanced' || params.search == 'user') {
       var xml = buildQueryXml();
       Ext.apply(search_params, {
         type: 'query',
@@ -660,14 +655,14 @@ Ext.onReady(function () {
         if (debug) console.dir(data);
 
         // build guided search form
-        if (params.search_format == 'guided') {
+        if (params.search == 'guided') {
           showGuidedSearch(data.facets);
         }
         form.focus();
 
         // load data into results panel
         main.results.enableHeaderButtons();
-        main.results.load(data, params.results_format);
+        main.results.load(data, params.results);
       },
       failure: function () {
         form.focus();
