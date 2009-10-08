@@ -42,21 +42,21 @@ Ext.onReady(function () {
     timeout: 120000,
     listeners: {
       beforerequest: function () {
-        loading.start();
+        loading.show();
       },
       requestcomplete: function () {
-        loading.stop();
+        loading.hide();
         // main.footer.updateMessageIfError('info', Martview.SAVE_RESULTS_MSG);
       },
       requestexception: function () {
-        loading.stop();
+        loading.hide();
         // main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
         // flash.show('error', Martview.CONN_ERROR_MSG);
         // alert(Martview.CONN_ERROR_MSG);
         Ext.Msg.show({
           title: Martview.APP_TITLE,
           msg: Martview.CONN_ERROR_MSG,
-          icon: Ext.Msg.ERROR,
+          // icon: Ext.Msg.ERROR,
           buttons: Ext.Msg.OK,
           width: 300
         });

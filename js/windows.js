@@ -38,7 +38,7 @@ Martview.windows.Flash = Ext.extend(Object, {
    Loading window
    -------------- */
 Martview.windows.Loading = Ext.extend(Object, {
-  start: function () {
+  show: function () {
     if (!this.msg || !this.msg.isVisible()) {
       this.msg = Ext.Msg.show({
         cls: 'loading',
@@ -52,7 +52,7 @@ Martview.windows.Loading = Ext.extend(Object, {
       });
     }
   },
-  stop: function () {
+  hide: function () {
     if (this.msg && this.msg.isVisible()) {
       this.msg.hide();
     }
