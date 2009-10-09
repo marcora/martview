@@ -58,7 +58,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: 'Add filter',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          hidden: true,
+          disabled: true,
           tooltip: 'Press this button to customize the search form by adding/removing filters'
         },
         {

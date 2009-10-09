@@ -142,6 +142,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           items: [{
             xtype: 'treefilterfield',
             itemId: 'search',
+            ref: 'search',
             flex: 1
           },
           ' ', {
@@ -149,7 +150,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             iconCls: 'icon-collapse-all',
             tooltip: 'Collapse All',
             handler: function () {
+              this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.collapse(true);
+              // this.ownerCt.search.focus();
             }
           },
           {
@@ -157,7 +160,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             iconCls: 'icon-expand-all',
             tooltip: 'Expand All',
             handler: function () {
+              this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.expand(true);
+              // this.ownerCt.search.focus();
             }
           }]
         },
