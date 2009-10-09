@@ -14,13 +14,14 @@ Martview.Search = Ext.extend(Ext.Panel, {
       width: 400,
       split: true,
       bodyStyle: 'background-color:#dfe8f6;',
-      tbar: new Ext.Toolbar({
-        cls: 'x-panel-header',
-        height: 26,
+      title: 'Search',
+      tbar: {
+        // cls: 'x-panel-header',
+        // height: 26,
         items: [{
           itemId: 'select',
           ref: '../selectButton',
-          text: '<span style="color:#15428B; font-weight:bold">Search</span>',
+          text: 'Advanced',
           iconCls: 'advanced-search-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
@@ -69,7 +70,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           disabled: true,
           tooltip: 'Press this button to save the search in various formats'
         }]
-      }),
+      },
       bbar: ['->', {
         itemId: 'reset',
         ref: '../resetButton',

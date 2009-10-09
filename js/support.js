@@ -16,6 +16,13 @@ function post(url, data) {
   document.body.removeChild(form);
 }
 
+// add the capitalize method to string
+String.prototype.capitalize = function () {
+  return this.replace(/\w+/g, function (a) {
+    return a.charAt(0).toUpperCase() + a.substr(1).toLowerCase();
+  });
+};
+
 // add the has method to array
 Array.prototype.has = function (o) {
   return this.indexOf(o) > -1;

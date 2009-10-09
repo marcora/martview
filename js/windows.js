@@ -124,7 +124,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: 'all',
         itemId: 'all',
         title: 'All ' + this.display_name.toLowerCase(),
-        iconCls: 'node-all-icon',
+        // iconCls: 'node-all-icon',
         width: 300,
         split: true,
         rootVisible: false,
@@ -189,7 +189,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         autoScroll: true,
         padding: 10,
         title: 'Selected ' + this.display_name.toLowerCase(),
-        iconCls: 'node-selected-icon',
+        // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //         layout: 'vbox',
         //         layoutConfig: {

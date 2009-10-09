@@ -283,6 +283,7 @@ Ext.onReady(function () {
   // select results format on results menu click
   main.results.selectButton.menu.on('itemclick', function (item) {
     params.results = item.getItemId();
+    main.results.selectButton.setText(params.results.capitalize());
     main.results.selectButton.setIconClass(params.results + '-results-icon');
     main.results.load(data, params.results);
   });
@@ -316,10 +317,12 @@ Ext.onReady(function () {
     // update breadcrumbs
     main.header.updateBreadcrumbs(params);
 
-    // set search format icon
+    // set search format
+    main.search.selectButton.setText(params.search.capitalize());
     main.search.selectButton.setIconClass(params.search + '-search-icon');
 
-    // set results format icon
+    // set results format
+    main.results.selectButton.setText(params.results.capitalize());
     main.results.selectButton.setIconClass(params.results + '-results-icon');
 
     // assign save search button handler
