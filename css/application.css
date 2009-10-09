@@ -98,6 +98,7 @@ legend { font-weight: normal !important; }
 .node-selected-icon { background-image: url('../ico/node-select-child.png') !important; }
 .folder-icon { background-image: url('../ico/folder-horizontal.png') !important; }
 .folder-open-icon { background-image: url('../ico/folder-horizontal-open.png') !important; }
+.customize-icon { background-image: url('../ico/gear.png') !important; }
 .add-icon { background-image: url('../ico/plus-circle.png') !important; }
 .help-icon { background-image: url('../ico/question.png') !important; }
 .submit-icon { background-image: url('../ico/tick.png') !important; }

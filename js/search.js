@@ -24,6 +24,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           iconCls: 'advanced-search-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
+          tooltip: 'Use this menu to select the format of the search panel',
           menu: [{
             itemId: 'simple',
             text: 'Simple',
@@ -56,7 +57,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: 'Add filter',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          hidden: true
+          hidden: true,
+          tooltip: 'Press this button to customize the search form by adding/removing filters'
         },
         {
           text: 'Save search',
@@ -64,7 +66,8 @@ Martview.Search = Ext.extend(Ext.Panel, {
           ref: '../saveButton',
           iconCls: 'save-icon',
           cls: 'x-btn-text-icon',
-          disabled: true
+          disabled: true,
+          tooltip: 'Press this button to save the search in various formats'
         }]
       }),
       bbar: ['->', {
@@ -74,6 +77,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         iconCls: 'reset-icon',
         cls: 'x-btn-text-icon',
         disabled: true
+        // tooltip: 'Press this button to reset the search form'
       },
       {
         itemId: 'submit',
@@ -82,6 +86,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
         iconCls: 'submit-icon',
         cls: 'x-btn-text-icon',
         disabled: true
+        // tooltip: 'Press this button to submit the search form'
       }],
       items: [{
         xtype: 'form',
@@ -112,6 +117,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     var search = this;
     search.selectButton.enable();
     if (customize) {
+      search.customizeButton.enable();
       search.customizeButton.show();
     } else {
       search.customizeButton.hide();

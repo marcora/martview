@@ -123,6 +123,10 @@ Ext.onReady(function () {
           endColor: 'ffcc66'
         }).highlight('ffcc66', {
           endColor: 'dfe8f6'
+        }).highlight('dfe8f6', {
+          endColor: 'ffcc66'
+        }).highlight('ffcc66', {
+          endColor: 'dfe8f6'
         });
       }
     }
@@ -674,7 +678,6 @@ Ext.onReady(function () {
         form.focus();
 
         // load data into results panel
-        main.results.enableHeaderButtons();
         main.results.load(data, params.results);
       },
       failure: function () {

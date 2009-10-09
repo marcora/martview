@@ -18,6 +18,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         //         text: 'Home',
         //         iconCls: 'home-icon',
         hidden: true,
+        tooltip: 'Use this menu to select the database you want to search',
         menu: []
       },
       {
@@ -54,6 +55,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'Login',
         iconCls: 'user-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Press this button to log into BioMart',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Login');
         }
@@ -64,6 +66,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'Help',
         iconCls: 'help-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Press this button to get help on how to use BioMart',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
         }

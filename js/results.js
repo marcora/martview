@@ -21,6 +21,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           iconCls: 'tabular-results-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
+          tooltip: 'Use this menu to select the format of the results panel',
           menu: [{
             text: 'Tabular',
             itemId: 'tabular',
@@ -44,7 +45,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
           hidden: true,
-          disabled: true
+          tooltip: 'Press this button to customize the results grid by adding/removing columns'
         },
         {
           itemId: 'save',
@@ -52,7 +53,8 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Save results',
           iconCls: 'save-icon',
           cls: 'x-btn-text-icon',
-          disabled: true
+          disabled: true,
+          tooltip: 'Press this button to save the results in various formats'
         }]
       }),
       bbar: [{
@@ -69,10 +71,15 @@ Martview.Results = Ext.extend(Ext.Panel, {
     Martview.Results.superclass.initComponent.apply(this, arguments);
   },
 
-  enableHeaderButtons: function () {
+  enableHeaderButtons: function (customize) {
     var results = this;
     results.selectButton.enable();
-    results.customizeButton.enable();
+    if (customize) {
+      results.customizeButton.enable();
+      results.customizeButton.show();
+    } else {
+      results.customizeButton.hide();
+    }
     results.saveButton.enable();
   },
 
@@ -108,6 +115,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
     results.counterButton.setText(store.getTotalCount() + ' of ' + data.count);
 
     if (format == 'tabular') {
+      results.enableHeaderButtons(true);
       var colModel = new Ext.grid.ColumnModel({
         defaults: {
           width: 100,
@@ -126,6 +134,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         border: false
       });
     } else if (format == 'itemized') {
+      results.enableHeaderButtons();
       var tpl = new Ext.XTemplate('<tpl for=".">', '<div class="item-selector {[ xindex % 2 === 0 ? "item-even" : "item-odd" ]}">', '<table class="item">', '<tr class="title">', '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>', '</tr>', '<tr>', '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div class="attribute">Experiment type: {experiment_type}</div>', '<div class="attribute">Resolution: {resolution}</div>', '<div class="attribute">Space group: {space_group}</div>', '<div class="attribute">R work: {r_work}</div></td>', '</tr>', '</table>', '</div>', '</tpl>', '<div class="x-clear"></div>');
       var rows = new Ext.DataView({
         store: store,
@@ -139,6 +148,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         fitToFrame: true
       });
     } else if (format == 'chart') {
+      results.enableHeaderButtons();
       store.filter('chromosome_name', '1');
       var chromosome_1 = store.getCount();
       if (debug) console.log('chromosome_1:' + chromosome_1);
