@@ -81,7 +81,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
   },
 
   load: function (data, handler) {
-    header = this;
+    var header = this;
     header.homeButton.setText(data.text);
     header.homeButton.setIconClass(data.iconCls);
     header.homeButton.menu.add(data.menu);
@@ -127,7 +127,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
   },
 
   updateBreadcrumbs: function (params) {
-    header = this;
+    var header = this;
     header.homeButton.addClass('no-menu-arrow');
     header.homeSeparator.show();
     header.martButton.setIconClass('mart-icon').setText(params.mart_display_name || params.mart_name).show();
