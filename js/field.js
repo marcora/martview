@@ -1,6 +1,7 @@
 Ext.namespace('Martview');
 
 Martview.Field = Ext.extend(Ext.Panel, {
+
   // soft config
   treenode: null,
   editable: false,
@@ -55,7 +56,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
       //       },
       {
         text: 'Remove',
-        iconCls: 'delete_icon',
+        iconCls: 'delete-icon',
         cls: 'x-btn-text-icon',
         scope: this,
         handler: function () {

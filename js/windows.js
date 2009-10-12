@@ -1,11 +1,49 @@
 Ext.namespace('Martview.windows');
 
+/* ------------
+   Flash window
+   ------------ */
+Martview.windows.Flash = Ext.extend(Object, {
+  show: function (type, message) {
+    var icons = {
+      'alert': './ico/exclamation.png',
+      'error': './ico/cross-circle.png',
+      'success': './ico/tick-circle.png',
+      'info': './ico/information.png'
+    };
+    if (!this.flashCt) {
+      this.flashCt = Ext.DomHelper.insertFirst(document.body, {
+        id: 'flash'
+      },
+      true);
+    }
+    this.flashCt.alignTo(document, 't-t');
+    var box = Ext.DomHelper.append(this.flashCt, {
+      html: ['<div class="flash">', '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>', '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc">', '<table><tr><td><img src="', icons[type], '"/></td><td>&nbsp;</td><td>', message, '<td></tr></table></div></div></div>', '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>', '</div>'].join('')
+    },
+    true);
+    // box.slideIn('t').pause(5).ghost("t", {
+    //   remove: true
+    // });
+    box.slideIn('t');
+    box.on('click', function () {
+      this.ghost("t", {
+        remove: true
+      });
+    });
+  }
+});
+
+/* --------------
+   Loading window
+   -------------- */
 Martview.windows.Loading = Ext.extend(Object, {
-  start: function () {
+  show: function () {
     if (!this.msg || !this.msg.isVisible()) {
       this.msg = Ext.Msg.show({
+        cls: 'loading',
         title: Martview.APP_TITLE,
-        msg: 'Loading...',
+        msg: 'Connecting to BioMart...',
         width: 300,
         wait: true,
         waitConfig: {
@@ -14,13 +52,16 @@ Martview.windows.Loading = Ext.extend(Object, {
       });
     }
   },
-  stop: function () {
+  hide: function () {
     if (this.msg && this.msg.isVisible()) {
       this.msg.hide();
     }
   }
 });
 
+/* -----------
+   Help window
+   ----------- */
 Martview.windows.Help = Ext.extend(Ext.Window, {
   id: 'help',
   title: Martview.APP_TITLE,
@@ -30,6 +71,9 @@ Martview.windows.Help = Ext.extend(Ext.Window, {
   html: 'biomart help'
 });
 
+/* -------------------------
+   Filters/attributes window
+   ------------------------- */
 Martview.windows.Fields = Ext.extend(Ext.Window, {
   // soft config
   display_name: null,
@@ -37,6 +81,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   field_iconCls: null,
   children: [],
   default_fields: [],
+  current_fields: [],
+  fields_changed: false,
 
   // hard config
   initComponent: function () {
@@ -50,12 +96,24 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       border: false,
       autoDestroy: true,
       cls: 'fields',
-      iconCls: 'add_icon',
+      iconCls: 'add-icon',
       buttons: [{
-        text: 'Close',
+        text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'reset-icon',
         handler: function () {
+          this.fields_changed = false;
+          this.hide();
+          this.resetToCurrentFields();
+        },
+        scope: this // scope button to window
+      },
+      {
+        text: 'Apply',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit-icon',
+        handler: function () {
+          this.fields_changed = true;
           this.hide();
         },
         scope: this // scope button to window
@@ -66,7 +124,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: 'all',
         itemId: 'all',
         title: 'All ' + this.display_name.toLowerCase(),
-        iconCls: 'node_all_icon',
+        // iconCls: 'node-all-icon',
         width: 300,
         split: true,
         rootVisible: false,
@@ -79,27 +137,35 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         // containerScroll: true,
         // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
-        tbar: [{
-          xtype: 'treefilterfield',
-          itemId: 'search',
-          width: 200
+        tbar: {
+          layout: 'hbox',
+          items: [{
+            xtype: 'treefilterfield',
+            itemId: 'search',
+            ref: 'search',
+            flex: 1
+          },
+          ' ', {
+            itemId: 'collapse_all',
+            iconCls: 'icon-collapse-all',
+            tooltip: 'Collapse All',
+            handler: function () {
+              this.ownerCt.search.onTrigger1Click();
+              this.ownerCt.ownerCt.root.collapse(true);
+              // this.ownerCt.search.focus();
+            }
+          },
+          {
+            itemId: 'expand_all',
+            iconCls: 'icon-expand-all',
+            tooltip: 'Expand All',
+            handler: function () {
+              this.ownerCt.search.onTrigger1Click();
+              this.ownerCt.ownerCt.root.expand(true);
+              // this.ownerCt.search.focus();
+            }
+          }]
         },
-        '->', {
-          itemId: 'collapse_all',
-          iconCls: 'icon-collapse-all',
-          tooltip: 'Collapse All',
-          handler: function () {
-            this.ownerCt.ownerCt.root.collapse(true);
-          }
-        },
-        {
-          itemId: 'expand_all',
-          iconCls: 'icon-expand-all',
-          tooltip: 'Expand All',
-          handler: function () {
-            this.ownerCt.ownerCt.root.expand(true);
-          }
-        }],
         listeners: {
           beforerender: function () {
             this.filter = new Ext.ux.tree.TreeFilterX(this, {
@@ -128,7 +194,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         autoScroll: true,
         padding: 10,
         title: 'Selected ' + this.display_name.toLowerCase(),
-        iconCls: 'node_selected_icon',
+        // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //         layout: 'vbox',
         //         layoutConfig: {
@@ -137,7 +203,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //         },
         tbar: [{
           text: 'Reset to default',
-          iconCls: 'undo_icon',
+          iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
           handler: this.resetToDefaultFields,
           scope: this
@@ -150,6 +216,35 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
     // call parent
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
+  },
+
+  rememberCurrentFields: function () {
+    var selected = this.get('selected'); // FIXME: why not this.selected?!?
+    this.current_fields = [];
+    selected.items.each(function (item) {
+      this.current_fields.push(item.treenode);
+    },
+    this);
+  },
+
+  resetToCurrentFields: function () {
+    var all = this.get('all'); // FIXME: why not this.selected?!?
+    var selected = this.get('selected'); // FIXME: why not this.selected?!?
+    selected.items.each(function (item) {
+      item.treenode.enable();
+      selected.remove(item);
+    });
+    Ext.each(this.current_fields, function (current_field) {
+      var node = all.getNodeById(current_field.id);
+      var field = selected.add({
+        xtype: 'field',
+        treenode: node,
+        field_iconCls: this.field_iconCls
+      });
+      node.disable();
+    },
+    this);
+    selected.doLayout();
   },
 
   resetToDefaultFields: function () {
@@ -173,6 +268,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   }
 });
 
+/* ------------------
+   Save search window
+   ------------------ */
 Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
 
   // hard config
@@ -188,12 +286,12 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
-      iconCls: 'save_icon',
+      iconCls: 'save-icon',
       buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'close-icon',
         handler: function () {
           this.destroy();
         },
@@ -203,7 +301,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         text: 'Save',
         ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon'
+        iconCls: 'submit-icon'
       }],
       items: [{
         xtype: 'form',
@@ -225,7 +323,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           triggerAction: 'all',
           mode: 'local',
           value: 'xml',
-          store: [['url', 'URL'], ['xml', 'XML'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
+          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
         }]
       }]
     };
@@ -238,6 +336,9 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
   }
 });
 
+/* -------------------
+   Save results window
+   ------------------- */
 Martview.windows.SaveResults = Ext.extend(Ext.Window, {
 
   // hard config
@@ -253,12 +354,12 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
       plain: true,
       border: false,
       autoDestroy: true,
-      iconCls: 'save_icon',
+      iconCls: 'save-icon',
       buttonAlign: 'center',
       buttons: [{
         text: 'Cancel',
         cls: 'x-btn-text-icon',
-        iconCls: 'close_icon',
+        iconCls: 'close-icon',
         handler: function () {
           this.destroy();
         },
@@ -268,7 +369,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         text: 'Save',
         ref: '../saveButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit_icon'
+        iconCls: 'submit-icon'
       }],
       items: [{
         xtype: 'form',

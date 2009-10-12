@@ -1,6 +1,8 @@
 Ext.namespace('Martview');
 
 Martview.Search = Ext.extend(Ext.Panel, {
+
+  // hard config
   initComponent: function () {
     var config = {
       id: 'search',
@@ -12,39 +14,41 @@ Martview.Search = Ext.extend(Ext.Panel, {
       width: 400,
       split: true,
       bodyStyle: 'background-color:#dfe8f6;',
-      tbar: new Ext.Toolbar({
-        cls: 'x-panel-header',
-        height: 26,
+      title: 'Search',
+      tbar: {
+        // cls: 'x-panel-header',
+        // height: 26,
         items: [{
           itemId: 'select',
           ref: '../selectButton',
-          text: '<span style="color:#15428B; font-weight:bold">Search</span>',
-          iconCls: 'advanced_search_icon',
+          text: 'Advanced',
+          iconCls: 'advanced-search-icon',
           cls: 'x-btn-text-icon',
           disabled: true,
+          tooltip: 'Use this menu to select the format of the search panel',
           menu: [{
             itemId: 'simple',
             text: 'Simple',
-            iconCls: 'simple_search_icon',
+            iconCls: 'simple-search-icon',
             checked: true,
             group: 'format'
           },
           {
             itemId: 'guided',
             text: 'Guided',
-            iconCls: 'guided_search_icon',
+            iconCls: 'guided-search-icon',
             group: 'format'
           },
           {
             itemId: 'advanced',
             text: 'Advanced',
-            iconCls: 'advanced_search_icon',
+            iconCls: 'advanced-search-icon',
             group: 'format'
           },
           {
             itemId: 'user',
             text: 'Dimeric protein structures at high-res',
-            iconCls: 'user_search_icon',
+            iconCls: 'user-search-icon',
             group: 'format'
           }]
         },
@@ -52,34 +56,38 @@ Martview.Search = Ext.extend(Ext.Panel, {
           itemId: 'customize',
           ref: '../customizeButton',
           text: 'Add filter',
-          iconCls: 'add_icon',
+          iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          hidden: true
+          disabled: true,
+          tooltip: 'Press this button to customize the search form by adding/removing filters'
         },
         {
           text: 'Save search',
           itemId: 'save',
           ref: '../saveButton',
-          iconCls: 'save_icon',
+          iconCls: 'save-icon',
           cls: 'x-btn-text-icon',
-          disabled: true
+          disabled: true,
+          tooltip: 'Press this button to save the search in various formats'
         }]
-      }),
+      },
       bbar: ['->', {
         itemId: 'reset',
         ref: '../resetButton',
         text: 'Reset',
-        iconCls: 'reset_icon',
+        iconCls: 'reset-icon',
         cls: 'x-btn-text-icon',
         disabled: true
+        // tooltip: 'Press this button to reset the search form'
       },
       {
         itemId: 'submit',
         ref: '../submitButton',
         text: 'Submit',
-        iconCls: 'submit_icon',
+        iconCls: 'submit-icon',
         cls: 'x-btn-text-icon',
         disabled: true
+        // tooltip: 'Press this button to submit the search form'
       }],
       items: [{
         xtype: 'form',
@@ -110,6 +118,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     var search = this;
     search.selectButton.enable();
     if (customize) {
+      search.customizeButton.enable();
       search.customizeButton.show();
     } else {
       search.customizeButton.hide();
@@ -146,7 +155,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
     // add fields to search form
     form.add([{
       xtype: 'textfield',
-      fieldLabel: 'Enter search terms'
+      fieldLabel: 'Enter search terms',
+      // labelSeparator: '',
+      labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
     },
     {
       // Lucene query syntax help
@@ -159,8 +170,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       //       collapsible: true,
       defaultType: 'displayfield',
       defaults: {
-        labelStyle: 'font-weight: bold;',
-        anchor: '100%'
+        anchor: '100%',
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       },
       items: [{
         hideLabel: true,
@@ -211,7 +223,9 @@ Martview.Search = Ext.extend(Ext.Panel, {
       ref: 'filters',
       autoHeight: true,
       defaults: {
-        anchor: '100%'
+        anchor: '100%',
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       }
     });
     form.doLayout();
@@ -244,52 +258,88 @@ Martview.Search = Ext.extend(Ext.Panel, {
       ref: 'filters',
       autoHeight: true,
       defaults: {
-        anchor: '100%'
+        anchor: '100%',
+        // labelSeparator: '',
+        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
       }
     });
 
     Ext.each(filters, function (filter) {
-      if (filter.qualifier in {
-        '=': '',
-        '>': '',
-        '<': ''
-      }) {
-        if (filter.options) {
-          fieldset.add([{
-            xtype: 'combo',
+      if (filter.qualifier) { // filter.qualifier should never be null or undefined!
+        if (filter.qualifier in {
+          '=': '',
+          '>': '',
+          '<': '',
+          '>=': '',
+          '<=': ''
+        }) {
+          if (filter.options) {
+            fieldset.add([{
+              xtype: 'combo',
+              itemId: filter.name,
+              name: filter.name,
+              fieldLabel: filter.display_name || filter.name,
+              editable: false,
+              forceSelection: true,
+              lastSearchTerm: false,
+              triggerAction: 'all',
+              mode: 'local',
+              store: filter.options.split(',')
+            }]);
+          } else {
+            fieldset.add([{
+              xtype: 'textfield',
+              itemId: filter.name,
+              name: filter.name,
+              fieldLabel: filter.display_name || filter.name
+            }]);
+          }
+        } else if (filter.qualifier.split(',').remove('=') in {
+          'in': ''
+        }) {
+          fieldset.add({
+            xtype: 'textarea',
+            height: '100',
+            itemId: filter.name + '_text',
+            name: filter.name,
+            fieldLabel: filter.display_name || filter.name
+          });
+          fieldset.add({
+            xtype: 'fileuploadfield',
+            itemId: filter.name + '_file',
+            name: filter.name,
+            hideLabel: true,
+            // buttonOnly: true,
+            buttonText: 'Upload file&hellip;'
+          });
+        } else if (filter.qualifier.split(',')[0] in {
+          'only': '',
+          'excluded': ''
+        }) {
+          var items = [];
+          Ext.each(filter.qualifier.split(','), function (item) {
+            items.push({
+              inputValue: item,
+              name: filter.name,
+              boxLabel: item
+            });
+          });
+          fieldset.add({
+            xtype: 'radiogroup',
             itemId: filter.name,
             name: filter.name,
             fieldLabel: filter.display_name || filter.name,
-            editable: false,
-            forceSelection: true,
-            lastSearchTerm: false,
-            triggerAction: 'all',
-            mode: 'local',
-            store: filter.options.split(',')
-          }]);
-        } else {
-          fieldset.add([{
-            xtype: 'textfield',
-            itemId: filter.name,
-            name: filter.name,
-            fieldLabel: filter.display_name || filter.name
-          }]);
+            items: items
+            // vertical: true,
+            // columns: 1,
+          });
         }
-      } else if (filter.qualifier in {
-        'in': ''
-      }) {
-        fieldset.add({
-          xtype: 'textfield',
-          itemId: filter.name,
-          name: filter.name,
-          fieldLabel: filter.display_name || filter.name
-        });
-      }
 
-      // set field value if defined
-      var field = fieldset.get(filter.name);
-      if (field && filter.value) {
-        field.setValue(filter.value);
+        // set field value if defined
+        var field = fieldset.get(filter.name);
+        if (field && filter.value) {
+          field.setValue(filter.value);
+        }
       }
     });
 

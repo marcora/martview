@@ -1,6 +1,8 @@
 Ext.namespace('Martview');
 
 Martview.Header = Ext.extend(Ext.Toolbar, {
+
+  // hard config
   initComponent: function () {
     var config = {
       region: 'north',
@@ -14,8 +16,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         ref: 'homeButton',
         cls: 'x-btn-text-icon',
         //         text: 'Home',
-        //         iconCls: 'home_icon',
+        //         iconCls: 'home-icon',
         hidden: true,
+        tooltip: 'Use this menu to select the database you want to search',
         menu: []
       },
       {
@@ -27,9 +30,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       {
         itemId: 'mart',
         ref: 'martButton',
-        text: 'Select the database you want to search',
+        text: '<span style="color: #444 !important; font-weight: bold !important">Select the database you want to search</span>', // 'Select the database you want to search'
         cls: 'x-btn-text-icon',
-        iconCls: 'larrow_icon',
+        iconCls: 'larrow-icon',
         hidden: true
       },
       {
@@ -43,15 +46,16 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         ref: 'datasetButton',
         text: 'dataset_name',
         cls: 'x-btn-text-icon',
-        iconCls: 'dataset_icon',
+        iconCls: 'dataset-icon',
         hidden: true
       },
       '->', {
         itemId: 'login',
         ref: 'loginButton',
         text: 'Login',
-        iconCls: 'user_icon',
+        iconCls: 'user-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Press this button to log into BioMart',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Login');
         }
@@ -60,8 +64,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'help',
         ref: 'HelpButton',
         text: 'Help',
-        iconCls: 'help_icon',
+        iconCls: 'help-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Press this button to get help on how to use BioMart',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
         }
@@ -76,7 +81,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
   },
 
   load: function (data, handler) {
-    header = this;
+    var header = this;
     header.homeButton.setText(data.text);
     header.homeButton.setIconClass(data.iconCls);
     header.homeButton.menu.add(data.menu);
@@ -86,7 +91,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     function setHandler(menu) {
       menu.items.each(function (menu_item) {
         if (menu_item.menu) {
-          menu_item.setIconClass('folder_icon');
+          menu_item.setIconClass('folder-icon');
           setHandler(menu_item.menu);
         } else {
           if (menu_item.isXType('menucheckitem')) {
@@ -103,13 +108,14 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
                   });
                   if (checked_datasets.length > 0) {
                     var menu_item = checked_datasets[0];
+                    if (checked_datasets.length > 1) menu_item.dataset_display_name += ' + ' + checked_datasets[1].dataset_display_name;
                     handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
                   }
                 }
               }]);
             }
           } else {
-            menu_item.setIconClass('dataset_icon');
+            menu_item.setIconClass('dataset-icon');
             menu_item.on('click', function (menu_item) {
               handler(menu_item); // or window.location.search = 'mart=' + menu_item.mart_name + '&dataset=' + menu_item.dataset_name;
             });
@@ -121,10 +127,10 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
   },
 
   updateBreadcrumbs: function (params) {
-    header = this;
+    var header = this;
     header.homeButton.addClass('no-menu-arrow');
     header.homeSeparator.show();
-    header.martButton.setIconClass('mart_icon').setText(params.mart_display_name || params.mart_name).show();
+    header.martButton.setIconClass('mart-icon').setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
     // update document title to match breadcrumbs
