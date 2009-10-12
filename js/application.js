@@ -396,7 +396,7 @@ Ext.onReady(function () {
         filters_win = new Martview.windows.Fields({
           id: 'filters',
           title: 'Add filter to search form',
-          display_name: 'Filters',
+          display_name: 'filter',
           field_iconCls: 'filter-icon',
           children: dataset.filters,
           default_fields: default_filters
@@ -413,7 +413,7 @@ Ext.onReady(function () {
         attributes_win = new Martview.windows.Fields({
           id: 'attributes',
           title: 'Add column to results grid',
-          display_name: 'Columns',
+          display_name: 'column',
           field_iconCls: 'attribute-icon',
           children: dataset.attributes,
           default_fields: default_attributes

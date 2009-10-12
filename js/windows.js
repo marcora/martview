@@ -123,9 +123,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         xtype: 'arraytreepanel',
         ref: 'all',
         itemId: 'all',
-        title: 'All ' + this.display_name.toLowerCase(),
+        title: 'All ' + this.display_name + 's',
         // iconCls: 'node-all-icon',
-        width: 300,
+        width: 330,
         split: true,
         rootVisible: false,
         defaultTools: false,
@@ -143,12 +143,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             xtype: 'treefilterfield',
             itemId: 'search',
             ref: 'search',
-            flex: 1
+            flex: 1,
+            emptyText: 'Find a ' + this.display_name
           },
           ' ', {
             itemId: 'collapse_all',
+            cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
-            tooltip: 'Collapse All',
+            text: 'Collapse',
             handler: function () {
               this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.collapse(true);
@@ -157,8 +159,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           },
           {
             itemId: 'expand_all',
+            cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
-            tooltip: 'Expand All',
+            text: 'Expand',
             handler: function () {
               this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.expand(true);
@@ -193,7 +196,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         items: [],
         autoScroll: true,
         padding: 10,
-        title: 'Selected ' + this.display_name.toLowerCase(),
+        title: 'Selected ' + this.display_name + 's',
         // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //         layout: 'vbox',
@@ -202,7 +205,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //           pack: 'start'
         //         },
         tbar: [{
-          text: 'Reset to default',
+          text: 'Reset to default ' + this.display_name + 's',
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
           handler: this.resetToDefaultFields,
