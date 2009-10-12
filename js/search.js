@@ -47,7 +47,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
           },
           {
             itemId: 'user',
-            text: 'Dimeric protein structures at high-res',
+            text: 'User-defined &sdot; <span style="text-decoration: underline !important;">Dimeric protein structures at high-res</span>',
             iconCls: 'user-search-icon',
             group: 'format'
           }]

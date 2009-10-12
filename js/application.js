@@ -3,8 +3,7 @@
 //        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
 // FIXME: Do not reload search/results when user select same search/results as current
 // TODO:  Column order for query results should follow attribute order
-// TODO:  Do not resubmit search to server when changing results format
-// FIXME: Search form customization does not work when search format is set to 'user'
+// TODO: Logged in users can mark datasets as favorites
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
   var debug = true;
