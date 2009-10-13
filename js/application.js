@@ -24,6 +24,10 @@ Ext.onReady(function () {
 
   // init tips
   Ext.QuickTips.init();
+  Ext.apply(Ext.QuickTips.getQuickTip(), {
+    autoWidth: true,
+    maxWidth: 500
+  });
 
   // init viewport, dialogs, windows and global state vars
   var main = new Martview.Main(); // application viewport
@@ -72,65 +76,62 @@ Ext.onReady(function () {
     results: 'tabular'
   });
 
-  // populate select dataset menu with data from server
-  var select_dataset_menu_url = './json/select_dataset_menu.json';
-  conn.request({
-    url: select_dataset_menu_url,
-    success: function (response) {
-      var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
-      main.header.load(select_dataset_menu_data, selectSearch);
-      main.footer.updateMessage('info', 'To begin, please select the database you want to search');
-      params.mart_name = params.mart;
-      params.dataset_name = params.dataset;
-
-      // validate query params by recursively matching with the select dataset menu items
-      var dataset_counter = 0;
-      var single_dataset;
-      function validateParams(menu) {
-        menu.items.each(function (menu_item) {
-          if (menu_item.menu) {
-            validateParams(menu_item.menu);
-          } else {
-            dataset_counter++;
-            single_dataset = menu_item;
-            if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && Martview.ALLOWED_SEARCH_PARAMS.has(params.search) && Martview.ALLOWED_RESULTS_PARAMS.has(params.results)) {
-              params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
-              params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
-            }
-          }
-        });
-      }
-      validateParams(main.header.homeButton.menu);
-
-      // call select search if params are valid
-      if (params.dataset_display_name) {
-        selectSearch(params);
-      } else if (dataset_counter == 1) {
-        // if only one dataset on server and even if not specified in params, select it automagically
-        selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
-      } else {
-        // pass and wait for select dataset menu click event
-        main.header.homeButton.getEl().highlight('e0e8f3', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        });
-      }
-    }
-  });
-
+  // // populate select dataset menu with data from server
+  // var select_dataset_menu_url = './json/select_dataset_menu.json';
+  // conn.request({
+  //   url: select_dataset_menu_url,
+  //   success: function (response) {
+  //     var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
+  //     main.header.load(select_dataset_menu_data, selectSearch);
+  //     main.footer.updateMessage('info', 'To begin, please select the database you want to search');
+  //     params.mart_name = params.mart;
+  //     params.dataset_name = params.dataset;
+  //     // validate query params by recursively matching with the select dataset menu items
+  //     var dataset_counter = 0;
+  //     var single_dataset;
+  //     function validateParams(menu) {
+  //       menu.items.each(function (menu_item) {
+  //         if (menu_item.menu) {
+  //           validateParams(menu_item.menu);
+  //         } else {
+  //           dataset_counter++;
+  //           single_dataset = menu_item;
+  //           if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && Martview.ALLOWED_SEARCH_PARAMS.has(params.search) && Martview.ALLOWED_RESULTS_PARAMS.has(params.results)) {
+  //             params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
+  //             params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
+  //           }
+  //         }
+  //       });
+  //     }
+  //     validateParams(main.header.homeButton.menu);
+  //     // call select search if params are valid
+  //     if (params.dataset_display_name) {
+  //       selectSearch(params);
+  //     } else if (dataset_counter == 1) {
+  //       // if only one dataset on server and even if not specified in params, select it automagically
+  //       selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
+  //     } else {
+  //       // pass and wait for select dataset menu click event
+  //       main.header.homeButton.getEl().highlight('e0e8f3', {
+  //         endColor: 'ffcc66'
+  //       }).highlight('ffcc66', {
+  //         endColor: 'dfe8f6'
+  //       }).highlight('dfe8f6', {
+  //         endColor: 'ffcc66'
+  //       }).highlight('ffcc66', {
+  //         endColor: 'dfe8f6'
+  //       }).highlight('dfe8f6', {
+  //         endColor: 'ffcc66'
+  //       }).highlight('ffcc66', {
+  //         endColor: 'dfe8f6'
+  //       }).highlight('dfe8f6', {
+  //         endColor: 'ffcc66'
+  //       }).highlight('ffcc66', {
+  //         endColor: 'dfe8f6'
+  //       });
+  //     }
+  //   }
+  // });
   /* =================
      Utility functions
      ================= */
@@ -251,6 +252,19 @@ Ext.onReady(function () {
   /* ==============
      Event bindings
      ============== */
+
+  // select dataset
+  main.header.homeButton.menu.items.first().items.last().on('rowdblclick', function (grid) {
+    var dataset = grid.getSelectionModel().getSelected();
+    main.header.homeButton.menu.hide();
+    selectSearch(dataset.json);
+  });
+  main.header.homeButton.menu.items.first().buttons[1].on('click', function () {
+    var grid = main.header.homeButton.menu.items.first().items.last();
+    var dataset = grid.getSelectionModel().getSelected();
+    main.header.homeButton.menu.hide();
+    selectSearch(dataset.json);
+  });
 
   // show filters window on customize button click
   main.search.customizeButton.on('click', function () {
