@@ -15,8 +15,8 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'home',
         ref: 'homeButton',
         cls: 'x-btn-text-icon',
-        text: 'Home',
-        iconCls: 'home-icon',
+        text: 'BioMart',
+        iconCls: 'biomart-icon',
         hidden: false,
         tooltip: 'Use this menu to select the database you want to search',
         menu: [{
@@ -109,7 +109,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         // 'Select the database you want to search'
         cls: 'x-btn-text-icon',
         iconCls: 'larrow-icon',
-        hidden: true
+        hidden: false
       },
       {
         itemId: 'mart_sep',
