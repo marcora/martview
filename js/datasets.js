@@ -57,6 +57,10 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
         // singleSelect: true,
         enableHdMenu: false,
         stripeRows: true,
+        // view: new Ext.ux.grid.BufferView({
+        //   // render rows as they come into viewable area.
+        //   scrollDelay: false
+        // }),
         sm: new Ext.grid.RowSelectionModel({
           singleSelect: true
         }),
@@ -65,7 +69,7 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
           root: 'rows',
           autoLoad: true,
           autoDestroy: true,
-          fields: ['mart_display_name', 'dataset_display_name', 'description', 'keywords']
+          fields: ['mart_display_name', 'dataset_display_name', 'description', 'keywords', 'fulltext']
         }),
         // view: new Ext.ux.grid.BufferView({
         //   // // custom row height

@@ -123,17 +123,23 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
     var terms = val.split(' ');
     var store = this.ownerCt.ownerCt.items.last().getStore();
-    store.filterBy(function (record, id) {
-      var all_terms_found = true;
-      Ext.each(terms, function (term) {
-        var term_found = false;
-        term = term.trim();
-        var re = new RegExp('.*(' + term + '|' + singularize(term) + '|' + pluralize(term) + ').*', 'i');
-        term_found = re.test(record.data.dataset_display_name) || re.test(record.data.mart_display_name) || re.test(record.data.description) || re.test(record.data.keywords.join(' '));
-        all_terms_found = all_terms_found && term_found; // default search logic is AND
+    if (terms.length > 1) {
+      store.filterBy(function (record, id) {
+        var all_terms_found = true;
+        Ext.each(terms, function (term) {
+          var term_found = false;
+          term = term.trim();
+          var re = new RegExp('.*(' + term + '|' + singularize(term) + '|' + pluralize(term) + ').*', 'i');
+          term_found = re.test(record.data.fulltext);
+          all_terms_found = all_terms_found && term_found; // default search logic is AND
+        });
+        return all_terms_found;
       });
-      return all_terms_found;
-    });
+    } else {
+      var term = terms[0].trim();
+      var re = new RegExp('.*(' + term + '|' + singularize(term) + '|' + pluralize(term) + ').*', 'i');
+      store.filter('fulltext', re);
+    };
     this.hasSearch = true;
     this.triggers[0].show();
     this.focus();
