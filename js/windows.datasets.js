@@ -10,15 +10,11 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       modal: true,
       width: 800,
       height: 500,
-      layout: {
-        type: 'vbox',
-        align: 'stretch'
-      },
+      layout: 'fit',
       closeAction: 'hide',
       plain: true,
-      border: false,
       autoDestroy: true,
-      title: 'Change database',
+      title: 'Select database',
       iconCls: 'selectdb-icon',
       buttons: [{
         text: 'Cancel',
@@ -31,42 +27,24 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       },
       {
         text: 'OK',
+        ref: '../okButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit-icon',
-        handler: function () {
-          this.hide();
-        },
-        scope: this // scope button to window
+        iconCls: 'submit-icon'
       }],
       items: [{
-        xtype: 'form',
-        itemId: 'filter',
-        ref: '../filter',
-        bodyStyle: 'background-color: #ccd9e8;',
-        border: false,
-        width: '100%',
-        hideLabels: true,
-        items: [{
-          xtype: 'searchfield',
-          anchor: '100%',
-          emptyText: 'Find a database'
-          // listeners: {
-          //   'render': {
-          //     fn: function () {
-          //       this.focus();
-          //     },
-          //     delay: 200
-          //   }
-          // }
-        }]
-      },
-      {
         xtype: 'grid',
-        itemId: 'datasets',
-        ref: '../datasets',
-        // border: false,
-        width: '100%',
-        flex: 1,
+        title: 'All databases',
+        itemId: 'grid',
+        ref: '../grid',
+        border: false,
+        tbar: {
+          layout: 'hbox',
+          items: [{
+            xtype: 'searchfield',
+            flex: 1,
+            emptyText: 'Find a database'
+          }]
+        },
         hideHeaders: true,
         // autoHeight: true,
         // autoWidth: true,
@@ -104,7 +82,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             id: 'dataset',
             header: "Dataset",
             dataIndex: 'dataset_display_name',
-            tpl: new Ext.XTemplate('<tpl for="."><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 0.9em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></tpl>'),
+            tpl: new Ext.XTemplate('<tpl for="."><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></tpl>'),
             sortable: false
           }]
         })
@@ -119,6 +97,6 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
   },
 
   load: function (data) {
-    this.items.last().getStore().loadData(data);
+    this.items.first().getStore().loadData(data);
   }
 });

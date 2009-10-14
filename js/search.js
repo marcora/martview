@@ -11,7 +11,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       layout: 'fit',
       autoScroll: true,
       border: true,
-      width: 400,
+      width: 440,
       split: true,
       bodyStyle: 'background-color:#dfe8f6;',
       title: 'Search',

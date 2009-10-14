@@ -17,7 +17,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   initComponent: function () {
     var config = {
       modal: true,
-      width: 750,
+      width: 800,
       height: 500,
       layout: 'border',
       closeAction: 'hide',
@@ -38,7 +38,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         scope: this // scope button to window
       },
       {
-        text: 'Apply',
+        text: 'OK',
         cls: 'x-btn-text-icon',
         iconCls: 'submit-icon',
         handler: function () {
@@ -54,7 +54,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         itemId: 'all',
         title: 'All ' + this.display_name + 's',
         // iconCls: 'node-all-icon',
-        width: 330,
+        width: 380,
         split: true,
         rootVisible: false,
         defaultTools: false,

@@ -1,7 +1,7 @@
 Ext.namespace('Ext.ux.form');
 
 Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
-  // assume placed in treepanel toolbar
+  // assume placed in tree panel toolbar
   initComponent: function () {
     Ext.ux.form.TreeFilterField.superclass.initComponent.call(this);
     this.on('specialkey', function (f, e) {

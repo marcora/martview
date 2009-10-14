@@ -12,12 +12,26 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       height: 26,
       border: false,
       items: [{
+        itemId: 'selectdb',
+        ref: 'selectdbButton',
+        text: 'Select database',
+        cls: 'x-btn-text-icon',
+        iconCls: 'selectdb-icon'
+      },
+      {
+        itemId: 'selectdb_sep',
+        ref: 'selectdbSeparator',
+        cls: 'x-btn-text', // cls: 'x-btn-text-icon',
+        text: '&sdot;', // iconCls: 'rarrow-icon',
+        hidden: true
+      },
+      {
         itemId: 'home',
         ref: 'homeButton',
         cls: 'x-btn-text-icon',
         text: 'BioMart',
         iconCls: 'biomart-icon',
-        hidden: false
+        hidden: true
       },
       {
         itemId: 'home_sep',
@@ -48,14 +62,6 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         hidden: true
       },
       '->', {
-        itemId: 'selectdb',
-        ref: 'selectdbButton',
-        text: 'Change database',
-        cls: 'x-btn-text-icon',
-        iconCls: 'selectdb-icon',
-        hidden: true
-      },
-      {
         itemId: 'login',
         ref: 'loginButton',
         text: 'Login',
@@ -88,11 +94,12 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
 
   updateBreadcrumbs: function (params) {
     var header = this;
+    header.selectdbSeparator.show();
+    header.homeButton.show();
     header.homeSeparator.show();
-    header.martButton.setIconClass('mart-icon').setText(params.mart_display_name || params.mart_name).show();
+    header.martButton.setText(params.mart_display_name || params.mart_name).show();
     header.martSeparator.show();
     header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
-    header.selectdbButton.show();
     // update document title to match breadcrumbs
     document.title = header.homeButton.getText() + ' > ' + params.mart_display_name + ' > ' + params.dataset_display_name;
   }

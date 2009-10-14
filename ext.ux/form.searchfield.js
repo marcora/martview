@@ -1,6 +1,7 @@
 Ext.namespace('Ext.ux.form');
 
 Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
+  // assume placed in grid panel toolbar
   initComponent: function () {
     Ext.ux.form.SearchField.superclass.initComponent.call(this);
     this.on('specialkey', function (f, e) {
@@ -20,7 +21,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
   onTrigger1Click: function () {
     if (this.hasSearch) {
-      var store = this.ownerCt.ownerCt.items.last().getStore();
+      var store = this.ownerCt.ownerCt.getStore();
       store.clearFilter();
       this.setValue('');
       this.hasSearch = false;
@@ -68,7 +69,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     var re = new RegExp(s, 'i');
 
     // filter store on fulltext using search regexp
-    var store = this.ownerCt.ownerCt.items.last().getStore();
+    var store = this.ownerCt.ownerCt.getStore();
     store.filter('fulltext', re);
 
     this.hasSearch = true;

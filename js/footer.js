@@ -17,10 +17,9 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'message',
         ref: 'messageButton',
-        text: '',
-        iconCls: '',
-        cls: 'x-btn-text-icon',
-        hidden: true
+        text: 'To begin, please select the database you want to search',
+        iconCls: 'info-icon',
+        cls: 'x-btn-text-icon'
         // tooltip: 'Press this button to get more help on how to use BioMart'
       },
       '->', {

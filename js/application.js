@@ -85,20 +85,19 @@ Ext.onReady(function () {
       var datasets = Ext.util.JSON.decode(response.responseText);
       datasets_win = new Martview.windows.Datasets();
       datasets_win.load(datasets);
-
-      // select dataset
-      datasets_win.items.last().on('rowdblclick', function (grid) {
-        var dataset = grid.getSelectionModel().getSelected();
-        datasets_win.hide();
-        selectSearch(dataset.json);
-      });
-      datasets_win.buttons[1].on('click', function () {
-        var grid = datasets_win.items.last();
-        var dataset = grid.getSelectionModel().getSelected();
-        datasets_win.hide();
-        selectSearch(dataset.json);
-      });
       datasets_win.show();
+
+      datasets_win.grid.on('rowdblclick', function (grid) {
+        var dataset = grid.getSelectionModel().getSelected();
+        datasets_win.hide();
+        selectSearch(dataset.json);
+      });
+      datasets_win.okButton.on('click', function () {
+        var grid = datasets_win.items.first();
+        var dataset = grid.getSelectionModel().getSelected();
+        datasets_win.hide();
+        selectSearch(dataset.json);
+      });
 
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
@@ -336,7 +335,7 @@ Ext.onReady(function () {
       var dialog = new Martview.windows.SaveSearch();
       dialog.show();
       dialog.center();
-      dialog.saveButton.on('click', function () {
+      dialog.okButton.on('click', function () {
         // post save request to martservice
         var params = {
           type: 'savesearch',
@@ -357,7 +356,7 @@ Ext.onReady(function () {
       var dialog = new Martview.windows.SaveResults();
       dialog.show();
       dialog.center();
-      dialog.saveButton.on('click', function () {
+      dialog.okButton.on('click', function () {
         // post save request to martservice
         var params = {
           type: 'saveresults',
