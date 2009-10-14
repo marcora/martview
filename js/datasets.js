@@ -27,12 +27,14 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
       }],
       items: [{
         xtype: 'form',
+        bodyStyle: 'background-color: #f0f0f0;',
         border: false,
         width: '100%',
         hideLabels: true,
         items: [{
           xtype: 'searchfield',
-          anchor: '100%'
+          anchor: '100%',
+          emptyText: 'Find a dataset'
         }]
       },
       {
@@ -71,12 +73,11 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
         },
         colModel: new Ext.grid.ColumnModel({
           columns: [{
+            xtype: 'templatecolumn',
             id: 'dataset',
             header: "Dataset",
             dataIndex: 'dataset_display_name',
-            renderer: function (value, p, record) {
-              return String.format('<h2 style="color: #333 !important; font-size: 1.4em !important;">{0} <span style="font-weight: normal !important; color: #888 !important;">[{1}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{2}</p><p style="color: #888 !important;">{3}</p>', value, record.data.mart_display_name, record.data.description, record.data.keywords);
-            },
+            tpl: new Ext.XTemplate('<tpl for="."><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 0.9em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></tpl>'),
             sortable: false
           }]
         })
