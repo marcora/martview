@@ -35,6 +35,14 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
           xtype: 'searchfield',
           anchor: '100%',
           emptyText: 'Find a dataset'
+          // listeners: {
+          //   'render': {
+          //     fn: function () {
+          //       this.focus();
+          //     },
+          //     delay: 200
+          //   }
+          // }
         }]
       },
       {

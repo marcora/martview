@@ -145,6 +145,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             ref: 'search',
             flex: 1,
             emptyText: 'Find a ' + this.display_name
+            // listeners: {
+            //   'render': {
+            //     fn: function () {
+            //       this.focus();
+            //     },
+            //     delay: 500
+            //   }
+            // }
           },
           ' ', {
             itemId: 'collapse_all',
