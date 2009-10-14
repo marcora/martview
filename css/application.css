@@ -78,6 +78,7 @@ legend { font-weight: normal !important; }
 .alert-msg { }
 .error-msg { color: #d00000 !important }
 
+.selectdb-icon { background-image: url('../ico/database--pencil.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter-icon { background-image: url('../ico/ui-search-field.png') !important; }
 .edit-icon { background-image: url('../ico/gear.png') !important; }
@@ -108,7 +109,9 @@ legend { font-weight: normal !important; }
 .success-icon { background-image: url('../ico/tick-circle.png') !important; }
 
 
-
+button.selectdb-icon { background-image: url('../ico/database--pencil.png') !important; }
+button.mart-icon { background-image: url('../ico/databases.png') !important; }
+button.dataset-icon { background-image: url('../ico/database.png') !important; }
 button.moveup-icon { background-image: url('../ico/arrow-090.png') !important; }
 button.movedn-icon { background-image: url('../ico/arrow-270.png') !important; }
 button.larrow-icon { background-image: url('../ico/arrow-180.png') !important; }

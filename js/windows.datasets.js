@@ -1,40 +1,55 @@
-Ext.namespace('Martview');
+Ext.namespace('Martview.windows');
 
-Martview.Datasets = Ext.extend(Ext.Panel, {
-
-  // soft config
-  height: 400,
-  width: 800,
-  iconCls: 'no-icon',
-  border: false,
-
+/* ---------------
+   Datasets window
+   --------------- */
+Martview.windows.Datasets = Ext.extend(Ext.Window, {
   // hard config
   initComponent: function () {
     var config = {
-      id: 'datasets',
-      layout: 'vbox',
-      buttonAlign: 'center',
+      modal: true,
+      width: 800,
+      height: 500,
+      layout: {
+        type: 'vbox',
+        align: 'stretch'
+      },
+      closeAction: 'hide',
+      plain: true,
+      border: false,
+      autoDestroy: true,
+      title: 'Change database',
+      iconCls: 'selectdb-icon',
       buttons: [{
         text: 'Cancel',
+        cls: 'x-btn-text-icon',
         iconCls: 'reset-icon',
         handler: function () {
-          this.ownerCt.ownerCt.ownerCt.hide();
-        }
+          this.hide();
+        },
+        scope: this // scope button to window
       },
       {
-        text: 'Select',
-        iconCls: 'submit-icon'
+        text: 'OK',
+        cls: 'x-btn-text-icon',
+        iconCls: 'submit-icon',
+        handler: function () {
+          this.hide();
+        },
+        scope: this // scope button to window
       }],
       items: [{
         xtype: 'form',
-        bodyStyle: 'background-color: #f0f0f0;',
+        itemId: 'filter',
+        ref: '../filter',
+        bodyStyle: 'background-color: #ccd9e8;',
         border: false,
         width: '100%',
         hideLabels: true,
         items: [{
           xtype: 'searchfield',
           anchor: '100%',
-          emptyText: 'Find a dataset'
+          emptyText: 'Find a database'
           // listeners: {
           //   'render': {
           //     fn: function () {
@@ -47,6 +62,8 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
       },
       {
         xtype: 'grid',
+        itemId: 'datasets',
+        ref: '../datasets',
         // border: false,
         width: '100%',
         flex: 1,
@@ -65,9 +82,7 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
           singleSelect: true
         }),
         store: new Ext.data.JsonStore({
-          url: './json/datasets.json',
           root: 'rows',
-          autoLoad: true,
           autoDestroy: true,
           fields: ['mart_display_name', 'dataset_display_name', 'description', 'keywords', 'fulltext']
         }),
@@ -100,8 +115,10 @@ Martview.Datasets = Ext.extend(Ext.Panel, {
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
-    Martview.Datasets.superclass.initComponent.apply(this, arguments);
+    Martview.windows.Datasets.superclass.initComponent.apply(this, arguments);
+  },
+
+  load: function (data) {
+    this.items.last().getStore().loadData(data);
   }
 });
-
-Ext.reg('datasets', Martview.Datasets);

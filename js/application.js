@@ -35,6 +35,7 @@ Ext.onReady(function () {
   var data; // container for results
   var loading = new Martview.windows.Loading(); // loading window
   var flash = new Martview.windows.Flash(); // flash window
+  var datasets_win; // datasets window
   var filters_win, attributes_win; // filters/attributes windows
   var reset_filters_win_to_defaults = true;
   var reset_attributes_win_to_defaults = true;
@@ -76,17 +77,32 @@ Ext.onReady(function () {
     results: 'tabular'
   });
 
-  // populate select dataset menu with data from server
-  var select_dataset_menu_url = './json/select_dataset_menu.json';
+  // populate datasets windows with data from server
+  var datasets_url = './json/datasets.json';
   conn.request({
-    url: select_dataset_menu_url,
+    url: datasets_url,
     success: function (response) {
-      var select_dataset_menu_data = Ext.util.JSON.decode(response.responseText);
-      // main.header.load(select_dataset_menu_data, selectSearch);
-      main.footer.updateMessage('info', 'To begin, please select the database you want to search');
+      var datasets = Ext.util.JSON.decode(response.responseText);
+      datasets_win = new Martview.windows.Datasets();
+      datasets_win.load(datasets);
+
+      // select dataset
+      datasets_win.items.last().on('rowdblclick', function (grid) {
+        var dataset = grid.getSelectionModel().getSelected();
+        datasets_win.hide();
+        selectSearch(dataset.json);
+      });
+      datasets_win.buttons[1].on('click', function () {
+        var grid = datasets_win.items.last();
+        var dataset = grid.getSelectionModel().getSelected();
+        datasets_win.hide();
+        selectSearch(dataset.json);
+      });
+      datasets_win.show();
+
       params.mart_name = params.mart;
       params.dataset_name = params.dataset;
-      // validate query params by recursively matching with the select dataset menu items
+      // validate query params by recursively matching with the datasets data
       var dataset_counter = 0;
       var single_dataset;
       // function validateParams(menu) {
@@ -111,24 +127,7 @@ Ext.onReady(function () {
         // if only one dataset on server and even if not specified in params, select it automagically
         selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
       } else {
-        // pass and wait for select dataset menu click event
-        main.header.homeButton.getEl().highlight('e0e8f3', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        }).highlight('dfe8f6', {
-          endColor: 'ffcc66'
-        }).highlight('ffcc66', {
-          endColor: 'dfe8f6'
-        });
+        // pass and wait for dataset selection via datasets window
       }
     }
   });
@@ -254,17 +253,9 @@ Ext.onReady(function () {
      Event bindings
      ============== */
 
-  // select dataset
-  main.header.homeButton.menu.items.first().items.last().on('rowdblclick', function (grid) {
-    var dataset = grid.getSelectionModel().getSelected();
-    main.header.homeButton.menu.hide();
-    selectSearch(dataset.json);
-  });
-  main.header.homeButton.menu.items.first().buttons[1].on('click', function () {
-    var grid = main.header.homeButton.menu.items.first().items.last();
-    var dataset = grid.getSelectionModel().getSelected();
-    main.header.homeButton.menu.hide();
-    selectSearch(dataset.json);
+  // show datasets window on selectdb button click
+  main.header.selectdbButton.on('click', function () {
+    datasets_win.show();
   });
 
   // show filters window on customize button click
