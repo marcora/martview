@@ -1,17 +1,5 @@
 .loading .x-window-header-text { display: none !important }
 
-.flash .x-box-mc {
-    font-size:12px;
-}
-
-#flash {
-    position:absolute;
-    left:35%;
-    top:10px;
-    width:250px;
-    z-index:20000;
-}
-
 .no-menu-arrow em.x-btn-arrow { background:transparent !important; padding-right:0px !important; }
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
@@ -49,8 +37,6 @@ legend { font-weight: normal !important; }
 
 .itemized .x-grid3-cell-inner { white-space: normal !important; }
 
-
-
 .fields .field:first-child .x-toolbar-layout-ct {
     border-top: 1px #b5b8c8 solid  !important;
 }
@@ -65,22 +51,9 @@ legend { font-weight: normal !important; }
 
 .x-form-facet-field { font-size: .95em !important; background: #dfe8f6 !important; }
 
-.item { width: 100% !important;
-        border-bottom: 1px #ededed solid !important;
-        padding: 10px !important;
-        font: normal 11px arial,helvetica,tahoma,sans-serif !important; }
-.item .title { font-weight: bold !important; color: #333 !important; }
-.item .attribute { color: #666 !important; }
-.item-even { background: #fafafa !important; }
-.item-selector { width: 100% !important; }
-.selected-item { background: #efefef !important; }
-
 .icon-expand-all { background-image: url('../img/expand-all.gif') !important; }
 .icon-collapse-all { background-image: url('../img/collapse-all.gif') !important; }
 
-.tip-msg { }
-.success-msg { }
-.alert-msg { }
 .error-msg { color: #d00000 !important }
 
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }

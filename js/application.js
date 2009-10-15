@@ -34,7 +34,6 @@ Ext.onReady(function () {
   var form = main.search.form; // search form
   var data; // container for results
   var loading = new Martview.windows.Loading(); // loading window
-  var flash = new Martview.windows.Flash(); // flash window
   var datasets_win; // datasets window
   var filters_win, attributes_win; // filters/attributes windows
   var reset_filters_win_to_defaults = true;
