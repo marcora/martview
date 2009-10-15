@@ -83,7 +83,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             xtype: 'templatecolumn',
             id: 'dataset',
             header: "Dataset",
-            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
+            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333; font-size: 1.4em;">{dataset_display_name} <span style="font-weight: normal; color: #888;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em; color: #444; margin-top: 4px;">{description}</p><p style="margin-top: 8px; margin-bottom: 4px;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
             sortable: false
           }]
         })
