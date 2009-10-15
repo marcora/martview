@@ -252,7 +252,7 @@ Ext.onReady(function () {
      ============== */
 
   // show datasets window on selectdb button click
-  main.header.selectdbButton.on('click', function () {
+  main.header.selectButton.on('click', function () {
     datasets_win.show();
   });
 
@@ -317,8 +317,8 @@ Ext.onReady(function () {
       // pass
     }
 
-    // update breadcrumbs
-    main.header.updateBreadcrumbs(params);
+    // update header
+    main.header.update(params);
 
     // set search format
     main.search.selectButton.setText(params.search.capitalize());

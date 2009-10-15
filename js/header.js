@@ -12,45 +12,17 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       height: 26,
       border: false,
       items: [{
-        itemId: 'selectdb',
-        ref: 'selectdbButton',
+        itemId: 'select',
+        ref: 'selectButton',
         text: 'Choose dataset',
         cls: 'x-btn-text-icon',
         iconCls: 'selectdb-icon'
       },
       {
-        itemId: 'selectdb_sep',
-        ref: 'selectdbSeparator',
+        itemId: 'sep',
+        ref: 'separator',
         cls: 'x-btn-text', // cls: 'x-btn-text-icon',
-        text: '&rArr;', // iconCls: 'rarrow-icon',
-        hidden: true
-      },
-      {
-        itemId: 'home',
-        ref: 'homeButton',
-        cls: 'x-btn-text-icon',
-        text: 'BioMart',
-        iconCls: 'biomart-icon',
-        hidden: true
-      },
-      {
-        itemId: 'home_sep',
-        ref: 'homeSeparator',
-        text: '>',
-        hidden: true
-      },
-      {
-        itemId: 'mart',
-        ref: 'martButton',
-        text: 'mart_name',
-        cls: 'x-btn-text-icon',
-        iconCls: 'mart-icon',
-        hidden: true
-      },
-      {
-        itemId: 'mart_sep',
-        ref: 'martSeparator',
-        text: '>',
+          text: '>', // &rArr;', // iconCls: 'rarrow-icon',
         hidden: true
       },
       {
@@ -92,16 +64,12 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     Martview.Header.superclass.initComponent.apply(this, arguments);
   },
 
-  updateBreadcrumbs: function (params) {
+  update: function (params) {
     var header = this;
-    header.selectdbSeparator.show();
-    header.homeButton.show();
-    header.homeSeparator.show();
-    header.martButton.setText(params.mart_display_name || params.mart_name).show();
-    header.martSeparator.show();
-    header.datasetButton.setText(params.dataset_display_name || params.dataset_name).show();
+    header.separator.show();
+    header.datasetButton.setText('<span style="color: #333; font-weight: bold;">'+ (params.dataset_display_name || params.dataset_name) +'</span>&nbsp;<span style="color: #666;">['+ (params.mart_display_name || params.mart_name) + ']</span>').show();
     // update document title to match breadcrumbs
-    document.title = header.homeButton.getText() + ' > ' + params.mart_display_name + ' > ' + params.dataset_display_name;
+    document.title = (params.dataset_display_name || params.dataset_name) + ' [' + (params.mart_display_name || params.mart_name) + ']';
   }
 
 });
