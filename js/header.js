@@ -14,7 +14,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'selectdb',
         ref: 'selectdbButton',
-        text: 'Select database',
+        text: 'Choose dataset',
         cls: 'x-btn-text-icon',
         iconCls: 'selectdb-icon'
       },
@@ -22,7 +22,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'selectdb_sep',
         ref: 'selectdbSeparator',
         cls: 'x-btn-text', // cls: 'x-btn-text-icon',
-        text: '&sdot;', // iconCls: 'rarrow-icon',
+        text: '&rArr;', // iconCls: 'rarrow-icon',
         hidden: true
       },
       {

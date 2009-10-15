@@ -73,7 +73,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             itemId: 'search',
             ref: 'search',
             flex: 1,
-            emptyText: 'Find a ' + this.display_name
+            emptyText: 'Enter search terms to find a specific ' + this.display_name
             // listeners: {
             //   'render': {
             //     fn: function () {

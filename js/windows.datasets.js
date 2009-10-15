@@ -14,7 +14,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       closeAction: 'hide',
       plain: true,
       autoDestroy: true,
-      title: 'Select database',
+      title: 'Choose dataset',
       iconCls: 'selectdb-icon',
       buttons: [{
         text: 'Cancel',
@@ -33,7 +33,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       }],
       items: [{
         xtype: 'grid',
-        title: 'All databases',
+        title: 'All datasets',
         itemId: 'grid',
         ref: '../grid',
         cls: 'itemized',
@@ -43,7 +43,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
           items: [{
             xtype: 'searchfield',
             flex: 1,
-            emptyText: 'Find a database'
+            emptyText: 'Enter search terms (for example, human genes) to find a specific dataset'
           }]
         },
         hideHeaders: true,
