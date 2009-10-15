@@ -43,7 +43,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
           items: [{
             xtype: 'searchfield',
             flex: 1,
-            emptyText: 'Enter search terms (for example, human genes) to find a specific dataset'
+            emptyText: 'Enter search terms (for example, human genes or protein structures or uniprot) to find a specific dataset'
           }]
         },
         hideHeaders: true,
@@ -83,7 +83,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             xtype: 'templatecolumn',
             id: 'dataset',
             header: "Dataset",
-            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333; font-size: 1.4em;">{dataset_display_name} <span style="font-weight: normal; color: #888;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em; color: #444; margin-top: 4px;">{description}</p><p style="margin-top: 8px; margin-bottom: 4px;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
+            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333; font-size: 1.4em;">{dataset_display_name} <span style="font-weight: normal; color: #888;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em; color: #444; margin-top: 2px;">{description}</p><p style="margin-top: 6px; margin-bottom: 4px;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
             sortable: false
           }]
         })
