@@ -134,7 +134,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
         border: false
       });
     } else if (format == 'itemized') {
-      results.enableHeaderButtons(true);
+      results.enableHeaderButtons();
       var colModel = new Ext.grid.ColumnModel({
         columns: [{
           xtype: 'templatecolumn',

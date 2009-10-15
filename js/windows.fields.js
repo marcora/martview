@@ -84,17 +84,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             // }
           },
           ' ', {
-            itemId: 'collapse_all',
-            cls: 'x-btn-text-icon',
-            iconCls: 'icon-collapse-all',
-            text: 'Collapse',
-            handler: function () {
-              this.ownerCt.search.onTrigger1Click();
-              this.ownerCt.ownerCt.root.collapse(true);
-              // this.ownerCt.search.focus();
-            }
-          },
-          {
             itemId: 'expand_all',
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
@@ -102,6 +91,17 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             handler: function () {
               this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.expand(true);
+              // this.ownerCt.search.focus();
+            }
+          },
+          {
+            itemId: 'collapse_all',
+            cls: 'x-btn-text-icon',
+            iconCls: 'icon-collapse-all',
+            text: 'Collapse',
+            handler: function () {
+              this.ownerCt.search.onTrigger1Click();
+              this.ownerCt.ownerCt.root.collapse(true);
               // this.ownerCt.search.focus();
             }
           }]

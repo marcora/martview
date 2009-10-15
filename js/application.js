@@ -478,9 +478,6 @@ Ext.onReady(function () {
     // update footer message
     main.footer.updateMessage('info', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
-    // hide customize results button
-    main.results.customizeButton.hide();
-
     // clear results
     main.results.clear();
 
@@ -524,9 +521,6 @@ Ext.onReady(function () {
 
     // update footer message
     main.footer.updateMessage('info', 'Use the drop-down boxes to make the search more specific and narrow the results');
-
-    // hide customize results button
-    main.results.customizeButton.hide();
 
     // show guided form
     main.search.showGuidedForm(facets);
@@ -588,9 +582,6 @@ Ext.onReady(function () {
 
     // update footer message
     main.footer.updateMessage('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
-
-    // show customize results button
-    main.results.customizeButton.show();
 
     // show advanced search form
     main.search.showAdvancedForm(filters);
