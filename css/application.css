@@ -44,7 +44,12 @@ body > .x-toolbar-layout-ct {
 }
 
 legend { font-weight: normal !important; }
+
 .x-grid3-hd { color: #444 !important; font-weight: bold !important; font-size: 8pt !important; }
+
+.itemized .x-grid3-cell-inner { white-space: normal !important; }
+
+
 
 .fields .field:first-child .x-toolbar-layout-ct {
     border-top: 1px #b5b8c8 solid  !important;

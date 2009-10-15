@@ -36,6 +36,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         title: 'All databases',
         itemId: 'grid',
         ref: '../grid',
+        cls: 'itemized',
         border: false,
         tbar: {
           layout: 'hbox',
@@ -50,6 +51,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         // autoWidth: true,
         // fitToFrame: true,
         // singleSelect: true,
+        enableColumnHide: false,
         enableHdMenu: false,
         stripeRows: true,
         // view: new Ext.ux.grid.BufferView({
@@ -81,8 +83,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             xtype: 'templatecolumn',
             id: 'dataset',
             header: "Dataset",
-            dataIndex: 'dataset_display_name',
-            tpl: new Ext.XTemplate('<tpl for="."><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></tpl>'),
+            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333 !important; font-size: 1.4em !important;">{dataset_display_name} <span style="font-weight: normal !important; color: #888 !important;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em !important; color: #444 !important;">{description}</p><p style="margin-top: 4px !important; margin-bottom: 4px !important;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
             sortable: false
           }]
         })

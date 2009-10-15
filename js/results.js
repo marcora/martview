@@ -131,23 +131,46 @@ Martview.Results = Ext.extend(Ext.Panel, {
         enableHdMenu: false,
         disableSelection: true,
         stripeRows: true,
-        // autoExpandColumn: 'col',
         border: false
       });
     } else if (format == 'itemized') {
-      results.enableHeaderButtons();
-      var tpl = new Ext.XTemplate('<tpl for=".">', '<div class="item-selector {[ xindex % 2 === 0 ? "item-even" : "item-odd" ]}">', '<table class="item">', '<tr class="title">', '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>', '</tr>', '<tr>', '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div class="attribute">Experiment type: {experiment_type}</div>', '<div class="attribute">Resolution: {resolution}</div>', '<div class="attribute">Space group: {space_group}</div>', '<div class="attribute">R work: {r_work}</div></td>', '</tr>', '</table>', '</div>', '</tpl>', '<div class="x-clear"></div>');
-      var rows = new Ext.DataView({
-        store: store,
-        tpl: tpl,
-        itemSelector: 'div.item-selector',
-        overClass: 'selected-item',
-        singleSelect: true,
-        border: false,
-        autoHeight: true,
-        autoWidth: true,
-        fitToFrame: true
+      results.enableHeaderButtons(true);
+      var colModel = new Ext.grid.ColumnModel({
+        columns: [{
+          xtype: 'templatecolumn',
+          id: 'record',
+          header: "Record",
+          tpl: new Ext.XTemplate('<tpl for=".">', '<table style="width: 100%;">', '<tr>', '<td style="width: 50px; align: right; vertical-align: top; font-weight: bold; color: #333;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td style="font-weight: bold; color: #333;">{title}</td>', '</tr>', '<tr>', '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div style="color: #666;">Experiment type: {experiment_type}</div>', '<div style="color: #666;">Resolution: {resolution}</div>', '<div style="color: #666;">Space group: {space_group}</div>', '<div style="color: #666;">R work: {r_work}</div></td>', '</tr>', '</table>', '</tpl>'),
+          sortable: false
+        }]
       });
+      var rows = new Ext.grid.GridPanel({
+        cls: 'itemized',
+        store: store,
+        colModel: colModel,
+        viewConfig: {
+          forceFit: true
+        },
+        hideHeaders: true,
+        enableColumnHide: false,
+        enableHdMenu: false,
+        disableSelection: true,
+        stripeRows: true,
+        border: false
+      });
+      // results.enableHeaderButtons();
+      // var tpl = new Ext.XTemplate('<tpl for=".">', '<div class="item-selector {[ xindex % 2 === 0 ? "item-even" : "item-odd" ]}">', '<table class="item">', '<tr class="title">', '<td style="width: 50px; align: right; vertical-align: top;">{pdb_id} <img src="./ico/arrow-000-small.png" style="vertical-align: middle;" /></td><td>{title}</td>', '</tr>', '<tr>', '<td style="width: 50px; align: center; vertical-align: top;"><img style="width: 50px;" src="http://www.rcsb.org/pdb/images/{pdb_id}_asym_r_250.jpg" /></td>', '<td>', '<div class="attribute">Experiment type: {experiment_type}</div>', '<div class="attribute">Resolution: {resolution}</div>', '<div class="attribute">Space group: {space_group}</div>', '<div class="attribute">R work: {r_work}</div></td>', '</tr>', '</table>', '</div>', '</tpl>', '<div class="x-clear"></div>');
+      // var rows = new Ext.DataView({
+      //   store: store,
+      //   tpl: tpl,
+      //   itemSelector: 'div.item-selector',
+      //   overClass: 'selected-item',
+      //   singleSelect: true,
+      //   border: false,
+      //   autoHeight: true,
+      //   autoWidth: true,
+      //   fitToFrame: true
+      // });
     } else if (format == 'chart') {
       results.enableHeaderButtons();
       store.filter('chromosome_name', '1');
