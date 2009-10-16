@@ -56,6 +56,17 @@ legend { font-weight: normal !important; }
 
 .error-msg { color: #d00000 !important }
 
+.dataset { width: 100%; }
+.dataset .title { color: #333; font-size: 1.4em; margin: 0; padding: 0; margin-top: 6px; margin-bottom: 2px; }
+.dataset .source { font-weight: normal; color: #888; }
+.dataset .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; }
+.dataset .keywords { margin: 0; padding: 0; margin-bottom: 10px; }
+.dataset .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold; }
+
+.record {}
+.record .title {}
+.record .attribute {}
+
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }
 .filter-icon { background-image: url('../ico/ui-search-field.png') !important; }

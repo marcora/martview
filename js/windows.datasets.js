@@ -81,11 +81,28 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         colModel: new Ext.grid.ColumnModel({
           columns: [{
             xtype: 'templatecolumn',
+            sortable: false,
             id: 'dataset',
             header: "Dataset",
-            tpl: new Ext.XTemplate('<tpl for="."><div style="width: 100%;"><h2 style="color: #333; font-size: 1.4em;">{dataset_display_name} <span style="font-weight: normal; color: #888;">[{mart_display_name}]</span></h2><p style="font-size: 1.2em; color: #444; margin-top: 2px;">{description}</p><p style="margin-top: 6px; margin-bottom: 4px;"><tpl for="keywords"><span style="background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold;">{.}</span>&nbsp;</tpl></p></div></tpl>'),
-            sortable: false
-          }]
+            tpl: new Ext.XTemplate('<tpl for=".">',
+                                   '<div class="dataset">',
+                                   '<h2 class="title">',
+                                   '{dataset_display_name}&nbsp;',
+                                   '<span class="source">',
+                                   '[{mart_display_name}]',
+                                   '</span>',
+                                   '</h2>',
+                                   '<p class="description">',
+                                   '{description}',
+                                   '</p>',
+                                   '<p class="keywords">',
+                                   '<tpl for="keywords">',
+                                   '<span class="keyword">{.}</span>&nbsp;',
+                                   '</tpl>',
+                                   '</p>',
+                                   '</div>',
+                                   '</tpl>')
+            }]
         })
       }]
     };
