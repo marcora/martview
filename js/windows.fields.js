@@ -54,7 +54,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         itemId: 'all',
         title: 'All ' + this.display_name + 's',
         // iconCls: 'node-all-icon',
-        width: 380,
+        width: 390,
         split: true,
         rootVisible: false,
         defaultTools: false,
