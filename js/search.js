@@ -8,7 +8,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
       id: 'search',
       ref: '../search',
       region: 'west',
-      layout: 'fit',
+      layout: 'card',
       autoScroll: true,
       border: true,
       width: 440,
@@ -29,27 +29,22 @@ Martview.Search = Ext.extend(Ext.Panel, {
           menu: [{
             itemId: 'simple',
             text: 'Simple',
-            iconCls: 'simple-search-icon',
-            checked: true,
-            group: 'format'
+            iconCls: 'simple-search-icon'
           },
           {
             itemId: 'guided',
             text: 'Guided',
-            iconCls: 'guided-search-icon',
-            group: 'format'
+            iconCls: 'guided-search-icon'
           },
           {
             itemId: 'advanced',
             text: 'Advanced',
-            iconCls: 'advanced-search-icon',
-            group: 'format'
+            iconCls: 'advanced-search-icon'
           },
           {
             itemId: 'user',
             text: 'User-defined &sdot; <span style="text-decoration: underline !important;">Dimeric protein structures at high-res</span>',
-            iconCls: 'user-search-icon',
-            group: 'format'
+            iconCls: 'user-search-icon'
           }]
         },
         '->', {
@@ -78,7 +73,6 @@ Martview.Search = Ext.extend(Ext.Panel, {
         iconCls: 'reset-icon',
         cls: 'x-btn-text-icon',
         disabled: true
-        // tooltip: 'Press this button to reset the search form'
       },
       {
         itemId: 'submit',
@@ -87,23 +81,33 @@ Martview.Search = Ext.extend(Ext.Panel, {
         iconCls: 'submit-icon',
         cls: 'x-btn-text-icon',
         disabled: true
-        // tooltip: 'Press this button to submit the search form'
       }],
-      items: [{
-        xtype: 'form',
-        itemId: 'form',
-        ref: 'form',
+      activeItem: 0,
+      // make sure the active item is set on the container config!
+      defaults: {
         border: false,
-        padding: 10,
-        labelAlign: 'top',
-        bodyStyle: 'background-color:#dfe8f6;',
         autoWidth: true,
         autoHeight: true,
-        fitToFrame: true,
-        // trackResetOnLoad: false,
-        defaults: {
-          anchor: '100%'
-        }
+        fitToFrame: true
+      },
+      items: [{
+        itemId: 'clear',
+        ref: 'clear'
+      },
+      {
+        xtype: 'simplesearch',
+        itemId: 'simple',
+        ref: 'simple'
+      },
+      {
+        xtype: 'guidedsearch',
+        itemId: 'guided',
+        ref: 'guided'
+      },
+      {
+        xtype: 'advancedsearch',
+        itemId: 'advanced',
+        ref: 'advanced'
       }]
     };
 
@@ -114,7 +118,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     Martview.Search.superclass.initComponent.apply(this, arguments);
   },
 
-  enableHeaderButtons: function (customize) {
+  enableTopButtons: function (customize) {
     var search = this;
     search.selectButton.enable();
     if (customize) {
@@ -126,226 +130,68 @@ Martview.Search = Ext.extend(Ext.Panel, {
     search.saveButton.enable();
   },
 
-  enableFormButtons: function () {
+  enableBottomButtons: function (submit) {
     var search = this;
     search.resetButton.enable();
-    search.submitButton.enable();
-  },
-
-  //   clear: function () {
-  //     var search = this;
-  //     var form = this.form;
-  //     var config = form.initialConfig;
-  //     search.remove(form, true);
-  //     form = search.add(new Ext.form.FormPanel(config));
-  //     search.doLayout();
-  //     return form;
-  //   },
-  showSimpleForm: function () {
-    var search = this;
-    var form = this.form;
-
-    // enable header and form buttons
-    search.enableHeaderButtons();
-    search.enableFormButtons();
-
-    // remove fields from search form
-    form.removeAll();
-
-    // add fields to search form
-    form.add([{
-      xtype: 'textfield',
-      fieldLabel: 'Enter search terms',
-      // labelSeparator: '',
-      labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
-    },
-    {
-      // Lucene query syntax help
-      xtype: 'fieldset',
-      itemId: 'help',
-      title: 'Help',
-      // title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
-      autoHeight: true,
-      //       collapsed: true,
-      //       collapsible: true,
-      defaultType: 'displayfield',
-      defaults: {
-        anchor: '100%',
-        // labelSeparator: '',
-        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
-      },
-      items: [{
-        hideLabel: true,
-        value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
-      },
-      {
-        fieldLabel: 'pdb_id',
-        value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
-      },
-      {
-        fieldLabel: 'experiment_type',
-        value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
-      },
-      {
-        fieldLabel: 'resolution',
-        value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
-      },
-      {
-        fieldLabel: 'authors',
-        value: 'search by author name (for example, <code>authors:Mishima</code>)'
-      }]
-    }]);
-
-    // refresh form layout and focus
-    form.doLayout();
-    form.focus();
-  },
-
-  showGuidedForm: function (facets) {
-    var search = this;
-    var form = search.form;
-
-    // enable header and form buttons
-    search.enableHeaderButtons();
-    search.enableFormButtons();
-
-    // disable submit button
-    search.submitButton.disable();
-
-    // remove fields from search form
-    form.removeAll();
-
-    // add fields to search form
-    var fieldset = form.add({
-      xtype: 'fieldset',
-      title: 'Filters',
-      itemId: 'filters',
-      ref: 'filters',
-      autoHeight: true,
-      defaults: {
-        anchor: '100%',
-        // labelSeparator: '',
-        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
-      }
-    });
-    form.doLayout();
-
-    // add fields to search form
-    if (facets) {
-      fieldset.add(facets);
+    if (submit) {
+      search.submitButton.enable();
+    } else {
+      search.submitButton.disable();
     }
-
-    // refresh form layout and focus
-    form.focus();
   },
 
-  showAdvancedForm: function (filters) {
+  showSimple: function () {
     var search = this;
-    var form = search.form;
 
     // enable header and form buttons
-    search.enableHeaderButtons(true);
-    search.enableFormButtons();
+    search.enableTopButtons();
+    search.enableBottomButtons(true);
 
-    // remove fields from search form
-    form.removeAll();
+    // switch panel
+    search.layout.setActiveItem('simple');
 
-    // add fields to search form
-    var fieldset = form.add({
-      xtype: 'fieldset',
-      title: 'Filters',
-      itemId: 'filters',
-      ref: 'filters',
-      autoHeight: true,
-      defaults: {
-        anchor: '100%',
-        // labelSeparator: '',
-        labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
-      }
-    });
+    // update form
+    search.update();
+  },
 
-    Ext.each(filters, function (filter) {
-      if (filter.qualifier) { // filter.qualifier should never be null or undefined!
-        if (filter.qualifier in {
-          '=': '',
-          '>': '',
-          '<': '',
-          '>=': '',
-          '<=': ''
-        }) {
-          if (filter.options) {
-            fieldset.add([{
-              xtype: 'combo',
-              itemId: filter.name,
-              name: filter.name,
-              fieldLabel: filter.display_name || filter.name,
-              editable: false,
-              forceSelection: true,
-              lastSearchTerm: false,
-              triggerAction: 'all',
-              mode: 'local',
-              store: filter.options.split(',')
-            }]);
-          } else {
-            fieldset.add([{
-              xtype: 'textfield',
-              itemId: filter.name,
-              name: filter.name,
-              fieldLabel: filter.display_name || filter.name
-            }]);
-          }
-        } else if (filter.qualifier.split(',').remove('=') in {
-          'in': ''
-        }) {
-          fieldset.add({
-            xtype: 'textarea',
-            height: '100',
-            itemId: filter.name + '_text',
-            name: filter.name,
-            fieldLabel: filter.display_name || filter.name
-          });
-          fieldset.add({
-            xtype: 'fileuploadfield',
-            itemId: filter.name + '_file',
-            name: filter.name,
-            hideLabel: true,
-            // buttonOnly: true,
-            buttonText: 'Upload file&hellip;'
-          });
-        } else if (filter.qualifier.split(',')[0] in {
-          'only': '',
-          'excluded': ''
-        }) {
-          var items = [];
-          Ext.each(filter.qualifier.split(','), function (item) {
-            items.push({
-              inputValue: item,
-              name: filter.name,
-              boxLabel: item
-            });
-          });
-          fieldset.add({
-            xtype: 'radiogroup',
-            itemId: filter.name,
-            name: filter.name,
-            fieldLabel: filter.display_name || filter.name,
-            items: items
-            // vertical: true,
-            // columns: 1,
-          });
-        }
+  showGuided: function (filters) {
+    var search = this;
 
-        // set field value if defined
-        var field = fieldset.get(filter.name);
-        if (field && filter.value) {
-          field.setValue(filter.value);
-        }
-      }
-    });
+    // enable header and form buttons
+    search.enableTopButtons();
+    search.enableBottomButtons();
 
-    // refresh form layout and focus
-    form.doLayout();
-    form.focus();
+    // switch panel
+    search.layout.setActiveItem('guided');
+
+    // update form
+    search.update(filters);
+  },
+
+  showAdvanced: function (filters) {
+    var search = this;
+
+    // enable header and form buttons
+    search.enableTopButtons(true);
+    search.enableBottomButtons(true);
+
+    // switch panel
+    search.layout.setActiveItem('advanced');
+
+    // update form
+    search.update(filters);
+  },
+
+  isValid: function () {
+    return this.layout.activeItem.getForm().isValid();
+  },
+
+  focus: function () {
+    return this.layout.activeItem.focus();
+  },
+
+  update: function (filters) {
+    return this.layout.activeItem.update(filters);
   }
 });
 

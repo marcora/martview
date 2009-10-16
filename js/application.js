@@ -31,7 +31,6 @@ Ext.onReady(function () {
 
   // init viewport, dialogs, windows and global state vars
   var main = new Martview.Main(); // application viewport
-  var form = main.search.form; // search form
   var data; // container for results
   var loading = new Martview.windows.Loading(); // loading window
   var datasets_win; // datasets window
@@ -168,7 +167,7 @@ Ext.onReady(function () {
   // build query xml based of selected filters and attributes
   function buildQueryXml(values) {
     var dataset_filters = [];
-    form.filters.items.each(function (item) {
+    main.search.advanced.filters.items.each(function (item) {
       if (item.isXType('radiogroup')) {
         try {
           dataset_filters.push({
@@ -308,11 +307,9 @@ Ext.onReady(function () {
       results: 'tabular'
     });
 
-    // clear search/results panel, if present
+    // clear results panel, if present
     try {
       main.results.clear();
-      // reset search form w/o submit
-      main.search.form.reset(false); // the appropriate reset method is attached to form at render time
     } catch(e) {
       // pass
     }
@@ -452,7 +449,7 @@ Ext.onReady(function () {
       }
 
       // add values to filters if previously set in the search form
-      var values = form.getForm().getValues();
+      var values = main.search.advanced.getForm().getValues();
       Ext.each(filters, function (filter) {
         var value = values[filter.name];
         if (value) filter['value'] = value;
@@ -467,31 +464,26 @@ Ext.onReady(function () {
      show simple search action
      ------------------------- */
   function showSimpleSearch() {
-    // reset form
-    function resetSimpleSearch() {
-      main.results.clear();
-      form.getForm().reset();
-      form.focus();
-    }
+    var form = main.search.simple;
+
+    // show simple form
+    main.search.showSimple();
 
     // update footer message
     main.footer.updateMessage('info', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
 
-    // clear results
-    main.results.clear();
-
-    // show simple form
-    main.search.showSimpleForm();
+    // reset event handler
+    function resetSimpleSearch() {
+      form.reset();
+      main.results.clear();
+    }
 
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetSimpleSearch);
 
-    // reassign reset form method
-    form.reset = resetSimpleSearch;
-
     // submit search on enter key
-    form.items.first().on('specialkey', function (f, o) {
+    main.search.simple.items.first().on('specialkey', function (f, o) {
       if (o.getKey() == 13) {
         submitSearch();
       }
@@ -502,34 +494,25 @@ Ext.onReady(function () {
      show guided search action
      ------------------------- */
   function showGuidedSearch(facets) {
-    // reset form
+    var form = main.search.guided;
+
+    // show guided form
+    main.search.showGuided(facets);
+
+    // update footer message
+    main.footer.updateMessage('info', 'Use the drop-down boxes to make the search more specific and narrow the results');
+
+    // reset event handler
     function resetGuidedSearch(submit) {
-      form.filters.items.each(function (item) {
-        if (item.xtype == 'facetfield') {
-          form.filters.add({
-            xtype: 'unfacetfield',
-            name: item.getName(),
-            value: item.getValue()
-          });
-        }
-      });
+      form.reset();
       // default submit to true
       submit = typeof(submit) == 'undefined' ? true : submit;
       if (submit) submitSearch();
     }
 
-    // update footer message
-    main.footer.updateMessage('info', 'Use the drop-down boxes to make the search more specific and narrow the results');
-
-    // show guided form
-    main.search.showGuidedForm(facets);
-
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetGuidedSearch);
-
-    // reassing reset form method
-    form.reset = resetGuidedSearch;
 
     // add handlers to combo/facet fields
     if (facets) {
@@ -563,34 +546,25 @@ Ext.onReady(function () {
      show advanced search action
      --------------------------- */
   function showAdvancedSearch(filters) {
-    // reset form
+    var form = main.search.advanced;
+
+    // show advanced search form
+    main.search.showAdvanced(filters);
+
+    // update footer message
+    main.footer.updateMessage('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
+
+    // reset event handler
     function resetAdvancedSearch(submit) {
-      form.filters.items.each(function (item) {
-        try {
-          item.reset();
-          item.setValue('');
-        } catch(e) {
-          // pass
-        }
-      }); // form.getForm().reset(); doesnt quite work for some reason!
-      form.focus();
+      form.reset();
       // default submit to true
       submit = typeof(submit) == 'undefined' ? true : submit;
       if (submit) submitSearch();
     }
 
-    // update footer message
-    main.footer.updateMessage('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
-
-    // show advanced search form
-    main.search.showAdvancedForm(filters);
-
     // reassign reset button handler
     main.search.resetButton.purgeListeners();
     main.search.resetButton.setHandler(resetAdvancedSearch);
-
-    // reassing reset form method
-    form.reset = resetAdvancedSearch;
 
     // submit key on enter key
     form.filters.items.each(function (item) {
@@ -607,11 +581,12 @@ Ext.onReady(function () {
      -------------------- */
   function submitSearch() {
     // validate form
-    if (!form.getForm().isValid()) return;
+    if (!main.search.isValid()) return;
 
     // build search params
     var search_params = new Object;
     if (params.search == 'simple') {
+      var form = main.search.simple;
       var query = form.items.first().getValue().trim(); // FIXME: too verbose!
       if (!query) return; // abort submit if no search terms
       Ext.apply(search_params, {
@@ -619,6 +594,7 @@ Ext.onReady(function () {
         q: query
       });
     } else if (params.search == 'guided') {
+      var form = main.search.guided;
       var filters = [];
       form.filters.items.each(function (item) {
         var filter = {
@@ -672,13 +648,13 @@ Ext.onReady(function () {
         if (params.search == 'guided') {
           showGuidedSearch(data.facets);
         }
-        form.focus();
+        main.search.focus();
 
         // load data into results panel
         main.results.load(data, params.results);
       },
       failure: function () {
-        form.focus();
+        main.search.focus();
       }
     });
   }
