@@ -35,7 +35,7 @@ legend { font-weight: normal !important; }
 
 .x-grid3-hd { color: #444 !important; font-weight: bold !important; font-size: 8pt !important; }
 
-.itemized .x-grid3-cell-inner { white-space: normal !important; }
+.itemized .x-grid3-cell-inner { white-space: normal !important; margin: 0 !important; padding: 1px !important; }
 
 .fields .field:first-child .x-toolbar-layout-ct {
     border-top: 1px #b5b8c8 solid  !important;
@@ -56,16 +56,12 @@ legend { font-weight: normal !important; }
 
 .error-msg { color: #d00000 !important }
 
-.dataset { width: 100%; }
-.dataset .title { color: #333; font-size: 1.4em; margin: 0; padding: 0; margin-top: 6px; margin-bottom: 2px; }
-.dataset .source { font-weight: normal; color: #888; }
-.dataset .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; }
-.dataset .keywords { margin: 0; padding: 0; margin-bottom: 10px; }
-.dataset .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold; }
-
-.record {}
-.record .title {}
-.record .attribute {}
+.item { width: 100%; }
+.item .title { color: #333; font-size: 1.4em; font-weight: bold; margin: 0; padding: 0; margin-bottom: 2px; }
+.item .source { color: #666; font-weight: normal; }
+.item .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; }
+.item .keywords { margin: 0; padding: 0; margin-bottom: 6px; }
+.item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold; }
 
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }
@@ -96,8 +92,11 @@ legend { font-weight: normal !important; }
 .alert-icon { background-image: url('../ico/exclamation.png') !important; }
 .error-icon { background-image: url('../ico/cross-circle.png') !important; }
 .success-icon { background-image: url('../ico/tick-circle.png') !important; }
+.tree-icon { background-image: url('../ico/application-tree.png') !important; }
+.list-icon { background-image: url('../ico/application-list.png') !important; }
 
-
+button.tree-icon { background-image: url('../ico/application-tree.png') !important; }
+button.list-icon { background-image: url('../ico/application-list.png') !important; }
 button.selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 button.mart-icon { background-image: url('../ico/databases.png') !important; }
 button.dataset-icon { background-image: url('../ico/database.png') !important; }

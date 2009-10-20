@@ -29,44 +29,12 @@ Ext.onReady(function () {
     maxWidth: 500
   });
 
-  // init viewport, dialogs, windows and global state vars
-  var main = new Martview.Main(); // application viewport
-  var data; // container for results
-  var loading = new Martview.windows.Loading(); // loading window
-  var datasets_win; // datasets window
-  var filters_win, attributes_win; // filters/attributes windows
-  var reset_filters_win_to_defaults = true;
-  var reset_attributes_win_to_defaults = true;
-  var default_filters, default_attributes;
+  // service, viewport, and windows global vars
+  var service = new Martview.Service();
+  var main = new Martview.Main();
+  var datasets_win, filters_win, attributes_win;
 
-  // init ajax connection
-  var conn = new Ext.data.Connection({
-    timeout: 120000,
-    listeners: {
-      beforerequest: function () {
-        loading.show();
-      },
-      requestcomplete: function () {
-        loading.hide();
-        // main.footer.updateMessageIfError('info', Martview.SAVE_RESULTS_MSG);
-      },
-      requestexception: function () {
-        loading.hide();
-        // main.footer.updateMessage('error', Martview.CONN_ERROR_MSG);
-        // flash.show('error', Martview.CONN_ERROR_MSG);
-        // alert(Martview.CONN_ERROR_MSG);
-        Ext.Msg.show({
-          title: Martview.APP_TITLE,
-          msg: Martview.CONN_ERROR_MSG,
-          // icon: Ext.Msg.ERROR,
-          buttons: Ext.Msg.OK,
-          width: 300
-        });
-      }
-    }
-  });
-
-  // extract query params
+  // init params global var with query params
   var params = Ext.urlDecode(window.location.search.substring(1));
 
   // if not specified the default search is 'advanced' and the default results is 'tabular'
@@ -75,59 +43,137 @@ Ext.onReady(function () {
     results: 'tabular'
   });
 
-  // populate datasets windows with data from server
-  var datasets_url = './json/datasets.json';
-  conn.request({
-    url: datasets_url,
-    success: function (response) {
-      var datasets = Ext.util.JSON.decode(response.responseText);
-      datasets_win = new Martview.windows.Datasets();
-      datasets_win.load(datasets);
+  // transform filters param into selected_filters param
+  (function () {
+    var filters = [];
+    if (params.filters) {
+      Ext.each(params.filters.split('|'), function (filter) {
+        filters.push({
+          name: filter.split(':').first(),
+          value: filter.split(':').last()
+        });
+      });
+    }
+    params.selected_filters = filters;
+  })();
+
+  // transform attributes param into selected_attributes param
+  (function () {
+    var attributes = [];
+    if (params.attributes) {
+      Ext.each(params.attributes.split('|'), function (attribute) {
+        attributes.push({
+          name: attribute
+        });
+      });
+    }
+    params.selected_attributes = attributes;
+  })();
+
+  service.on('load', function (datasets) {
+    // if empty datasets exit
+    if (service.datasets.rows.length == 0) return;
+
+    // create datasets window
+    datasets_win = new Martview.windows.Datasets({
+      datasets: datasets
+    });
+
+    // load dataset on datasets window select
+    datasets_win.on('select', function (dataset) {
+      service.select(dataset);
+    });
+
+    // enable main header select button and show datasets window on click
+    main.header.selectButton.enable().on('click', function () {
       datasets_win.show();
+    });
 
-      datasets_win.grid.on('rowdblclick', function (grid) {
-        var dataset = grid.getSelectionModel().getSelected();
-        datasets_win.hide();
-        selectSearch(dataset.json);
-      });
-      datasets_win.okButton.on('click', function () {
-        var grid = datasets_win.items.first();
-        var dataset = grid.getSelectionModel().getSelected();
-        datasets_win.hide();
-        selectSearch(dataset.json);
-      });
+    // if only one dataset select bypassing datasets window
+    if (service.datasets.rows.length == 1) {
+      service.load(datasets.rows[0]);
+      return;
+    }
 
-      params.mart_name = params.mart;
-      params.dataset_name = params.dataset;
-      // validate query params by recursively matching with the datasets data
-      var dataset_counter = 0;
-      var single_dataset;
-      // function validateParams(menu) {
-      //   menu.items.each(function (menu_item) {
-      //     if (menu_item.menu) {
-      //       validateParams(menu_item.menu);
-      //     } else {
-      //       dataset_counter++;
-      //       single_dataset = menu_item;
-      //       if (params.mart_name == menu_item.mart_name && params.dataset_name == menu_item.dataset_name && Martview.ALLOWED_SEARCH_PARAMS.has(params.search) && Martview.ALLOWED_RESULTS_PARAMS.has(params.results)) {
-      //         params.mart_display_name = menu_item.mart_display_name || menu_item.mart_name;
-      //         params.dataset_display_name = menu_item.dataset_display_name || menu_item.dataset_name;
-      //       }
-      //     }
-      //   });
-      // }
-      // validateParams(main.header.homeButton.menu);
-      // call select search if params are valid
-      if (params.dataset_display_name) {
-        selectSearch(params);
-      } else if (dataset_counter == 1) {
-        // if only one dataset on server and even if not specified in params, select it automagically
-        selectSearch(single_dataset); // or window.location.search = 'mart=' + single_dataset.mart_name + '&dataset=' + single_dataset.dataset_name;
-      } else {
-        // pass and wait for dataset selection via datasets window
+    // validate params against datasets and if correct select bypassing datasets window
+    if (params.mart && params.dataset) {
+      var valid = false;
+      var dataset = {};
+      Ext.each(service.datasets.rows, function (row) {
+        if (row.mart_name == params.mart && row.dataset_name == params.dataset) {
+          valid = true;
+          Ext.apply(dataset, row);
+        }
+      });
+      if (valid) {
+        service.select(dataset);
+        return;
       }
     }
+
+    // show datasets window if nothing else worked
+    datasets_win.show();
   });
+
+  service.on('select', function (dataset) {
+    // create filters window
+    var filters_win = new Martview.windows.Fields({
+      id: 'filters',
+      title: 'Add filters to search form',
+      display_name: 'filters',
+      iconCls: 'filter-icon',
+      dataset: dataset
+    });
+
+    // create attributes window
+    var attributes_win = new Martview.windows.Fields({
+      id: 'attributes',
+      title: 'Add columns to results grid',
+      display_name: 'columns',
+      iconCls: 'attribute-icon',
+      dataset: dataset
+    });
+
+    // show filters window on customize search button click
+    main.search.customizeButton.on('click', function () {
+      filters_win.show();
+    });
+
+    // show attributes window on customize results button click
+    main.results.customizeButton.on('click', function () {
+      attributes_win.show();
+    });
+
+    // update params with dataset data
+    Ext.apply(params, dataset);
+
+    // update header
+    main.header.update(params);
+
+    // select search panel
+    main.search.select(params);
+  });
+
+  main.search.on('select', function (params) {
+    // TODO
+  });
+
+  main.search.on('load', function (params) {
+    // TODO
+  });
+
+  main.search.on('submit', function () {
+    // TODO
+  });
+
+  main.search.on('reset', function () {
+    // TODO
+  });
+
+  // load all datasets to start app
+  service.load();
+
+  return;
 
   /* =================
      Utility functions
@@ -152,16 +198,6 @@ Ext.onReady(function () {
         extractDefaultFields(node['children'], default_fields, include_fields);
       }
     });
-  }
-
-  // parse query string for fields to include and return them as a key-value hash
-  function parseIncludeFields(include_fields) {
-    var parsed = new Object;
-    Ext.each(include_fields.split('|'), function (include_field) {
-      var name_value = include_field.split(':');
-      parsed[name_value[0]] = name_value[1];
-    });
-    return parsed;
   }
 
   // build query xml based of selected filters and attributes
@@ -249,11 +285,6 @@ Ext.onReady(function () {
   /* ==============
      Event bindings
      ============== */
-
-  // show datasets window on selectdb button click
-  main.header.selectButton.on('click', function () {
-    datasets_win.show();
-  });
 
   // show filters window on customize button click
   main.search.customizeButton.on('click', function () {
@@ -470,7 +501,10 @@ Ext.onReady(function () {
     main.search.showSimple();
 
     // update footer message
-    main.footer.updateMessage('info', 'Enter search terms and then press the Enter key or the Submit button to fetch the results');
+    main.footer.update({
+      iconCls: 'info-icon',
+      text: 'Enter search terms and then press the Enter key or the Submit button to fetch the results'
+    });
 
     // reset event handler
     function resetSimpleSearch() {
@@ -500,7 +534,10 @@ Ext.onReady(function () {
     main.search.showGuided(facets);
 
     // update footer message
-    main.footer.updateMessage('info', 'Use the drop-down boxes to make the search more specific and narrow the results');
+    main.footer.update({
+      iconCls: 'info-icon',
+      text: 'Use the drop-down boxes to make the search more specific and narrow the results'
+    });
 
     // reset event handler
     function resetGuidedSearch(submit) {
@@ -552,7 +589,7 @@ Ext.onReady(function () {
     main.search.showAdvanced(filters);
 
     // update footer message
-    main.footer.updateMessage('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
+    main.footer.update('info', 'Press the Submit button to fetch the results. Add filters to the search form to make the search more specific and narrow the results');
 
     // reset event handler
     function resetAdvancedSearch(submit) {

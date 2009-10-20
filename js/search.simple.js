@@ -65,7 +65,7 @@ Martview.search.Simple = Ext.extend(Ext.form.FormPanel, {
     Martview.search.Simple.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(filters) {
+  update: function(params) {
     var form = this;
     form.reset();
   },

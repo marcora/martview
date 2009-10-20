@@ -28,6 +28,21 @@ Array.prototype.has = function (o) {
   return this.indexOf(o) > -1;
 };
 
+// add the get method to array
+Array.prototype.get = function (i) {
+  return this[i];
+};
+
+// add the first method to array
+Array.prototype.first = function () {
+  return this[0];
+};
+
+// add the last method to array
+Array.prototype.last = function () {
+  return this[this.length-1];
+};
+
 // add the moveUp and moveDn methods to Ext.util.MixedCollection
 // Array.prototype.array_move = function  (int_source, int_target)
 // {

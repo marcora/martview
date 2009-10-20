@@ -34,7 +34,7 @@ Martview.search.Guided = Ext.extend(Ext.form.FormPanel, {
     Martview.search.Guided.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (filters) {
+  update: function (params) {
     var form = this;
 
     // remove fields from search form
@@ -56,7 +56,7 @@ Martview.search.Guided = Ext.extend(Ext.form.FormPanel, {
 
     // add filters to search form
     if (filters) {
-      fieldset.add(filters);
+      fieldset.add(params.filters);
     }
 
     // refresh form layout and focus

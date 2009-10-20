@@ -17,8 +17,8 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       title: 'Choose dataset',
       iconCls: 'selectdb-icon',
       buttons: [{
-        text: 'Cancel',
         cls: 'x-btn-text-icon',
+        text: 'Cancel',
         iconCls: 'reset-icon',
         handler: function () {
           this.hide();
@@ -26,25 +26,58 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         scope: this // scope button to window
       },
       {
-        text: 'OK',
-        ref: '../okButton',
         cls: 'x-btn-text-icon',
-        iconCls: 'submit-icon'
+        text: 'OK',
+        iconCls: 'submit-icon',
+        handler: function () {
+          this.select();
+        },
+        scope: this // scope button to window
       }],
       items: [{
-        xtype: 'grid',
-        title: 'All datasets',
+        xtype: 'treegrid',
         itemId: 'grid',
         ref: '../grid',
         cls: 'itemized',
         border: false,
+        title: 'All datasets',
         tbar: {
           layout: 'hbox',
           items: [{
             xtype: 'searchfield',
+            itemId: 'search',
+            ref: '../search',
             flex: 1,
-            emptyText: 'Enter search terms (for example, human genes or protein structures or uniprot) to find a specific dataset'
+            emptyText: 'Enter search terms (for example, human genes or protein structures or ENSEMBL) to find a specific dataset'
+          },
+          ' ', {
+            itemId: 'expand_all',
+            cls: 'x-btn-text-icon',
+            iconCls: 'icon-expand-all',
+            text: 'Expand',
+            handler: function () {
+              this.grid.getStore().expandAll();
+            },
+            scope: this // scope to window
+          },
+          {
+            itemId: 'collapse_all',
+            cls: 'x-btn-text-icon',
+            iconCls: 'icon-collapse-all',
+            text: 'Collapse',
+            handler: function () {
+              this.grid.getStore().collapseAll();
+            },
+            scope: this // scope to window
           }]
+        },
+        listeners: {
+          'dblclick': {
+            fn: function () {
+              this.select();
+            },
+            scope: this
+          }
         },
         hideHeaders: true,
         // autoHeight: true,
@@ -61,10 +94,27 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         sm: new Ext.grid.RowSelectionModel({
           singleSelect: true
         }),
-        store: new Ext.data.JsonStore({
-          root: 'rows',
+        store: new Ext.ux.maximgb.tg.AdjacencyListStore({ // new Ext.data.JsonStore({
+          autoLoad: true,
           autoDestroy: true,
-          fields: ['mart_display_name', 'dataset_display_name', 'description', 'keywords', 'fulltext']
+          proxy: new Ext.data.MemoryProxy(this.datasets),
+          reader: new Ext.data.JsonReader({
+            root: 'rows',
+            idProperty: '_id',
+            fields: [{
+              name: '_id',
+              type: 'auto'
+            },
+            {
+              name: '_parent',
+              type: 'auto'
+            },
+            {
+              name: '_is_leaf',
+              type: 'bool'
+            },
+            'dataset_display_name', 'mart_display_name', 'description', 'keywords', 'fulltext']
+          })
         }),
         // view: new Ext.ux.grid.BufferView({
         //   // // custom row height
@@ -76,36 +126,24 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         //   scrollDelay: false
         // }),
         viewConfig: {
-          forceFit: true
+          forceFit: true,
+          enableRowBody: true
         },
+        master_column_id: 'item',
+        autoExpandColumn: 'item',
         colModel: new Ext.grid.ColumnModel({
           columns: [{
             xtype: 'templatecolumn',
             sortable: false,
-            id: 'dataset',
-            header: "Dataset",
-            tpl: new Ext.XTemplate('<tpl for=".">',
-                                   '<div class="dataset">',
-                                   '<h2 class="title">',
-                                   '{dataset_display_name}&nbsp;',
-                                   '<span class="source">',
-                                   '[{mart_display_name}]',
-                                   '</span>',
-                                   '</h2>',
-                                   '<p class="description">',
-                                   '{description}',
-                                   '</p>',
-                                   '<p class="keywords">',
-                                   '<tpl for="keywords">',
-                                   '<span class="keyword">{.}</span>&nbsp;',
-                                   '</tpl>',
-                                   '</p>',
-                                   '</div>',
-                                   '</tpl>')
-            }]
+            id: 'item',
+            tpl: new Ext.XTemplate('<tpl for=".">', '<div class="item">', '<h2 class="title">', '<tpl if="dataset_display_name">{dataset_display_name}&nbsp;<span class="source">[{mart_display_name}]</span></tpl><tpl if="!dataset_display_name">{mart_display_name}</tpl></h2>', '<p class="description">', '{description}', '</p>', '<p class="keywords">', '<tpl for="keywords">', '<span class="keyword">{.}</span>&nbsp;', '</tpl>', '</p>', '</div>', '</tpl>')
+          }]
         })
       }]
     };
+
+    // add custom events
+    this.addEvents('select');
 
     // apply config
     Ext.apply(this, Ext.apply(this.initialConfig, config));
@@ -114,7 +152,20 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
     Martview.windows.Datasets.superclass.initComponent.apply(this, arguments);
   },
 
-  load: function (data) {
-    this.items.first().getStore().loadData(data);
+  select: function () {
+    var store = this.grid.getStore();
+    var node = store.getActiveNode();
+    if (node) {
+      if (store.isLeafNode(node)) {
+        this.fireEvent('select', node.json);
+        this.hide();
+      } else {
+        if (store.isExpandedNode(node)) {
+          store.collapseNode(node);
+        } else {
+          store.expandNode(node);
+        }
+      }
+    }
   }
 });

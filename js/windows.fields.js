@@ -5,10 +5,16 @@ Ext.namespace('Martview.windows');
    ------------------------- */
 Martview.windows.Fields = Ext.extend(Ext.Window, {
   // soft config
+
+  // id
+  // display_name
+  // dataset
+  // children
+
+  id: null,
   display_name: null,
-  dataset_name: null,
-  field_iconCls: null,
-  children: [],
+  dataset: null,
+
   default_fields: [],
   current_fields: [],
   fields_changed: false,
@@ -16,6 +22,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // hard config
   initComponent: function () {
     var config = {
+      title: 'Add ' + this.display_name + ' to search form',
       modal: true,
       width: 800,
       height: 500,
@@ -52,13 +59,13 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         xtype: 'arraytreepanel',
         ref: 'all',
         itemId: 'all',
-        title: 'All ' + this.display_name + 's',
+        title: 'All ' + this.display_name,
         // iconCls: 'node-all-icon',
         width: 390,
         split: true,
         rootVisible: false,
         defaultTools: false,
-        children: this.children,
+        children: this.dataset[this.id],
         animate: true,
         enableDD: false,
         autoScroll: true,
@@ -73,7 +80,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             itemId: 'search',
             ref: 'search',
             flex: 1,
-            emptyText: 'Enter search terms to find a specific ' + this.display_name
+            emptyText: 'Enter search terms to find a specific ' + this.display_name.substr(0, this.display_name.length - 1)
             // listeners: {
             //   'render': {
             //     fn: function () {
@@ -133,7 +140,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         items: [],
         autoScroll: true,
         padding: 10,
-        title: 'Selected ' + this.display_name + 's',
+        title: 'Selected ' + this.display_name,
         // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
         //         layout: 'vbox',
@@ -142,7 +149,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //           pack: 'start'
         //         },
         tbar: [{
-          text: 'Reset to default ' + this.display_name + 's',
+          text: 'Reset to default ' + this.display_name,
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
           handler: this.resetToDefaultFields,
@@ -179,7 +186,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       var field = selected.add({
         xtype: 'field',
         treenode: node,
-        field_iconCls: this.field_iconCls
+        field_iconCls: this.getId().substr(0, this.getId() - 1) + '-icon'
       });
       node.disable();
     },
@@ -199,7 +206,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       var field = selected.add({
         xtype: 'field',
         treenode: node,
-        field_iconCls: this.field_iconCls
+        field_iconCls: this.getId().substr(0, this.getId() - 1) + '-icon'
       });
       node.disable();
     },

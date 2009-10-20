@@ -45,7 +45,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Add column',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          disabled: true,
+          hidden: true,
           tooltip: 'Press this button to customize the results grid by adding/removing columns'
         },
         {

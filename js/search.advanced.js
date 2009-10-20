@@ -22,7 +22,7 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
     Martview.search.Advanced.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (filters) {
+  update: function (params) {
     var form = this;
 
     // remove fields from search form
@@ -43,7 +43,7 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
     });
 
     // add filters to search form
-    Ext.each(filters, function (filter) {
+    Ext.each(params.filters, function (filter) {
       if (filter.qualifier) { // filter.qualifier should never be null or undefined!
         if (filter.qualifier in {
           '=': '',
