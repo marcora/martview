@@ -27,7 +27,7 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
     });
 
     // add custom events
-    this.addEvents('load', 'select', 'query', 'search');
+    this.addEvents('load', 'select', 'search');
 
     // call parent
     Martview.Service.superclass.constructor.call(config);
@@ -59,19 +59,17 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
     });
   },
 
-  // query for results
-  query: function () {
-    var service = this;
-    // pass
-    // fire assigned event
-    service.fireEvent('query', results);
-  },
-
   // search for results
-  search: function () {
+  search: function (search_params) {
     var service = this;
-    // pass
-    // fire assigned event
-    service.fireEvent('search', results);
+    var search_url = '../martservice';
+    service.conn.request({
+      url: search_url,
+      params: search_params,
+      success: function (response) {
+        service.results = Ext.util.JSON.decode(response.responseText);
+        service.fireEvent('search', service.results);
+      }
+    });
   }
 });

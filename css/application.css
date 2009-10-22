@@ -57,11 +57,14 @@ legend { font-weight: normal !important; }
 .error-msg { color: #d00000 !important }
 
 .item { width: 100%; }
-.item .title { color: #333; font-size: 1.4em; font-weight: bold; margin: 0; padding: 0; margin-bottom: 2px; }
+.item .title { color: #333; font-size: 1.4em; font-weight: bold; margin: 0; padding: 0; margin-top: 4px; margin-bottom: 2px; }
+.item .title img { margin-right: 2px !important; vertical-align: top !important; }
 .item .source { color: #666; font-weight: normal; }
 .item .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; }
-.item .keywords { margin: 0; padding: 0; margin-bottom: 6px; }
-.item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px; font-size: 1em; font-weight: bold; }
+.item .keywords { margin: 0; padding: 0; margin-bottom: 8px; }
+.item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px 4px 2px 4px; margin-right: 4px; font-size: 1em; font-weight: bold; }
+
+.start { font-weight: bold !important; }
 
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }
@@ -76,8 +79,8 @@ legend { font-weight: normal !important; }
 .form-icon { background-image: url('../ico/application-form.png') !important; }
 .tabular-results-icon { background-image: url('../ico/table.png') !important; }
 .itemized-results-icon { background-image: url('../ico/card-address.png') !important; }
-.map-results-icon { background-image: url('../ico/map.png') !important; }
-.chart-results-icon { background-image: url('../ico/chart.png') !important; }
+.aggregated-results-icon { background-image: url('../ico/chart.png') !important; }
+.mapped-results-icon { background-image: url('../ico/map.png') !important; }
 .field-icon { background-image: url('../ico/ui-toolbar.png') !important; }
 .file-upload-icon { background-image: url('../ico/document-list.png') !important; }
 .node-all-icon { background-image: url('../ico/node.png') !important; }

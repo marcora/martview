@@ -23,6 +23,11 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     if (this.hasSearch) {
       var store = this.ownerCt.ownerCt.getStore();
       store.clearFilter();
+      try { // if grid is also a tree
+        store.collapseAll();
+      } catch(e) {
+        // pass
+      }
       this.setValue('');
       this.hasSearch = false;
       this.triggers[0].hide();
@@ -71,7 +76,11 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     // filter store on fulltext using search regexp
     var store = this.ownerCt.ownerCt.getStore();
     store.filter('fulltext', re);
-
+    try { // if grid is also a tree
+      store.expandAll();
+    } catch(e) {
+      // pass
+    }
     this.hasSearch = true;
     this.triggers[0].show();
     this.focus();

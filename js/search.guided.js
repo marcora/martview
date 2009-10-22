@@ -2,14 +2,12 @@ Ext.namespace('Martview.search');
 
 Martview.search.Guided = Ext.extend(Ext.form.FormPanel, {
 
-  // soft config
-  padding: 10,
-  bodyStyle: 'background-color:#dfe8f6;',
-  labelAlign: 'top',
-
   // hard config
   initComponent: function () {
     var config = {
+      padding: 10,
+      bodyStyle: 'background-color:#dfe8f6;',
+      labelAlign: 'top',
       defaults: {
         anchor: '100%'
       },
@@ -83,6 +81,10 @@ Martview.search.Guided = Ext.extend(Ext.form.FormPanel, {
     } catch(e) {
       // pass
     }
+  },
+
+  build: function () {
+    // TODO
   }
 });
 

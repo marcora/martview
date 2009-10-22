@@ -2,19 +2,19 @@ Ext.namespace('Martview.search');
 
 Martview.search.Simple = Ext.extend(Ext.form.FormPanel, {
 
-  // soft config
-  padding: 10,
-  bodyStyle: 'background-color:#dfe8f6;',
-  labelAlign: 'top',
-
   // hard config
   initComponent: function () {
     var config = {
+      padding: 10,
+      bodyStyle: 'background-color:#dfe8f6;',
+      labelAlign: 'top',
       defaults: {
         anchor: '100%'
       },
       items: [{
         xtype: 'textfield',
+        itemId: 'search',
+        ref: 'search',
         fieldLabel: 'Enter search terms',
         // labelSeparator: '',
         labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;',
@@ -24,37 +24,16 @@ Martview.search.Simple = Ext.extend(Ext.form.FormPanel, {
         // Lucene query syntax help
         xtype: 'fieldset',
         itemId: 'help',
+        ref: 'help',
         title: 'Help',
         // title: '<img src="./ico/question.png" style="vertical-align: text-bottom !important;" /> <span style="font-weight: normal !important; color: #000 !important;">Help</span>',
         autoHeight: true,
-        //       collapsed: true,
-        //       collapsible: true,
-        defaultType: 'displayfield',
+        autoDestroy: true,
         defaults: {
+          xtype: 'displayfield',
           anchor: '100%',
-          // labelSeparator: '',
           labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
-        },
-        items: [{
-          hideLabel: true,
-          value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a> and the following fields:'
-        },
-        {
-          fieldLabel: 'pdb_id',
-          value: 'search by PDB ID (for example, <code>pdb_id:11ba</code>)'
-        },
-        {
-          fieldLabel: 'experiment_type',
-          value: 'search by experiment type (for example, <code>experiment_type:NMR</code>)'
-        },
-        {
-          fieldLabel: 'resolution',
-          value: 'search by resolution (for example, <code>resolution:[3 TO *]</code>)'
-        },
-        {
-          fieldLabel: 'authors',
-          value: 'search by author name (for example, <code>authors:Mishima</code>)'
-        }]
+        }
       }]
     };
 
@@ -65,8 +44,28 @@ Martview.search.Simple = Ext.extend(Ext.form.FormPanel, {
     Martview.search.Simple.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(params) {
+  update: function (params) {
+    params.fields = params.fields || [];
+
     var form = this;
+
+    // remove fields from help fieldset
+    form.help.removeAll();
+
+    // add fields to help fieldset
+    form.help.add({
+      hideLabel: true,
+      value: 'For more advanced searches, you can enter search terms using the <a href="http://lucene.apache.org/java/2_4_1/queryparsersyntax.html" target="_blank">Lucene query syntax</a>' + ((params.fields.length > 0) ? ' and the following fields:' : '.')
+    });
+    Ext.each(params.fields, function (field) {
+      form.help.add({
+        fieldLabel: field.name,
+        value: field.description
+      });
+    });
+
+    // refresh form layout and focus
+    form.doLayout();
     form.reset();
   },
 
@@ -77,7 +76,12 @@ Martview.search.Simple = Ext.extend(Ext.form.FormPanel, {
   },
 
   focus: function () {
-    this.getForm().items.first().focus(true, true);
+    var form = this;
+    form.search.focus(true, true);
+  },
+
+  build: function () {
+    // TODO
   }
 });
 

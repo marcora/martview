@@ -32,16 +32,12 @@ Ext.onReady(function () {
   // service, viewport, and windows global vars
   var service = new Martview.Service();
   var main = new Martview.Main();
-  var datasets_win, filters_win, attributes_win;
+  var datasets_win;
+  var filters_win;
+  var attributes_win;
 
   // init params global var with query params
   var params = Ext.urlDecode(window.location.search.substring(1));
-
-  // if not specified the default search is 'advanced' and the default results is 'tabular'
-  Ext.applyIf(params, {
-    search: 'advanced',
-    results: 'tabular'
-  });
 
   // transform filters param into selected_filters param
   (function () {
@@ -49,12 +45,12 @@ Ext.onReady(function () {
     if (params.filters) {
       Ext.each(params.filters.split('|'), function (filter) {
         filters.push({
-          name: filter.split(':').first(),
+          id: filter.split(':').first(),
           value: filter.split(':').last()
         });
       });
     }
-    params.selected_filters = filters;
+    params.filters = filters;
   })();
 
   // transform attributes param into selected_attributes param
@@ -63,15 +59,25 @@ Ext.onReady(function () {
     if (params.attributes) {
       Ext.each(params.attributes.split('|'), function (attribute) {
         attributes.push({
-          name: attribute
+          id: attribute
         });
       });
     }
-    params.selected_attributes = attributes;
+    params.attributes = attributes;
   })();
 
+  // if not specified the default search is 'advanced' and the default results is 'tabular'
+  Ext.applyIf(params, {
+    search: 'advanced',
+    results: 'tabular'
+  });
+
+  /* ==============
+     Event handlers
+     ============== */
+
   service.on('load', function (datasets) {
-    // if empty datasets exit
+    // exit if empty datasets
     if (service.datasets.rows.length == 0) return;
 
     // create datasets window
@@ -79,14 +85,14 @@ Ext.onReady(function () {
       datasets: datasets
     });
 
+    // show datasets window on header select button click
+    main.header.on('select', function () {
+      datasets_win.show();
+    });
+
     // load dataset on datasets window select
     datasets_win.on('select', function (dataset) {
       service.select(dataset);
-    });
-
-    // enable main header select button and show datasets window on click
-    main.header.selectButton.enable().on('click', function () {
-      datasets_win.show();
     });
 
     // if only one dataset select bypassing datasets window
@@ -116,57 +122,112 @@ Ext.onReady(function () {
   });
 
   service.on('select', function (dataset) {
+
     // create filters window
-    var filters_win = new Martview.windows.Fields({
+    filters_win = new Martview.windows.Fields({
       id: 'filters',
       title: 'Add filters to search form',
       display_name: 'filters',
-      iconCls: 'filter-icon',
-      dataset: dataset
+      field_iconCls: 'filter-icon',
+      dataset: dataset,
+      selected_fields: params.filters
     });
 
     // create attributes window
-    var attributes_win = new Martview.windows.Fields({
+    attributes_win = new Martview.windows.Fields({
       id: 'attributes',
       title: 'Add columns to results grid',
       display_name: 'columns',
-      iconCls: 'attribute-icon',
-      dataset: dataset
+      field_iconCls: 'attribute-icon',
+      dataset: dataset,
+      selected_fields: params.attributes
     });
 
-    // show filters window on customize search button click
-    main.search.customizeButton.on('click', function () {
+    // update search on filters window update
+    filters_win.on('update', function () {
+      main.search.fireEvent('select', params);
+    });
+
+    // update results on attributes window update
+    // filters_win.on('update', function () {
+    //   main.search.fireEvent('select', params);
+    // });
+    // show filters window on search customize button click
+    main.search.on('customize', function () {
       filters_win.show();
     });
 
-    // show attributes window on customize results button click
-    main.results.customizeButton.on('click', function () {
+    // show attributes window on results customize button click
+    main.results.on('customize', function () {
       attributes_win.show();
     });
 
     // update params with dataset data
-    Ext.apply(params, dataset);
+    Ext.apply(params, service.dataset);
 
     // update header
     main.header.update(params);
 
-    // select search panel
+    // select search
     main.search.select(params);
   });
 
   main.search.on('select', function (params) {
-    // TODO
+    // update params with dataset and filters/attributes data
+    Ext.apply(params, service.dataset);
+    Ext.apply(params, {
+      filters: filters_win.getSelectedFields(),
+      attributes: attributes_win.getSelectedFields()
+    });
+
+    // update search
+    main.search.update(params);
   });
 
-  main.search.on('load', function (params) {
-    // TODO
-  });
-
-  main.search.on('submit', function () {
-    // TODO
+  main.search.on('update', function () {
+    main.search.fireEvent('submit');
   });
 
   main.search.on('reset', function () {
+    main.search.fireEvent('submit');
+  });
+
+  main.search.on('submit', function () {
+    // update params with dataset and filters/attributes data
+    Ext.apply(params, service.dataset);
+    Ext.apply(params, {
+      filters: filters_win.getSelectedFields(),
+      attributes: attributes_win.getSelectedFields()
+    });
+
+    // build search params
+    var search_params = main.search.build(params);
+    if (debug) {
+      console.info('Search params:');
+      console.dir(search_params);
+    }
+
+    // submit search
+    service.search(search_params);
+  });
+
+  service.on('search', function (results) {
+    if (debug) {
+      console.info('Search results:');
+      console.dir(results);
+    }
+    // main.results.update(results);
+  });
+
+  main.results.on('select', function (params) {
+    // TODO
+  });
+
+  main.results.on('update', function () {
+    // TODO
+  });
+
+  main.results.on('clear', function () {
     // TODO
   });
 
@@ -174,152 +235,6 @@ Ext.onReady(function () {
   service.load();
 
   return;
-
-  /* =================
-     Utility functions
-     ================= */
-
-  // extract array of default fields from tree
-  function extractDefaultFields(tree, default_fields, include_fields) {
-    Ext.each(tree, function (node) {
-      if (node['leaf']) {
-        if (include_fields) {
-          if (node['name'] in include_fields) {
-            var value = include_fields[node['name']];
-            if (value) node['value'] = value;
-            default_fields.push(node);
-          }
-        } else {
-          if (node['default']) {
-            default_fields.push(node);
-          }
-        }
-      } else {
-        extractDefaultFields(node['children'], default_fields, include_fields);
-      }
-    });
-  }
-
-  // build query xml based of selected filters and attributes
-  function buildQueryXml(values) {
-    var dataset_filters = [];
-    main.search.advanced.filters.items.each(function (item) {
-      if (item.isXType('radiogroup')) {
-        try {
-          dataset_filters.push({
-            name: item.getName(),
-            excluded: (item.getValue().getGroupValue() == 'excluded') ? 1 : 0
-          });
-        } catch(e) {
-          // pass in case no radio is selected
-        }
-      } else if (item.isXType('fileuploadfield')) {
-        // pass for now
-      } else if (item.isXType('textarea')) {
-        var list = item.getValue().split('\n').join(',');
-        if (list) {
-          dataset_filters.push({
-            name: item.getName(),
-            value: list
-          });
-        }
-      } else if (item.isXType('textfield') || item.isXType('combo')) {
-        if (item.getValue().trim()) {
-          dataset_filters.push({
-            name: item.getName(),
-            value: item.getValue().trim()
-          });
-        }
-      }
-    });
-    var dataset_attributes = [];
-    if (attributes_win.rendered) {
-      attributes_win.get('selected').items.each(function (item) {
-        dataset_attributes.push({
-          name: item.treenode.attributes.name
-        });
-      });
-    } else {
-      Ext.each(default_attributes, function (default_attribute) {
-        dataset_attributes.push({
-          name: default_attribute.name
-        });
-      });
-    }
-    values = values || new Object;
-    Ext.applyIf(values, {
-      virtualSchemaName: 'default',
-      formatter: 'CSV',
-      header: 0,
-      uniqueRows: 1,
-      count: 0,
-      limitSize: 100,
-      datasetConfigVersion: '0.6',
-      datasetInterface: 'default',
-      datasetName: params.dataset_name,
-      datasetFilters: dataset_filters,
-      datasetAttributes: dataset_attributes
-    });
-    // TODO: raise if datasetName is null!
-    var tpl = new Ext.XTemplate('<?xml version="1.0" encoding="UTF-8"?>', //
-    '<!DOCTYPE Query>', //
-    '<Query virtualSchemaName="{virtualSchemaName}" formatter="{formatter}" header="{header}" uniqueRows="{uniqueRows}" count="{count}" limitSize="{limitSize}" datasetConfigVersion="{datasetConfigVersion}">', //
-    '<Dataset name="{datasetName}" interface="{datasetInterface}">', //
-    '<tpl for="datasetFilters">', //
-    '<tpl if="typeof(value) == \'undefined\'">', //
-    '<Filter name="{name}" excluded="{excluded}"/>', //
-    '</tpl>', //
-    '<tpl if="typeof(excluded) == \'undefined\'">', //
-    '<Filter name="{name}" value="{value}"/>', //
-    '</tpl>', //
-    '</tpl>', //
-    '<tpl for="datasetAttributes">', //
-    '<Attribute name="{name}"/>', //
-    '</tpl>', //
-    '</Dataset>', //
-    '</Query>');
-    var xml = tpl.apply(values);
-    return xml;
-  }
-
-  /* ==============
-     Event bindings
-     ============== */
-
-  // show filters window on customize button click
-  main.search.customizeButton.on('click', function () {
-    filters_win.show();
-    if (reset_filters_win_to_defaults) filters_win.resetToDefaultFields();
-    reset_filters_win_to_defaults = false;
-    filters_win.rememberCurrentFields();
-  });
-
-  // show attributes window on customize button click
-  main.results.customizeButton.on('click', function () {
-    attributes_win.show();
-    if (reset_attributes_win_to_defaults) attributes_win.resetToDefaultFields();
-    reset_attributes_win_to_defaults = false;
-    attributes_win.rememberCurrentFields();
-  });
-
-  // submit search on submit button click
-  main.search.submitButton.on('click', function () {
-    submitSearch();
-  });
-
-  // select search format on search menu click
-  main.search.selectButton.menu.on('itemclick', function (item) {
-    params.search = item.getItemId();
-    selectSearch(params);
-  });
-
-  // select results format on results menu click
-  main.results.selectButton.menu.on('itemclick', function (item) {
-    params.results = item.getItemId();
-    main.results.selectButton.setText(params.results.capitalize());
-    main.results.selectButton.setIconClass(params.results + '-results-icon');
-    main.results.load(data, params.results);
-  });
 
   /* ==============
      Event handlers

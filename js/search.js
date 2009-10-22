@@ -26,54 +26,40 @@ Martview.Search = Ext.extend(Ext.Panel, {
           iconCls: 'advanced-search-icon',
           disabled: true,
           tooltip: 'Use this menu to select the format of the search panel',
-          menu: [{
-            itemId: 'simple',
-            text: 'Simple',
-            iconCls: 'simple-search-icon',
-            handler: function () {
-              var params = {
-                search: 'simple'
-              };
-              this.select(params);
+          menu: {
+            items: [{
+              itemId: 'simple',
+              text: 'Simple',
+              iconCls: 'simple-search-icon'
             },
-            scope: this // search
-          },
-          {
-            itemId: 'guided',
-            text: 'Guided',
-            iconCls: 'guided-search-icon',
-            handler: function () {
-              var params = {
-                search: 'guided'
-              };
-              this.select(params);
+            {
+              itemId: 'guided',
+              text: 'Guided',
+              iconCls: 'guided-search-icon'
             },
-            scope: this // search
-          },
-          {
-            itemId: 'advanced',
-            text: 'Advanced',
-            iconCls: 'advanced-search-icon',
-            handler: function () {
-              var params = {
-                search: 'advanced'
-              };
-              this.select(params);
+            {
+              itemId: 'advanced',
+              text: 'Advanced',
+              iconCls: 'advanced-search-icon'
             },
-            scope: this // search
-          },
-          {
-            itemId: 'user',
-            text: 'User-defined &sdot; <span style="text-decoration: underline !important;">Dimeric protein structures at high-res</span>',
-            iconCls: 'user-search-icon',
-            handler: function () {
-              var params = {
-                search: 'user'
-              };
-              this.select(params);
-            },
-            scope: this // search
-          }]
+            {
+              itemId: 'user',
+              text: 'User-defined &sdot; <span style="text-decoration: underline !important;">Dimeric protein structures at high-res</span>',
+              iconCls: 'user-search-icon'
+            }],
+            listeners: {
+              'itemclick': {
+                fn: function (item) {
+                  var search = this;
+                  var params = {
+                    search: item.getItemId()
+                  };
+                  search.select(params);
+                },
+                scope: this // search
+              }
+            }
+          }
         },
         '->', {
           itemId: 'customize',
@@ -82,7 +68,12 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: 'Add filter',
           iconCls: 'add-icon',
           disabled: true,
-          tooltip: 'Press this button to customize the search form by adding/removing filters'
+          tooltip: 'Press this button to customize the search form by adding/removing filters',
+          handler: function () {
+            var search = this;
+            search.customize();
+          },
+          scope: this // search
         },
         {
           itemId: 'save',
@@ -91,7 +82,12 @@ Martview.Search = Ext.extend(Ext.Panel, {
           text: 'Save search',
           iconCls: 'save-icon',
           disabled: true,
-          tooltip: 'Press this button to save the search in various formats'
+          tooltip: 'Press this button to save the search in various formats',
+          handler: function () {
+            var search = this;
+            search.save();
+          },
+          scope: this // search
         }]
       },
       bbar: ['->', {
@@ -100,7 +96,12 @@ Martview.Search = Ext.extend(Ext.Panel, {
         cls: 'x-btn-text-icon',
         text: 'Reset',
         iconCls: 'reset-icon',
-        disabled: true
+        disabled: true,
+        handler: function () {
+          var search = this;
+          search.reset();
+        },
+        scope: this // search
       },
       {
         itemId: 'submit',
@@ -108,10 +109,14 @@ Martview.Search = Ext.extend(Ext.Panel, {
         cls: 'x-btn-text-icon',
         text: 'Submit',
         iconCls: 'submit-icon',
-        disabled: true
+        disabled: true,
+        handler: function () {
+          var search = this;
+          search.submit();
+        },
+        scope: this // search
       }],
       activeItem: 0,
-      // make sure the active item is set on the container config!
       defaults: {
         border: false,
         autoWidth: true,
@@ -145,7 +150,7 @@ Martview.Search = Ext.extend(Ext.Panel, {
     };
 
     // add custom events
-    this.addEvents('load', 'select');
+    this.addEvents('select', 'update', 'submit', 'reset', 'customize', 'save');
 
     // apply config
     Ext.apply(this, Ext.apply(this.initialConfig, config));
@@ -176,12 +181,44 @@ Martview.Search = Ext.extend(Ext.Panel, {
     search.fireEvent('select', params);
   },
 
+  update: function (params) {
+    var search = this;
+    search.layout.activeItem.update(params);
+    search.fireEvent('update', params);
+  },
+
+  submit: function () {
+    var search = this;
+    search.fireEvent('submit');
+  },
+
+  reset: function () {
+    var search = this;
+    search.layout.activeItem.reset();
+    search.fireEvent('reset');
+  },
+
+  customize: function () {
+    var search = this;
+    search.fireEvent('customize');
+  },
+
+  save: function () {
+    var search = this;
+    search.fireEvent('save');
+  },
+
+  build: function (params) {
+    var search = this;
+    return search.layout.activeItem.build(params);
+  },
+
   isValid: function () {
     return this.layout.activeItem.getForm().isValid();
   },
 
   focus: function () {
-    return this.layout.activeItem.focus();
+    this.layout.activeItem.focus();
   }
 });
 

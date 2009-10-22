@@ -1,1 +1,1148 @@
-{"type":"TableSet","text":"MSD protein structures","mart_name":"msd","interface":"default","description":"Praesent vitae metus ut ligula congue gravida eu ac odio. Sed porttitor massa ac lectus interdum aliquam. Suspendisse consequat egestas suscipit. Aliquam venenatis elementum velit at ornare. Aliquam erat volutpat. Suspendisse potenti. Vivamus euismod sodales mi, eget adipiscing quam fermentum nec. Morbi ac leo libero. Quisque commodo mollis molestie. Morbi sodales ante et quam facilisis faucibus. Vestibulum urna turpis, dapibus a hendrerit a, luctus at orci.","mart_display_name":"MSD PROTOTYPE (EBI UK)","name":"msd","visible":false,"iconCls":"dataset-icon","display_name":"MSD protein structures","keywords":["msd","proteins","structures"],"dataset_name":"msd","attributes":[{"children":[{"children":[{"children":[{"children":null,"text":"PDB ID(s)","description":null,"model_reference":"http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#PDB_Identifier","name":"pdb_id","display_name":"PDB ID(s)","default":false,"leaf":true,"id":"ma54rwxh"},{"children":null,"text":"Title","description":null,"model_reference":null,"name":"title","display_name":"Title","default":false,"leaf":true,"id":"p2gwrqo7"},{"children":null,"text":"Experiment Type","description":null,"model_reference":null,"name":"experiment_type","display_name":"Experiment Type","default":false,"leaf":true,"id":"2lw6v77u"},{"children":null,"text":"Header","description":null,"model_reference":null,"name":"header","display_name":"Header","default":false,"leaf":true,"id":"irac0k6a"},{"children":null,"text":"Authors","description":null,"model_reference":null,"name":"authors","display_name":"Authors","default":false,"leaf":true,"id":"ymz4kdee"},{"children":null,"text":"Keywords","description":null,"model_reference":null,"name":"keywords_concat","display_name":"Keywords","default":false,"leaf":true,"id":"4smb0mb4"},{"children":null,"text":"Submission Date","description":null,"model_reference":null,"name":"submission_date","display_name":"Submission Date","default":false,"leaf":true,"id":"qjgq3qzr"},{"children":null,"text":"Release Date","description":null,"model_reference":null,"name":"release_date","display_name":"Release Date","default":false,"leaf":true,"id":"a1260eiy"},{"children":null,"text":"Resolution","description":null,"model_reference":null,"name":"resolution","display_name":"Resolution","default":false,"leaf":true,"id":"ln88bfnq"},{"children":null,"text":"Space Group","description":null,"model_reference":null,"name":"space_group","display_name":"Space Group","default":false,"leaf":true,"id":"gpzloacb"},{"children":null,"text":"R Work","description":null,"model_reference":null,"name":"r_work","display_name":"R Work","default":false,"leaf":true,"id":"9kogr24f"}],"text":"MSD ENTRY DATA:","max_select":null,"name":"entry","display_name":"MSD ENTRY DATA:","leaf":false,"id":"aaxlpz8d"},{"children":[{"children":null,"text":"Assembly Type","description":null,"model_reference":null,"name":"assembly_type","display_name":"Assembly Type","default":false,"leaf":true,"id":"is2stih7"},{"children":null,"text":"Assembly Code","description":null,"model_reference":null,"name":"assembly_code","display_name":"Assembly Code","default":false,"leaf":true,"id":"sdbwjcov"},{"children":null,"text":"Assembly Form","description":null,"model_reference":null,"name":"assembly_form","display_name":"Assembly Form","default":false,"leaf":true,"id":"kugmz1r8"},{"children":null,"text":"Assembly Class","description":null,"model_reference":null,"name":"assembly_class","display_name":"Assembly Class","default":false,"leaf":true,"id":"9pg0tdav"}],"text":"MSD ASSEMBLY DATA:","max_select":null,"name":"assembly","display_name":"MSD ASSEMBLY DATA:","leaf":false,"id":"o3z6rrho"},{"children":[{"children":null,"text":"Chain Code","description":null,"model_reference":null,"name":"chain_code","display_name":"Chain Code","default":false,"leaf":true,"id":"tgh9cq1j"},{"children":null,"text":"Chain Length","description":null,"model_reference":null,"name":"chain_length","display_name":"Chain Length","default":false,"leaf":true,"id":"2th3hg8e"},{"children":null,"text":"EBI Chain Code","description":null,"model_reference":null,"name":"chain_ebi_code_1_letter","display_name":"EBI Chain Code","default":false,"leaf":true,"id":"yetcbzy4"},{"children":null,"text":"Molecule Name","description":null,"model_reference":null,"name":"molecule_name","display_name":"Molecule Name","default":false,"leaf":true,"id":"ei6gydse"},{"children":null,"text":"Tax ID(s)","description":null,"model_reference":null,"name":"ncbi_tax_id","display_name":"Tax ID(s)","default":false,"leaf":true,"id":"5e08dced"},{"children":null,"text":"Concatenated Tax ID(s)","description":null,"model_reference":null,"name":"tax_concat","display_name":"Concatenated Tax ID(s)","default":false,"leaf":true,"id":"cads7n81"},{"children":null,"text":"Organism Name","description":null,"model_reference":null,"name":"scientific_name","display_name":"Organism Name","default":false,"leaf":true,"id":"zan2g6qo"},{"children":null,"text":"UniProt Accession ID(s)","description":null,"model_reference":null,"name":"uniprot_ac","display_name":"UniProt Accession ID(s)","default":false,"leaf":true,"id":"s7rjsic2"},{"children":null,"text":"UniProt ID(s)","description":null,"model_reference":null,"name":"uniprot_id","display_name":"UniProt ID(s)","default":false,"leaf":true,"id":"ooe7pfw3"},{"children":null,"text":"Concatenated UniProt Accession ID(s)","description":null,"model_reference":null,"name":"sws_concat_uniprot_ac","display_name":"Concatenated UniProt Accession ID(s)","default":false,"leaf":true,"id":"t6sj9b7q"},{"children":null,"text":"Molecule Code","description":null,"model_reference":null,"name":"molecule_code","display_name":"Molecule Code","default":false,"leaf":true,"id":"fvlmwvck"},{"children":null,"text":"Molecule Source Method","description":null,"model_reference":null,"name":"molecule_src_method","display_name":"Molecule Source Method","default":false,"leaf":true,"id":"ym4kvheg"}],"text":"MSD CHAIN DATA:","max_select":null,"name":"chain","display_name":"MSD CHAIN DATA:","leaf":false,"id":"6ouewiby"},{"children":[{"children":null,"text":"Concatenated PFAM ID(s)","description":null,"model_reference":null,"name":"pfam_concat","display_name":"Concatenated PFAM ID(s)","default":false,"leaf":true,"id":"wmkcs36s"},{"children":null,"text":"PFAM ID(s)","description":null,"model_reference":null,"name":"pfam_id","display_name":"PFAM ID(s)","default":false,"leaf":true,"id":"agcmaknp"},{"children":null,"text":"Concatenated GO ID(s)","description":null,"model_reference":null,"name":"go_concat","display_name":"Concatenated GO ID(s)","default":false,"leaf":true,"id":"binzooyp"},{"children":null,"text":"Concatenated InterPro ID(s)","description":null,"model_reference":null,"name":"interpro_concat","display_name":"Concatenated InterPro ID(s)","default":false,"leaf":true,"id":"n1om2z3h"},{"children":null,"text":"InterPro ID(s)","description":null,"model_reference":null,"name":"interpro_id","display_name":"InterPro ID(s)","default":false,"leaf":true,"id":"j3csant3"},{"children":null,"text":"Concatenated EC ID(s)","description":null,"model_reference":null,"name":"ec_concat","display_name":"Concatenated EC ID(s)","default":false,"leaf":true,"id":"uk72ytef"},{"children":null,"text":"EC ID(s)","description":null,"model_reference":null,"name":"ec_number","display_name":"EC ID(s)","default":false,"leaf":true,"id":"6bgv7b0z"},{"children":null,"text":"Concatenated CATH ID(s)","description":null,"model_reference":null,"name":"cath_concat","display_name":"Concatenated CATH ID(s)","default":false,"leaf":true,"id":"uuu8ljug"},{"children":null,"text":"CATH ID(s)","description":null,"model_reference":null,"name":"cath_code","display_name":"CATH ID(s)","default":false,"leaf":true,"id":"482l6p4e"},{"children":null,"text":"Concatenated SCOP ID(s)","description":null,"model_reference":null,"name":"scop_concat","display_name":"Concatenated SCOP ID(s)","default":false,"leaf":true,"id":"w88qj3l6"},{"children":null,"text":"SCOP ID(s)","description":null,"model_reference":null,"name":"sun_id","display_name":"SCOP ID(s)","default":false,"leaf":true,"id":"vld8j0eh"}],"text":"EXTERNAL IDENTIFIERS:","max_select":null,"name":"xrefs","display_name":"EXTERNAL IDENTIFIERS:","leaf":false,"id":"jhiqyi88"},{"children":[{"children":null,"text":"Hetgroup ID(s)","description":null,"model_reference":null,"name":"hetgroup_id","display_name":"Hetgroup ID(s)","default":false,"leaf":true,"id":"ayfbvimm"},{"children":null,"text":"Hetgroup Name","description":null,"model_reference":null,"name":"hetgroup_name","display_name":"Hetgroup Name","default":false,"leaf":true,"id":"jlqczpb9"},{"children":null,"text":"Hetgroup Formula","description":null,"model_reference":null,"name":"hetgroup_formula","display_name":"Hetgroup Formula","default":false,"leaf":true,"id":"tv22f1dg"},{"children":null,"text":"Hetgroup Weight","description":null,"model_reference":null,"name":"hetgroup_weight","display_name":"Hetgroup Weight","default":false,"leaf":true,"id":"2fpqlekx"}],"text":"HETGROUP:","max_select":null,"name":"hetgroup","display_name":"HETGROUP:","leaf":false,"id":"v2xli3fu"},{"children":[{"children":null,"text":"ID","description":null,"model_reference":null,"name":"id","display_name":"ID","default":false,"leaf":true,"id":"jwtt723e"},{"children":null,"text":"Year","description":null,"model_reference":null,"name":"year","display_name":"Year","default":false,"leaf":true,"id":"1u9vtai2"},{"children":null,"text":"Title","description":null,"model_reference":null,"name":"title_journal","display_name":"Title","default":false,"leaf":true,"id":"mw9t9ufu"},{"children":null,"text":"Full journal","description":null,"model_reference":null,"name":"journal_full","display_name":"Full journal","default":false,"leaf":true,"id":"1mv95m8i"},{"children":null,"text":"Volume","description":null,"model_reference":null,"name":"journal_volume","display_name":"Volume","default":false,"leaf":true,"id":"hekc4tsj"},{"children":null,"text":"Issue","description":null,"model_reference":null,"name":"journal_issue","display_name":"Issue","default":false,"leaf":true,"id":"4zgg7u70"},{"children":null,"text":"Month","description":null,"model_reference":null,"name":"ebi_journal_month","display_name":"Month","default":false,"leaf":true,"id":"6bp41ia4"},{"children":null,"text":"ISSN","description":null,"model_reference":null,"name":"journal_id_issn","display_name":"ISSN","default":false,"leaf":true,"id":"k8l30yqh"},{"children":null,"text":"Mesh terms","description":null,"model_reference":null,"name":"ebi_mesh_terms","display_name":"Mesh terms","default":false,"leaf":true,"id":"q7gmu9jc"},{"children":null,"text":"Page range","description":null,"model_reference":null,"name":"range_pages","display_name":"Page range","default":false,"leaf":true,"id":"i0y2uvxr"},{"children":null,"text":"Pubmed ID","description":null,"model_reference":null,"name":"pubmed_id","display_name":"Pubmed ID","default":false,"leaf":true,"id":"50pwo0gt"},{"children":null,"text":"Authors","description":null,"model_reference":null,"name":"author_list","display_name":"Authors","default":false,"leaf":true,"id":"jlxtc3wk"}],"text":"JOURNAL:","max_select":null,"name":"journal","display_name":"JOURNAL:","leaf":false,"id":"eauzr221"}],"text":"Features","max_select":null,"name":"features","display_name":"Features","leaf":false,"id":"72pbjrx1"}],"text":"ATTRIBUTES","max_select":null,"name":"feature_page","formatters":"html,txt,csv,tsv,xls","display_name":"ATTRIBUTES","leaf":false,"id":"x6sx7gx1"}],"itemId":"msd","dataset_display_name":"MSD protein structures","filters":[{"children":[{"children":[{"children":[{"children":null,"text":"Experiment type","description":null,"model_reference":null,"name":"experiment_type","options":"Electron diffraction,Electron microscopy,Electron tomography,Fibre diffraction (electron),Fibre diffraction (X-ray),Fluorescence transfer,Infrared spectroscopy,Neutron Diffraction,NMR,Powder diffraction (X-ray),Single crystal X-ray diffraction,Solid state NMR,Theoretical model,Unspecified","display_name":"Experiment type","default":false,"leaf":true,"id":"asesq05o","qualifier":"="}],"text":"Experiment type","name":"exp_type","display_name":"Experiment type","leaf":false,"id":"66tam5sx"}],"text":"EXPERIMENT TYPE:","name":"experiment_type_filters","display_name":"EXPERIMENT TYPE:","leaf":false,"id":"csi01f0u"},{"children":[{"children":[{"children":null,"text":"Species name(s) (comma separated)","description":null,"model_reference":null,"name":"species_name","options":null,"display_name":"Species name(s) (comma separated)","default":false,"leaf":true,"id":"udkw37oj","qualifier":"="}],"text":"Species","name":"species","display_name":"Species","leaf":false,"id":"r9zlpdsh"}],"text":"SPECIES:","name":"species_filters","display_name":"SPECIES:","leaf":false,"id":"8lwz7i0q"},{"children":[{"children":[{"children":null,"text":"Resolution greater than","description":null,"model_reference":null,"name":"resolution_more_than","options":null,"display_name":"Resolution greater than","default":false,"leaf":true,"id":"fyw1akkx","qualifier":">"},{"children":null,"text":"Resolution less than","description":null,"model_reference":null,"name":"resolution_less_than","options":null,"display_name":"Resolution less than","default":false,"leaf":true,"id":"mixzdkk8","qualifier":"<"}],"text":"Resolution","name":"resolution","display_name":"Resolution","leaf":false,"id":"c9gfxu3z"}],"text":"RESOLUTION:","name":"resolution_filters","display_name":"RESOLUTION:","leaf":false,"id":"kvwdzqca"},{"children":[{"children":[{"children":null,"text":"Assembly Class","description":null,"model_reference":null,"name":"assembly_class","options":"IV,HETERO,HV,HOMO","display_name":"Assembly Class","default":false,"leaf":true,"id":"b4ftpwqp","qualifier":"="}],"text":"Assembly Class","name":"class","display_name":"Assembly Class","leaf":false,"id":"ehrl78ls"},{"children":[{"children":null,"text":"Assembly Type","description":null,"model_reference":null,"name":"assembly_type","options":"32MERIC,22MERIC,EICOSAMERIC,HEPTAMERIC,DIMERIC,24MERIC,TRIDECAMERIC,NONAMERIC,29MERIC,42MERIC,60MERIC,OCTAMERIC,TETRADECAMERIC,26MERIC,UNDECAMERIC,MONOMERIC,30MERIC,HEPTADECAMERIC,TETRAMERIC,27MERIC,HEXAMERIC,31MERIC,DECAMERIC,36MERIC,23MERIC,PENTAMERIC,TRIMERIC,33MERIC,21MERIC,NONADECAMERIC,PENTADECAMERIC,DODECAMERIC,OCTADECAMERIC,28MERIC,HEXADECAMERIC","display_name":"Assembly Type","default":false,"leaf":true,"id":"rjhe9a64","qualifier":"="}],"text":"Assembly Type","name":"type","display_name":"Assembly Type","leaf":false,"id":"9p7crnay"}],"text":"ASSEMBLY:","name":"assembly_filters","display_name":"ASSEMBLY:","leaf":false,"id":"oluy42bu"},{"children":[{"children":[{"children":null,"text":"3 letter molecule code (e.g GCO)","description":null,"model_reference":null,"name":"small_molecule_code","options":null,"display_name":"3 letter molecule code (e.g GCO)","default":false,"leaf":true,"id":"y3ld7j5o","qualifier":"="}],"text":"Small Molecule (3 letter code)","name":"three_letter_code","display_name":"Small Molecule (3 letter code)","leaf":false,"id":"ipz22a5w"},{"children":[{"children":null,"text":"Molecule name (e.g Gluconic acid)","description":null,"model_reference":null,"name":"small_molecule_name","options":null,"display_name":"Molecule name (e.g Gluconic acid)","default":false,"leaf":true,"id":"xcet7j5","qualifier":"="}],"text":"Small Molecule (full name)","name":"full_molecular_name","display_name":"Small Molecule (full name)","leaf":false,"id":"mxhv4wtd"},{"children":[{"children":null,"text":"Space group (e.g A 1 2 1)","description":null,"model_reference":null,"name":"space_group","options":null,"display_name":"Space group (e.g A 1 2 1)","default":false,"leaf":true,"id":"jymwr5t2","qualifier":"="}],"text":"Space Group (eg A 1 2 1)","name":"space_group_filters","display_name":"Space Group (eg A 1 2 1)","leaf":false,"id":"nzak938c"},{"children":[{"children":null,"text":"Header terms(comma separated)","description":null,"model_reference":null,"name":"header","options":null,"display_name":"Header terms(comma separated)","default":false,"leaf":true,"id":"yk2ttd2z","qualifier":"="}],"text":"Header Terms (comma separated)","name":"header_filters","display_name":"Header Terms (comma separated)","leaf":false,"id":"8cla7buk"},{"children":[{"children":null,"text":"Keywords (comma separated)","description":null,"model_reference":null,"name":"keywords_concat","options":null,"display_name":"Keywords (comma separated)","default":false,"leaf":true,"id":"4igkunci","qualifier":"="}],"text":"Keywords (comma separated)","name":"keywords","display_name":"Keywords (comma separated)","leaf":false,"id":"g99o3cc0"},{"children":[{"children":null,"text":"Author last name","description":null,"model_reference":null,"name":"authors","options":null,"display_name":"Author last name","default":false,"leaf":true,"id":"jr6oy7yy","qualifier":"="}],"text":"Author (last name)","name":"author_last_name","display_name":"Author (last name)","leaf":false,"id":"i59dvxoe"},{"children":[{"children":null,"text":"with SCOP ID(s)","description":null,"model_reference":null,"name":"has_scop","options":null,"display_name":"with SCOP ID(s)","default":false,"leaf":true,"id":"wgqp1ejr","qualifier":"only,excluded"},{"children":null,"text":"with CATH ID(s)","description":null,"model_reference":null,"name":"has_cath","options":null,"display_name":"with CATH ID(s)","default":false,"leaf":true,"id":"7ycbw6o4","qualifier":"only,excluded"},{"children":null,"text":"with PFAM ID(s)","description":null,"model_reference":null,"name":"has_pfam_info","options":null,"display_name":"with PFAM ID(s)","default":false,"leaf":true,"id":"zvpy5smn","qualifier":"only,excluded"},{"children":null,"text":"with InterPro ID(s)","description":null,"model_reference":null,"name":"has_interpro_info","options":null,"display_name":"with InterPro ID(s)","default":false,"leaf":true,"id":"38bgqw15","qualifier":"only,excluded"},{"children":null,"text":"with EC ID(s)","description":null,"model_reference":null,"name":"has_ec_info","options":null,"display_name":"with EC ID(s)","default":false,"leaf":true,"id":"eypnxeja","qualifier":"only,excluded"}],"text":"External references","name":"id_list_bool_filters","display_name":"External references","leaf":false,"id":"zf3n0ee4"},{"children":[{"children":null,"text":"EC ID(s)","description":null,"model_reference":null,"name":"ec_id_list","options":null,"display_name":"EC ID(s)","default":false,"leaf":true,"id":"n9wu7mb","qualifier":"=,in"},{"children":null,"text":"InterPro ID(s)","description":null,"model_reference":null,"name":"interpro_id_list","options":null,"display_name":"InterPro ID(s)","default":false,"leaf":true,"id":"3z1vgfg","qualifier":"=,in"},{"children":null,"text":"PFMA ID(s)","description":null,"model_reference":null,"name":"pfam_id_list","options":null,"display_name":"PFMA ID(s)","default":false,"leaf":true,"id":"khcivgph","qualifier":"=,in"},{"children":null,"text":"CATH ID(s)","description":null,"model_reference":null,"name":"cath_id_list","options":null,"display_name":"CATH ID(s)","default":false,"leaf":true,"id":"vo7iv4ck","qualifier":"=,in"},{"children":null,"text":"SCOP ID(s)","description":null,"model_reference":null,"name":"scop_id_list","options":null,"display_name":"SCOP ID(s)","default":false,"leaf":true,"id":"xnebunu5","qualifier":"=,in"},{"children":null,"text":"UniProt ID(s)","description":null,"model_reference":null,"name":"sprot_id_list","options":null,"display_name":"UniProt ID(s)","default":false,"leaf":true,"id":"ar3syp5a","qualifier":"=,in"},{"children":null,"text":"PDB ID(s)","description":null,"model_reference":null,"name":"pdb_id_list","options":null,"display_name":"PDB ID(s)","default":false,"leaf":true,"id":"l4a57ae8","qualifier":"=,in"}],"text":"Limit to proteins with these IDs","name":"id_list_filter","display_name":"Limit to proteins with these IDs","leaf":false,"id":"dz04z24b"}],"text":"EXTERNAL IDENTIFIERS:","name":"external_identifiers","display_name":"EXTERNAL IDENTIFIERS:","leaf":false,"id":"2j42rojt"}],"text":"FILTERS","name":"filters","display_name":"FILTERS","leaf":false,"id":"wcoy7kl1"}]}
+{
+  "type": "TableSet",
+  "text": "MSD protein structures",
+  "mart_name": "msd",
+  "interface": "default",
+  "description": "Praesent vitae metus ut ligula congue gravida eu ac odio. Sed porttitor massa ac lectus interdum aliquam. Suspendisse consequat egestas suscipit. Aliquam venenatis elementum velit at ornare. Aliquam erat volutpat. Suspendisse potenti. Vivamus euismod sodales mi, eget adipiscing quam fermentum nec. Morbi ac leo libero. Quisque commodo mollis molestie. Morbi sodales ante et quam facilisis faucibus. Vestibulum urna turpis, dapibus a hendrerit a, luctus at orci.",
+  "mart_display_name": "MSD PROTOTYPE (EBI UK)",
+  "name": "msd",
+  "visible": false,
+  "iconCls": "dataset-icon",
+  "display_name": "MSD protein structures",
+  "keywords": ["msd", "proteins", "structures"],
+  "dataset_name": "msd",
+  "fields": [{
+    name: "pdb_id",
+    description: "search by PDB ID (for example, <code>pdb_id:11ba</code>)"
+  },
+  {
+    name: "experiment_type",
+    description: "search by experiment type (for example, <code>experiment_type:NMR</code>)"
+  },
+  {
+    name: "resolution",
+    description: "search by resolution (for example, <code>resolution:[3 TO *]</code>)"
+  },
+  {
+    name: "authors",
+    description: "search by author name (for example, <code>authors:Mishima</code>)"
+  }],
+  "facets": [{
+    name: "experiment_type"
+  },
+  {
+    name: "resolution"
+  },
+  {
+    name: "r_work"
+  },
+  {
+    name: "space_group"
+  }],
+  "attributes": [{
+    "children": [{
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "PDB ID(s)",
+          "description": null,
+          "model_reference": "http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#PDB_Identifier",
+          "name": "pdb_id",
+          "display_name": "PDB ID(s)",
+          "default": true,
+          "leaf": true,
+          "id": "ma54rwxh"
+        },
+        {
+          "children": null,
+          "text": "Title",
+          "description": null,
+          "model_reference": null,
+          "name": "title",
+          "display_name": "Title",
+          "default": true,
+          "leaf": true,
+          "id": "p2gwrqo7"
+        },
+        {
+          "children": null,
+          "text": "Experiment Type",
+          "description": null,
+          "model_reference": null,
+          "name": "experiment_type",
+          "display_name": "Experiment Type",
+          "default": true,
+          "leaf": true,
+          "id": "2lw6v77u"
+        },
+        {
+          "children": null,
+          "text": "Header",
+          "description": null,
+          "model_reference": null,
+          "name": "header",
+          "display_name": "Header",
+          "default": false,
+          "leaf": true,
+          "id": "irac0k6a"
+        },
+        {
+          "children": null,
+          "text": "Authors",
+          "description": null,
+          "model_reference": null,
+          "name": "authors",
+          "display_name": "Authors",
+          "default": false,
+          "leaf": true,
+          "id": "ymz4kdee"
+        },
+        {
+          "children": null,
+          "text": "Keywords",
+          "description": null,
+          "model_reference": null,
+          "name": "keywords_concat",
+          "display_name": "Keywords",
+          "default": false,
+          "leaf": true,
+          "id": "4smb0mb4"
+        },
+        {
+          "children": null,
+          "text": "Submission Date",
+          "description": null,
+          "model_reference": null,
+          "name": "submission_date",
+          "display_name": "Submission Date",
+          "default": false,
+          "leaf": true,
+          "id": "qjgq3qzr"
+        },
+        {
+          "children": null,
+          "text": "Release Date",
+          "description": null,
+          "model_reference": null,
+          "name": "release_date",
+          "display_name": "Release Date",
+          "default": false,
+          "leaf": true,
+          "id": "a1260eiy"
+        },
+        {
+          "children": null,
+          "text": "Resolution",
+          "description": null,
+          "model_reference": null,
+          "name": "resolution",
+          "display_name": "Resolution",
+          "default": true,
+          "leaf": true,
+          "id": "ln88bfnq"
+        },
+        {
+          "children": null,
+          "text": "Space Group",
+          "description": null,
+          "model_reference": null,
+          "name": "space_group",
+          "display_name": "Space Group",
+          "default": true,
+          "leaf": true,
+          "id": "gpzloacb"
+        },
+        {
+          "children": null,
+          "text": "R Work",
+          "description": null,
+          "model_reference": null,
+          "name": "r_work",
+          "display_name": "R Work",
+          "default": true,
+          "leaf": true,
+          "id": "9kogr24f"
+        }],
+        "text": "MSD ENTRY DATA:",
+        "max_select": null,
+        "name": "entry",
+        "display_name": "MSD ENTRY DATA:",
+        "leaf": false,
+        "id": "aaxlpz8d"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Assembly Type",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_type",
+          "display_name": "Assembly Type",
+          "default": false,
+          "leaf": true,
+          "id": "is2stih7"
+        },
+        {
+          "children": null,
+          "text": "Assembly Code",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_code",
+          "display_name": "Assembly Code",
+          "default": false,
+          "leaf": true,
+          "id": "sdbwjcov"
+        },
+        {
+          "children": null,
+          "text": "Assembly Form",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_form",
+          "display_name": "Assembly Form",
+          "default": false,
+          "leaf": true,
+          "id": "kugmz1r8"
+        },
+        {
+          "children": null,
+          "text": "Assembly Class",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_class",
+          "display_name": "Assembly Class",
+          "default": false,
+          "leaf": true,
+          "id": "9pg0tdav"
+        }],
+        "text": "MSD ASSEMBLY DATA:",
+        "max_select": null,
+        "name": "assembly",
+        "display_name": "MSD ASSEMBLY DATA:",
+        "leaf": false,
+        "id": "o3z6rrho"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Chain Code",
+          "description": null,
+          "model_reference": null,
+          "name": "chain_code",
+          "display_name": "Chain Code",
+          "default": false,
+          "leaf": true,
+          "id": "tgh9cq1j"
+        },
+        {
+          "children": null,
+          "text": "Chain Length",
+          "description": null,
+          "model_reference": null,
+          "name": "chain_length",
+          "display_name": "Chain Length",
+          "default": false,
+          "leaf": true,
+          "id": "2th3hg8e"
+        },
+        {
+          "children": null,
+          "text": "EBI Chain Code",
+          "description": null,
+          "model_reference": null,
+          "name": "chain_ebi_code_1_letter",
+          "display_name": "EBI Chain Code",
+          "default": false,
+          "leaf": true,
+          "id": "yetcbzy4"
+        },
+        {
+          "children": null,
+          "text": "Molecule Name",
+          "description": null,
+          "model_reference": null,
+          "name": "molecule_name",
+          "display_name": "Molecule Name",
+          "default": false,
+          "leaf": true,
+          "id": "ei6gydse"
+        },
+        {
+          "children": null,
+          "text": "Tax ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "ncbi_tax_id",
+          "display_name": "Tax ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "5e08dced"
+        },
+        {
+          "children": null,
+          "text": "Concatenated Tax ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "tax_concat",
+          "display_name": "Concatenated Tax ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "cads7n81"
+        },
+        {
+          "children": null,
+          "text": "Organism Name",
+          "description": null,
+          "model_reference": null,
+          "name": "scientific_name",
+          "display_name": "Organism Name",
+          "default": false,
+          "leaf": true,
+          "id": "zan2g6qo"
+        },
+        {
+          "children": null,
+          "text": "UniProt Accession ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "uniprot_ac",
+          "display_name": "UniProt Accession ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "s7rjsic2"
+        },
+        {
+          "children": null,
+          "text": "UniProt ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "uniprot_id",
+          "display_name": "UniProt ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "ooe7pfw3"
+        },
+        {
+          "children": null,
+          "text": "Concatenated UniProt Accession ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "sws_concat_uniprot_ac",
+          "display_name": "Concatenated UniProt Accession ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "t6sj9b7q"
+        },
+        {
+          "children": null,
+          "text": "Molecule Code",
+          "description": null,
+          "model_reference": null,
+          "name": "molecule_code",
+          "display_name": "Molecule Code",
+          "default": false,
+          "leaf": true,
+          "id": "fvlmwvck"
+        },
+        {
+          "children": null,
+          "text": "Molecule Source Method",
+          "description": null,
+          "model_reference": null,
+          "name": "molecule_src_method",
+          "display_name": "Molecule Source Method",
+          "default": false,
+          "leaf": true,
+          "id": "ym4kvheg"
+        }],
+        "text": "MSD CHAIN DATA:",
+        "max_select": null,
+        "name": "chain",
+        "display_name": "MSD CHAIN DATA:",
+        "leaf": false,
+        "id": "6ouewiby"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Concatenated PFAM ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "pfam_concat",
+          "display_name": "Concatenated PFAM ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "wmkcs36s"
+        },
+        {
+          "children": null,
+          "text": "PFAM ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "pfam_id",
+          "display_name": "PFAM ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "agcmaknp"
+        },
+        {
+          "children": null,
+          "text": "Concatenated GO ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "go_concat",
+          "display_name": "Concatenated GO ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "binzooyp"
+        },
+        {
+          "children": null,
+          "text": "Concatenated InterPro ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "interpro_concat",
+          "display_name": "Concatenated InterPro ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "n1om2z3h"
+        },
+        {
+          "children": null,
+          "text": "InterPro ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "interpro_id",
+          "display_name": "InterPro ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "j3csant3"
+        },
+        {
+          "children": null,
+          "text": "Concatenated EC ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "ec_concat",
+          "display_name": "Concatenated EC ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "uk72ytef"
+        },
+        {
+          "children": null,
+          "text": "EC ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "ec_number",
+          "display_name": "EC ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "6bgv7b0z"
+        },
+        {
+          "children": null,
+          "text": "Concatenated CATH ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "cath_concat",
+          "display_name": "Concatenated CATH ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "uuu8ljug"
+        },
+        {
+          "children": null,
+          "text": "CATH ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "cath_code",
+          "display_name": "CATH ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "482l6p4e"
+        },
+        {
+          "children": null,
+          "text": "Concatenated SCOP ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "scop_concat",
+          "display_name": "Concatenated SCOP ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "w88qj3l6"
+        },
+        {
+          "children": null,
+          "text": "SCOP ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "sun_id",
+          "display_name": "SCOP ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "vld8j0eh"
+        }],
+        "text": "EXTERNAL IDENTIFIERS:",
+        "max_select": null,
+        "name": "xrefs",
+        "display_name": "EXTERNAL IDENTIFIERS:",
+        "leaf": false,
+        "id": "jhiqyi88"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Hetgroup ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "hetgroup_id",
+          "display_name": "Hetgroup ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "ayfbvimm"
+        },
+        {
+          "children": null,
+          "text": "Hetgroup Name",
+          "description": null,
+          "model_reference": null,
+          "name": "hetgroup_name",
+          "display_name": "Hetgroup Name",
+          "default": false,
+          "leaf": true,
+          "id": "jlqczpb9"
+        },
+        {
+          "children": null,
+          "text": "Hetgroup Formula",
+          "description": null,
+          "model_reference": null,
+          "name": "hetgroup_formula",
+          "display_name": "Hetgroup Formula",
+          "default": false,
+          "leaf": true,
+          "id": "tv22f1dg"
+        },
+        {
+          "children": null,
+          "text": "Hetgroup Weight",
+          "description": null,
+          "model_reference": null,
+          "name": "hetgroup_weight",
+          "display_name": "Hetgroup Weight",
+          "default": false,
+          "leaf": true,
+          "id": "2fpqlekx"
+        }],
+        "text": "HETGROUP:",
+        "max_select": null,
+        "name": "hetgroup",
+        "display_name": "HETGROUP:",
+        "leaf": false,
+        "id": "v2xli3fu"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "ID",
+          "description": null,
+          "model_reference": null,
+          "name": "id",
+          "display_name": "ID",
+          "default": false,
+          "leaf": true,
+          "id": "jwtt723e"
+        },
+        {
+          "children": null,
+          "text": "Year",
+          "description": null,
+          "model_reference": null,
+          "name": "year",
+          "display_name": "Year",
+          "default": false,
+          "leaf": true,
+          "id": "1u9vtai2"
+        },
+        {
+          "children": null,
+          "text": "Title",
+          "description": null,
+          "model_reference": null,
+          "name": "title_journal",
+          "display_name": "Title",
+          "default": false,
+          "leaf": true,
+          "id": "mw9t9ufu"
+        },
+        {
+          "children": null,
+          "text": "Full journal",
+          "description": null,
+          "model_reference": null,
+          "name": "journal_full",
+          "display_name": "Full journal",
+          "default": false,
+          "leaf": true,
+          "id": "1mv95m8i"
+        },
+        {
+          "children": null,
+          "text": "Volume",
+          "description": null,
+          "model_reference": null,
+          "name": "journal_volume",
+          "display_name": "Volume",
+          "default": false,
+          "leaf": true,
+          "id": "hekc4tsj"
+        },
+        {
+          "children": null,
+          "text": "Issue",
+          "description": null,
+          "model_reference": null,
+          "name": "journal_issue",
+          "display_name": "Issue",
+          "default": false,
+          "leaf": true,
+          "id": "4zgg7u70"
+        },
+        {
+          "children": null,
+          "text": "Month",
+          "description": null,
+          "model_reference": null,
+          "name": "ebi_journal_month",
+          "display_name": "Month",
+          "default": false,
+          "leaf": true,
+          "id": "6bp41ia4"
+        },
+        {
+          "children": null,
+          "text": "ISSN",
+          "description": null,
+          "model_reference": null,
+          "name": "journal_id_issn",
+          "display_name": "ISSN",
+          "default": false,
+          "leaf": true,
+          "id": "k8l30yqh"
+        },
+        {
+          "children": null,
+          "text": "Mesh terms",
+          "description": null,
+          "model_reference": null,
+          "name": "ebi_mesh_terms",
+          "display_name": "Mesh terms",
+          "default": false,
+          "leaf": true,
+          "id": "q7gmu9jc"
+        },
+        {
+          "children": null,
+          "text": "Page range",
+          "description": null,
+          "model_reference": null,
+          "name": "range_pages",
+          "display_name": "Page range",
+          "default": false,
+          "leaf": true,
+          "id": "i0y2uvxr"
+        },
+        {
+          "children": null,
+          "text": "Pubmed ID",
+          "description": null,
+          "model_reference": null,
+          "name": "pubmed_id",
+          "display_name": "Pubmed ID",
+          "default": false,
+          "leaf": true,
+          "id": "50pwo0gt"
+        },
+        {
+          "children": null,
+          "text": "Authors",
+          "description": null,
+          "model_reference": null,
+          "name": "author_list",
+          "display_name": "Authors",
+          "default": false,
+          "leaf": true,
+          "id": "jlxtc3wk"
+        }],
+        "text": "JOURNAL:",
+        "max_select": null,
+        "name": "journal",
+        "display_name": "JOURNAL:",
+        "leaf": false,
+        "id": "eauzr221"
+      }],
+      "text": "Features",
+      "max_select": null,
+      "name": "features",
+      "display_name": "Features",
+      "leaf": false,
+      "id": "72pbjrx1"
+    }],
+    "text": "ATTRIBUTES",
+    "max_select": null,
+    "name": "feature_page",
+    "formatters": "html,txt,csv,tsv,xls",
+    "display_name": "ATTRIBUTES",
+    "leaf": false,
+    "id": "x6sx7gx1"
+  }],
+  "itemId": "msd",
+  "dataset_display_name": "MSD protein structures",
+  "filters": [{
+    "children": [{
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "Experiment type",
+          "description": null,
+          "model_reference": null,
+          "name": "experiment_type",
+          "options": "Electron diffraction,Electron microscopy,Electron tomography,Fibre diffraction (electron),Fibre diffraction (X-ray),Fluorescence transfer,Infrared spectroscopy,Neutron Diffraction,NMR,Powder diffraction (X-ray),Single crystal X-ray diffraction,Solid state NMR,Theoretical model,Unspecified",
+          "display_name": "Experiment type",
+          "default": true,
+          "leaf": true,
+          "id": "asesq05o",
+          "qualifier": "="
+        }],
+        "text": "Experiment type",
+        "name": "exp_type",
+        "display_name": "Experiment type",
+        "leaf": false,
+        "id": "66tam5sx"
+      }],
+      "text": "EXPERIMENT TYPE:",
+      "name": "experiment_type_filters",
+      "display_name": "EXPERIMENT TYPE:",
+      "leaf": false,
+      "id": "csi01f0u"
+    },
+    {
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "Species name(s) (comma separated)",
+          "description": null,
+          "model_reference": null,
+          "name": "species_name",
+          "options": null,
+          "display_name": "Species name(s) (comma separated)",
+          "default": false,
+          "leaf": true,
+          "id": "udkw37oj",
+          "qualifier": "="
+        }],
+        "text": "Species",
+        "name": "species",
+        "display_name": "Species",
+        "leaf": false,
+        "id": "r9zlpdsh"
+      }],
+      "text": "SPECIES:",
+      "name": "species_filters",
+      "display_name": "SPECIES:",
+      "leaf": false,
+      "id": "8lwz7i0q"
+    },
+    {
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "Resolution greater than",
+          "description": null,
+          "model_reference": null,
+          "name": "resolution_more_than",
+          "options": null,
+          "display_name": "Resolution greater than",
+          "default": false,
+          "leaf": true,
+          "id": "fyw1akkx",
+          "qualifier": ">"
+        },
+        {
+          "children": null,
+          "text": "Resolution less than",
+          "description": null,
+          "model_reference": null,
+          "name": "resolution_less_than",
+          "options": null,
+          "display_name": "Resolution less than",
+          "default": true,
+          "leaf": true,
+          "id": "mixzdkk8",
+          "qualifier": "<"
+        }],
+        "text": "Resolution",
+        "name": "resolution",
+        "display_name": "Resolution",
+        "leaf": false,
+        "id": "c9gfxu3z"
+      }],
+      "text": "RESOLUTION:",
+      "name": "resolution_filters",
+      "display_name": "RESOLUTION:",
+      "leaf": false,
+      "id": "kvwdzqca"
+    },
+    {
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "Assembly Class",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_class",
+          "options": "IV,HETERO,HV,HOMO",
+          "display_name": "Assembly Class",
+          "default": false,
+          "leaf": true,
+          "id": "b4ftpwqp",
+          "qualifier": "="
+        }],
+        "text": "Assembly Class",
+        "name": "class",
+        "display_name": "Assembly Class",
+        "leaf": false,
+        "id": "ehrl78ls"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Assembly Type",
+          "description": null,
+          "model_reference": null,
+          "name": "assembly_type",
+          "options": "32MERIC,22MERIC,EICOSAMERIC,HEPTAMERIC,DIMERIC,24MERIC,TRIDECAMERIC,NONAMERIC,29MERIC,42MERIC,60MERIC,OCTAMERIC,TETRADECAMERIC,26MERIC,UNDECAMERIC,MONOMERIC,30MERIC,HEPTADECAMERIC,TETRAMERIC,27MERIC,HEXAMERIC,31MERIC,DECAMERIC,36MERIC,23MERIC,PENTAMERIC,TRIMERIC,33MERIC,21MERIC,NONADECAMERIC,PENTADECAMERIC,DODECAMERIC,OCTADECAMERIC,28MERIC,HEXADECAMERIC",
+          "display_name": "Assembly Type",
+          "default": false,
+          "leaf": true,
+          "id": "rjhe9a64",
+          "qualifier": "="
+        }],
+        "text": "Assembly Type",
+        "name": "type",
+        "display_name": "Assembly Type",
+        "leaf": false,
+        "id": "9p7crnay"
+      }],
+      "text": "ASSEMBLY:",
+      "name": "assembly_filters",
+      "display_name": "ASSEMBLY:",
+      "leaf": false,
+      "id": "oluy42bu"
+    },
+    {
+      "children": [{
+        "children": [{
+          "children": null,
+          "text": "3 letter molecule code (e.g GCO)",
+          "description": null,
+          "model_reference": null,
+          "name": "small_molecule_code",
+          "options": null,
+          "display_name": "3 letter molecule code (e.g GCO)",
+          "default": false,
+          "leaf": true,
+          "id": "y3ld7j5o",
+          "qualifier": "="
+        }],
+        "text": "Small Molecule (3 letter code)",
+        "name": "three_letter_code",
+        "display_name": "Small Molecule (3 letter code)",
+        "leaf": false,
+        "id": "ipz22a5w"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Molecule name (e.g Gluconic acid)",
+          "description": null,
+          "model_reference": null,
+          "name": "small_molecule_name",
+          "options": null,
+          "display_name": "Molecule name (e.g Gluconic acid)",
+          "default": false,
+          "leaf": true,
+          "id": "xcet7j5",
+          "qualifier": "="
+        }],
+        "text": "Small Molecule (full name)",
+        "name": "full_molecular_name",
+        "display_name": "Small Molecule (full name)",
+        "leaf": false,
+        "id": "mxhv4wtd"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Space group (e.g A 1 2 1)",
+          "description": null,
+          "model_reference": null,
+          "name": "space_group",
+          "options": null,
+          "display_name": "Space group (e.g A 1 2 1)",
+          "default": false,
+          "leaf": true,
+          "id": "jymwr5t2",
+          "qualifier": "="
+        }],
+        "text": "Space Group (eg A 1 2 1)",
+        "name": "space_group_filters",
+        "display_name": "Space Group (eg A 1 2 1)",
+        "leaf": false,
+        "id": "nzak938c"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Header terms(comma separated)",
+          "description": null,
+          "model_reference": null,
+          "name": "header",
+          "options": null,
+          "display_name": "Header terms(comma separated)",
+          "default": false,
+          "leaf": true,
+          "id": "yk2ttd2z",
+          "qualifier": "="
+        }],
+        "text": "Header Terms (comma separated)",
+        "name": "header_filters",
+        "display_name": "Header Terms (comma separated)",
+        "leaf": false,
+        "id": "8cla7buk"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Keywords (comma separated)",
+          "description": null,
+          "model_reference": null,
+          "name": "keywords_concat",
+          "options": null,
+          "display_name": "Keywords (comma separated)",
+          "default": false,
+          "leaf": true,
+          "id": "4igkunci",
+          "qualifier": "="
+        }],
+        "text": "Keywords (comma separated)",
+        "name": "keywords",
+        "display_name": "Keywords (comma separated)",
+        "leaf": false,
+        "id": "g99o3cc0"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "Author last name",
+          "description": null,
+          "model_reference": null,
+          "name": "authors",
+          "options": null,
+          "display_name": "Author last name",
+          "default": false,
+          "leaf": true,
+          "id": "jr6oy7yy",
+          "qualifier": "="
+        }],
+        "text": "Author (last name)",
+        "name": "author_last_name",
+        "display_name": "Author (last name)",
+        "leaf": false,
+        "id": "i59dvxoe"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "with SCOP ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "has_scop",
+          "options": null,
+          "display_name": "with SCOP ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "wgqp1ejr",
+          "qualifier": "only,excluded"
+        },
+        {
+          "children": null,
+          "text": "with CATH ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "has_cath",
+          "options": null,
+          "display_name": "with CATH ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "7ycbw6o4",
+          "qualifier": "only,excluded"
+        },
+        {
+          "children": null,
+          "text": "with PFAM ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "has_pfam_info",
+          "options": null,
+          "display_name": "with PFAM ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "zvpy5smn",
+          "qualifier": "only,excluded"
+        },
+        {
+          "children": null,
+          "text": "with InterPro ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "has_interpro_info",
+          "options": null,
+          "display_name": "with InterPro ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "38bgqw15",
+          "qualifier": "only,excluded"
+        },
+        {
+          "children": null,
+          "text": "with EC ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "has_ec_info",
+          "options": null,
+          "display_name": "with EC ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "eypnxeja",
+          "qualifier": "only,excluded"
+        }],
+        "text": "External references",
+        "name": "id_list_bool_filters",
+        "display_name": "External references",
+        "leaf": false,
+        "id": "zf3n0ee4"
+      },
+      {
+        "children": [{
+          "children": null,
+          "text": "EC ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "ec_id_list",
+          "options": null,
+          "display_name": "EC ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "n9wu7mb",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "InterPro ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "interpro_id_list",
+          "options": null,
+          "display_name": "InterPro ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "3z1vgfg",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "PFMA ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "pfam_id_list",
+          "options": null,
+          "display_name": "PFMA ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "khcivgph",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "CATH ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "cath_id_list",
+          "options": null,
+          "display_name": "CATH ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "vo7iv4ck",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "SCOP ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "scop_id_list",
+          "options": null,
+          "display_name": "SCOP ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "xnebunu5",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "UniProt ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "sprot_id_list",
+          "options": null,
+          "display_name": "UniProt ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "ar3syp5a",
+          "qualifier": "=,in"
+        },
+        {
+          "children": null,
+          "text": "PDB ID(s)",
+          "description": null,
+          "model_reference": null,
+          "name": "pdb_id_list",
+          "options": null,
+          "display_name": "PDB ID(s)",
+          "default": false,
+          "leaf": true,
+          "id": "l4a57ae8",
+          "qualifier": "=,in"
+        }],
+        "text": "Limit to proteins with these IDs",
+        "name": "id_list_filter",
+        "display_name": "Limit to proteins with these IDs",
+        "leaf": false,
+        "id": "dz04z24b"
+      }],
+      "text": "EXTERNAL IDENTIFIERS:",
+      "name": "external_identifiers",
+      "display_name": "EXTERNAL IDENTIFIERS:",
+      "leaf": false,
+      "id": "2j42rojt"
+    }],
+    "text": "FILTERS",
+    "name": "filters",
+    "display_name": "FILTERS",
+    "leaf": false,
+    "id": "wcoy7kl1"
+  }]
+}

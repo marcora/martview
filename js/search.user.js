@@ -2,17 +2,27 @@ Ext.namespace('Martview.search');
 
 Martview.search.User = Ext.extend(Ext.form.FormPanel, {
 
-  // soft config
-  padding: 10,
-  bodyStyle: 'background-color:#dfe8f6;',
-  labelAlign: 'top',
-
   // hard config
   initComponent: function () {
     var config = {
+      padding: 10,
+      bodyStyle: 'background-color:#dfe8f6;',
+      labelAlign: 'top',
       defaults: {
         anchor: '100%'
-      }
+      },
+      items: [{
+        xtype: 'fieldset',
+        title: 'Filters',
+        itemId: 'filters',
+        ref: 'filters',
+        autoHeight: true,
+        defaults: {
+          anchor: '100%',
+          // labelSeparator: '',
+          labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
+        }
+      }]
     };
 
     // apply config
@@ -139,6 +149,10 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
     } catch(e) {
       // pass
     }
+  },
+
+  build: function () {
+    // TODO
   }
 });
 

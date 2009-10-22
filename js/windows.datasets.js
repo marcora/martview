@@ -134,9 +134,33 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         colModel: new Ext.grid.ColumnModel({
           columns: [{
             xtype: 'templatecolumn',
-            sortable: false,
             id: 'item',
-            tpl: new Ext.XTemplate('<tpl for=".">', '<div class="item">', '<h2 class="title">', '<tpl if="dataset_display_name">{dataset_display_name}&nbsp;<span class="source">[{mart_display_name}]</span></tpl><tpl if="!dataset_display_name">{mart_display_name}</tpl></h2>', '<p class="description">', '{description}', '</p>', '<p class="keywords">', '<tpl for="keywords">', '<span class="keyword">{.}</span>&nbsp;', '</tpl>', '</p>', '</div>', '</tpl>')
+            sortable: false,
+            tpl: new Ext.XTemplate( //
+            '<tpl for=".">', //
+            '<div class="item">', //
+            '<h2 class="title">', //
+            '<tpl if="dataset_display_name">', //
+            '<img src="./ico/database.png"/>{dataset_display_name}&nbsp;', //
+            '<span class="source">', //
+            '[{mart_display_name}]', //
+            '</span>', //
+            '</tpl>', //
+            '<tpl if="!dataset_display_name">', //
+            '<img src="./ico/databases.png"/>{mart_display_name}', //
+            '</tpl>', //
+            '</h2>', //
+            '<p class="description">', //
+            '{description}', //
+            '</p>', //
+            '<p class="keywords">', //
+            '<tpl for="keywords">', //
+            '<span class="keyword">{.}</span>', //
+            '</tpl>', //
+            '</p>', //
+            '</div>', //
+            '</tpl>' //
+            )
           }]
         })
       }]

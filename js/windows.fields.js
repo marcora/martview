@@ -4,24 +4,16 @@ Ext.namespace('Martview.windows');
    Filters/attributes window
    ------------------------- */
 Martview.windows.Fields = Ext.extend(Ext.Window, {
-  // soft config
-
+  // soft config:
   // id
   // display_name
   // dataset
-  // children
-
-  id: null,
-  display_name: null,
-  dataset: null,
-
-  default_fields: [],
-  current_fields: [],
-  fields_changed: false,
+  selected_fields: null,
 
   // hard config
   initComponent: function () {
     var config = {
+      default_fields: null,
       title: 'Add ' + this.display_name + ' to search form',
       modal: true,
       width: 800,
@@ -38,21 +30,22 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         iconCls: 'reset-icon',
         handler: function () {
-          this.fields_changed = false;
-          this.hide();
-          this.resetToCurrentFields();
+          var window = this;
+          window.hide();
         },
-        scope: this // scope button to window
+        scope: this // window
       },
       {
         text: 'OK',
         cls: 'x-btn-text-icon',
         iconCls: 'submit-icon',
         handler: function () {
-          this.fields_changed = true;
-          this.hide();
+          var window = this;
+          window.rememberSelectedFields();
+          window.fireEvent('update');
+          window.hide();
         },
-        scope: this // scope button to window
+        scope: this // window
       }],
       items: [{
         region: 'west',
@@ -115,21 +108,17 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         },
         listeners: {
           beforerender: function () {
-            this.filter = new Ext.ux.tree.TreeFilterX(this, {
+            var all = this;
+            all.filter = new Ext.ux.tree.TreeFilterX(this, {
               expandOnFilter: true
             });
           },
-          dblclick: function (node) {
-            if (node.isLeaf()) {
-              var selected = this.ownerCt.selected;
-              var field = selected.add({
-                xtype: 'field',
-                treenode: node,
-                field_iconCls: selected.ownerCt.field_iconCls
-              });
-              node.disable();
-              selected.doLayout();
-            }
+          dblclick: {
+            fn: function (node) {
+              var window = this;
+              window.addFields(node);
+            },
+            scope: this // window
           }
         }
       },
@@ -149,68 +138,182 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //           pack: 'start'
         //         },
         tbar: [{
-          text: 'Reset to default ' + this.display_name,
+          text: 'Reset default ' + this.display_name,
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
-          handler: this.resetToDefaultFields,
-          scope: this
+          handler: function () {
+            this.resetSelectedFields(this.getDefaultFields());
+          },
+          scope: this // window
+        },
+        '->', {
+          text: 'Remove all ' + this.display_name,
+          iconCls: 'delete-icon',
+          cls: 'x-btn-text-icon',
+          handler: function () {
+            this.resetSelectedFields([]);
+          },
+          scope: this // window
         }]
       }]
     };
+
+    // add custom events
+    this.addEvents('update');
 
     // apply config
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
     Martview.windows.Fields.superclass.initComponent.apply(this, arguments);
+
+    // init all fields
+    this.all_fields = [];
+    this.flattenFields(this.dataset[this.id], this.all_fields);
+
+    // validate selected fields and init them with default fields if empty
+    this.selected_fields = this.validateFields(this.selected_fields);
+    if (this.selected_fields.length == 0) this.selected_fields = this.getDefaultFields();
   },
 
-  rememberCurrentFields: function () {
-    var selected = this.get('selected'); // FIXME: why not this.selected?!?
-    this.current_fields = [];
-    selected.items.each(function (item) {
-      this.current_fields.push(item.treenode);
-    },
-    this);
-  },
-
-  resetToCurrentFields: function () {
-    var all = this.get('all'); // FIXME: why not this.selected?!?
-    var selected = this.get('selected'); // FIXME: why not this.selected?!?
-    selected.items.each(function (item) {
-      item.treenode.enable();
-      selected.remove(item);
+  constructor: function (config) {
+    config = config || {};
+    config.listeners = config.listeners || {};
+    Ext.applyIf(config.listeners, {
+      // configure listeners here
+      show: function (window) {
+        window.resetSelectedFields(window.getSelectedFields());
+      }
     });
-    Ext.each(this.current_fields, function (current_field) {
-      var node = all.getNodeById(current_field.id);
-      var field = selected.add({
-        xtype: 'field',
-        treenode: node,
-        field_iconCls: this.getId().substr(0, this.getId() - 1) + '-icon'
-      });
-      node.disable();
-    },
-    this);
-    selected.doLayout();
+
+    // call parent
+    Martview.windows.Fields.superclass.constructor.call(this, config);
   },
 
-  resetToDefaultFields: function () {
-    var all = this.get('all'); // FIXME: why not this.selected?!?
-    var selected = this.get('selected'); // FIXME: why not this.selected?!?
-    selected.items.each(function (item) {
-      item.treenode.enable();
-      selected.remove(item);
-    });
-    Ext.each(this.default_fields, function (default_field) {
-      var node = all.getNodeById(default_field.id);
-      var field = selected.add({
-        xtype: 'field',
-        treenode: node,
-        field_iconCls: this.getId().substr(0, this.getId() - 1) + '-icon'
+  // add field to selected
+  addFields: function (node_or_id_or_array) {
+    var window = this;
+    var all = window.get('all');
+    var selected = window.get('selected');
+    var node = null;
+    if (typeof node_or_id_or_array == 'string') { // if id
+      node = all.getNodeById(node_or_id_or_array);
+    } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+      Ext.each(node_or_id_or_array, function (node) {
+        window.addFields(node);
       });
-      node.disable();
-    },
-    this);
-    selected.doLayout();
+    } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
+      node = node_or_id_or_array;
+    } else if (typeof(node_or_id_or_array) == 'object') { // if object
+      node = all.getNodeById(node_or_id_or_array['id']);
+    }
+    if (node) {
+      if (node.isLeaf()) {
+        selected.add({
+          xtype: 'field',
+          itemId: node.id,
+          node: node,
+          field_iconCls: window.field_iconCls
+        });
+        selected.doLayout();
+      }
+    }
+  },
+
+  // remove field from selected
+  removeFields: function (node_or_id_or_array) {
+    var window = this;
+    var all = window.get('all');
+    var selected = window.get('selected');
+    var node = null;
+    if (typeof node_or_id_or_array == 'string') { // if id
+      node = all.getNodeById(node_or_id_or_array);
+    } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+      Ext.each(node_or_id_or_array, function (node) {
+        window.removeFields(node);
+      });
+    } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
+      node = node_or_id_or_array;
+    } else if (typeof(node_or_id_or_array) == 'object') { // if object
+      node = all.getNodeById(node_or_id_or_array['id']);
+    }
+    if (node) {
+      if (node.isLeaf()) {
+        selected.remove(node.id);
+        selected.doLayout();
+      }
+    }
+  },
+
+  // return array of selected field objects
+  getSelectedFields: function () {
+    var window = this;
+    return window.selected_fields;
+  },
+
+  // return array of selected field objects
+  getAllFields: function () {
+    var window = this;
+    return window.all_fields;
+  },
+
+  // return array of default field objects
+  getDefaultFields: function () {
+    var window = this;
+    if (window.default_fields == null) {
+      window.default_fields = [];
+      Ext.each(window.all_fields, function (field) {
+        if (field['default']) window.default_fields.push(field);
+      });
+    }
+    return window.default_fields;
+  },
+
+  // remember selected fields
+  rememberSelectedFields: function () {
+    var window = this;
+    var selected = window.get('selected');
+    window.selected_fields = [];
+    selected.items.each(function (item) {
+      window.selected_fields.push(item.node.attributes);
+    });
+  },
+
+  // reset selected fields
+  resetSelectedFields: function (node_or_id_or_array) {
+    var window = this;
+    var selected = window.get('selected');
+    selected.removeAll();
+    window.addFields(node_or_id_or_array);
+  },
+
+  // flatten fields tree into an array
+  flattenFields: function (tree, array) {
+    var window = this;
+    Ext.each(tree, function (field) {
+      if (field['leaf']) {
+        array.push(field);
+      } else {
+        if (field['children']) {
+          window.flattenFields(field['children'], array);
+        }
+      }
+    });
+  },
+
+  // validate fields
+  validateFields: function (fields) {
+    fields = fields || [];
+    var window = this;
+    var valid_fields = [];
+    Ext.each(fields, function (field) {
+      Ext.each(window.all_fields, function (valid_field) {
+        if (field['id'] == valid_field['id']) {
+          Ext.applyIf(field, valid_field); // merge field and valid field
+          valid_fields.push(field);
+        }
+      });
+    });
+    return valid_fields;
   }
 });

@@ -3,20 +3,20 @@ Ext.namespace('Martview');
 Martview.Field = Ext.extend(Ext.Panel, {
 
   // soft config
-  treenode: null,
+  node: null,
   editable: false,
   field_iconCls: null,
 
   // hard config
   initComponent: function () {
     var config = {
-      itemId: this.treenode.id,
+      itemId: this.node.id,
       draggable: true,
       cls: 'field',
       border: false,
       tbar: [{
-        text: this.treenode.attributes.display_name || this.treenode.attributes.name,
-        tooltip: this.treenode.parentNode.parentNode.text + ' > ' + this.treenode.parentNode.text,
+        text: this.node.attributes.display_name || this.node.attributes.name,
+        tooltip: this.node.parentNode.parentNode.text + ' > ' + this.node.parentNode.text,
         iconCls: this.field_iconCls,
         cls: 'x-btn-text-icon'
       },
@@ -62,7 +62,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
         handler: function () {
           var field = this;
           var selected_fields = field.ownerCt;
-          field.treenode.enable();
+          field.node.enable();
           selected_fields.remove(field);
         }
       }]
@@ -73,6 +73,23 @@ Martview.Field = Ext.extend(Ext.Panel, {
 
     // call parent
     Martview.Field.superclass.initComponent.apply(this, arguments);
+  },
+
+  constructor: function (config) {
+    config = config || {};
+    config.listeners = config.listeners || {};
+    Ext.applyIf(config.listeners, {
+      // configure listeners here
+      afterrender: function (field) {
+        field.node.disable();
+      },
+      beforedestroy: function (field) {
+        field.node.enable();
+      }
+    });
+
+    // call parent
+    Martview.Field.superclass.constructor.call(this, config);
   }
 });
 

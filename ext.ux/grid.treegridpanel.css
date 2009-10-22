@@ -14,7 +14,7 @@ div.ux-maximgb-tg-mastercell-wrap
 {
 	float: left; 
 	position: relative;
-	height: 110px;
+	height: 114px;
 	white-space: nowrap;
 	overflow: hidden;
 }
@@ -22,7 +22,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-empty
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 }
@@ -30,7 +30,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-line
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-line.gif) repeat-x;
@@ -39,7 +39,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow.gif) no-repeat;
@@ -48,7 +48,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-end
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-end.gif) no-repeat;
@@ -62,7 +62,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-minus
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-minus.gif) no-repeat;
@@ -71,7 +71,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-end-minus
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-end-minus.gif) no-repeat;
@@ -80,7 +80,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-nl-minus
 {
 	position: absolute;
-	height: 110px;
+	height: 114px;
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-minus-nl.gif) no-repeat;
@@ -89,7 +89,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-plus
 {
 	position: absolute;
-	height: 110px; 
+	height: 114px; 
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-plus.gif) no-repeat;
@@ -98,7 +98,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-elbow-end-plus
 {
 	position: absolute;
-	height: 110px;
+	height: 114px;
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-end-plus.gif) no-repeat;
@@ -107,7 +107,7 @@ div.ux-maximgb-tg-mastercell-wrap
 .ux-maximgb-tg-nl-plus
 {
 	position: absolute;
-	height: 110px;
+	height: 114px;
 	width: 16px;
 	overflow: hidden;
 	background: url(./elbow-plus-nl.gif) no-repeat;

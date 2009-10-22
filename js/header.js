@@ -18,7 +18,11 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'Choose dataset',
         iconCls: 'selectdb-icon',
         tooltip: 'Press this button to choose the dataset you want to search',
-        disabled: true
+        handler: function () {
+        var header = this;
+          header.select();
+        },
+        scope: this // header
       },
       {
         itemId: 'sep',
@@ -31,7 +35,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         itemId: 'dataset',
         ref: 'datasetButton',
         cls: 'x-btn-text-icon',
-        text: '<span style="color: #333; font-weight: bold;">START HERE</span>',
+        text: '<span class="start">START HERE!</span>',
         iconCls: 'larrow-icon',
         handler: function () {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More info about selected dataset');
@@ -61,6 +65,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
       }]
     };
 
+    // add custom events
+    this.addEvents('select');
+
     // apply config
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
@@ -68,11 +75,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     Martview.Header.superclass.initComponent.apply(this, arguments);
   },
 
-  clear: function () {
+  select: function () {
     var header = this;
-    header.separator.hide();
-    header.datasetButton.hide();
-    document.title = '';
+    header.fireEvent('select');
   },
 
   update: function (params) {
@@ -82,7 +87,15 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
     header.datasetButton.setText('<span style="color: #333; font-weight: bold;">' + (params.dataset_display_name || params.dataset_name) + '</span>&nbsp;<span style="color: #666;">[' + (params.mart_display_name || params.mart_name) + ']</span>');
     header.datasetButton.show();
     document.title = (params.dataset_display_name || params.dataset_name) + ' [' + (params.mart_display_name || params.mart_name) + ']';
+  },
+
+  clear: function () {
+    var header = this;
+    header.separator.hide();
+    header.datasetButton.hide();
+    document.title = '';
   }
+
 });
 
 Ext.reg('header', Martview.Header);
