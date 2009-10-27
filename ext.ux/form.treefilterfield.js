@@ -36,7 +36,24 @@ Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
       this.onTrigger1Click();
       return;
     }
-    var re = new RegExp('.*' + val + '.*', 'i');
+
+    // generate search regexp that matches all complete permutations of search terms
+    var terms = val.split(/\s+/);
+    var permutations = permute(terms);
+    var s = '';
+    Ext.each(permutations, function(permutation) {
+      if (permutation.length == terms.length) {
+        if (s.length == 0) {
+          s += ('(' + permutation.join('.*'));
+        } else {
+          s += ('|' + permutation.join('.*'));
+        }
+      }
+    });
+    if (s.length > 0) s += ')';
+    var re = new RegExp(s, 'i');
+
+    // filter tree on fulltext using search regexp
     this.ownerCt.ownerCt.filter.clear();
     this.ownerCt.ownerCt.filter.filter(re, 'text');
     this.hasSearch = true;

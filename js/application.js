@@ -1,3 +1,6 @@
+/*jslint rhino: true, nomen: true, debug: true, onevar: true, indent: 2, white: false, eqeqeq: false, browser: true, undef: true */
+/*global Ext, Martview */
+
 // FIXME: Attributes with the same name are included in results even if not selected
 //        Disambiguate attribute name by its position in hierarchy!
 //        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
