@@ -1,4 +1,4 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* -------------------------
    Filters/attributes window
@@ -11,7 +11,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   selected_fields: null,
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       default_fields: null,
       title: 'Add ' + this.display_name + ' to search form',
@@ -29,7 +29,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         text: 'Cancel',
         cls: 'x-btn-text-icon',
         iconCls: 'reset-icon',
-        handler: function () {
+        handler: function() {
           var window = this;
           window.hide();
         },
@@ -39,7 +39,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         text: 'OK',
         cls: 'x-btn-text-icon',
         iconCls: 'submit-icon',
-        handler: function () {
+        handler: function() {
           var window = this;
           window.rememberSelectedFields();
           window.fireEvent('update');
@@ -88,7 +88,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
             text: 'Expand',
-            handler: function () {
+            handler: function() {
               this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.expand(true);
               // this.ownerCt.search.focus();
@@ -99,7 +99,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
             text: 'Collapse',
-            handler: function () {
+            handler: function() {
               this.ownerCt.search.onTrigger1Click();
               this.ownerCt.ownerCt.root.collapse(true);
               // this.ownerCt.search.focus();
@@ -107,14 +107,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           }]
         },
         listeners: {
-          beforerender: function () {
+          beforerender: function() {
             var all = this;
             all.filter = new Ext.ux.tree.TreeFilterX(this, {
               expandOnFilter: true
             });
           },
           dblclick: {
-            fn: function (node) {
+            fn: function(node) {
               var window = this;
               window.addFields(node);
             },
@@ -141,7 +141,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Reset default ' + this.display_name,
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
-          handler: function () {
+          tooltip: 'Press this button to reset the default ' + this.display_name,
+          handler: function() {
             this.resetSelectedFields(this.getDefaultFields());
           },
           scope: this // window
@@ -150,7 +151,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Remove all ' + this.display_name,
           iconCls: 'delete-icon',
           cls: 'x-btn-text-icon',
-          handler: function () {
+          tooltip: 'Press this button to remove all ' + this.display_name,
+          handler: function() {
             this.resetSelectedFields([]);
           },
           scope: this // window
@@ -173,15 +175,17 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
     // validate selected fields and init them with default fields if empty
     this.selected_fields = this.validateFields(this.selected_fields);
-    if (this.selected_fields.length == 0) this.selected_fields = this.getDefaultFields();
+    if (this.selected_fields.length === 0) {
+      this.selected_fields = this.getDefaultFields();
+    }
   },
 
-  constructor: function (config) {
+  constructor: function(config) {
     config = config || {};
     config.listeners = config.listeners || {};
     Ext.applyIf(config.listeners, {
       // configure listeners here
-      show: function (window) {
+      show: function(window) {
         window.resetSelectedFields(window.getSelectedFields());
       }
     });
@@ -191,7 +195,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // add field to selected
-  addFields: function (node_or_id_or_array) {
+  addFields: function(node_or_id_or_array) {
     var window = this;
     var all = window.get('all');
     var selected = window.get('selected');
@@ -199,7 +203,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     if (typeof node_or_id_or_array == 'string') { // if id
       node = all.getNodeById(node_or_id_or_array);
     } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-      Ext.each(node_or_id_or_array, function (node) {
+      Ext.each(node_or_id_or_array, function(node) {
         window.addFields(node);
       });
     } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
@@ -213,7 +217,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           xtype: 'field',
           itemId: node.id,
           node: node,
-          field_iconCls: window.field_iconCls
+          field_iconCls: window.field_iconCls,
+          display_name: window.display_name
         });
         selected.doLayout();
       }
@@ -221,7 +226,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // remove field from selected
-  removeFields: function (node_or_id_or_array) {
+  removeFields: function(node_or_id_or_array) {
     var window = this;
     var all = window.get('all');
     var selected = window.get('selected');
@@ -229,7 +234,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     if (typeof node_or_id_or_array == 'string') { // if id
       node = all.getNodeById(node_or_id_or_array);
     } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-      Ext.each(node_or_id_or_array, function (node) {
+      Ext.each(node_or_id_or_array, function(node) {
         window.removeFields(node);
       });
     } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
@@ -246,41 +251,43 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // return array of selected field objects
-  getSelectedFields: function () {
+  getSelectedFields: function() {
     var window = this;
     return window.selected_fields;
   },
 
   // return array of selected field objects
-  getAllFields: function () {
+  getAllFields: function() {
     var window = this;
     return window.all_fields;
   },
 
   // return array of default field objects
-  getDefaultFields: function () {
+  getDefaultFields: function() {
     var window = this;
-    if (window.default_fields == null) {
+    if (window.default_fields === null) {
       window.default_fields = [];
-      Ext.each(window.all_fields, function (field) {
-        if (field['default']) window.default_fields.push(field);
+      Ext.each(window.all_fields, function(field) {
+        if (field['default']) {
+          window.default_fields.push(field);
+        }
       });
     }
     return window.default_fields;
   },
 
   // remember selected fields
-  rememberSelectedFields: function () {
+  rememberSelectedFields: function() {
     var window = this;
     var selected = window.get('selected');
     window.selected_fields = [];
-    selected.items.each(function (item) {
+    selected.items.each(function(item) {
       window.selected_fields.push(item.node.attributes);
     });
   },
 
   // reset selected fields
-  resetSelectedFields: function (node_or_id_or_array) {
+  resetSelectedFields: function(node_or_id_or_array) {
     var window = this;
     var selected = window.get('selected');
     selected.removeAll();
@@ -288,13 +295,12 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // flatten fields tree into an array
-  flattenFields: function (tree, array) {
+  flattenFields: function(tree, array) {
     var window = this;
-    Ext.each(tree, function (field) {
+    Ext.each(tree, function(field) {
       if (field['leaf']) {
         array.push(field);
-      } else {
-        if (field['children']) {
+      } else { if (field['children']) {
           window.flattenFields(field['children'], array);
         }
       }
@@ -302,12 +308,12 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // validate fields
-  validateFields: function (fields) {
+  validateFields: function(fields) {
     fields = fields || [];
     var window = this;
     var valid_fields = [];
-    Ext.each(fields, function (field) {
-      Ext.each(window.all_fields, function (valid_field) {
+    Ext.each(fields, function(field) {
+      Ext.each(window.all_fields, function(valid_field) {
         if (field['id'] == valid_field['id']) {
           Ext.applyIf(field, valid_field); // merge field and valid field
           valid_fields.push(field);

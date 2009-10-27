@@ -1,14 +1,15 @@
-Ext.namespace('Martview');
+Ext.ns('Martview');
 
 Martview.Field = Ext.extend(Ext.Panel, {
 
   // soft config
   node: null,
   editable: false,
-  field_iconCls: null,
+  field_iconCls: '',
+  display_name: '',
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       itemId: this.node.id,
       draggable: true,
@@ -58,8 +59,9 @@ Martview.Field = Ext.extend(Ext.Panel, {
         text: 'Remove',
         iconCls: 'delete-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Press this button to delete this ' + this.display_name.substr(0, this.display_name.length - 1),
         scope: this,
-        handler: function () {
+        handler: function() {
           var field = this;
           var selected_fields = field.ownerCt;
           field.node.enable();
@@ -75,15 +77,15 @@ Martview.Field = Ext.extend(Ext.Panel, {
     Martview.Field.superclass.initComponent.apply(this, arguments);
   },
 
-  constructor: function (config) {
+  constructor: function(config) {
     config = config || {};
     config.listeners = config.listeners || {};
     Ext.applyIf(config.listeners, {
       // configure listeners here
-      afterrender: function (field) {
+      afterrender: function(field) {
         field.node.disable();
       },
-      beforedestroy: function (field) {
+      beforedestroy: function(field) {
         field.node.enable();
       }
     });

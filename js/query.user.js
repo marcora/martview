@@ -1,9 +1,9 @@
-Ext.namespace('Martview.search');
+Ext.ns('Martview.search');
 
 Martview.search.User = Ext.extend(Ext.form.FormPanel, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       padding: 10,
       bodyStyle: 'background-color:#dfe8f6;',
@@ -32,7 +32,7 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
     Martview.search.Advanced.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (params) {
+  update: function(args) {
     var form = this;
 
     // remove fields from search form
@@ -53,7 +53,7 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
     });
 
     // add filters to search form
-    Ext.each(params.filters, function (filter) {
+    Ext.each(args.filters, function(filter) {
       if (filter.qualifier) { // filter.qualifier should never be null or undefined!
         if (filter.qualifier in {
           '=': '',
@@ -106,7 +106,7 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
           'excluded': ''
         }) {
           var items = [];
-          Ext.each(filter.qualifier.split(','), function (item) {
+          Ext.each(filter.qualifier.split(','), function(item) {
             items.push({
               inputValue: item,
               name: filter.name,
@@ -137,13 +137,13 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
     form.focus();
   },
 
-  reset: function () {
+  reset: function() {
     var form = this;
     form.getForm().reset();
     form.focus();
   },
 
-  focus: function () {
+  focus: function() {
     try {
       this.filters.items.first().focus(false, true);
     } catch(e) {
@@ -151,7 +151,7 @@ Martview.search.User = Ext.extend(Ext.form.FormPanel, {
     }
   },
 
-  build: function () {
+  build: function() {
     // TODO
   }
 });

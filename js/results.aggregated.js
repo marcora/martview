@@ -1,9 +1,9 @@
-Ext.namespace('Martview.results');
+Ext.ns('Martview.results');
 
 Martview.results.Aggregated = Ext.extend(Ext.Panel, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       border: false
     };
@@ -15,13 +15,13 @@ Martview.results.Aggregated = Ext.extend(Ext.Panel, {
     Martview.results.Aggregated.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (params) {
-    var results = this;
+  update: function(args) {
+    var chart = this;
     // TODO
   },
 
-  reset: function () {
-    var results = this;
+  reset: function() {
+    var chart = this;
     // TODO
   }
 });

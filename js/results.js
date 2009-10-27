@@ -1,17 +1,16 @@
-Ext.namespace('Martview');
+Ext.ns('Martview');
 
 Martview.Results = Ext.extend(Ext.Panel, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       id: 'results',
       ref: '../results',
       region: 'center',
-      layout: 'card',
-      autoScroll: true,
-      border: true,
+      layout: 'fit',
       title: 'Results',
+      border: true,
       tbar: {
         // cls: 'x-panel-header',
         // height: 26,
@@ -27,31 +26,36 @@ Martview.Results = Ext.extend(Ext.Panel, {
             items: [{
               text: 'Tabular',
               itemId: 'tabular',
-              iconCls: 'tabular-results-icon'
+              iconCls: 'tabular-results-icon',
+              tooltip: 'A table-like display format for results'
+
             },
             {
               text: 'Itemized',
               itemId: 'itemized',
-              iconCls: 'itemized-results-icon'
+              iconCls: 'itemized-results-icon',
+              tooltip: 'A Google-like display format for results'
             },
             {
               text: 'Mapped',
               itemId: 'mapped',
-              iconCls: 'mapped-results-icon'
+              iconCls: 'mapped-results-icon',
+              tooltip: 'A mapped display format for results'
             },
             {
               text: 'Aggregated',
               itemId: 'aggregated',
-              iconCls: 'aggregated-results-icon'
+              iconCls: 'aggregated-results-icon',
+              tooltip: 'An aggregated display format for results'
             }],
             listeners: {
               'itemclick': {
-                fn: function (item) {
+                fn: function(item) {
                   var results = this;
-                  var params = {
+                  var args = {
                     results: item.getItemId()
                   };
-                  results.select(params);
+                  results.select(args);
                 },
                 scope: this // results
               }
@@ -66,7 +70,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           iconCls: 'add-icon',
           disabled: true,
           tooltip: 'Press this button to customize the results grid by adding/removing columns',
-          handler: function () {
+          handler: function() {
             var results = this;
             results.customize();
           },
@@ -80,7 +84,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           iconCls: 'save-icon',
           disabled: true,
           tooltip: 'Press this button to save the results in various formats',
-          handler: function () {
+          handler: function() {
             var results = this;
             results.save();
           },
@@ -88,46 +92,28 @@ Martview.Results = Ext.extend(Ext.Panel, {
         }]
       },
       bbar: [{
+        xtype: 'tbtext',
         itemId: 'counter',
-        ref: '../counterButton',
-        cls: 'x-btn-text',
-        text: ''
+        ref: '../counter',
+        text: '&nbsp;'
+      },
+      {
+        text: '&nbsp;',
+        disabled: true
       }],
-      activeItem: 0,
+      autoDestroy: true,
       defaults: {
         border: false,
-        autoWidth: true,
-        autoHeight: true,
-        fitToFrame: true
+        autoDestroy: true
+        // autoWidth: true,
+        // autoHeight: true,
+        // fitToFrame: true
       },
-      items: [{
-        itemId: 'clear',
-        ref: 'clear'
-      },
-      {
-        xtype: 'tabularresults',
-        itemId: 'tabular',
-        ref: 'tabular'
-      },
-      {
-        xtype: 'itemizedresults',
-        itemId: 'itemized',
-        ref: 'itemized'
-      },
-      {
-        xtype: 'mappedresults',
-        itemId: 'mapped',
-        ref: 'mapped'
-      },
-      {
-        xtype: 'aggregatedresults',
-        itemId: 'aggregated',
-        ref: 'aggregated'
-      }]
+      items: []
     };
 
     // add custom events
-    this.addEvents('select', 'update', 'clear', 'customize', 'save');
+    this.addEvents('select', 'customize', 'save');
 
     // apply config
     Ext.apply(this, Ext.apply(this.initialConfig, config));
@@ -136,46 +122,62 @@ Martview.Results = Ext.extend(Ext.Panel, {
     Martview.Results.superclass.initComponent.apply(this, arguments);
   },
 
-  select: function (params) {
+  select: function(args) {
     var results = this;
-    results.selectButton.enable();
-    results.selectButton.setIconClass(params.results + '-results-icon');
-    results.selectButton.setText(params.results.charAt(0).toUpperCase() + params.results.slice(1));
-    results.customizeButton.disable().hide();
-    results.saveButton.enable();
-    if (params.results == 'tabular') {
-      results.customizeButton.enable().show();
-    } else if (params.results == 'itemized') {
-      // pass
-    } else if (params.results == 'mapped') {
-      // pass
-    } else if (params.results == 'aggregated') {
-      // pass
-    }
-    results.layout.setActiveItem(params.results);
-    results.fireEvent('select', params);
+    results.fireEvent('select', args);
   },
 
-  update: function (params) {
-    var results = this;
-    results.layout.activeItem.update(params);
-    results.fireEvent('update', params);
-  },
-
-  clear: function () {
-    var results = this;
-    results.layout.activeItem.clear();
-    results.fireEvent('clear');
-  },
-
-  customize: function () {
+  customize: function() {
     var results = this;
     results.fireEvent('customize');
   },
 
-  save: function () {
+  save: function() {
     var results = this;
     results.fireEvent('save');
+  },
+
+  update: function(args) {
+    var results = this;
+
+    // enable buttons
+    results.selectButton.enable();
+    results.selectButton.setIconClass(args.results + '-results-icon');
+    results.selectButton.setText(args.results.charAt(0).toUpperCase() + args.results.slice(1));
+    results.customizeButton.disable().hide();
+    results.saveButton.enable();
+
+    if (args.results == 'tabular') {
+      results.customizeButton.enable().show();
+    } else if (args.results == 'itemized') {
+      // pass
+    } else if (args.results == 'mapped') {
+      // pass
+    } else if (args.results == 'aggregated') {
+      // pass
+    }
+
+    // update grid
+    results.removeAll();
+    results.add({
+      xtype: args.results + 'results',
+      itemId: args.results,
+      ref: args.results,
+      fields: args.fields,
+      columns: args.columns
+    });
+    results.doLayout();
+    results.items.first().update(args);
+  },
+
+  clear: function() {
+    var results = this;
+    results.removeAll();
+    results.selectButton.disable();
+    results.customizeButton.disable();
+    results.saveButton.disable();
+    results.counter.setText('&nbsp;');
+    results.doLayout();
   }
 });
 

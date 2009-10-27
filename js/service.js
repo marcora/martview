@@ -1,19 +1,19 @@
-Ext.namespace('Martview');
+Ext.ns('Martview');
 
 Martview.Service = Ext.extend(Ext.util.Observable, {
-  constructor: function (config) {
+  constructor: function(config) {
     this.conn = new Ext.data.Connection({
       loading: new Martview.windows.Loading(),
       timeout: 120000,
       listeners: {
-        beforerequest: function () {
+        beforerequest: function() {
           this.loading.show();
         },
-        requestcomplete: function () {
+        requestcomplete: function() {
           this.loading.hide();
           // main.footer.updateMessageIfError('info', Martview.SAVE_RESULTS_MSG);
         },
-        requestexception: function () {
+        requestexception: function() {
           this.loading.hide();
           Ext.Msg.show({
             title: Martview.APP_TITLE,
@@ -34,12 +34,12 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
   },
 
   // load all datasets
-  load: function () {
+  load: function() {
     var service = this;
     var datasets_url = './json/datasets.json';
     service.conn.request({
       url: datasets_url,
-      success: function (response) {
+      success: function(response) {
         service.datasets = Ext.util.JSON.decode(response.responseText);
         service.fireEvent('load', service.datasets);
       }
@@ -47,12 +47,12 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
   },
 
   // select a specific dataset
-  select: function (dataset) {
+  select: function(dataset) {
     var service = this;
     var dataset_url = './json/' + dataset.mart_name + '.' + dataset.dataset_name + '.json';
     service.conn.request({
       url: dataset_url,
-      success: function (response) {
+      success: function(response) {
         service.dataset = Ext.util.JSON.decode(response.responseText);
         service.fireEvent('select', service.dataset);
       }
@@ -60,15 +60,15 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
   },
 
   // search for results
-  search: function (search_params) {
+  query: function(query_params) {
     var service = this;
-    var search_url = '../martservice';
+    var query_url = '../martservice';
     service.conn.request({
-      url: search_url,
-      params: search_params,
-      success: function (response) {
+      url: query_url,
+      params: query_params,
+      success: function(response) {
         service.results = Ext.util.JSON.decode(response.responseText);
-        service.fireEvent('search', service.results);
+        service.fireEvent('query', service.results);
       }
     });
   }

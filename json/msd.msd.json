@@ -11,23 +11,23 @@
   "display_name": "MSD protein structures",
   "keywords": ["msd", "proteins", "structures"],
   "dataset_name": "msd",
-  "fields": [{
+  "help_fields": [{
     name: "pdb_id",
-    description: "search by PDB ID (for example, <code>pdb_id:11ba</code>)"
+    description: "filter by PDB ID (for example, <code>pdb_id:11ba</code>)"
   },
   {
     name: "experiment_type",
-    description: "search by experiment type (for example, <code>experiment_type:NMR</code>)"
+    description: "filter by experiment type (for example, <code>experiment_type:NMR</code>)"
   },
   {
     name: "resolution",
-    description: "search by resolution (for example, <code>resolution:[3 TO *]</code>)"
+    description: "filter by resolution (for example, <code>resolution:[3 TO *]</code>)"
   },
   {
     name: "authors",
-    description: "search by author name (for example, <code>authors:Mishima</code>)"
+    description: "filter by author name (for example, <code>authors:Mishima</code>)"
   }],
-  "facets": [{
+  "facet_fields": [{
     name: "experiment_type"
   },
   {

@@ -1,4 +1,4 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* -------------------
    Save results window
@@ -6,7 +6,7 @@ Ext.namespace('Martview.windows');
 Martview.windows.SaveResults = Ext.extend(Ext.Window, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       title: 'Save results',
       modal: true,
@@ -24,7 +24,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         text: 'Cancel',
         cls: 'x-btn-text-icon',
         iconCls: 'close-icon',
-        handler: function () {
+        handler: function() {
           this.destroy();
         },
         scope: this // scope button to window

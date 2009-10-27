@@ -1,9 +1,12 @@
-Ext.namespace('Martview.results');
+Ext.ns('Martview.results');
 
 Martview.results.Tabular = Ext.extend(Ext.grid.GridPanel, {
+  // soft config
+  fields: [],
+  columns: [],
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       enableColumnHide: false,
       enableHdMenu: false,
@@ -12,15 +15,16 @@ Martview.results.Tabular = Ext.extend(Ext.grid.GridPanel, {
       border: false,
       store: new Ext.data.JsonStore({
         autoDestroy: true,
-        root: 'rows'
-        // fields: params.results.fields
+        root: 'rows',
+        fields: this.fields
       }),
-      colModel: new Ext.grid.ColumnModel({
+      // autoExpandColumn: this.columns.first() ? this.columns.first().id : '',
+      cm: new Ext.grid.ColumnModel({
+        columns: [new Ext.grid.RowNumberer()].concat(this.columns),
         defaults: {
           width: 100,
           sortable: true
-        },
-        // columns: [new Ext.grid.RowNumberer()].concat(params.results.columns)
+        }
       })
     };
 
@@ -31,15 +35,18 @@ Martview.results.Tabular = Ext.extend(Ext.grid.GridPanel, {
     Martview.results.Tabular.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (params) {
-    var results = this;
-    var store = results.getStore();
-    store.loadData(params.results);
-    results.counterButton.setText(store.getTotalCount() + ' of ' + params.results.count);
+  update: function(args) {
+    var grid = this;
+    var store = grid.getStore();
+    store.removeAll();
+    store.loadData({
+      rows: args.rows
+    });
+    grid.ownerCt.counter.setText(store.getTotalCount() + ' of ' + args.count);
   },
 
-  reset: function () {
-    var results = this;
+  reset: function() {
+    var grid = this;
     // TODO
   }
 });

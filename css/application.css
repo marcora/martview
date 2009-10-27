@@ -65,6 +65,7 @@ legend { font-weight: normal !important; }
 .item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px 4px 2px 4px; margin-right: 4px; font-size: 1em; font-weight: bold; }
 
 .start { font-weight: bold !important; }
+.start img { vertical-align: top !important; }
 
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }
@@ -72,10 +73,10 @@ legend { font-weight: normal !important; }
 .edit-icon { background-image: url('../ico/gear.png') !important; }
 .mart-icon { background-image: url('../ico/databases.png') !important; }
 .dataset-icon { background-image: url('../ico/database.png') !important; }
-.simple-search-icon { background-image: url('../ico/magnifier-left.png') !important; }
-.guided-search-icon { background-image: url('../ico/compass.png') !important; }
-.advanced-search-icon { background-image: url('../ico/binocular.png') !important; }
-.user-search-icon { background-image: url('../ico/user.png') !important; }
+.simple-query-icon { background-image: url('../ico/magnifier-left.png') !important; }
+.guided-query-icon { background-image: url('../ico/compass.png') !important; }
+.advanced-query-icon { background-image: url('../ico/binocular.png') !important; }
+.user-query-icon { background-image: url('../ico/user.png') !important; }
 .form-icon { background-image: url('../ico/application-form.png') !important; }
 .tabular-results-icon { background-image: url('../ico/table.png') !important; }
 .itemized-results-icon { background-image: url('../ico/card-address.png') !important; }

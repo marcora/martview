@@ -1,26 +1,19 @@
-Ext.namespace('Martview.search');
+Ext.ns('Martview.query');
 
-Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
+Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
-      padding: 10,
-      bodyStyle: 'background-color:#dfe8f6;',
-      labelAlign: 'top',
-      defaults: {
-        anchor: '100%'
-      },
       items: [{
         xtype: 'fieldset',
-        title: 'Filters',
         itemId: 'filters',
         ref: 'filters',
-        autoDestroy: true,
+        title: 'Filters',
         autoHeight: true,
+        autoDestroy: true,
         defaults: {
           anchor: '100%',
-          // labelSeparator: '',
           labelStyle: 'font-weight: bold !important; font-size: 8pt !important; color: #444 !important;'
         }
       }]
@@ -30,17 +23,17 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
-    Martview.search.Advanced.superclass.initComponent.apply(this, arguments);
+    Martview.query.Advanced.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (params) {
+  update: function(args) {
     var form = this;
 
     // remove fields from filters fieldset
     form.filters.removeAll();
 
     // add fields to filters fieldset
-    Ext.each(params.filters, function (filter) {
+    Ext.each(args.filters, function(filter) {
       if (filter.qualifier) { // filter.qualifier should never be null or undefined!
         if (filter.qualifier in {
           '=': '',
@@ -93,7 +86,7 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
           'excluded': ''
         }) {
           var items = [];
-          Ext.each(filter.qualifier.split(','), function (item) {
+          Ext.each(filter.qualifier.split(','), function(item) {
             items.push({
               inputValue: item,
               name: filter.name,
@@ -119,31 +112,43 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
       }
     });
 
-    // refresh form layout and focus
+    // refresh form layout
     form.doLayout();
-    form.reset();
+
+    // submit query on enter key
+    form.filters.items.each(function(item) {
+      item.on('specialkey', function(f, o) {
+        if (o.getKey() == 13) {
+          form.ownerCt.fireEvent('submit');
+        }
+      });
+    });
+
   },
 
-  reset: function () {
+  reset: function() {
     var form = this;
-    form.getForm().reset();
-    form.focus();
+
+    // clear all filters
+    form.filters.items.each(function(filter) {
+      filter.reset();
+    });
+
+    // refresh form layout
+    form.doLayout();
   },
 
-  focus: function () {
+  focus: function() {
     var form = this;
-    try {
-      form.filters.items.first().focus(true, true);
-    } catch(e) {
-      // pass
-    }
+    form.filters.items.first().focus(false, true);
   },
 
-  build: function (params) {
+  build: function(args) {
+    var form = this;
+
     // build xml query for martservice based of selected filters and attributes
-    var form = this;
     var dataset_filters = [];
-    form.filters.items.each(function (item) {
+    form.filters.items.each(function(item) {
       if (item.isXType('radiogroup')) {
         try {
           dataset_filters.push({
@@ -172,18 +177,20 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
         }
       }
     });
-    var dataset_attributes = params.attributes;
-    var dataset_name = params.dataset_name;
+
+    var formatter = args.formatter;
+    var limitSize = args.limitSize;
+    var dataset_attributes = args.attributes;
+    var dataset_name = args.dataset_name;
     var values = {
       virtualSchemaName: 'default',
-      formatter: 'CSV',
+      datasetInterface: 'default',
+      datasetConfigVersion: '',
+      count: 0,
       header: 0,
       uniqueRows: 1,
-      count: 0,
-      limitSize: 100,
-      datasetConfigVersion: '',
-      // ???
-      datasetInterface: 'default',
+      formatter: formatter,
+      limitSize: limitSize,
       datasetName: dataset_name,
       datasetFilters: dataset_filters,
       datasetAttributes: dataset_attributes
@@ -208,12 +215,15 @@ Martview.search.Advanced = Ext.extend(Ext.form.FormPanel, {
     '</Query>' //
     );
     var xml = tpl.apply(values);
-    var search_params = {
+
+    // build query params
+    var query_params = {
       type: 'query',
       xml: xml
     };
-    return search_params;
+
+    return query_params;
   }
 });
 
-Ext.reg('advancedsearch', Martview.search.Advanced);
+Ext.reg('advancedquery', Martview.query.Advanced);

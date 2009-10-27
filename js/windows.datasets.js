@@ -1,11 +1,11 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* ---------------
    Datasets window
    --------------- */
 Martview.windows.Datasets = Ext.extend(Ext.Window, {
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       modal: true,
       width: 800,
@@ -20,7 +20,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         text: 'Cancel',
         iconCls: 'reset-icon',
-        handler: function () {
+        handler: function() {
           this.hide();
         },
         scope: this // scope button to window
@@ -29,7 +29,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         cls: 'x-btn-text-icon',
         text: 'OK',
         iconCls: 'submit-icon',
-        handler: function () {
+        handler: function() {
           this.select();
         },
         scope: this // scope button to window
@@ -55,7 +55,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
             text: 'Expand',
-            handler: function () {
+            handler: function() {
               this.grid.getStore().expandAll();
             },
             scope: this // scope to window
@@ -65,7 +65,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
             text: 'Collapse',
-            handler: function () {
+            handler: function() {
               this.grid.getStore().collapseAll();
             },
             scope: this // scope to window
@@ -73,7 +73,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         },
         listeners: {
           'dblclick': {
-            fn: function () {
+            fn: function() {
               this.select();
             },
             scope: this
@@ -176,15 +176,14 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
     Martview.windows.Datasets.superclass.initComponent.apply(this, arguments);
   },
 
-  select: function () {
+  select: function() {
     var store = this.grid.getStore();
     var node = store.getActiveNode();
     if (node) {
       if (store.isLeafNode(node)) {
         this.fireEvent('select', node.json);
         this.hide();
-      } else {
-        if (store.isExpandedNode(node)) {
+      } else { if (store.isExpandedNode(node)) {
           store.collapseNode(node);
         } else {
           store.expandNode(node);

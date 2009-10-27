@@ -1,9 +1,9 @@
-Ext.namespace('Martview');
+Ext.ns('Martview');
 
 Martview.Main = Ext.extend(Ext.Viewport, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       id: 'main',
       layout: 'border',
@@ -11,7 +11,7 @@ Martview.Main = Ext.extend(Ext.Viewport, {
         xtype: 'header'
       },
       {
-        xtype: 'search'
+        xtype: 'query'
       },
       {
         xtype: 'results'

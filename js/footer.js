@@ -1,9 +1,9 @@
-Ext.namespace('Martview');
+Ext.ns('Martview');
 
 Martview.Footer = Ext.extend(Ext.Toolbar, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
       region: 'south',
       id: 'footer',
@@ -14,11 +14,11 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
       items: [{
         itemId: 'message',
         ref: 'messageButton',
-        text: 'To begin, please choose the dataset you want to search',
+        text: 'To begin, please choose the dataset you want to query',
         iconCls: 'info-icon',
         cls: 'x-btn-text-icon',
-        // tooltip: 'Press this button to get more help on how to use BioMart',
-        handler: function () {
+        tooltip: 'Press this button to get more help on how to use BioMart',
+        handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More contextual help');
         }
       },
@@ -28,8 +28,8 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         text: 'Powered by BioMart &sdot; Biological queries made easy',
         iconCls: 'biomart-icon',
         cls: 'x-btn-text-icon',
-        // tooltip: 'Press this button to get information about BioMart',
-        handler: function () {
+        tooltip: 'Press this button to get information about BioMart',
+        handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More about biomart (credits, license, feedback)');
         }
       }]
@@ -42,15 +42,15 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
     Martview.Footer.superclass.initComponent.apply(this, arguments);
   },
 
-  clear: function () {
+  clear: function() {
     var footer = this;
     footer.messageButton.hide();
   },
 
-  update: function (params) {
+  update: function(args) {
     var footer = this;
-    footer.messageButton.setIconClass(params.iconCls);
-    footer.messageButton.setText(params.text);
+    footer.messageButton.setIconClass(args.iconCls);
+    footer.messageButton.setText(args.text);
     footer.messageButton.show();
   }
 });

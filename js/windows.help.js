@@ -1,4 +1,4 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* -----------
    Help window

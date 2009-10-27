@@ -1,14 +1,14 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* ------------------
-   Save search window
+   Save query window
    ------------------ */
-Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
+Martview.windows.SaveQuery = Ext.extend(Ext.Window, {
 
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
-      title: 'Save search',
+      title: 'Save query',
       modal: true,
       layout: 'fit',
       autoHeight: true,
@@ -24,7 +24,7 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
         text: 'Cancel',
         cls: 'x-btn-text-icon',
         iconCls: 'close-icon',
-        handler: function () {
+        handler: function() {
           this.destroy();
         },
         scope: this // scope button to window
@@ -48,14 +48,14 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
           name: 'format',
           ref: 'format',
           anchor: '100%',
-          fieldLabel: 'Save current search as',
+          fieldLabel: 'Save current query as',
           editable: false,
           forceSelection: true,
           lastSearchTerm: false,
           triggerAction: 'all',
           mode: 'local',
           value: 'xml',
-          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined search on server']]
+          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined query on server']]
         }]
       }]
     };
@@ -64,6 +64,6 @@ Martview.windows.SaveSearch = Ext.extend(Ext.Window, {
     Ext.apply(this, Ext.apply(this.initialConfig, config));
 
     // call parent
-    Martview.windows.SaveSearch.superclass.initComponent.apply(this, arguments);
+    Martview.windows.SaveQuery.superclass.initComponent.apply(this, arguments);
   }
 });

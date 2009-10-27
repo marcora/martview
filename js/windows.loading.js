@@ -1,10 +1,10 @@
-Ext.namespace('Martview.windows');
+Ext.ns('Martview.windows');
 
 /* --------------
    Loading window
    -------------- */
 Martview.windows.Loading = Ext.extend(Object, {
-  show: function () {
+  show: function() {
     if (!this.msg || !this.msg.isVisible()) {
       this.msg = Ext.Msg.show({
         cls: 'loading',
@@ -18,7 +18,7 @@ Martview.windows.Loading = Ext.extend(Object, {
       });
     }
   },
-  hide: function () {
+  hide: function() {
     if (this.msg && this.msg.isVisible()) {
       this.msg.hide();
     }

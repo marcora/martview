@@ -1,10 +1,10 @@
-Ext.namespace('Ext.ux.form');
+Ext.ns('Ext.ux.form');
 
 Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
   // assume placed in tree panel toolbar
-  initComponent: function () {
+  initComponent: function() {
     Ext.ux.form.TreeFilterField.superclass.initComponent.call(this);
-    this.on('specialkey', function (f, e) {
+    this.on('specialkey', function(f, e) {
       if (e.getKey() == e.ENTER) {
         this.onTrigger2Click();
       }
@@ -19,7 +19,7 @@ Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
   hideTrigger1: true,
   hasSearch: false,
 
-  onTrigger1Click: function () {
+  onTrigger1Click: function() {
     if (this.hasSearch) {
       this.ownerCt.ownerCt.filter.clear();
       this.ownerCt.ownerCt.root.collapse(true);
@@ -30,7 +30,7 @@ Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
     }
   },
 
-  onTrigger2Click: function () {
+  onTrigger2Click: function() {
     var val = this.getRawValue().trim();
     if (val.length < 1) {
       this.onTrigger1Click();

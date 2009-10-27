@@ -1,31 +1,31 @@
-Ext.namespace('Martview.results');
+Ext.ns('Martview.results');
 
 Martview.results.Itemized = Ext.extend(Ext.grid.GridPanel, {
+  // soft config
+  fields: [],
+  columns: [],
 
-  //     var rows = new Ext.grid.GridPanel({
-  //       store: store,
-  //       colModel: colModel,
-  //     });
   // hard config
-  initComponent: function () {
+  initComponent: function() {
     var config = {
-      cls: 'itemized',
-      hideHeaders: true,
       enableColumnHide: false,
       enableHdMenu: false,
       disableSelection: true,
       stripeRows: true,
       border: false,
+      cls: 'itemized',
+      hideHeaders: true,
       viewConfig: {
         forceFit: true,
         enableRowBody: true
       },
       store: new Ext.data.JsonStore({
         autoDestroy: true,
-        root: 'rows'
-        // fields: params.results.fields
+        root: 'rows',
+        fields: this.fields
       }),
-      colModel: new Ext.grid.ColumnModel({
+      autoExpandColumn: 'item',
+      cm: new Ext.grid.ColumnModel({
         columns: [{
           xtype: 'templatecolumn',
           id: 'item',
@@ -66,15 +66,18 @@ Martview.results.Itemized = Ext.extend(Ext.grid.GridPanel, {
     Martview.results.Itemized.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function (params) {
-    var results = this;
-    var store = results.getStore();
-    store.loadData(params.results);
-    results.counterButton.setText(store.getTotalCount() + ' of ' + params.results.count);
+  update: function(args) {
+    var grid = this;
+    var store = grid.getStore();
+    store.removeAll();
+    store.loadData({
+      rows: args.rows
+    });
+    grid.ownerCt.counter.setText(store.getTotalCount() + ' of ' + args.count);
   },
 
-  reset: function () {
-    var results = this;
+  reset: function() {
+    var grid = this;
     // TODO
   }
 });

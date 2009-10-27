@@ -1,10 +1,10 @@
-Ext.namespace('Ext.ux.form');
+Ext.ns('Ext.ux.form');
 
 Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
   // assume placed in grid panel toolbar
-  initComponent: function () {
+  initComponent: function() {
     Ext.ux.form.SearchField.superclass.initComponent.call(this);
-    this.on('specialkey', function (f, e) {
+    this.on('specialkey', function(f, e) {
       if (e.getKey() == e.ENTER) {
         this.onTrigger2Click();
       }
@@ -19,7 +19,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
   hideTrigger1: true,
   hasSearch: false,
 
-  onTrigger1Click: function () {
+  onTrigger1Click: function() {
     if (this.hasSearch) {
       var store = this.ownerCt.ownerCt.getStore();
       store.clearFilter();
@@ -35,7 +35,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     }
   },
 
-  onTrigger2Click: function () {
+  onTrigger2Click: function() {
     var val = this.getRawValue().trim();
 
     if (val.length < 1) {
@@ -47,7 +47,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
     //+ Jonas Raoni Soares Silva
     //@ http://jsfromhell.com/array/permute [rev. #1]
-    var permute = function (v, m) {
+    var permute = function(v, m) {
       for (var p = -1, j, k, f, r, l = v.length, q = 1, i = l + 1; --i; q *= i);
       for (x = [new Array(l), new Array(l), new Array(l), new Array(l)], j = q, k = l + 1, i = -1; ++i < l; x[2][i] = i, x[1][i] = x[0][i] = j /= --k);
       for (r = new Array(q); ++p < q;)
@@ -60,7 +60,7 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
     // generate search regexp that matches all complete permutations of search terms
     var s = '';
     var permutations = permute(terms);
-    Ext.each(permutations, function (permutation) {
+    Ext.each(permutations, function(permutation) {
       if (permutation.length == terms.length) {
         if (s.length == 0) {
           s += ('(' + permutation.join('.*'));
