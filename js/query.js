@@ -24,7 +24,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
           text: 'Advanced',
           iconCls: 'advanced-query-icon',
           disabled: true,
-          tooltip: 'Use this menu to select the format of the query panel',
+          tooltip: 'Use this menu to select the query format',
           menu: {
             items: [{
               itemId: 'simple',

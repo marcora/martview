@@ -16,7 +16,15 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       autoDestroy: true,
       title: 'Choose dataset',
       iconCls: 'selectdb-icon',
+      buttonAlign: 'left',
       buttons: [{
+        xtype: 'tbtext',
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a dataset to select it'
+      },
+      {
+        xtype: 'tbfill'
+      },
+      {
         cls: 'x-btn-text-icon',
         text: 'Cancel',
         iconCls: 'reset-icon',

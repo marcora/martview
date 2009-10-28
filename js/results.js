@@ -21,7 +21,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Tabular',
           iconCls: 'tabular-results-icon',
           disabled: true,
-          tooltip: 'Use this menu to select the format of the results panel',
+          tooltip: 'Use this menu to select the results format',
           menu: {
             items: [{
               text: 'Tabular',

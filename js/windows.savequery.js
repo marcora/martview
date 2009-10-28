@@ -55,7 +55,7 @@ Martview.windows.SaveQuery = Ext.extend(Ext.Window, {
           triggerAction: 'all',
           mode: 'local',
           value: 'xml',
-          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined query on server']]
+          store: [['xml', 'XML'], ['url', 'URL'], ['java', 'Java'], ['pl', 'Perl'], ['py', 'Python'], ['rb', 'Ruby'], ['user', 'User-defined query stored in BioMart']]
         }]
       }]
     };

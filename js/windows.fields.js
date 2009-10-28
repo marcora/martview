@@ -25,7 +25,15 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       autoDestroy: true,
       cls: 'fields',
       iconCls: 'add-icon',
+      buttonAlign: 'left',
       buttons: [{
+        xtype: 'tbtext',
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to select it'
+      },
+      {
+        xtype: 'tbfill'
+      },
+      {
         text: 'Cancel',
         cls: 'x-btn-text-icon',
         iconCls: 'reset-icon',
@@ -148,7 +156,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           },
           scope: this // window
         },
-        '->', {
+        {
           text: 'Remove all ' + this.display_name,
           iconCls: 'delete-icon',
           cls: 'x-btn-text-icon',
@@ -230,7 +238,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     } else if (typeof(node_or_id_or_array) == 'object') { // if object
       node = all.getNodeById(node_or_id_or_array['id']);
     }
-    if (node) {
+    if (node && !node.disabled) {
       if (node.isLeaf()) {
         selected.add({
           xtype: 'field',
@@ -261,7 +269,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     } else if (typeof(node_or_id_or_array) == 'object') { // if object
       node = all.getNodeById(node_or_id_or_array['id']);
     }
-    if (node) {
+    if (node && node.disabled) {
       if (node.isLeaf()) {
         selected.remove(node.id);
         selected.doLayout();
