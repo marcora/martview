@@ -48,13 +48,13 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             itemId: 'search',
             ref: '../search',
             flex: 1,
-            emptyText: 'Enter search terms (for example, human genes or protein structures or ENSEMBL) to find a specific dataset'
+            emptyText: 'Enter terms (for example, human genes or protein structures or ENSEMBL) to find a specific dataset'
           },
           ' ', {
             itemId: 'expand_all',
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
-            text: 'Expand',
+            text: 'Expand all',
             handler: function() {
               this.all.getStore().expandAll();
             },
@@ -64,7 +64,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             itemId: 'collapse_all',
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
-            text: 'Collapse',
+            text: 'Collapse all',
             handler: function() {
               this.all.getStore().collapseAll();
             },

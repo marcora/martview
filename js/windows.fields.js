@@ -73,7 +73,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             itemId: 'search',
             ref: '../search',
             flex: 1,
-            emptyText: 'Enter search terms to find a specific ' + this.display_name.substr(0, this.display_name.length - 1)
+            emptyText: 'Enter terms to find a specific ' + this.display_name.substr(0, this.display_name.length - 1)
             // listeners: {
             //   'render': {
             //     fn: function () {
@@ -87,7 +87,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             itemId: 'expand_all',
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
-            text: 'Expand',
+            text: 'Expand all',
             handler: function() {
               var window = this;
               window.all.search.onTrigger1Click();
@@ -99,7 +99,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             itemId: 'collapse_all',
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
-            text: 'Collapse',
+            text: 'Collapse all',
             handler: function() {
               var window = this;
               window.all.search.onTrigger1Click();

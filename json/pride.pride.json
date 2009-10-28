@@ -22,7 +22,7 @@
           "qualifier": "=",
           "options": "PP-1,PP-10,PP-11,PP-12,PP-13,PP-14,PP-15,PP-16,PP-17,PP-18,PP-19,PP-2,PP-20,PP-21,PP-22,PP-3,PP-4,PP-5,PP-6,PP-7,PP-8,PP-9,NIAID-Salmonell",
           "tooltip": "Filter by Project ID",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "gkbz374t"
         }],
@@ -46,7 +46,7 @@
           "qualifier": "=",
           "options": "2D LC-ESI MS/MS of Marek`s disease virus transformed chicken CD4 T cell line,Characterization of the Mouse Brain Proteome Using Global Proteomic Analysis Complemented with Cysteinyl-Peptide Enrichment,COFRADIC proteome of unstimulated human blood platelets,Differential COFRADIC N-terminal proteomic analysis of Fas-induced apoptotic protein cleavage in Jurkat cells,Effects of subminimum inhibitory concentrations of antibiotics on the Pasteurella multocida proteome.,GPMDB Submission: Anonymous Data Set,GPMDB Submission: Aurum Spectra,GPMDB Submission: Plasma Proteome,GPMDB Submission: Protein complexes in Saccharomyces cerevisiae,HUPO Brain Proteome Project,HUPO HLPP: Beijing Proteome Research Center,HUPO Liver Proteome Project,HUPO Plasma Proteome Project,N-glyco COFRADIC proteome of MARS depleted mouse serum,N-terminal COFRADIC proteome of human SH-SY5Y cells,Phosphoproteome analysis of the human mitotic spindle,Proteomics Mapping of Brain Plasma Membrane Proteins,Strong cation exchange combined with COFRADIC methionine proteome of profilerating human MAPC,Sulfoxide derivatives of the methionyl peptides in human Jurkat T-lymphocytes,Trypanosome flagellar proteome,Bantscheff-2007-1,ORNL - UC, Berkeley AMD (Acid Mine Drainage) Community Proteome Study,Straightforward ladder sequencing of peptides using a Lys-N metalloendopeptidase ,Ancient fossil sequencing,Tetrahymena thermophila proteomic profile,A high-density, organ-specific proteome map for Arabidopsis thaliana,2D reference map of Herbaspirillum seropedicae ,NIAID bacterial proteomes,Schilling_NatBiotech_2008,Natural killer cell secretory lysosome (granule) membrane proteome,Comparative phosphoproteomics of zebrafish Fyn/Yes morpholino knockdown embryos,Mouse heart proteome project,ALGAE PROTEOMICS ,Sequential Labeling for Protein Quantitation, Raijmakers et al.,Selectivity in enrichment of PKA isoforms and their intereactors,Online automated zebrafish phosphoproteomics; From large scale analysis down to a single embryo,Quantitative proteome analysis of human blister fluids using 18O labeling,PROTEOMIC ANALYSIS OF ZEBRAFISH AT TWO STAGES OF DEVELOPMENT - 72 AND 120 HOURS POST FERTILIZATION,Xenopus chromatin proteome survey,Test Project Title,Non-ionic Detergent Phase Extraction for the Quantitative Proteomic Analysis of Heart Membranes Proteins using Label-Free LC-MS,HUPO Plasma Proteome Project 2 (ProteomExchange),Cerebrospinal fluid (CSF) proteome, Zhang et al.,In vivo stable isotope labeling of fruit flies reveals post-transcriptional regulation in the maternal-to-zygotic transition, HUPO Kidney and Urine Proteome Project,Yarrowia lipolytica proteome,Cooperative action of NC2 and Mot1p to regulate TATA-binding protein function across the genome,Spectrum Quality Filtering Data Sets \u2013 Flikka et al,Triplex stable isotope dimethyl labelling - Boersema et al. ,Quantitative Proteomics Analysis of the Secretory Pathway,THE BIOMARKER ENRICHED PROTEOME OF ADULT POLYCYSTIC KIDNEY DISEASE (ADPKD) CYST FLUID,Targeted SCX based peptide fractionation for optimal sequencing  by collision induced, and electron transfer dissociation ,Simulated LC-MS dataset,A systems biology study in yeast,C. elegans proteome identified by shotgun analysis ,Fossil bone sequencing,Large-scale phosphoproteome profiling reveals kinase substrates and phosphorylation motif use in Arabidopsis thaliana chloroplasts,Comparative proteomics of C3 and C4 envelope membranes,Ancient fossil bone sequencing,N-acetyltransferase A,A simple strategy for straightforward proteome analysis by a combination of Lys-N, strong cation exchange and electron transfer dissociation,Mouse oocyte proteome project,Straightforward peptide sequencing by MALDI-MS/MS using a Lys-N metallopeptidase - Boersema et al. 2008,Proteomic profile of rat brain,Aquaporins,Forrester, M.T. et al., Nat. Biotech, 2009.,Projects of the Clinical Proteomics Laboratories at the Medical University of Vienna  (CPL/MUW),Proteomic profile of Zebrafish brain based on 2D MALDI MS/MS analysis,Pollen proteome map of Arabidopsis thaliana,Comparative hESC phosphoproteomics,T.forsythia Outer Membrane,Proteogenomics annotation of Thermococcus gammatolerans,run2,run1,Reference 2DE map of bovine cerebrospinal fluid,Metaproteomics of Microbial Phyllosphere Communities,LRP peptide pulldowns,MM differential proteome,Ribosome copy numbers in polysomes and whole leaf ,HUPO test samples,Comparative analysis of OFFGel, SCX with pH gradient, and Reverse Phase at high pH for first dimensional separation of peptides from a membrane enriched protein fraction,Analysis of Structural Proteomes of Giant Phages,The influence of the acyl chain composition of cardiolipin on the stability of mitochondrial supercomplexes; an unexpected effect of cardiolipin in alpha-ketoglutarate dehydrogenase and prohibitin supercomplexes,01,02,03,Proteomic analysis of integrin-associated complexes,Blue native electrophoresis combined with stable isotope labeling shows that Saccharomyces cerevisiae mitochondrial respiratory chain supercomplexes are still present under anaerobic conditions ,C. elegans genome annotation project,Pollensomes,Phosphochip Q-ToF analysis of primary human leukocytes, Raijmakers et al.",
           "tooltip": "Filter by Project Name",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "k9rtilv2"
         }],
@@ -567,7 +567,7 @@
           "leaf": true,
           "name": "project_id",
           "tooltip": "",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "a1hj199i"
         },
@@ -580,7 +580,7 @@
           "leaf": true,
           "name": "project_name",
           "tooltip": "",
-          "default": true,
+          "default": false,
           "model_reference": null,
           "id": "m5mnzjxj"
         },
