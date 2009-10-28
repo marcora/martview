@@ -13,6 +13,7 @@ Martview.results.Tabular = Ext.extend(Ext.grid.GridPanel, {
       disableSelection: true,
       stripeRows: true,
       border: false,
+      plugins: ['autosizecolumns'],
       store: new Ext.data.JsonStore({
         autoDestroy: true,
         root: 'rows',

@@ -44,9 +44,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'dataset_name',
         iconCls: 'dataset-icon',
         hidden: true,
-        tooltip: 'Press this button to get more information about the selected dataset',
+        tooltip: 'Press this button to get more information about the chosen dataset',
         handler: function() {
-          Ext.MessageBox.alert(Martview.APP_TITLE, 'More info about selected dataset');
+          Ext.MessageBox.alert(Martview.APP_TITLE, 'More info about chosen dataset');
         }
       },
       '->', {

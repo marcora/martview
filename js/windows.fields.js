@@ -28,7 +28,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       buttonAlign: 'left',
       buttons: [{
         xtype: 'tbtext',
-        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to select it'
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to add it'
       },
       {
         xtype: 'tbfill'
@@ -147,7 +147,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //           pack: 'start'
         //         },
         tbar: [{
-          text: 'Reset default ' + this.display_name,
+          text: 'Reset to default',
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
           tooltip: 'Press this button to reset the default ' + this.display_name,
@@ -157,7 +157,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           scope: this // window
         },
         {
-          text: 'Remove all ' + this.display_name,
+          text: 'Remove all',
           iconCls: 'delete-icon',
           cls: 'x-btn-text-icon',
           tooltip: 'Press this button to remove all ' + this.display_name,
