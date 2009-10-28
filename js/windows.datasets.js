@@ -19,7 +19,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       buttonAlign: 'left',
       buttons: [{
         xtype: 'tbtext',
-        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a dataset to select it'
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a dataset to choose it'
       },
       {
         xtype: 'tbfill'
