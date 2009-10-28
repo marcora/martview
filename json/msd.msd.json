@@ -1,41 +1,11 @@
 {
   "type": "TableSet",
   "text": "MSD protein structures",
-  "iconCls": "dataset-icon",
-  "keywords": ["msd", "proteins", "structures", "x-ray", "crystallography", "pdb"],
-  "dataset_name": "msd",
+  "mart_name": "msd",
+  "interface": "default",
   "description": "Praesent vitae metus ut ligula congue gravida eu ac odio. Sed porttitor massa ac lectus interdum aliquam. Suspendisse consequat egestas suscipit. Aliquam venenatis elementum velit at ornare. Aliquam erat volutpat. Suspendisse potenti. Vivamus euismod sodales mi, eget adipiscing quam fermentum nec. Morbi ac leo libero. Quisque commodo mollis molestie. Morbi sodales ante et quam facilisis faucibus. Vestibulum urna turpis, dapibus a hendrerit a, luctus at orci.",
   "display_name": "MSD protein structures",
-  "itemId": "msd",
-  "dataset_display_name": "MSD protein structures",
-  "help_fields": [{
-    name: "pdb_id",
-    description: "filter by PDB ID (for example, <code>pdb_id:11ba</code>)"
-  },
-  {
-    name: "experiment_type",
-    description: "filter by experiment type (for example, <code>experiment_type:NMR</code>)"
-  },
-  {
-    name: "resolution",
-    description: "filter by resolution (for example, <code>resolution:[3 TO *]</code>)"
-  },
-  {
-    name: "authors",
-    description: "filter by author name (for example, <code>authors:Mishima</code>)"
-  }],
-  "facet_fields": [{
-    name: "experiment_type"
-  },
-  {
-    name: "resolution"
-  },
-  {
-    name: "r_work"
-  },
-  {
-    name: "space_group"
-  }],
+  "mart_display_name": "MSD PROTOTYPE (EBI UK)",
   "filters": [{
     "children": [{
       "children": [{
@@ -45,30 +15,42 @@
           "fulltext": "experiment experiments type types experiment_type experiment_types",
           "display_name": "Experiment type",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "experiment_type",
-          "qualifier": "=",
           "options": "Electron diffraction,Electron microscopy,Electron tomography,Fibre diffraction (electron),Fibre diffraction (X-ray),Fluorescence transfer,Infrared spectroscopy,Neutron Diffraction,NMR,Powder diffraction (X-ray),Single crystal X-ray diffraction,Solid state NMR,Theoretical model,Unspecified",
-          "tooltip": "",
+          "qtip": "Experiment type",
           "default": true,
-          "model_reference": null,
-          "id": "wznw5we5"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "cwr1zz45",
+          "qualifier": "="
         }],
         "text": "Experiment type",
         "fulltext": null,
         "display_name": "Experiment type",
         "leaf": false,
         "name": "exp_type",
-        "tooltip": "",
-        "id": "q4apbaxf"
+        "qtip": "Experiment type",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "ynun63ld"
       }],
       "text": "EXPERIMENT TYPE:",
       "fulltext": null,
       "display_name": "EXPERIMENT TYPE:",
       "leaf": false,
       "name": "experiment_type_filters",
-      "tooltip": "",
-      "id": "sooj6ars"
+      "qtip": "EXPERIMENT TYPE:",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "y3x1b21y"
     },
     {
       "children": [{
@@ -78,30 +60,42 @@
           "fulltext": "species name names  s comma commas separated separateds species_name species_names",
           "display_name": "Species name(s) (comma separated)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "species_name",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Species name(s) (comma separated)",
           "default": false,
-          "model_reference": null,
-          "id": "mxp7isyi"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "h6s69m9m",
+          "qualifier": "="
         }],
         "text": "Species",
         "fulltext": null,
         "display_name": "Species",
         "leaf": false,
         "name": "species",
-        "tooltip": "",
-        "id": "bbq9367f"
+        "qtip": "Species",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "rzs5f8h5"
       }],
       "text": "SPECIES:",
       "fulltext": null,
       "display_name": "SPECIES:",
       "leaf": false,
       "name": "species_filters",
-      "tooltip": "",
-      "id": "6q5vqa6h"
+      "qtip": "SPECIES:",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "w1zwigzb"
     },
     {
       "children": [{
@@ -111,14 +105,18 @@
           "fulltext": "resolution resolutions greater greaters resolution_more_than resolution_more_thans",
           "display_name": "Resolution greater than",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "resolution_more_than",
-          "qualifier": ">",
           "options": null,
-          "tooltip": "",
+          "qtip": "Resolution greater than",
           "default": false,
-          "model_reference": null,
-          "id": "wq3ophml"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "3gl4kezf",
+          "qualifier": ">"
         },
         {
           "children": null,
@@ -126,30 +124,42 @@
           "fulltext": "resolution resolutions les lesses resolution_less_than resolution_less_thans",
           "display_name": "Resolution less than",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "resolution_less_than",
-          "qualifier": "<",
           "options": null,
-          "tooltip": "",
+          "qtip": "Resolution less than",
           "default": true,
-          "model_reference": null,
-          "id": "wg3xy1z3"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "l5aj0ixu",
+          "qualifier": "<"
         }],
         "text": "Resolution",
         "fulltext": null,
         "display_name": "Resolution",
         "leaf": false,
         "name": "resolution",
-        "tooltip": "",
-        "id": "sx9loo1i"
+        "qtip": "Resolution",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "zhxqfmll"
       }],
       "text": "RESOLUTION:",
       "fulltext": null,
       "display_name": "RESOLUTION:",
       "leaf": false,
       "name": "resolution_filters",
-      "tooltip": "",
-      "id": "y9rqfm8t"
+      "qtip": "RESOLUTION:",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "v3c1oji6"
     },
     {
       "children": [{
@@ -159,22 +169,30 @@
           "fulltext": "assembly assemblies clas classes assembly_clas assembly_classes",
           "display_name": "Assembly Class",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_class",
-          "qualifier": "=",
           "options": "IV,HETERO,HV,HOMO",
-          "tooltip": "",
+          "qtip": "Assembly Class",
           "default": false,
-          "model_reference": null,
-          "id": "4ap1rwlj"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "efkzb2ea",
+          "qualifier": "="
         }],
         "text": "Assembly Class",
         "fulltext": null,
         "display_name": "Assembly Class",
         "leaf": false,
         "name": "class",
-        "tooltip": "",
-        "id": "b46az3j7"
+        "qtip": "Assembly Class",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "z2wxy944"
       },
       {
         "children": [{
@@ -183,30 +201,42 @@
           "fulltext": "assembly assemblies type types assembly_type assembly_types",
           "display_name": "Assembly Type",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_type",
-          "qualifier": "=",
           "options": "32MERIC,22MERIC,EICOSAMERIC,HEPTAMERIC,DIMERIC,24MERIC,TRIDECAMERIC,NONAMERIC,29MERIC,42MERIC,60MERIC,OCTAMERIC,TETRADECAMERIC,26MERIC,UNDECAMERIC,MONOMERIC,30MERIC,HEPTADECAMERIC,TETRAMERIC,27MERIC,HEXAMERIC,31MERIC,DECAMERIC,36MERIC,23MERIC,PENTAMERIC,TRIMERIC,33MERIC,21MERIC,NONADECAMERIC,PENTADECAMERIC,DODECAMERIC,OCTADECAMERIC,28MERIC,HEXADECAMERIC",
-          "tooltip": "",
+          "qtip": "Assembly Type",
           "default": false,
-          "model_reference": null,
-          "id": "at5d8pri"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "it3z2wyd",
+          "qualifier": "="
         }],
         "text": "Assembly Type",
         "fulltext": null,
         "display_name": "Assembly Type",
         "leaf": false,
         "name": "type",
-        "tooltip": "",
-        "id": "im9pjd4w"
+        "qtip": "Assembly Type",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "13t7zb6v"
       }],
       "text": "ASSEMBLY:",
       "fulltext": null,
       "display_name": "ASSEMBLY:",
       "leaf": false,
       "name": "assembly_filters",
-      "tooltip": "",
-      "id": "p86euwpe"
+      "qtip": "ASSEMBLY:",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "l53mwzel"
     },
     {
       "children": [{
@@ -216,22 +246,30 @@
           "fulltext": "3 3s letter letters molecule molecules code codes e es g gs gco gcos small_molecule_code small_molecule_codes",
           "display_name": "3 letter molecule code (e.g GCO)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "small_molecule_code",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "3 letter molecule code (e.g GCO)",
           "default": false,
-          "model_reference": null,
-          "id": "g7fb78cf"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "q6cjzs3k",
+          "qualifier": "="
         }],
         "text": "Small Molecule (3 letter code)",
         "fulltext": null,
         "display_name": "Small Molecule (3 letter code)",
         "leaf": false,
         "name": "three_letter_code",
-        "tooltip": "",
-        "id": "9qz25s0l"
+        "qtip": "Small Molecule (3 letter code)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "a5t1rq5v"
       },
       {
         "children": [{
@@ -240,22 +278,30 @@
           "fulltext": "molecule molecules name names e es g gs gluconic gluconics acid acids small_molecule_name small_molecule_names",
           "display_name": "Molecule name (e.g Gluconic acid)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "small_molecule_name",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Molecule name (e.g Gluconic acid)",
           "default": false,
-          "model_reference": null,
-          "id": "677pd2u2"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "kvm8hnnu",
+          "qualifier": "="
         }],
         "text": "Small Molecule (full name)",
         "fulltext": null,
         "display_name": "Small Molecule (full name)",
         "leaf": false,
         "name": "full_molecular_name",
-        "tooltip": "",
-        "id": "xeo3hdl4"
+        "qtip": "Small Molecule (full name)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "i3c67q02"
       },
       {
         "children": [{
@@ -264,22 +310,30 @@
           "fulltext": "space spaces group groups e es g gs 1 1s 2 2s space_group space_groups",
           "display_name": "Space group (e.g A 1 2 1)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "space_group",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Space group (e.g A 1 2 1)",
           "default": false,
-          "model_reference": null,
-          "id": "oafawdye"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "cr54zmt9",
+          "qualifier": "="
         }],
         "text": "Space Group (eg A 1 2 1)",
         "fulltext": null,
         "display_name": "Space Group (eg A 1 2 1)",
         "leaf": false,
         "name": "space_group_filters",
-        "tooltip": "",
-        "id": "tqhxxia2"
+        "qtip": "Space Group (eg A 1 2 1)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "txwlt8gu"
       },
       {
         "children": [{
@@ -288,22 +342,30 @@
           "fulltext": "header headers term terms comma commas separated separateds",
           "display_name": "Header terms(comma separated)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "header",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Header terms(comma separated)",
           "default": false,
-          "model_reference": null,
-          "id": "dsg1d0wm"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "omrlofoo",
+          "qualifier": "="
         }],
         "text": "Header Terms (comma separated)",
         "fulltext": null,
         "display_name": "Header Terms (comma separated)",
         "leaf": false,
         "name": "header_filters",
-        "tooltip": "",
-        "id": "fgf8ii"
+        "qtip": "Header Terms (comma separated)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "lgr6fcuj"
       },
       {
         "children": [{
@@ -312,22 +374,30 @@
           "fulltext": "keyword keywords comma commas separated separateds keywords_concat keywords_concats",
           "display_name": "Keywords (comma separated)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "keywords_concat",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Keywords (comma separated)",
           "default": false,
-          "model_reference": null,
-          "id": "6tp4w730"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "h70imume",
+          "qualifier": "="
         }],
         "text": "Keywords (comma separated)",
         "fulltext": null,
         "display_name": "Keywords (comma separated)",
         "leaf": false,
         "name": "keywords",
-        "tooltip": "",
-        "id": "y3lpc2a7"
+        "qtip": "Keywords (comma separated)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "ljtsy34u"
       },
       {
         "children": [{
@@ -336,22 +406,30 @@
           "fulltext": "author authors last lasts name names",
           "display_name": "Author last name",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "authors",
-          "qualifier": "=",
           "options": null,
-          "tooltip": "",
+          "qtip": "Author last name",
           "default": false,
-          "model_reference": null,
-          "id": "ajlxgvbk"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "94d47kd9",
+          "qualifier": "="
         }],
         "text": "Author (last name)",
         "fulltext": null,
         "display_name": "Author (last name)",
         "leaf": false,
         "name": "author_last_name",
-        "tooltip": "",
-        "id": "fqn97jsa"
+        "qtip": "Author (last name)",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "r3nfw30x"
       },
       {
         "children": [{
@@ -360,14 +438,18 @@
           "fulltext": "scop scops id ids  s has_scop has_scops",
           "display_name": "with SCOP ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "has_scop",
-          "qualifier": "only,excluded",
           "options": null,
-          "tooltip": "",
+          "qtip": "with SCOP ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "stcan6oy"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "fa6j1qm1",
+          "qualifier": "only,excluded"
         },
         {
           "children": null,
@@ -375,14 +457,18 @@
           "fulltext": "cath caths id ids  s has_cath has_caths",
           "display_name": "with CATH ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "has_cath",
-          "qualifier": "only,excluded",
           "options": null,
-          "tooltip": "",
+          "qtip": "with CATH ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "mwa1qbf0"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "heb6gqcv",
+          "qualifier": "only,excluded"
         },
         {
           "children": null,
@@ -390,14 +476,18 @@
           "fulltext": "pfam pfams id ids  s has_pfam_info has_pfam_infos",
           "display_name": "with PFAM ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "has_pfam_info",
-          "qualifier": "only,excluded",
           "options": null,
-          "tooltip": "",
+          "qtip": "with PFAM ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "1b7iej6g"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "oqbktu6x",
+          "qualifier": "only,excluded"
         },
         {
           "children": null,
@@ -405,14 +495,18 @@
           "fulltext": "interpro interpros id ids  s has_interpro_info has_interpro_infos",
           "display_name": "with InterPro ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "has_interpro_info",
-          "qualifier": "only,excluded",
           "options": null,
-          "tooltip": "",
+          "qtip": "with InterPro ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ctcf5fqy"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "ak2ihgm4",
+          "qualifier": "only,excluded"
         },
         {
           "children": null,
@@ -420,22 +514,30 @@
           "fulltext": "ec ecs id ids  s has_ec_info has_ec_infos",
           "display_name": "with EC ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "has_ec_info",
-          "qualifier": "only,excluded",
           "options": null,
-          "tooltip": "",
+          "qtip": "with EC ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "xdny80a3"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "nqetvrtd",
+          "qualifier": "only,excluded"
         }],
         "text": "External references",
         "fulltext": null,
         "display_name": "External references",
         "leaf": false,
         "name": "id_list_bool_filters",
-        "tooltip": "",
-        "id": "8iw080at"
+        "qtip": "External references",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "vjewtb9w"
       },
       {
         "children": [{
@@ -444,14 +546,18 @@
           "fulltext": "ec ecs id ids  s ec_id_list ec_id_lists",
           "display_name": "EC ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ec_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "EC ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "rmt6nc1l"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "sf70qb5i",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -459,14 +565,18 @@
           "fulltext": "interpro interpros id ids  s interpro_id_list interpro_id_lists",
           "display_name": "InterPro ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "interpro_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "InterPro ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "kn7589mj"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "v9am7o26",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -474,14 +584,18 @@
           "fulltext": "pfma pfmas id ids  s pfam_id_list pfam_id_lists",
           "display_name": "PFMA ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "pfam_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "PFMA ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "zlc0eqgr"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "2cwu4kej",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -489,14 +603,18 @@
           "fulltext": "cath caths id ids  s cath_id_list cath_id_lists",
           "display_name": "CATH ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "cath_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "CATH ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ymw2fk9j"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "b0j446co",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -504,14 +622,18 @@
           "fulltext": "scop scops id ids  s scop_id_list scop_id_lists",
           "display_name": "SCOP ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "scop_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "SCOP ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ngjudkgk"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "uy3bbh5y",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -519,14 +641,18 @@
           "fulltext": "uniprot uniprots id ids  s sprot_id_list sprot_id_lists",
           "display_name": "UniProt ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "sprot_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "UniProt ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "f2i0ijz9"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "jqv9t28u",
+          "qualifier": "=,in"
         },
         {
           "children": null,
@@ -534,43 +660,60 @@
           "fulltext": "pdb pdbs id ids  s pdb_id_list pdb_id_lists",
           "display_name": "PDB ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "pdb_id_list",
-          "qualifier": "=,in",
           "options": null,
-          "tooltip": "",
+          "qtip": "PDB ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "q1fmu9a6"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "lf10qziu",
+          "qualifier": "=,in"
         }],
         "text": "Limit to proteins with these IDs",
         "fulltext": null,
         "display_name": "Limit to proteins with these IDs",
         "leaf": false,
         "name": "id_list_filter",
-        "tooltip": "",
-        "id": "h0ktklwx"
+        "qtip": "Limit to proteins with these IDs",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "cpl29ppj"
       }],
       "text": "EXTERNAL IDENTIFIERS:",
       "fulltext": null,
       "display_name": "EXTERNAL IDENTIFIERS:",
       "leaf": false,
       "name": "external_identifiers",
-      "tooltip": "",
-      "id": "ml1q00ug"
+      "qtip": "EXTERNAL IDENTIFIERS:",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "5kowwfi8"
     }],
     "text": "FILTERS",
     "fulltext": null,
     "display_name": "FILTERS",
     "leaf": false,
     "name": "filters",
-    "tooltip": "",
-    "id": "hkkrlhss"
+    "qtip": "FILTERS",
+    "qtipCfg": {
+      "dismissDelay": 0,
+      "autoWidth": true
+    },
+    "id": "qaxd3o54"
   }],
   "name": "msd",
-  "mart_name": "msd",
-  "interface": "default",
-  "mart_display_name": "MSD PROTOTYPE (EBI UK)",
+  "visible": false,
+  "iconCls": "dataset-icon",
+  "keywords": ["msd", "proteins", "structures", "x-ray", "crystallography", "pdb"],
+  "dataset_name": "msd",
   "attributes": [{
     "children": [{
       "children": [{
@@ -580,12 +723,16 @@
           "fulltext": "pdb pdbs id ids  s pdb_id pdb_ids",
           "display_name": "PDB ID(s)",
           "description": null,
+          "model_reference": "http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#PDB_Identifier",
           "leaf": true,
           "name": "pdb_id",
-          "tooltip": "",
+          "qtip": "PDB ID(s)",
           "default": true,
-          "model_reference": "http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#PDB_Identifier",
-          "id": "gi82kzbx"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "niqwou68"
         },
         {
           "children": null,
@@ -593,12 +740,16 @@
           "fulltext": "title titles",
           "display_name": "Title",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "title",
-          "tooltip": "",
-          "default": true,
-          "model_reference": null,
-          "id": "lelaih9b"
+          "qtip": "Title",
+          "default": false,
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "p0piezl7"
         },
         {
           "children": null,
@@ -606,12 +757,16 @@
           "fulltext": "experiment experiments type types experiment_type experiment_types",
           "display_name": "Experiment Type",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "experiment_type",
-          "tooltip": "",
+          "qtip": "Experiment Type",
           "default": true,
-          "model_reference": null,
-          "id": "f1bn9l9h"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "99eik1t2"
         },
         {
           "children": null,
@@ -619,12 +774,16 @@
           "fulltext": "header headers",
           "display_name": "Header",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "header",
-          "tooltip": "",
+          "qtip": "Header",
           "default": false,
-          "model_reference": null,
-          "id": "cjchwngj"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "w7ry6nl9"
         },
         {
           "children": null,
@@ -632,12 +791,16 @@
           "fulltext": "author authors",
           "display_name": "Authors",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "authors",
-          "tooltip": "",
+          "qtip": "Authors",
           "default": false,
-          "model_reference": null,
-          "id": "gzchtag5"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "tn6x4njn"
         },
         {
           "children": null,
@@ -645,12 +808,16 @@
           "fulltext": "keyword keywords keywords_concat keywords_concats",
           "display_name": "Keywords",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "keywords_concat",
-          "tooltip": "",
+          "qtip": "Keywords",
           "default": false,
-          "model_reference": null,
-          "id": "ippzgqsc"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "ssyra4ye"
         },
         {
           "children": null,
@@ -658,12 +825,16 @@
           "fulltext": "submission submissions date dates submission_date submission_dates",
           "display_name": "Submission Date",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "submission_date",
-          "tooltip": "",
+          "qtip": "Submission Date",
           "default": false,
-          "model_reference": null,
-          "id": "lejr0j0b"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "bsuuksta"
         },
         {
           "children": null,
@@ -671,12 +842,16 @@
           "fulltext": "release releases date dates release_date release_dates",
           "display_name": "Release Date",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "release_date",
-          "tooltip": "",
+          "qtip": "Release Date",
           "default": false,
-          "model_reference": null,
-          "id": "urlng3r0"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "8ssfrvtb"
         },
         {
           "children": null,
@@ -684,12 +859,16 @@
           "fulltext": "resolution resolutions",
           "display_name": "Resolution",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "resolution",
-          "tooltip": "",
+          "qtip": "Resolution",
           "default": true,
-          "model_reference": null,
-          "id": "5svau0ky"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "2nd2x1ji"
         },
         {
           "children": null,
@@ -697,12 +876,16 @@
           "fulltext": "space spaces group groups space_group space_groups",
           "display_name": "Space Group",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "space_group",
-          "tooltip": "",
+          "qtip": "Space Group",
           "default": true,
-          "model_reference": null,
-          "id": "xgcxhbov"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "nnjsv9k2"
         },
         {
           "children": null,
@@ -710,21 +893,29 @@
           "fulltext": "r rs work works r_work r_works",
           "display_name": "R Work",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "r_work",
-          "tooltip": "",
+          "qtip": "R Work",
           "default": true,
-          "model_reference": null,
-          "id": "3mjdz9zr"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "6luzm7q5"
         }],
         "text": "MSD ENTRY DATA:",
         "fulltext": null,
         "display_name": "MSD ENTRY DATA:",
+        "max_select": null,
         "leaf": false,
         "name": "entry",
-        "tooltip": "",
-        "max_select": null,
-        "id": "sk3eyhhw"
+        "qtip": "MSD ENTRY DATA:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "4olzi2kf"
       },
       {
         "children": [{
@@ -733,12 +924,16 @@
           "fulltext": "assembly assemblies type types assembly_type assembly_types",
           "display_name": "Assembly Type",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_type",
-          "tooltip": "",
+          "qtip": "Assembly Type",
           "default": false,
-          "model_reference": null,
-          "id": "zwtm7s0f"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "4g0ykd9i"
         },
         {
           "children": null,
@@ -746,12 +941,16 @@
           "fulltext": "assembly assemblies code codes assembly_code assembly_codes",
           "display_name": "Assembly Code",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_code",
-          "tooltip": "",
+          "qtip": "Assembly Code",
           "default": false,
-          "model_reference": null,
-          "id": "gulx9dsi"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "8ptridwb"
         },
         {
           "children": null,
@@ -759,12 +958,16 @@
           "fulltext": "assembly assemblies form forms assembly_form assembly_forms",
           "display_name": "Assembly Form",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_form",
-          "tooltip": "",
+          "qtip": "Assembly Form",
           "default": false,
-          "model_reference": null,
-          "id": "rjygonut"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "onc6h2mc"
         },
         {
           "children": null,
@@ -772,21 +975,29 @@
           "fulltext": "assembly assemblies clas classes assembly_clas assembly_classes",
           "display_name": "Assembly Class",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "assembly_class",
-          "tooltip": "",
+          "qtip": "Assembly Class",
           "default": false,
-          "model_reference": null,
-          "id": "fuefm9qu"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "liaf1gse"
         }],
         "text": "MSD ASSEMBLY DATA:",
         "fulltext": null,
         "display_name": "MSD ASSEMBLY DATA:",
+        "max_select": null,
         "leaf": false,
         "name": "assembly",
-        "tooltip": "",
-        "max_select": null,
-        "id": "aoxorh5i"
+        "qtip": "MSD ASSEMBLY DATA:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "8auxnnkf"
       },
       {
         "children": [{
@@ -795,12 +1006,16 @@
           "fulltext": "chain chains code codes chain_code chain_codes",
           "display_name": "Chain Code",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "chain_code",
-          "tooltip": "",
+          "qtip": "Chain Code",
           "default": false,
-          "model_reference": null,
-          "id": "abb9z5pu"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "ig9h3z3j"
         },
         {
           "children": null,
@@ -808,12 +1023,16 @@
           "fulltext": "chain chains length lengths chain_length chain_lengths",
           "display_name": "Chain Length",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "chain_length",
-          "tooltip": "",
+          "qtip": "Chain Length",
           "default": false,
-          "model_reference": null,
-          "id": "n58f3y0f"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "yo0xs3lm"
         },
         {
           "children": null,
@@ -821,12 +1040,16 @@
           "fulltext": "ebi ebis chain chains code codes chain_ebi_code_1_letter chain_ebi_code_1_letters",
           "display_name": "EBI Chain Code",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "chain_ebi_code_1_letter",
-          "tooltip": "",
+          "qtip": "EBI Chain Code",
           "default": false,
-          "model_reference": null,
-          "id": "w45gm6lo"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "pitvrpk5"
         },
         {
           "children": null,
@@ -834,12 +1057,16 @@
           "fulltext": "molecule molecules name names molecule_name molecule_names",
           "display_name": "Molecule Name",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "molecule_name",
-          "tooltip": "",
+          "qtip": "Molecule Name",
           "default": false,
-          "model_reference": null,
-          "id": "h6rl7drx"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "q3o58y19"
         },
         {
           "children": null,
@@ -847,12 +1074,16 @@
           "fulltext": "tax taxes id ids  s ncbi_tax_id ncbi_tax_ids",
           "display_name": "Tax ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ncbi_tax_id",
-          "tooltip": "",
+          "qtip": "Tax ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "xz79wlfm"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "s76lykj2"
         },
         {
           "children": null,
@@ -860,12 +1091,16 @@
           "fulltext": "concatenated concatenateds tax taxes id ids  s tax_concat tax_concats",
           "display_name": "Concatenated Tax ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "tax_concat",
-          "tooltip": "",
+          "qtip": "Concatenated Tax ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "cfajeuif"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "lbvy6wyo"
         },
         {
           "children": null,
@@ -873,12 +1108,16 @@
           "fulltext": "organism organisms name names scientific_name scientific_names",
           "display_name": "Organism Name",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "scientific_name",
-          "tooltip": "",
+          "qtip": "Organism Name",
           "default": false,
-          "model_reference": null,
-          "id": "2dls3o5e"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "zkmg8jku"
         },
         {
           "children": null,
@@ -886,12 +1125,16 @@
           "fulltext": "uniprot uniprots accession accessions id ids  s uniprot_ac uniprot_acs",
           "display_name": "UniProt Accession ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "uniprot_ac",
-          "tooltip": "",
+          "qtip": "UniProt Accession ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "f4yfevn1"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "p47fkqvm"
         },
         {
           "children": null,
@@ -899,12 +1142,16 @@
           "fulltext": "uniprot uniprots id ids  s uniprot_id uniprot_ids",
           "display_name": "UniProt ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "uniprot_id",
-          "tooltip": "",
+          "qtip": "UniProt ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "3kgqdtmg"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "q2uy3blo"
         },
         {
           "children": null,
@@ -912,12 +1159,16 @@
           "fulltext": "concatenated concatenateds uniprot uniprots accession accessions id ids  s sws_concat_uniprot_ac sws_concat_uniprot_acs",
           "display_name": "Concatenated UniProt Accession ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "sws_concat_uniprot_ac",
-          "tooltip": "",
+          "qtip": "Concatenated UniProt Accession ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "njytv7x6"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "vtwasig0"
         },
         {
           "children": null,
@@ -925,12 +1176,16 @@
           "fulltext": "molecule molecules code codes molecule_code molecule_codes",
           "display_name": "Molecule Code",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "molecule_code",
-          "tooltip": "",
+          "qtip": "Molecule Code",
           "default": false,
-          "model_reference": null,
-          "id": "w6fqd043"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "yrcj3o26"
         },
         {
           "children": null,
@@ -938,21 +1193,29 @@
           "fulltext": "molecule molecules source sources method methods molecule_src_method molecule_src_methods",
           "display_name": "Molecule Source Method",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "molecule_src_method",
-          "tooltip": "",
+          "qtip": "Molecule Source Method",
           "default": false,
-          "model_reference": null,
-          "id": "iqn4v10w"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "mae1z3q8"
         }],
         "text": "MSD CHAIN DATA:",
         "fulltext": null,
         "display_name": "MSD CHAIN DATA:",
+        "max_select": null,
         "leaf": false,
         "name": "chain",
-        "tooltip": "",
-        "max_select": null,
-        "id": "eqd57vaj"
+        "qtip": "MSD CHAIN DATA:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "lpj8lb06"
       },
       {
         "children": [{
@@ -961,12 +1224,16 @@
           "fulltext": "concatenated concatenateds pfam pfams id ids  s pfam_concat pfam_concats",
           "display_name": "Concatenated PFAM ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "pfam_concat",
-          "tooltip": "",
+          "qtip": "Concatenated PFAM ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "v4nhc248"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "cqfvbk8d"
         },
         {
           "children": null,
@@ -974,12 +1241,16 @@
           "fulltext": "pfam pfams id ids  s pfam_id pfam_ids",
           "display_name": "PFAM ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "pfam_id",
-          "tooltip": "",
+          "qtip": "PFAM ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ut17ffzt"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "2h87md2f"
         },
         {
           "children": null,
@@ -987,12 +1258,16 @@
           "fulltext": "concatenated concatenateds go gos id ids  s go_concat go_concats",
           "display_name": "Concatenated GO ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "go_concat",
-          "tooltip": "",
+          "qtip": "Concatenated GO ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "zr4x502m"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "hcoin0ot"
         },
         {
           "children": null,
@@ -1000,12 +1275,16 @@
           "fulltext": "concatenated concatenateds interpro interpros id ids  s interpro_concat interpro_concats",
           "display_name": "Concatenated InterPro ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "interpro_concat",
-          "tooltip": "",
+          "qtip": "Concatenated InterPro ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "xvjx2oiy"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "ll8nxcg9"
         },
         {
           "children": null,
@@ -1013,12 +1292,16 @@
           "fulltext": "interpro interpros id ids  s interpro_id interpro_ids",
           "display_name": "InterPro ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "interpro_id",
-          "tooltip": "",
+          "qtip": "InterPro ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ckc144av"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "heswpg6r"
         },
         {
           "children": null,
@@ -1026,12 +1309,16 @@
           "fulltext": "concatenated concatenateds ec ecs id ids  s ec_concat ec_concats",
           "display_name": "Concatenated EC ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ec_concat",
-          "tooltip": "",
+          "qtip": "Concatenated EC ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "g351l0k6"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "hy9pdmev"
         },
         {
           "children": null,
@@ -1039,12 +1326,16 @@
           "fulltext": "ec ecs id ids  s ec_number ec_numbers",
           "display_name": "EC ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ec_number",
-          "tooltip": "",
+          "qtip": "EC ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "o8f7vbzc"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "rs7eiawe"
         },
         {
           "children": null,
@@ -1052,12 +1343,16 @@
           "fulltext": "concatenated concatenateds cath caths id ids  s cath_concat cath_concats",
           "display_name": "Concatenated CATH ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "cath_concat",
-          "tooltip": "",
+          "qtip": "Concatenated CATH ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "hfraz1hn"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "lmfntrx8"
         },
         {
           "children": null,
@@ -1065,12 +1360,16 @@
           "fulltext": "cath caths id ids  s cath_code cath_codes",
           "display_name": "CATH ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "cath_code",
-          "tooltip": "",
+          "qtip": "CATH ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "onawljzu"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "b6xd3094"
         },
         {
           "children": null,
@@ -1078,12 +1377,16 @@
           "fulltext": "concatenated concatenateds scop scops id ids  s scop_concat scop_concats",
           "display_name": "Concatenated SCOP ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "scop_concat",
-          "tooltip": "",
+          "qtip": "Concatenated SCOP ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "7bh0ljap"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "m4t54eun"
         },
         {
           "children": null,
@@ -1091,21 +1394,29 @@
           "fulltext": "scop scops id ids  s sun_id sun_ids",
           "display_name": "SCOP ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "sun_id",
-          "tooltip": "",
+          "qtip": "SCOP ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "ryp4hfzw"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "czppw1lt"
         }],
         "text": "EXTERNAL IDENTIFIERS:",
         "fulltext": null,
         "display_name": "EXTERNAL IDENTIFIERS:",
+        "max_select": null,
         "leaf": false,
         "name": "xrefs",
-        "tooltip": "",
-        "max_select": null,
-        "id": "3cb8sy7v"
+        "qtip": "EXTERNAL IDENTIFIERS:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "6yt6ynth"
       },
       {
         "children": [{
@@ -1114,12 +1425,16 @@
           "fulltext": "hetgroup hetgroups id ids  s hetgroup_id hetgroup_ids",
           "display_name": "Hetgroup ID(s)",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "hetgroup_id",
-          "tooltip": "",
+          "qtip": "Hetgroup ID(s)",
           "default": false,
-          "model_reference": null,
-          "id": "xbedfil1"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "sz2ajs5k"
         },
         {
           "children": null,
@@ -1127,12 +1442,16 @@
           "fulltext": "hetgroup hetgroups name names hetgroup_name hetgroup_names",
           "display_name": "Hetgroup Name",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "hetgroup_name",
-          "tooltip": "",
+          "qtip": "Hetgroup Name",
           "default": false,
-          "model_reference": null,
-          "id": "1lmy07rj"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "1rkb33uf"
         },
         {
           "children": null,
@@ -1140,12 +1459,16 @@
           "fulltext": "hetgroup hetgroups formula formulas hetgroup_formula hetgroup_formulas",
           "display_name": "Hetgroup Formula",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "hetgroup_formula",
-          "tooltip": "",
+          "qtip": "Hetgroup Formula",
           "default": false,
-          "model_reference": null,
-          "id": "kgdbe9g4"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "bny7fqbs"
         },
         {
           "children": null,
@@ -1153,21 +1476,29 @@
           "fulltext": "hetgroup hetgroups weight weights hetgroup_weight hetgroup_weights",
           "display_name": "Hetgroup Weight",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "hetgroup_weight",
-          "tooltip": "",
+          "qtip": "Hetgroup Weight",
           "default": false,
-          "model_reference": null,
-          "id": "9idfln8r"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "gdrb7c6v"
         }],
         "text": "HETGROUP:",
         "fulltext": null,
         "display_name": "HETGROUP:",
+        "max_select": null,
         "leaf": false,
         "name": "hetgroup",
-        "tooltip": "",
-        "max_select": null,
-        "id": "2pw5czns"
+        "qtip": "HETGROUP:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "n7luxit3"
       },
       {
         "children": [{
@@ -1176,12 +1507,16 @@
           "fulltext": "id ids",
           "display_name": "ID",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "id",
-          "tooltip": "",
+          "qtip": "ID",
           "default": false,
-          "model_reference": null,
-          "id": "3e0tyu3v"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "60mj163h"
         },
         {
           "children": null,
@@ -1189,12 +1524,16 @@
           "fulltext": "year years",
           "display_name": "Year",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "year",
-          "tooltip": "",
+          "qtip": "Year",
           "default": false,
-          "model_reference": null,
-          "id": "150zj0p8"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "ee4gfzsm"
         },
         {
           "children": null,
@@ -1202,12 +1541,16 @@
           "fulltext": "title titles title_journal title_journals",
           "display_name": "Title",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "title_journal",
-          "tooltip": "",
+          "qtip": "Title",
           "default": false,
-          "model_reference": null,
-          "id": "5x5vsw2c"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "1mszhff5"
         },
         {
           "children": null,
@@ -1215,12 +1558,16 @@
           "fulltext": "full fulls journal journals journal_full journal_fulls",
           "display_name": "Full journal",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "journal_full",
-          "tooltip": "",
+          "qtip": "Full journal",
           "default": false,
-          "model_reference": null,
-          "id": "wu4ntllh"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "gltohlwv"
         },
         {
           "children": null,
@@ -1228,12 +1575,16 @@
           "fulltext": "volume volumes journal_volume journal_volumes",
           "display_name": "Volume",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "journal_volume",
-          "tooltip": "",
+          "qtip": "Volume",
           "default": false,
-          "model_reference": null,
-          "id": "igrdjubi"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "8gl5qe15"
         },
         {
           "children": null,
@@ -1241,12 +1592,16 @@
           "fulltext": "issue issues journal_issue journal_issues",
           "display_name": "Issue",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "journal_issue",
-          "tooltip": "",
+          "qtip": "Issue",
           "default": false,
-          "model_reference": null,
-          "id": "6u6ulcz4"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "zd6rx094"
         },
         {
           "children": null,
@@ -1254,12 +1609,16 @@
           "fulltext": "month months ebi_journal_month ebi_journal_months",
           "display_name": "Month",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ebi_journal_month",
-          "tooltip": "",
+          "qtip": "Month",
           "default": false,
-          "model_reference": null,
-          "id": "lloixpzp"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "n6sthl35"
         },
         {
           "children": null,
@@ -1267,12 +1626,16 @@
           "fulltext": "issn issns journal_id_issn journal_id_issns",
           "display_name": "ISSN",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "journal_id_issn",
-          "tooltip": "",
+          "qtip": "ISSN",
           "default": false,
-          "model_reference": null,
-          "id": "f6llxbn7"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "6bu7h41n"
         },
         {
           "children": null,
@@ -1280,12 +1643,16 @@
           "fulltext": "mesh meshes term terms ebi_mesh_term ebi_mesh_terms",
           "display_name": "Mesh terms",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "ebi_mesh_terms",
-          "tooltip": "",
+          "qtip": "Mesh terms",
           "default": false,
-          "model_reference": null,
-          "id": "xzukwr82"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "srp03sp2"
         },
         {
           "children": null,
@@ -1293,12 +1660,16 @@
           "fulltext": "page pages range ranges range_page range_pages",
           "display_name": "Page range",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "range_pages",
-          "tooltip": "",
+          "qtip": "Page range",
           "default": false,
-          "model_reference": null,
-          "id": "535d832t"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "6l0nla3e"
         },
         {
           "children": null,
@@ -1306,12 +1677,16 @@
           "fulltext": "pubmed pubmeds id ids pubmed_id pubmed_ids",
           "display_name": "Pubmed ID",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "pubmed_id",
-          "tooltip": "",
+          "qtip": "Pubmed ID",
           "default": false,
-          "model_reference": null,
-          "id": "gjtz8pky"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "f3lyhd5t"
         },
         {
           "children": null,
@@ -1319,40 +1694,57 @@
           "fulltext": "author authors author_list author_lists",
           "display_name": "Authors",
           "description": null,
+          "model_reference": null,
           "leaf": true,
           "name": "author_list",
-          "tooltip": "",
+          "qtip": "Authors",
           "default": false,
-          "model_reference": null,
-          "id": "vou7chy4"
+          "qtipCfg": {
+            "dismissDelay": 0,
+            "autoWidth": true
+          },
+          "id": "9eri1p5s"
         }],
         "text": "JOURNAL:",
         "fulltext": null,
         "display_name": "JOURNAL:",
+        "max_select": null,
         "leaf": false,
         "name": "journal",
-        "tooltip": "",
-        "max_select": null,
-        "id": "jf0rpdpw"
+        "qtip": "JOURNAL:",
+        "qtipCfg": {
+          "dismissDelay": 0,
+          "autoWidth": true
+        },
+        "id": "y53plcx8"
       }],
       "text": "Features",
       "fulltext": null,
       "display_name": "Features",
+      "max_select": null,
       "leaf": false,
       "name": "features",
-      "tooltip": "",
-      "max_select": null,
-      "id": "7xkf9b71"
+      "qtip": "Features",
+      "qtipCfg": {
+        "dismissDelay": 0,
+        "autoWidth": true
+      },
+      "id": "6qikjbge"
     }],
     "text": "ATTRIBUTES",
     "fulltext": null,
     "display_name": "ATTRIBUTES",
+    "max_select": null,
     "leaf": false,
     "name": "feature_page",
-    "tooltip": "",
-    "max_select": null,
-    "id": "mithsuur",
-    "formatters": "html,txt,csv,tsv,xls"
+    "formatters": "html,txt,csv,tsv,xls",
+    "qtip": "ATTRIBUTES",
+    "qtipCfg": {
+      "dismissDelay": 0,
+      "autoWidth": true
+    },
+    "id": "k79unyqt"
   }],
-  "visible": false
+  "itemId": "msd",
+  "dataset_display_name": "MSD protein structures"
 }

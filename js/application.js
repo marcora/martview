@@ -28,8 +28,8 @@ Ext.onReady(function() {
   // init tips
   Ext.QuickTips.init();
   Ext.apply(Ext.QuickTips.getQuickTip(), {
-    autoWidth: true,
-    maxWidth: 300
+    // dismissDelay: 0,
+    autoWidth: true
   });
 
   // service, viewport, and windows global vars
