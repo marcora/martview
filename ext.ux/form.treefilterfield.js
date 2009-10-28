@@ -55,7 +55,7 @@ Ext.ux.form.TreeFilterField = Ext.extend(Ext.form.TwinTriggerField, {
 
     // filter tree on fulltext using search regexp
     this.ownerCt.ownerCt.filter.clear();
-    this.ownerCt.ownerCt.filter.filter(re, 'text');
+    this.ownerCt.ownerCt.filter.filter(re, 'fulltext');
     this.hasSearch = true;
     this.triggers[0].show();
     this.focus();

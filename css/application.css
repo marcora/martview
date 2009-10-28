@@ -58,11 +58,11 @@ legend { font-weight: normal !important; }
 
 .item { width: 100%; }
 .item .title { color: #333; font-size: 1.4em; font-weight: bold; margin: 0; padding: 0; margin-top: 4px; margin-bottom: 2px; }
-.item .title img { margin-right: 2px !important; vertical-align: top !important; }
+.item .title img { margin-right: 4px !important; vertical-align: top !important; }
 .item .source { color: #666; font-weight: normal; }
-.item .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; }
-.item .keywords { margin: 0; padding: 0; margin-bottom: 8px; }
-.item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px 4px 2px 4px; margin-right: 4px; font-size: 1em; font-weight: bold; }
+.item .description { font-size: 1.2em; color: #444; margin: 0; padding: 0; margin-bottom: 6px; margin-left: 20px !important; }
+/* .item .keywords { margin: 0; padding: 0; margin-bottom: 8px; } */
+/* .item .keyword { background-color: #9cbfee; color: #fff; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 2px 4px 2px 4px; margin-right: 4px; font-size: 1em; font-weight: bold; } */
 
 .start { font-weight: bold !important; }
 .start img { vertical-align: top !important; }

@@ -31,9 +31,9 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: '<span class="start"><img src="./ico/arrow-180.png"/>&nbsp;START HERE</span>'
       },
       {
+        xtype: 'tbtext',
         itemId: 'sep',
         ref: 'separator',
-        cls: 'x-btn-text',
         text: '>',
         hidden: true
       },

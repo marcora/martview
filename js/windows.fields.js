@@ -50,7 +50,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       items: [{
         region: 'west',
         xtype: 'arraytreepanel',
-        ref: 'all',
+        ref: '../all',
         itemId: 'all',
         title: 'All ' + this.display_name,
         // iconCls: 'node-all-icon',
@@ -71,7 +71,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           items: [{
             xtype: 'treefilterfield',
             itemId: 'search',
-            ref: 'search',
+            ref: '../search',
             flex: 1,
             emptyText: 'Enter search terms to find a specific ' + this.display_name.substr(0, this.display_name.length - 1)
             // listeners: {
@@ -89,10 +89,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             iconCls: 'icon-expand-all',
             text: 'Expand',
             handler: function() {
-              this.ownerCt.search.onTrigger1Click();
-              this.ownerCt.ownerCt.root.expand(true);
-              // this.ownerCt.search.focus();
-            }
+              var window = this;
+              window.all.search.onTrigger1Click();
+              window.all.root.expand(true);
+            },
+            scope: this // window
           },
           {
             itemId: 'collapse_all',
@@ -100,20 +101,20 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             iconCls: 'icon-collapse-all',
             text: 'Collapse',
             handler: function() {
-              this.ownerCt.search.onTrigger1Click();
-              this.ownerCt.ownerCt.root.collapse(true);
-              // this.ownerCt.search.focus();
-            }
+              var window = this;
+              window.all.search.onTrigger1Click();
+              window.all.root.collapse(true);
+            },
+            scope: this // window
           }]
         },
         listeners: {
-          beforerender: function() {
-            var all = this;
-            all.filter = new Ext.ux.tree.TreeFilterX(this, {
+          'beforerender': function() {
+            this.filter = new Ext.ux.tree.TreeFilterX(this, {
               expandOnFilter: true
             });
           },
-          dblclick: {
+          'dblclick': {
             fn: function(node) {
               var window = this;
               window.addFields(node);
@@ -125,7 +126,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       {
         region: 'center',
         itemId: 'selected',
-        ref: 'selected',
+        ref: '../selected',
         items: [],
         autoScroll: true,
         padding: 10,
@@ -187,11 +188,29 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       // configure listeners here
       show: function(window) {
         window.resetSelectedFields(window.getSelectedFields());
+        (function() {
+          window.all.search.getEl().frame("ff0000", 1);
+        }).defer(300);
+      },
+      'hide': function(window) {
+        window.reset();
       }
     });
 
     // call parent
     Martview.windows.Fields.superclass.constructor.call(this, config);
+  },
+
+  reset: function() {
+    var window = this;
+    window.all.filter.clear();
+    window.all.root.collapse(true);
+    window.all.search.setValue('');
+    window.all.search.hasSearch = false;
+    window.all.search.triggers[0].hide();
+    (function() {
+      window.all.search.getEl().frame("ff0000", 3);
+    }).defer(300);
   },
 
   // add field to selected

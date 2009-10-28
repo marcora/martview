@@ -36,8 +36,8 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
       }],
       items: [{
         xtype: 'treegrid',
-        itemId: 'grid',
-        ref: '../grid',
+        itemId: 'all',
+        ref: '../all',
         cls: 'itemized',
         border: false,
         title: 'All datasets',
@@ -56,7 +56,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             iconCls: 'icon-expand-all',
             text: 'Expand',
             handler: function() {
-              this.grid.getStore().expandAll();
+              this.all.getStore().expandAll();
             },
             scope: this // scope to window
           },
@@ -66,7 +66,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             iconCls: 'icon-collapse-all',
             text: 'Collapse',
             handler: function() {
-              this.grid.getStore().collapseAll();
+              this.all.getStore().collapseAll();
             },
             scope: this // scope to window
           }]
@@ -147,17 +147,17 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             '</span>', //
             '</tpl>', //
             '<tpl if="!dataset_display_name">', //
-            '<img src="./ico/databases.png"/>{mart_display_name}', //
+            '<img src="./ico/folder-horizontal.png"/>{mart_display_name}', //
             '</tpl>', //
             '</h2>', //
             '<p class="description">', //
             '{description}', //
             '</p>', //
-            '<p class="keywords">', //
-            '<tpl for="keywords">', //
-            '<span class="keyword">{.}</span>', //
-            '</tpl>', //
-            '</p>', //
+            // '<p class="keywords">', //
+            // '<tpl for="keywords">', //
+            // '<span class="keyword">{.}</span>', //
+            // '</tpl>', //
+            // '</p>', //
             '</div>', //
             '</tpl>' //
             )
@@ -176,8 +176,37 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
     Martview.windows.Datasets.superclass.initComponent.apply(this, arguments);
   },
 
+  constructor: function(config) {
+    config = config || {};
+    config.listeners = config.listeners || {};
+    Ext.applyIf(config.listeners, {
+      // listeners
+      'hide': function(window) {
+        window.reset();
+      },
+      'show': function(window) {
+        (function() {
+          window.all.search.getEl().frame("ff0000", 1);
+        }).defer(300);
+      }
+    });
+
+    // call parent
+    Martview.windows.Datasets.superclass.constructor.call(this, config);
+  },
+
+  reset: function() {
+    var window = this;
+    window.all.getSelectionModel().clearSelections(true);
+    window.all.getStore().clearFilter();
+    window.all.getStore().collapseAll();
+    window.all.search.setValue('');
+    window.all.search.hasSearch = false;
+    window.all.search.triggers[0].hide();
+  },
+
   select: function() {
-    var store = this.grid.getStore();
+    var store = this.all.getStore();
     var node = store.getActiveNode();
     if (node) {
       if (store.isLeafNode(node)) {

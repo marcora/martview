@@ -62,7 +62,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
             }
           }
         },
-        '->', {
+        '-', {
           itemId: 'customize',
           ref: '../customizeButton',
           cls: 'x-btn-text-icon',
