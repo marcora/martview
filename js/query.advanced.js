@@ -47,7 +47,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               xtype: 'combo',
               itemId: filter.name,
               name: filter.name,
-              value: filter.value,
+              // value: filter.default,
               fieldLabel: filter.display_name || filter.name,
               editable: false,
               forceSelection: true,
@@ -61,7 +61,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               xtype: 'textfield',
               itemId: filter.name,
               name: filter.name,
-              value: filter.value,
+              // value: filter.default,
               fieldLabel: filter.display_name || filter.name
             }]);
           }
@@ -71,16 +71,15 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
           form.filters.add({
             xtype: 'textarea',
             height: '100',
-            itemId: filter.name + '_text',
+            itemId: filter.name,
             name: filter.name,
-            value: filter.value,
+            // value: filter.default,
             fieldLabel: filter.display_name || filter.name
           });
           form.filters.add({
             xtype: 'fileuploadfield',
             itemId: filter.name + '_file',
-            name: filter.name,
-            // value: filter.value,
+            name: filter.name + '_file',
             hideLabel: true,
             buttonText: 'Upload file&hellip;'
           });
@@ -93,7 +92,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             items.push({
               inputValue: item,
               name: filter.name,
-              value: filter.value,
+              // value: filter.default,
               boxLabel: item
             });
           });
@@ -101,12 +100,18 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             xtype: 'radiogroup',
             itemId: filter.name,
             name: filter.name,
-            value: filter.value,
+            // value: filter.default,
             fieldLabel: filter.display_name || filter.name,
             items: items
             // vertical: true,
             // columns: 1,
           });
+        }
+
+        // set field value if defined
+        var field = form.filters.get(filter.name);
+        if (field && filter.value) {
+          field.setValue(filter.value);
         }
       }
     });
@@ -129,7 +134,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
 
     // clear all filters
     form.filters.items.each(function(filter) {
-      filter.reset();
+      filter.setValue(undefined);
     });
 
     // refresh form layout

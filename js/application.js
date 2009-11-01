@@ -7,6 +7,7 @@
 // TODO:  Column order for query results should follow attribute order
 // TODO:  Logged in users can mark datasets as favorites
 // FIXME: When updating query value is not remembered when in textarea
+// FIXME: Remember filter values and reset filter values doesn't work for radiogroup
 
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
@@ -191,7 +192,7 @@ Ext.onReady(function() {
     main.results.clear();
 
     // update query
-    main.query.fireEvent('select', params); // select -> update
+    main.query.fireEvent('select', params); // query.select -> query.update
   });
 
   main.query.on('select', function(args) {
@@ -199,8 +200,6 @@ Ext.onReady(function() {
     Ext.apply(params, args);
     if (params.query == 'advanced') {
       params.filters = filters_win.getSelectedFields();
-    } else if (params.query == 'guided') {
-      delete params.facets;
     }
 
     // update query
@@ -230,7 +229,8 @@ Ext.onReady(function() {
     Ext.apply(params, results);
 
     // update results
-    main.results.fireEvent('select', params); // select -> update
+    main.results.fireEvent('select', params); // results.select -> results.update
+
     // update query if guided
     if (params.query == 'guided') {
       main.query.update(params);

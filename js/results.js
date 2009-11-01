@@ -140,44 +140,39 @@ Martview.Results = Ext.extend(Ext.Panel, {
   update: function(args) {
     var results = this;
 
-    // destructive update upon select
-    if (args.results != results.current) {
-      // enable buttons
-      results.selectButton.enable();
-      results.selectButton.setIconClass(args.results + '-results-icon');
-      results.selectButton.setText(args.results.charAt(0).toUpperCase() + args.results.slice(1));
-      results.customizeButton.disable().hide();
-      results.saveButton.enable();
+    // destructive update
+    // enable buttons
+    results.selectButton.enable();
+    results.selectButton.setIconClass(args.results + '-results-icon');
+    results.selectButton.setText(args.results.charAt(0).toUpperCase() + args.results.slice(1));
+    results.customizeButton.disable().hide();
+    results.saveButton.enable();
 
-      if (args.results == 'tabular') {
-        results.customizeButton.enable().show();
-      } else if (args.results == 'itemized') {
-        // pass
-      } else if (args.results == 'mapped') {
-        // pass
-      } else if (args.results == 'aggregated') {
-        // pass
-      }
-
-      // update results panel
-      results.removeAll();
-      results.add({
-        xtype: args.results + 'results',
-        itemId: args.results,
-        ref: args.results,
-        fields: args.fields,
-        columns: args.columns
-      });
+    if (args.results == 'tabular') {
+      results.customizeButton.enable().show();
+    } else if (args.results == 'itemized') {
+      // pass
+    } else if (args.results == 'mapped') {
+      // pass
+    } else if (args.results == 'aggregated') {
+      // pass
     }
+
+    // update results panel
+    results.removeAll();
+    results.add({
+      xtype: args.results + 'results',
+      itemId: args.results,
+      ref: args.results,
+      fields: args.fields,
+      columns: args.columns
+    });
 
     // refresh results panel
     results.doLayout();
 
     // load rows
     results.items.first().load(args);
-
-    // remember current results
-    results.current = args.results;
   },
 
   clear: function() {
