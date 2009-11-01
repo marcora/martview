@@ -15,7 +15,7 @@ Martview.results.Mapped = Ext.extend(Ext.Panel, {
     Martview.results.Mapped.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(args) {
+  load: function(args) {
     var map = this;
     // TODO
   },

@@ -56,7 +56,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             itemId: 'search',
             ref: '../search',
             flex: 1,
-            emptyText: 'Enter terms (for example, human genes or protein structures or ENSEMBL) to find a specific dataset'
+            emptyText: 'Enter terms (for example, "uniprot" or "human genes" or "protein structures") to find a specific dataset'
           },
           ' ', {
             itemId: 'expand_all',

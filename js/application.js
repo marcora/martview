@@ -7,6 +7,8 @@
 // FIXME: Do not reload query/results when user select same query/results as current
 // TODO:  Column order for query results should follow attribute order
 // TODO: Logged in users can mark datasets as favorites
+// TODO: Do nothing when user select same query/results view
+// FIXME: When updating query value is not remembered when in textarea
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
   var debug = true;
@@ -136,6 +138,7 @@ Ext.onReady(function() {
     } catch(e) {
       // pass
     }
+
     filters_win = new Martview.windows.Fields({
       id: 'filters',
       title: 'Add filters to query form',
@@ -151,6 +154,7 @@ Ext.onReady(function() {
     } catch(e) {
       // pass
     }
+
     attributes_win = new Martview.windows.Fields({
       id: 'attributes',
       title: 'Add columns to results grid',
@@ -187,8 +191,8 @@ Ext.onReady(function() {
     main.query.clear();
     main.results.clear();
 
-    // select query
-    main.query.fireEvent('select', params); // query.select -> query.update
+    // update query
+    main.query.fireEvent('select', params); // select -> update
   });
 
   main.query.on('select', function(args) {
@@ -226,8 +230,8 @@ Ext.onReady(function() {
     // update params with results data
     Ext.apply(params, results);
 
-    // select results
-    main.results.fireEvent('select', params); // results.select -> results.update
+    // update results
+    main.results.fireEvent('select', params); // select -> update
     // update query if guided
     if (params.query == 'guided') {
       main.query.update(params);
@@ -237,9 +241,9 @@ Ext.onReady(function() {
   main.results.on('select', function(args) {
     // update params with args and attributes data
     Ext.apply(params, args);
-    Ext.apply(params, {
-      attributes: attributes_win.getSelectedFields()
-    });
+    if (params.query == 'advanced') {
+      params.attributes = attributes_win.getSelectedFields();
+    }
 
     // update results
     main.results.update(params);

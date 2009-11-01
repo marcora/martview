@@ -27,7 +27,7 @@ Martview.query.Guided = Ext.extend(Ext.form.FormPanel, {
     Martview.query.Guided.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(args) {
+  load: function(args) {
     var form = this;
 
     // remove fields from filters fieldset

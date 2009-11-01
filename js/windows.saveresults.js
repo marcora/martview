@@ -30,7 +30,7 @@ Martview.windows.SaveResults = Ext.extend(Ext.Window, {
         scope: this // scope button to window
       },
       {
-        text: 'OK',
+        text: 'Save',
         ref: '../okButton',
         cls: 'x-btn-text-icon',
         iconCls: 'submit-icon'

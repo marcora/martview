@@ -185,22 +185,9 @@ Martview.Query = Ext.extend(Ext.Panel, {
   update: function(args) {
     var query = this;
 
-    // enable buttons
-    query.selectButton.enable();
-    query.selectButton.setIconClass(args.query + '-query-icon');
-    query.selectButton.setText(args.query.charAt(0).toUpperCase() + args.query.slice(1));
-    query.customizeButton.disable().hide();
-    query.saveButton.enable();
-    query.resetButton.enable();
-    query.submitButton.enable();
-
-    if (args.query == 'simple') {
-      // pass
-    } else if (args.query == 'guided') {
-      query.submitButton.disable();
-    } else if (args.query == 'advanced') {
+    // if advanced query remember previously set filter values
+    if (args.query == 'advanced') {
       query.customizeButton.enable().show();
-      // remember previously set filter values
       try {
         var filters = query.items.first().getForm().getValues();
         Ext.each(args.filters, function(filter) {
@@ -211,28 +198,56 @@ Martview.Query = Ext.extend(Ext.Panel, {
       } catch(e) {
         // pass
       }
-    } else if (args.query == 'user') {
-      query.customizeButton.enable().show();
     }
 
-    // update form
-    query.removeAll();
-    query.add({
-      xtype: args.query + 'query',
-      itemId: args.query,
-      ref: args.query
-    });
-    query.doLayout();
-    query.items.first().update(args);
+    // destructive update upon select
+    if (args.query != query.current) {
+      // enable buttons
+      query.selectButton.enable();
+      query.selectButton.setIconClass(args.query + '-query-icon');
+      query.selectButton.setText(args.query.charAt(0).toUpperCase() + args.query.slice(1));
+      query.customizeButton.disable().hide();
+      query.saveButton.enable();
+      query.resetButton.enable();
+      query.submitButton.enable();
 
-    // submit query, except for guided query when already init
-    if (args.query != 'guided' || (args.query == 'guided' && typeof(args.facets) == 'undefined')) {
+      if (args.query == 'simple') {
+        // pass
+      } else if (args.query == 'guided') {
+        query.submitButton.disable();
+      } else if (args.query == 'advanced') {
+        query.customizeButton.enable().show();
+      } else if (args.query == 'user') {
+        query.customizeButton.enable().show();
+      }
+
+      // update query panel
+      query.removeAll();
+      query.add({
+        xtype: args.query + 'query',
+        itemId: args.query,
+        ref: args.query
+      });
+    }
+
+    // refresh query panel
+    query.doLayout();
+
+    // load filters
+    query.items.first().load(args);
+
+    // submit query upon select
+    if (args.query != query.current) {
       query.submit();
     }
+
+    // remember current query
+    query.current = args.query;
   },
 
   clear: function() {
     var query = this;
+    delete query.current;
     query.removeAll();
     query.selectButton.disable();
     query.customizeButton.disable();

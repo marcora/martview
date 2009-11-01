@@ -66,7 +66,7 @@ Martview.results.Itemized = Ext.extend(Ext.grid.GridPanel, {
     Martview.results.Itemized.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(args) {
+  load: function(args) {
     var grid = this;
     var store = grid.getStore();
     store.removeAll();

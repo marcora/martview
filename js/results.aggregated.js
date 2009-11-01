@@ -15,7 +15,7 @@ Martview.results.Aggregated = Ext.extend(Ext.Panel, {
     Martview.results.Aggregated.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(args) {
+  load: function(args) {
     var chart = this;
     // TODO
   },

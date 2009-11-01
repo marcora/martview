@@ -8,12 +8,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // id
   // display_name
   // dataset
-  selected_fields: null,
+  selected_fields: null, // null is important!
 
   // hard config
   initComponent: function() {
     var config = {
-      default_fields: null,
+      default_fields: null, // null is important!
+      removed_fields_names: [],
+      added_fields_names: [],
       title: 'Add ' + this.display_name + ' to search form',
       modal: true,
       width: 800,
@@ -44,14 +46,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         scope: this // window
       },
       {
-        text: 'OK',
+        text: 'Apply',
         cls: 'x-btn-text-icon',
         iconCls: 'submit-icon',
         handler: function() {
           var window = this;
+          window.hide();
           window.rememberSelectedFields();
           window.fireEvent('update');
-          window.hide();
         },
         scope: this // window
       }],
@@ -195,6 +197,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     Ext.applyIf(config.listeners, {
       // configure listeners here
       show: function(window) {
+        window.added_fields_names = [];
+        window.removed_fields_names = [];
         window.resetSelectedFields(window.getSelectedFields());
         (function() {
           window.all.search.getEl().frame("ff0000", 1);
@@ -216,9 +220,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     window.all.search.setValue('');
     window.all.search.hasSearch = false;
     window.all.search.triggers[0].hide();
-    (function() {
-      window.all.search.getEl().frame("ff0000", 3);
-    }).defer(300);
   },
 
   // add field to selected
@@ -307,9 +308,34 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   rememberSelectedFields: function() {
     var window = this;
     var selected = window.get('selected');
+    var before_selected_fields_names = [];
+    var after_selected_fields_names = [];
+
+    // build array of selected fields names (before)
+    Ext.each(window.selected_fields, function(selected_field) {
+      before_selected_fields_names.push(selected_field.name);
+    });
+
+    // remember selected fields
     window.selected_fields = [];
     selected.items.each(function(item) {
       window.selected_fields.push(item.node.attributes);
+    });
+
+    // build array of selected fields names (after)
+    Ext.each(window.selected_fields, function(selected_field) {
+      after_selected_fields_names.push(selected_field.name);
+    });
+
+    // diff arrays of selected fields names before and after
+    // to include only the names of fields that have been added/removed
+    window.removed_fields_names = before_selected_fields_names.slice(0); // copy array
+    Ext.each(after_selected_fields_names, function(after_selected_field_name) {
+      window.removed_fields_names.remove(after_selected_field_name);
+    });
+    window.added_fields_names = after_selected_fields_names.slice(0); // copy array
+    Ext.each(before_selected_fields_names, function(before_selected_field_name) {
+      window.added_fields_names.remove(before_selected_field_name);
     });
   },
 

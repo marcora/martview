@@ -36,7 +36,7 @@ Martview.query.Simple = Ext.extend(Ext.form.FormPanel, {
     Martview.query.Simple.superclass.initComponent.apply(this, arguments);
   },
 
-  update: function(args) {
+  load: function(args) {
     var form = this;
 
     // remove fields from help fieldset
