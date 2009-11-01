@@ -4,11 +4,10 @@
 // FIXME: Attributes with the same name are included in results even if not selected
 //        Disambiguate attribute name by its position in hierarchy!
 //        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
-// FIXME: Do not reload query/results when user select same query/results as current
 // TODO:  Column order for query results should follow attribute order
-// TODO: Logged in users can mark datasets as favorites
-// TODO: Do nothing when user select same query/results view
+// TODO:  Logged in users can mark datasets as favorites
 // FIXME: When updating query value is not remembered when in textarea
+
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
   var debug = true;

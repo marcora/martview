@@ -47,6 +47,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               xtype: 'combo',
               itemId: filter.name,
               name: filter.name,
+              value: filter.value,
               fieldLabel: filter.display_name || filter.name,
               editable: false,
               forceSelection: true,
@@ -60,6 +61,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               xtype: 'textfield',
               itemId: filter.name,
               name: filter.name,
+              value: filter.value,
               fieldLabel: filter.display_name || filter.name
             }]);
           }
@@ -71,14 +73,15 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             height: '100',
             itemId: filter.name + '_text',
             name: filter.name,
+            value: filter.value,
             fieldLabel: filter.display_name || filter.name
           });
           form.filters.add({
             xtype: 'fileuploadfield',
             itemId: filter.name + '_file',
             name: filter.name,
+            // value: filter.value,
             hideLabel: true,
-            // buttonOnly: true,
             buttonText: 'Upload file&hellip;'
           });
         } else if (filter.qualifier.split(',')[0] in {
@@ -90,6 +93,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             items.push({
               inputValue: item,
               name: filter.name,
+              value: filter.value,
               boxLabel: item
             });
           });
@@ -97,17 +101,12 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             xtype: 'radiogroup',
             itemId: filter.name,
             name: filter.name,
+            value: filter.value,
             fieldLabel: filter.display_name || filter.name,
             items: items
             // vertical: true,
             // columns: 1,
           });
-        }
-
-        // set field value if defined
-        var field = form.filters.get(filter.name);
-        if (field && filter.value) {
-          field.setValue(filter.value);
         }
       }
     });
