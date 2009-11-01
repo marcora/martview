@@ -66,7 +66,7 @@ Martview.query.Simple = Ext.extend(Ext.form.FormPanel, {
     // submit query on enter key
     form.items.first().on('specialkey', function(f, o) {
       if (o.getKey() == 13) {
-        form.ownerCt.fireEvent('submit');
+        form.ownerCt.submit();
       }
     });
   },

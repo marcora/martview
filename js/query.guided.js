@@ -48,7 +48,8 @@ Martview.query.Guided = Ext.extend(Ext.form.FormPanel, {
             name: item.getName(),
             value: item.getValue()
           });
-          form.ownerCt.fireEvent('submit');
+          // submit query
+          form.ownerCt.submit();
         });
       } else if (item.xtype == 'facetfield') {
         item.on('triggerclick', function(item) {
@@ -57,7 +58,8 @@ Martview.query.Guided = Ext.extend(Ext.form.FormPanel, {
             name: item.getName(),
             value: item.getValue()
           });
-          form.ownerCt.fireEvent('submit');
+          // submit query
+          form.ownerCt.submit();
         });
       }
     });
@@ -74,6 +76,9 @@ Martview.query.Guided = Ext.extend(Ext.form.FormPanel, {
         });
       }
     });
+
+    // submit query
+    form.ownerCt.submit();
   },
 
   focus: function() {

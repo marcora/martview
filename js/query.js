@@ -262,9 +262,6 @@ Martview.Query = Ext.extend(Ext.Panel, {
 
     // reset form
     query.items.first().reset();
-
-    // submit query
-    query.submit();
   },
 
   build: function(args) {

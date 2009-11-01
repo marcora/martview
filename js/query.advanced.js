@@ -118,11 +118,10 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
     form.filters.items.each(function(item) {
       item.on('specialkey', function(f, o) {
         if (o.getKey() == 13) {
-          form.ownerCt.fireEvent('submit');
+          form.ownerCt.submit();
         }
       });
     });
-
   },
 
   reset: function() {
