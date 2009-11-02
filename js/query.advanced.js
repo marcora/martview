@@ -78,8 +78,8 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
           });
           form.filters.add({
             xtype: 'fileuploadfield',
-            itemId: filter.name + '_file',
-            name: filter.name + '_file',
+            itemId: filter.name + '__fileupload',
+            name: filter.name + '__fileupload',
             hideLabel: true,
             buttonText: 'Upload file&hellip;'
           });
@@ -107,12 +107,6 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             // columns: 1,
           });
         }
-
-        // set field value if defined
-        var field = form.filters.get(filter.name);
-        if (field && filter.value) {
-          field.setValue(filter.value);
-        }
       }
     });
 
@@ -120,8 +114,8 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
     form.doLayout();
 
     // submit query on enter key
-    form.filters.items.each(function(item) {
-      item.on('specialkey', function(f, o) {
+    form.filters.items.each(function(filter) {
+      filter.on('specialkey', function(f, o) {
         if (o.getKey() == 13) {
           form.ownerCt.submit();
         }
@@ -131,18 +125,12 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
 
   reset: function() {
     var form = this;
-
-    // clear all filters
-    form.filters.items.each(function(filter) {
-      filter.setValue(undefined);
-    });
-
-    // refresh form layout
-    form.doLayout();
+    form.getForm().reset();
   },
 
   focus: function() {
     var form = this;
+    // set focus on first filter
     form.filters.items.first().focus(false, true);
   },
 
@@ -151,31 +139,31 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
 
     // build xml query for martservice based of selected filters and attributes
     var dataset_filters = [];
-    form.filters.items.each(function(item) {
-      if (item.isXType('radiogroup')) {
+    form.filters.items.each(function(filter) {
+      if (filter.isXType('radiogroup')) {
         try {
           dataset_filters.push({
-            name: item.getName(),
-            excluded: (item.getValue().getGroupValue() == 'excluded') ? 1 : 0
+            name: filter.getName(),
+            excluded: (filter.getValue().getGroupValue() == 'excluded') ? 1 : 0
           });
         } catch(e) {
           // pass in case no radio is selected
         }
-      } else if (item.isXType('fileuploadfield')) {
+      } else if (filter.isXType('fileuploadfield')) {
         // TODO
-      } else if (item.isXType('textarea')) {
-        var list = item.getValue().split('\n').join(',');
+      } else if (filter.isXType('textarea')) {
+        var list = filter.getValue().split('\n').join(',');
         if (list) {
           dataset_filters.push({
-            name: item.getName(),
+            name: filter.getName(),
             value: list
           });
         }
-      } else if (item.isXType('textfield') || item.isXType('combo')) {
-        if (item.getValue().trim()) {
+      } else if (filter.isXType('textfield') || filter.isXType('combo')) {
+        if (filter.getValue().trim()) {
           dataset_filters.push({
-            name: item.getName(),
-            value: item.getValue().trim()
+            name: filter.getName(),
+            value: filter.getValue().trim()
           });
         }
       }

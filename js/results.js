@@ -140,7 +140,6 @@ Martview.Results = Ext.extend(Ext.Panel, {
   update: function(args) {
     var results = this;
 
-    // destructive update
     // enable buttons
     results.selectButton.enable();
     results.selectButton.setIconClass(args.results + '-results-icon');
@@ -173,6 +172,9 @@ Martview.Results = Ext.extend(Ext.Panel, {
 
     // load rows
     results.items.first().load(args);
+
+    // remember current results view
+    results.current = args.results;
   },
 
   clear: function() {

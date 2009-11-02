@@ -186,49 +186,36 @@ Martview.Query = Ext.extend(Ext.Panel, {
     var query = this;
 
     // if advanced query remember previously set filter values
-    if (args.query == 'advanced') {
+    if (args.query == 'advanced' && query.current == 'advanced') {
+      var filters = query.items.first().getForm().getValues();
+    }
+
+    // enable buttons
+    query.selectButton.enable();
+    query.selectButton.setIconClass(args.query + '-query-icon');
+    query.selectButton.setText(args.query.charAt(0).toUpperCase() + args.query.slice(1));
+    query.customizeButton.disable().hide();
+    query.saveButton.enable();
+    query.resetButton.enable();
+    query.submitButton.enable();
+
+    if (args.query == 'simple') {
+      // pass
+    } else if (args.query == 'guided') {
+      query.submitButton.disable();
+    } else if (args.query == 'advanced') {
       query.customizeButton.enable().show();
-      try {
-        var filters = query.items.first().getForm().getValues();
-        Ext.each(args.filters, function(filter) {
-          if (filter.name in filters) {
-            filter.value = filters[filter.name];
-          }
-        });
-      } catch(e) {
-        // pass
-      }
+    } else if (args.query == 'user') {
+      query.customizeButton.enable().show();
     }
 
-    // destructive update upon select
-    if (args.query != query.current) {
-      // enable buttons
-      query.selectButton.enable();
-      query.selectButton.setIconClass(args.query + '-query-icon');
-      query.selectButton.setText(args.query.charAt(0).toUpperCase() + args.query.slice(1));
-      query.customizeButton.disable().hide();
-      query.saveButton.enable();
-      query.resetButton.enable();
-      query.submitButton.enable();
-
-      if (args.query == 'simple') {
-        // pass
-      } else if (args.query == 'guided') {
-        query.submitButton.disable();
-      } else if (args.query == 'advanced') {
-        query.customizeButton.enable().show();
-      } else if (args.query == 'user') {
-        query.customizeButton.enable().show();
-      }
-
-      // update query panel
-      query.removeAll();
-      query.add({
-        xtype: args.query + 'query',
-        itemId: args.query,
-        ref: args.query
-      });
-    }
+    // update query panel
+    query.removeAll();
+    query.add({
+      xtype: args.query + 'query',
+      itemId: args.query,
+      ref: args.query
+    });
 
     // refresh query panel
     query.doLayout();
@@ -236,12 +223,22 @@ Martview.Query = Ext.extend(Ext.Panel, {
     // load filters
     query.items.first().load(args);
 
+    // if advanced query set previously remembered filter values
+    if (args.query == 'advanced' && query.current == 'advanced') {
+      query.items.first().filters.items.each(function(filter) {
+        var value = filters[filter.name];
+        if (value) {
+          filter.setValue(value);
+        }
+      });
+    }
+
     // submit query upon select
     if (args.query != query.current) {
       query.submit();
     }
 
-    // remember current query
+    // remember current query view
     query.current = args.query;
   },
 

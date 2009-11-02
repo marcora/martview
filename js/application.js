@@ -6,7 +6,6 @@
 //        Look for or code 'find by uuid' in both extjs tree and ruby collection of attributes on server side
 // TODO:  Column order for query results should follow attribute order
 // TODO:  Logged in users can mark datasets as favorites
-// FIXME: When updating query value is not remembered when in textarea
 // FIXME: Remember filter values and reset filter values doesn't work for radiogroup
 
 try {
