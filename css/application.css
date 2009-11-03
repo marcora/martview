@@ -4,7 +4,7 @@
 
 noscript p { font-family: sans-serif; padding: 10px; color: #333; }
 
-body > .x-toolbar-layout-ct {
+body > .x-toolbar {
     background-color: #dfe8f6 !important;
     background-image: none !important;
     border-bottom: 1px #9cbfee solid  !important;
@@ -18,7 +18,7 @@ body > .x-toolbar-layout-ct {
     border-bottom: 0 !important;
 }
 
-.field .x-toolbar-layout-ct {
+.field .x-toolbar {
     background-color: #dfe8f6 !important;
     background-image: none !important;
     border-bottom: 1px #b5b8c8 solid  !important;
@@ -26,6 +26,18 @@ body > .x-toolbar-layout-ct {
     border-right: 1px #b5b8c8 solid  !important;
     border-top: 0 !important;
 }
+
+.fields .field:first-child .x-toolbar {
+    border-top: 1px #b5b8c8 solid  !important;
+}
+
+
+.field-ghost .x-toolbar {
+    border: 1px #b5b8c8 solid  !important;
+    background-color: #fff !important;
+    background-image: none !important;
+}
+
 
 .x-form-radio-group .x-panel-body {
     background: transparent !important;
@@ -37,15 +49,11 @@ legend { font-weight: normal !important; }
 
 .itemized .x-grid3-cell-inner { white-space: normal !important; margin: 0 !important; padding: 1px !important; }
 
-.fields .field:first-child .x-toolbar-layout-ct {
-    border-top: 1px #b5b8c8 solid  !important;
-}
-
 .x-tree-node-expanded img.x-tree-node-icon { background-image:url('../ico/folder-horizontal-open.png') !important; }
 .x-tree-node-collapsed img.x-tree-node-icon { background-image:url('../ico/folder-horizontal.png') !important; }
 
-#attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/table-select-column.png') !important; }
-#filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-search-field.png') !important; }
+/* #attributes .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/table-select-column.png') !important; } */
+/* #filters .x-tree-node-leaf img.x-tree-node-icon  { background-image:url('../ico/ui-search-field.png') !important; } */
 
 #loading-dialog .loading-indicator { background: url('../img/loading.gif') no-repeat top center; height:20px; position:relative; top: 0px; left:0px; }
 

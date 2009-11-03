@@ -8,12 +8,13 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // id
   // display_name
   // dataset
-  selected_fields: null, // null is important!
-
+  selected_fields: null,
+  // null is important!
   // hard config
   initComponent: function() {
     var config = {
-      default_fields: null, // null is important!
+      default_fields: null,
+      // null is important!
       removed_fields_names: [],
       added_fields_names: [],
       title: 'Add ' + this.display_name + ' to search form',
@@ -70,9 +71,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         defaultTools: false,
         children: this.dataset[this.id],
         animate: true,
-        enableDD: false,
-        autoScroll: true,
         lines: true,
+        enableDrag: true,
+        dragConfig: {
+          ddGroup: 'selectedDDGroup'
+        },
         // containerScroll: true,
         // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
@@ -130,6 +133,20 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               window.addFields(node);
             },
             scope: this // window
+          },
+          'render': {
+            fn: function() {
+              var window = this;
+              var allDropTargetEl = window.items.get('all').body.dom;
+              var allDropTarget = new Ext.dd.DropTarget(allDropTargetEl, {
+                ddGroup: 'allDDGroup',
+                notifyDrop: function(ddSource, e, data) {
+                  window.removeFields(ddSource.panel.itemId);
+                  return true;
+                }
+              });
+            },
+            scope: this // window
           }
         }
       },
@@ -148,6 +165,33 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         //           align: 'stretch',
         //           pack: 'start'
         //         },
+        listeners: {
+          'render': {
+            fn: function() {
+              var window = this;
+              var selectedDropTargetEl = this.items.get('selected').body.dom;
+              var selectedDropTarget = new Ext.dd.DropTarget(selectedDropTargetEl, {
+                ddGroup: 'selectedDDGroup',
+                notifyDrop: function(ddSource, e, data) {
+                  var fields = [];
+                  var node = ddSource.tree.selModel.selNode;
+                  if (node.isLeaf()) {
+                    fields.push(node);
+                  } else {
+                    node.eachChild(function(node) {
+                      if (node.isLeaf()) {
+                        fields.push(node);
+                      }
+                    });
+                  }
+                  window.addFields(fields);
+                  return true;
+                }
+              });
+            },
+            scope: this // window
+          }
+        },
         tbar: [{
           text: 'Reset to default',
           iconCls: 'undo-icon',

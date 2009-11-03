@@ -12,7 +12,38 @@ Martview.Field = Ext.extend(Ext.Panel, {
   initComponent: function() {
     var config = {
       itemId: this.node.id,
-      draggable: true,
+      draggable: {
+        ddGroup: 'allDDGroup',
+        startDrag: function(x, y) {
+          // var node = this.proxy.panel.node;
+          var el = Ext.get(this.proxy.panel.getEl());
+          var dragEl = Ext.get(this.getDragEl());
+          // customize panel ghost
+          dragEl.child('ul').remove(); // remove spurios ul element!?!
+          dragEl.removeClass('x-panel-ghost');
+          dragEl.addClass('x-dd-drag-proxy');
+          dragEl.addClass('x-dd-drop-nodrop');
+          Ext.DomHelper.append(dragEl, {
+            tag: 'div',
+            cls: 'x-dd-drop-icon'
+          });
+          Ext.DomHelper.append(dragEl, {
+            tag: 'div',
+            cls: 'x-dd-drag-ghost field-ghost',
+            html: el.child('div.x-panel-tbar').dom.innerHTML
+          });
+        },
+        onDragOver: function(e, targetId) {
+          var dragEl = Ext.get(this.getDragEl());
+          dragEl.removeClass('x-dd-drop-nodrop');
+          dragEl.addClass('x-dd-drop-ok');
+        },
+        onDragOut: function(e, targetId) {
+          var dragEl = Ext.get(this.getDragEl());
+          dragEl.addClass('x-dd-drop-nodrop');
+          dragEl.removeClass('x-dd-drop-ok');
+        }
+      },
       cls: 'field',
       border: false,
       tbar: [{
