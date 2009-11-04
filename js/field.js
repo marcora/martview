@@ -12,36 +12,59 @@ Martview.Field = Ext.extend(Ext.Panel, {
   initComponent: function() {
     var config = {
       itemId: this.node.id,
+      shadow: new Ext.Shadow(),
       draggable: {
         ddGroup: 'allDDGroup',
         startDrag: function(x, y) {
-          // var node = this.proxy.panel.node;
-          var el = Ext.get(this.proxy.panel.getEl());
-          var dragEl = Ext.get(this.getDragEl());
+          // get panel ghost
+          var ghost = Ext.get(this.getDragEl());
+
           // customize panel ghost
-          dragEl.child('ul').remove(); // remove spurios ul element!?!
-          dragEl.removeClass('x-panel-ghost');
-          dragEl.addClass('x-dd-drag-proxy');
-          dragEl.addClass('x-dd-drop-nodrop');
-          Ext.DomHelper.append(dragEl, {
+          try {
+            ghost.child('ul').remove(); // remove spurios ul element!?!
+          } catch(e) {
+            // pass
+          }
+          ghost.removeClass('x-panel-ghost');
+          ghost.addClass('x-dd-drag-proxy');
+          ghost.addClass('x-dd-drop-nodrop');
+          Ext.DomHelper.append(ghost, {
             tag: 'div',
             cls: 'x-dd-drop-icon'
           });
-          Ext.DomHelper.append(dragEl, {
+
+          // copy field html into panel ghost
+          var el = Ext.get(this.proxy.panel.getEl());
+          Ext.DomHelper.append(ghost, {
             tag: 'div',
             cls: 'x-dd-drag-ghost field-ghost',
             html: el.child('div.x-panel-tbar').dom.innerHTML
           });
+
+          // add shadow to panel ghost
+          this.shadow = new Ext.Shadow();
+          this.shadow.show(ghost);
+        },
+        onDrag: function() {
+          // align shadow with ghost while dragging
+          var pel = this.proxy.getEl();
+          this.shadow.realign(pel.getLeft(true), pel.getTop(true), pel.getWidth(), pel.getHeight());
+        },
+        endDrag: function() {
+          // hide shadow when dragging ends
+          this.shadow.hide();
         },
         onDragOver: function(e, targetId) {
-          var dragEl = Ext.get(this.getDragEl());
-          dragEl.removeClass('x-dd-drop-nodrop');
-          dragEl.addClass('x-dd-drop-ok');
+          // change drop icon to ok when inside drop zone
+          var ghost = Ext.get(this.getDragEl());
+          ghost.removeClass('x-dd-drop-nodrop');
+          ghost.addClass('x-dd-drop-ok');
         },
         onDragOut: function(e, targetId) {
-          var dragEl = Ext.get(this.getDragEl());
-          dragEl.addClass('x-dd-drop-nodrop');
-          dragEl.removeClass('x-dd-drop-ok');
+          // change drop icon to nodrop when outside of drop zone
+          var ghost = Ext.get(this.getDragEl());
+          ghost.addClass('x-dd-drop-nodrop');
+          ghost.removeClass('x-dd-drop-ok');
         }
       },
       cls: 'field',

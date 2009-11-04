@@ -13,8 +13,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // hard config
   initComponent: function() {
     var config = {
-      default_fields: null,
-      // null is important!
+      default_fields: null, // null is important!
       removed_fields_names: [],
       added_fields_names: [],
       title: 'Add ' + this.display_name + ' to search form',
@@ -76,6 +75,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         dragConfig: {
           ddGroup: 'selectedDDGroup'
         },
+        autoScroll: true,
         // containerScroll: true,
         // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
