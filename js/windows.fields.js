@@ -13,10 +13,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   // hard config
   initComponent: function() {
     var config = {
-      default_fields: null, // null is important!
+      default_fields: null,
+      // null is important!
       removed_fields_names: [],
       added_fields_names: [],
-      title: 'Add ' + this.display_name + ' to search form',
+      title: 'Customize ' + this.display_name,
       modal: true,
       width: 800,
       height: 500,
@@ -26,11 +27,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       border: false,
       autoDestroy: true,
       cls: 'fields',
-      iconCls: 'add-icon',
+      iconCls: 'customize-icon',
       buttonAlign: 'left',
       buttons: [{
         xtype: 'tbtext',
-        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to add it'
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to add it to the "Selected ' + this.display_name + '" panel'
       },
       {
         xtype: 'tbfill'
@@ -77,7 +78,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         },
         autoScroll: true,
         // containerScroll: true,
-        // singleExpand: true,
         // selModel: new Ext.tree.MultiSelectionModel(),
         tbar: {
           layout: 'hbox',
@@ -130,7 +130,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           'dblclick': {
             fn: function(node) {
               var window = this;
-              window.addFields(node);
+              if (node.isLeaf()) {
+                window.addFields(node);
+              }
             },
             scope: this // window
           },
@@ -173,18 +175,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
               var selectedDropTarget = new Ext.dd.DropTarget(selectedDropTargetEl, {
                 ddGroup: 'selectedDDGroup',
                 notifyDrop: function(ddSource, e, data) {
-                  var fields = [];
-                  var node = ddSource.tree.selModel.selNode;
-                  if (node.isLeaf()) {
-                    fields.push(node);
-                  } else {
-                    node.eachChild(function(node) {
-                      if (node.isLeaf()) {
-                        fields.push(node);
-                      }
-                    });
-                  }
-                  window.addFields(fields);
+                  var selNode = ddSource.tree.selModel.selNode;
+                  window.addFields(selNode);
                   return true;
                 }
               });
@@ -193,12 +185,18 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           }
         },
         tbar: [{
-          text: 'Reset to default',
-          iconCls: 'undo-icon',
+          text: 'Add',
+          iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to reset the default ' + this.display_name,
+          tooltip: 'Press this button to add a ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder from the "All ' + this.display_name + '" tree',
           handler: function() {
-            this.resetSelectedFields(this.getDefaultFields());
+            var window = this;
+            var selNode = window.all.selModel.selNode;
+            if (selNode) {
+              window.addFields(selNode);
+            } else {
+              Ext.MessageBox.alert(Martview.APP_TITLE, 'To add a ' + this.display_name.substr(0, this.display_name.length - 1) + ' you must first select it in the "All ' + this.display_name + '" tree on the left');
+            }
           },
           scope: this // window
         },
@@ -206,9 +204,19 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Remove all',
           iconCls: 'delete-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to remove all ' + this.display_name,
+          tooltip: 'Press this button to remove all selected ' + this.display_name,
           handler: function() {
             this.resetSelectedFields([]);
+          },
+          scope: this // window
+        },
+        {
+          text: 'Reset to default',
+          iconCls: 'undo-icon',
+          cls: 'x-btn-text-icon',
+          tooltip: 'Press this button to reset to the default ' + this.display_name,
+          handler: function() {
+            this.resetSelectedFields(this.getDefaultFields());
           },
           scope: this // window
         }]
@@ -268,57 +276,75 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
   // add field to selected
   addFields: function(node_or_id_or_array) {
-    var window = this;
-    var all = window.get('all');
-    var selected = window.get('selected');
-    var node = null;
-    if (typeof node_or_id_or_array == 'string') { // if id
-      node = all.getNodeById(node_or_id_or_array);
-    } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-      Ext.each(node_or_id_or_array, function(node) {
-        window.addFields(node);
-      });
-    } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
-      node = node_or_id_or_array;
-    } else if (typeof(node_or_id_or_array) == 'object') { // if object
-      node = all.getNodeById(node_or_id_or_array['id']);
-    }
-    if (node && !node.disabled) {
-      if (node.isLeaf()) {
-        selected.add({
-          xtype: 'field',
-          itemId: node.id,
-          node: node,
-          field_iconCls: window.field_iconCls,
-          display_name: window.display_name
+    if (!node_or_id_or_array) {
+      return false;
+    } else {
+      var window = this;
+      var all = window.get('all');
+      var selected = window.get('selected');
+      var node = null;
+      if (typeof node_or_id_or_array == 'string') { // if id
+        node = all.getNodeById(node_or_id_or_array);
+      } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+        Ext.each(node_or_id_or_array, function(node) {
+          window.addFields(node);
         });
-        selected.doLayout();
+      } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
+        node = node_or_id_or_array;
+      } else if (typeof(node_or_id_or_array) == 'object') { // if object
+        node = all.getNodeById(node_or_id_or_array['id']);
       }
+      if (node && !node.disabled) {
+        if (node.isLeaf()) {
+          selected.add({
+            xtype: 'field',
+            itemId: node.id,
+            node: node,
+            field_iconCls: window.field_iconCls,
+            display_name: window.display_name
+          });
+          selected.doLayout();
+        } else {
+          node.eachChild(function(node) {
+            window.addFields(node);
+          });
+        }
+      }
+      return true;
     }
   },
 
   // remove field from selected
   removeFields: function(node_or_id_or_array) {
-    var window = this;
-    var all = window.get('all');
-    var selected = window.get('selected');
-    var node = null;
-    if (typeof node_or_id_or_array == 'string') { // if id
-      node = all.getNodeById(node_or_id_or_array);
-    } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-      Ext.each(node_or_id_or_array, function(node) {
-        window.removeFields(node);
-      });
-    } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
-      node = node_or_id_or_array;
-    } else if (typeof(node_or_id_or_array) == 'object') { // if object
-      node = all.getNodeById(node_or_id_or_array['id']);
-    }
-    if (node && node.disabled) {
-      if (node.isLeaf()) {
-        selected.remove(node.id);
-        selected.doLayout();
+    if (!node_or_id_or_array) {
+      return false;
+    } else {
+      var window = this;
+      var all = window.get('all');
+      var selected = window.get('selected');
+      var node = null;
+      if (typeof node_or_id_or_array == 'string') { // if id
+        node = all.getNodeById(node_or_id_or_array);
+      } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+        Ext.each(node_or_id_or_array, function(node) {
+          window.removeFields(node);
+        });
+      } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
+        node = node_or_id_or_array;
+      } else if (typeof(node_or_id_or_array) == 'object') { // if object
+        node = all.getNodeById(node_or_id_or_array['id']);
       }
+      if (node && node.disabled) {
+        if (node.isLeaf()) {
+          selected.remove(node.id);
+          selected.doLayout();
+        } else {
+          node.eachChild(function(node) {
+            window.removeFields(node);
+          });
+        }
+      }
+      return true;
     }
   },
 

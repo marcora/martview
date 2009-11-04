@@ -81,8 +81,8 @@ Martview.Query = Ext.extend(Ext.Panel, {
           itemId: 'customize',
           ref: '../customizeButton',
           cls: 'x-btn-text-icon',
-          text: 'Add filter',
-          iconCls: 'add-icon',
+          text: 'Customize filters',
+          iconCls: 'customize-icon',
           disabled: true,
           tooltip: 'Press this button to customize the query form by adding/removing filters',
           handler: function() {
