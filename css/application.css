@@ -112,8 +112,8 @@ button.list-icon { background-image: url('../ico/application-list.png') !importa
 button.selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 button.mart-icon { background-image: url('../ico/databases.png') !important; }
 button.dataset-icon { background-image: url('../ico/database.png') !important; }
-button.moveup-icon { background-image: url('../ico/arrow-090.png') !important; }
-button.movedn-icon { background-image: url('../ico/arrow-270.png') !important; }
+button.move-up-icon { background-image: url('../ico/arrow-090.png') !important; }
+button.move-dn-icon { background-image: url('../ico/arrow-270.png') !important; }
 button.larrow-icon { background-image: url('../ico/arrow-180.png') !important; }
 button.rarrow-icon { background-image: url('../ico/arrow-000-small.png') !important; }
 button.attribute-icon { background-image: url('../ico/table-select-column.png') !important; }

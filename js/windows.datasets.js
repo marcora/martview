@@ -8,7 +8,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
   initComponent: function() {
     var config = {
       modal: true,
-      width: 800,
+      width: 900,
       height: 500,
       layout: 'fit',
       closeAction: 'hide',

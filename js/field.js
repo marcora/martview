@@ -70,7 +70,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
       cls: 'field',
       border: false,
       tbar: [{
-        text: this.node.attributes.display_name || this.node.attributes.name,
+        text: '<span style="color: #444 !important; font-weight: bold !important;">' + this.node.attributes.display_name || this.node.attributes.name + '</span>',
         tooltip: this.node.parentNode.parentNode.text + ' > ' + this.node.parentNode.text,
         iconCls: this.field_iconCls,
         cls: 'x-btn-text-icon'
@@ -87,40 +87,43 @@ Martview.Field = Ext.extend(Ext.Panel, {
         xtype: 'tbspacer',
         hidden: !this.editable
       },
-      //       {
-      //         text: 'Move up',
-      //         iconCls: 'moveup_icon',
-      //         cls: 'x-btn-text-icon',
-      //         handler: function () {
-      //           console.log('move up');
-      //           var field = this.ownerCt;
-      //           var selected_fields = field.ownerCt;
-      //           // move up
-      //         }
-      //       },
-      //       {
-      //         text: 'Move dn',
-      //         iconCls: 'movedn_icon',
-      //         cls: 'x-btn-text-icon',
-      //         handler: function () {
-      //           console.log('move dn');
-      //           var field = this.ownerCt;
-      //           var selected_fields = field.ownerCt;
-      //           // move dn
-      //         }
-      //       },
+      {
+        itemId: 'moveup',
+        ref: '../moveUpButton',
+        text: 'Up',
+        iconCls: 'move-up-icon',
+        cls: 'x-btn-text-icon',
+        handler: function() {
+          var field = this;
+          var window = field.ownerCt.ownerCt;
+          window.moveFieldUp(field);
+        },
+        scope: this // field
+      },
+      {
+        itemId: 'movedn',
+        ref: '../moveDnButton',
+        text: 'Down',
+        iconCls: 'move-dn-icon',
+        cls: 'x-btn-text-icon',
+        handler: function() {
+          var field = this;
+          var window = field.ownerCt.ownerCt;
+          window.moveFieldDn(field);
+        },
+        scope: this // field
+      },
       {
         text: 'Remove',
         iconCls: 'delete-icon',
         cls: 'x-btn-text-icon',
         tooltip: 'Press this button to delete this ' + this.display_name.substr(0, this.display_name.length - 1),
-        scope: this,
         handler: function() {
           var field = this;
-          var selected_fields = field.ownerCt;
-          field.node.enable();
-          selected_fields.remove(field);
-        }
+          var window = field.ownerCt.ownerCt;
+          window.removeFields(field);
+        },
+        scope: this // field
       }]
     };
 
@@ -137,6 +140,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
     Ext.applyIf(config.listeners, {
       // configure listeners here
       afterrender: function(field) {
+        // disable node
         field.node.disable();
       },
       beforedestroy: function(field) {

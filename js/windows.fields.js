@@ -19,7 +19,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       added_fields_names: [],
       title: 'Customize ' + this.display_name,
       modal: true,
-      width: 800,
+      width: 900,
       height: 500,
       layout: 'border',
       closeAction: 'hide',
@@ -65,7 +65,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         itemId: 'all',
         title: 'All ' + this.display_name,
         // iconCls: 'node-all-icon',
-        width: 390,
+        width: 400,
         split: true,
         rootVisible: false,
         defaultTools: false,
@@ -188,7 +188,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Add',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to add a ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder from the "All ' + this.display_name + '" tree',
+          tooltip: 'Press this button to add the ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder currently selected in the "All ' + this.display_name + '" tree on the left',
           handler: function() {
             var window = this;
             var selNode = window.all.selModel.selNode;
@@ -214,7 +214,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Reset to default',
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to reset to the default ' + this.display_name,
+          tooltip: 'Press this button to reset the default ' + this.display_name,
           handler: function() {
             this.resetSelectedFields(this.getDefaultFields());
           },
@@ -275,24 +275,26 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // add field to selected
-  addFields: function(node_or_id_or_array) {
-    if (!node_or_id_or_array) {
+  addFields: function(field_or_node_or_id_or_array) {
+    if (!field_or_node_or_id_or_array) {
       return false;
     } else {
       var window = this;
       var all = window.get('all');
       var selected = window.get('selected');
       var node = null;
-      if (typeof node_or_id_or_array == 'string') { // if id
-        node = all.getNodeById(node_or_id_or_array);
-      } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-        Ext.each(node_or_id_or_array, function(node) {
+      if (typeof field_or_node_or_id_or_array == 'string') { // if id
+        node = all.getNodeById(field_or_node_or_id_or_array);
+      } else if (field_or_node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+        Ext.each(field_or_node_or_id_or_array, function(node) {
           window.addFields(node);
         });
-      } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
-        node = node_or_id_or_array;
-      } else if (typeof(node_or_id_or_array) == 'object') { // if object
-        node = all.getNodeById(node_or_id_or_array['id']);
+      } else if (field_or_node_or_id_or_array.xtype == 'treenode') { // if treenode
+        node = field_or_node_or_id_or_array;
+      } else if (field_or_node_or_id_or_array.xtype == 'field') { // if field
+        node = field_or_node_or_id_or_array.node;
+      } else if (typeof(field_or_node_or_id_or_array) == 'object') { // if object
+        node = all.getNodeById(field_or_node_or_id_or_array['id']);
       }
       if (node && !node.disabled) {
         if (node.isLeaf()) {
@@ -303,47 +305,51 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             field_iconCls: window.field_iconCls,
             display_name: window.display_name
           });
-          selected.doLayout();
         } else {
           node.eachChild(function(node) {
             window.addFields(node);
           });
         }
       }
+      selected.doLayout();
+      window.updateFields();
       return true;
     }
   },
 
   // remove field from selected
-  removeFields: function(node_or_id_or_array) {
-    if (!node_or_id_or_array) {
+  removeFields: function(field_or_node_or_id_or_array) {
+    if (!field_or_node_or_id_or_array) {
       return false;
     } else {
       var window = this;
       var all = window.get('all');
       var selected = window.get('selected');
       var node = null;
-      if (typeof node_or_id_or_array == 'string') { // if id
-        node = all.getNodeById(node_or_id_or_array);
-      } else if (node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
-        Ext.each(node_or_id_or_array, function(node) {
+      if (typeof field_or_node_or_id_or_array == 'string') { // if id
+        node = all.getNodeById(field_or_node_or_id_or_array);
+      } else if (field_or_node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
+        Ext.each(field_or_node_or_id_or_array, function(node) {
           window.removeFields(node);
         });
-      } else if (node_or_id_or_array.xtype == 'treenode') { // if treenode
-        node = node_or_id_or_array;
-      } else if (typeof(node_or_id_or_array) == 'object') { // if object
-        node = all.getNodeById(node_or_id_or_array['id']);
+      } else if (field_or_node_or_id_or_array.xtype == 'treenode') { // if treenode
+        node = field_or_node_or_id_or_array;
+      } else if (field_or_node_or_id_or_array.xtype == 'field') { // if field
+        node = field_or_node_or_id_or_array.node;
+      } else if (typeof(field_or_node_or_id_or_array) == 'object') { // if object
+        node = all.getNodeById(field_or_node_or_id_or_array['id']);
       }
       if (node && node.disabled) {
         if (node.isLeaf()) {
           selected.remove(node.id);
-          selected.doLayout();
         } else {
           node.eachChild(function(node) {
             window.removeFields(node);
           });
         }
       }
+      selected.doLayout();
+      window.updateFields();
       return true;
     }
   },
@@ -410,11 +416,11 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
   },
 
   // reset selected fields
-  resetSelectedFields: function(node_or_id_or_array) {
+  resetSelectedFields: function(field_or_node_or_id_or_array) {
     var window = this;
     var selected = window.get('selected');
     selected.removeAll();
-    window.addFields(node_or_id_or_array);
+    window.addFields(field_or_node_or_id_or_array);
   },
 
   // flatten fields tree into an array
@@ -444,5 +450,75 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       });
     });
     return valid_fields;
+  },
+
+  // update move up/dn buttons of all fields
+  updateFields: function() {
+    var window = this;
+    var selected = window.get('selected');
+
+    // disable move up/dn buttons of first/last field
+    selected.items.each(function(field) {
+      // disable move up button if first field
+      if (field == selected.items.first()) {
+        field.moveUpButton.disable();
+      } else {
+        field.moveUpButton.enable();
+      }
+      // disable move dn button if last field
+      if (field == selected.items.last()) {
+        field.moveDnButton.disable();
+      } else {
+        field.moveDnButton.enable();
+      }
+    });
+    selected.doLayout();
+  },
+
+  // move field up
+  moveFieldUp: function(field) {
+    var window = this;
+    var selected = window.selected;
+    var fields = selected.items;
+    var nodes = [];
+
+    // manipulate fields
+    var index = fields.indexOf(field) - 1;
+    if (index >= 0 && index < fields.length) {
+      selected.remove(field, false);
+      fields.insert(index, field);
+
+      // copy nodes from fields
+      fields.each(function(field) {
+        nodes.push(field.node);
+      });
+
+      // add nodes to selected
+      window.resetSelectedFields(nodes);
+    }
+  },
+
+  // move field dn
+  moveFieldDn: function(field) {
+    var window = this;
+    var selected = window.selected;
+    var fields = selected.items;
+    var nodes = [];
+
+    // manipulate fields
+    var index = fields.indexOf(field) + 1;
+    if (index >= 0 && index < fields.length) {
+      selected.remove(field, false);
+      fields.insert(index, field);
+
+      // copy nodes from fields
+      fields.each(function(field) {
+        nodes.push(field.node);
+      });
+
+      // add nodes to selected
+      window.resetSelectedFields(nodes);
+    }
   }
+
 });
