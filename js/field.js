@@ -93,6 +93,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
         text: 'Up',
         iconCls: 'move-up-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Click to move this ' + this.display_name.substr(0, this.display_name.length - 1) + ' up',
         handler: function() {
           var field = this;
           var window = field.ownerCt.ownerCt;
@@ -106,6 +107,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
         text: 'Down',
         iconCls: 'move-dn-icon',
         cls: 'x-btn-text-icon',
+        tooltip: 'Click to move this ' + this.display_name.substr(0, this.display_name.length - 1) + ' down',
         handler: function() {
           var field = this;
           var window = field.ownerCt.ownerCt;
@@ -117,7 +119,7 @@ Martview.Field = Ext.extend(Ext.Panel, {
         text: 'Remove',
         iconCls: 'delete-icon',
         cls: 'x-btn-text-icon',
-        tooltip: 'Press this button to delete this ' + this.display_name.substr(0, this.display_name.length - 1),
+        tooltip: 'Click to remove this ' + this.display_name.substr(0, this.display_name.length - 1),
         handler: function() {
           var field = this;
           var window = field.ownerCt.ownerCt;

@@ -101,6 +101,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
             text: 'Expand all',
+            tooltip: 'Click to fully expand the tree',
             handler: function() {
               var window = this;
               window.all.search.onTrigger1Click();
@@ -113,6 +114,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
             text: 'Collapse all',
+            tooltip: 'Click to fully collapse the tree',
             handler: function() {
               var window = this;
               window.all.search.onTrigger1Click();
@@ -188,14 +190,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Add',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to add the ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder currently selected in the "All ' + this.display_name + '" tree on the left',
+          tooltip: 'Click to add the ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder currently selected in the tree',
           handler: function() {
             var window = this;
             var selNode = window.all.selModel.selNode;
             if (selNode) {
               window.addFields(selNode);
             } else {
-              Ext.MessageBox.alert(Martview.APP_TITLE, 'To add a ' + this.display_name.substr(0, this.display_name.length - 1) + ' you must first select it in the "All ' + this.display_name + '" tree on the left');
+              Ext.MessageBox.alert(Martview.APP_TITLE, 'To add a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to the the "Selected ' + this.display_name + '" panel, you must first select it in the "All ' + this.display_name + '" tree.');
             }
           },
           scope: this // window
@@ -204,7 +206,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Remove all',
           iconCls: 'delete-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to remove all selected ' + this.display_name,
+          tooltip: 'Click to remove all columns',
           handler: function() {
             this.resetSelectedFields([]);
           },
@@ -214,7 +216,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Reset to default',
           iconCls: 'undo-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Press this button to reset the default ' + this.display_name,
+          tooltip: 'Click to reset the default ' + this.display_name,
           handler: function() {
             this.resetSelectedFields(this.getDefaultFields());
           },

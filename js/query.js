@@ -11,7 +11,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
       layout: 'fit',
       title: 'Query',
       border: true,
-      width: 440,
+      width: 400,
       split: true,
       bodyStyle: 'background-color:#dfe8f6;',
       tbar: {
@@ -24,32 +24,28 @@ Martview.Query = Ext.extend(Ext.Panel, {
           text: 'Advanced',
           iconCls: 'advanced-query-icon',
           disabled: true,
-          tooltip: 'Use this menu to select the query format',
+          tooltip: 'Click to select the query view format',
           menu: {
             items: [{
               itemId: 'simple',
               text: 'Simple',
-              iconCls: 'simple-query-icon',
-              tooltip: 'A simple yet powerful Google-like query interface'
+              iconCls: 'simple-query-icon'
             },
             {
               itemId: 'guided',
               text: 'Guided',
-              iconCls: 'guided-query-icon',
-              tooltip: 'A faceted Amazon-like query interface'
+              iconCls: 'guided-query-icon'
             },
             {
               itemId: 'advanced',
               text: 'Advanced',
-              iconCls: 'advanced-query-icon',
-              tooltip: 'An advanced builder-like query interface'
+              iconCls: 'advanced-query-icon'
             },
             {
               itemId: 'user',
               text: 'User-defined',
               // &sdot; <span style="text-decoration: underline !important;">Dimeric protein structures at high-res</span>',
               iconCls: 'user-query-icon',
-              tooltip: 'A collection of user-defined queries stored in BioMart',
               menu: [{
                 text: 'Human genes on chromosome 1',
                 iconCls: 'simple-query-icon'
@@ -84,7 +80,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
           text: 'Customize filters',
           iconCls: 'customize-icon',
           disabled: true,
-          tooltip: 'Press this button to customize the query form by adding/removing filters',
+          tooltip: 'Click to customize the query form by adding/removing filters',
           handler: function() {
             var query = this;
             query.customize();
@@ -98,7 +94,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
           text: 'Save query',
           iconCls: 'save-icon',
           disabled: true,
-          tooltip: 'Press this button to save the query in various formats',
+          tooltip: 'Click to save the current query in various formats',
           handler: function() {
             var query = this;
             query.save();
@@ -113,7 +109,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
         text: 'Reset',
         iconCls: 'reset-icon',
         disabled: true,
-        tooltip: 'Press this button to reset the current query',
+        tooltip: 'Click to reset the current query',
         handler: function() {
           var query = this;
           query.reset();
@@ -127,7 +123,7 @@ Martview.Query = Ext.extend(Ext.Panel, {
         text: 'Submit',
         iconCls: 'submit-icon',
         disabled: true,
-        tooltip: 'Press this button to submit the current query to BioMart',
+        tooltip: 'Click to submit the current query',
         handler: function() {
           var query = this;
           query.submit();

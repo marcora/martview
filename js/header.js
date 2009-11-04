@@ -17,7 +17,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         text: 'Choose dataset',
         iconCls: 'selectdb-icon',
-        tooltip: 'Press this button to choose the dataset you want to query',
+        tooltip: 'Click to choose the dataset you want to query',
         handler: function() {
           var header = this;
           header.select();
@@ -44,7 +44,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         text: 'dataset_name',
         iconCls: 'dataset-icon',
         hidden: true,
-        tooltip: 'Press this button to get more information about the chosen dataset',
+        tooltip: 'Click to get more information about the chosen dataset',
         handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More info about chosen dataset');
         }
@@ -55,7 +55,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         text: 'Login',
         iconCls: 'user-icon',
-        tooltip: 'Press this button to log into BioMart',
+        tooltip: 'Click to log into BioMart',
         handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Login');
         }
@@ -66,7 +66,7 @@ Martview.Header = Ext.extend(Ext.Toolbar, {
         cls: 'x-btn-text-icon',
         text: 'Help',
         iconCls: 'help-icon',
-        tooltip: 'Press this button to get help on how to use BioMart',
+        tooltip: 'Click to get help on how to use BioMart',
         handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'Help');
         }

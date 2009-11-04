@@ -63,6 +63,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-expand-all',
             text: 'Expand all',
+            tooltip: 'Click to fully expand the tree',
             handler: function() {
               this.all.getStore().expandAll();
             },
@@ -73,6 +74,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             cls: 'x-btn-text-icon',
             iconCls: 'icon-collapse-all',
             text: 'Collapse all',
+            tooltip: 'Click to fully collapse the tree',
             handler: function() {
               this.all.getStore().collapseAll();
             },

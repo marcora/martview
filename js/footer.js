@@ -17,7 +17,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         text: 'To begin, please choose the dataset you want to query',
         iconCls: 'info-icon',
         cls: 'x-btn-text-icon',
-        tooltip: 'Press this button to get more help on how to use BioMart',
+        tooltip: 'Click to get more help on how to use BioMart',
         handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More contextual help');
         }
@@ -28,7 +28,7 @@ Martview.Footer = Ext.extend(Ext.Toolbar, {
         text: 'Powered by BioMart &sdot; Biological queries made easy',
         iconCls: 'biomart-icon',
         cls: 'x-btn-text-icon',
-        tooltip: 'Press this button to get information about BioMart',
+        tooltip: 'Click to get information about BioMart',
         handler: function() {
           Ext.MessageBox.alert(Martview.APP_TITLE, 'More about biomart (credits, license, feedback)');
         }

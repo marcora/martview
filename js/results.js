@@ -21,32 +21,27 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Tabular',
           iconCls: 'tabular-results-icon',
           disabled: true,
-          tooltip: 'Use this menu to select the results format',
+          tooltip: 'Click to select the results view format',
           menu: {
             items: [{
               text: 'Tabular',
               itemId: 'tabular',
-              iconCls: 'tabular-results-icon',
-              tooltip: 'A table-like display format for results'
-
+              iconCls: 'tabular-results-icon'
             },
             {
               text: 'Itemized',
               itemId: 'itemized',
-              iconCls: 'itemized-results-icon',
-              tooltip: 'A Google-like display format for results'
+              iconCls: 'itemized-results-icon'
             },
             {
               text: 'Mapped',
               itemId: 'mapped',
-              iconCls: 'mapped-results-icon',
-              tooltip: 'A mapped display format for results'
+              iconCls: 'mapped-results-icon'
             },
             {
               text: 'Aggregated',
               itemId: 'aggregated',
-              iconCls: 'aggregated-results-icon',
-              tooltip: 'An aggregated display format for results'
+              iconCls: 'aggregated-results-icon'
             }],
             listeners: {
               'itemclick': {
@@ -69,7 +64,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Customize columns',
           iconCls: 'customize-icon',
           disabled: true,
-          tooltip: 'Press this button to customize the results grid by adding/removing columns',
+          tooltip: 'Click to customize the results grid by adding/removing columns',
           handler: function() {
             var results = this;
             results.customize();
@@ -83,7 +78,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           text: 'Save results',
           iconCls: 'save-icon',
           disabled: true,
-          tooltip: 'Press this button to save the results in various formats',
+          tooltip: 'Click to save the current results in various formats',
           handler: function() {
             var results = this;
             results.save();
