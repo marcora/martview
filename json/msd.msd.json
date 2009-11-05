@@ -1,13 +1,10 @@
 {
   "type": "TableSet",
-  "itemId": "msd",
   "text": "MSD protein structures",
-  "dataset_display_name": "MSD protein structures",
+  "mart_display_name": "MSD PROTOTYPE (EBI UK)",
+  "interface": "default",
   "description": "Praesent vitae metus ut ligula congue gravida eu ac odio. Sed porttitor massa ac lectus interdum aliquam. Suspendisse consequat egestas suscipit. Aliquam venenatis elementum velit at ornare. Aliquam erat volutpat. Suspendisse potenti. Vivamus euismod sodales mi, eget adipiscing quam fermentum nec. Morbi ac leo libero. Quisque commodo mollis molestie. Morbi sodales ante et quam facilisis faucibus. Vestibulum urna turpis, dapibus a hendrerit a, luctus at orci.",
   "display_name": "MSD protein structures",
-  "iconCls": "dataset-icon",
-  "mart_name": "msd",
-  "interface": "default",
   "help_fields": [{
     name: "pdb_id",
     description: "filter by PDB ID (for example, <code>pdb_id:11ba</code>)"
@@ -41,1816 +38,1819 @@
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "experiment experiments type types experiment_type experiment_types",
           "text": "Experiment type",
           "display_name": "Experiment type",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "experiment_type",
           "model_reference": null,
+          "name": "experiment_type",
           "options": "Electron diffraction,Electron microscopy,Electron tomography,Fibre diffraction (electron),Fibre diffraction (X-ray),Fluorescence transfer,Infrared spectroscopy,Neutron Diffraction,NMR,Powder diffraction (X-ray),Single crystal X-ray diffraction,Solid state NMR,Theoretical model,Unspecified",
-          "qtip": "Experiment type",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Experiment type",
+            "text": null,
             "dismissDelay": 0
           },
           "default": true,
-          "id": "xp01zb4e"
+          "leaf": true,
+          "id": "dgvxsrvx",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "experiment experiments type types exp_type exp_types",
         "text": "Experiment type",
         "display_name": "Experiment type",
         "name": "exp_type",
-        "qtip": "Experiment type",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Experiment type",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "7gjrk7qp"
+        "leaf": false,
+        "id": "81o8bm5k"
       }],
-      "leaf": false,
       "fulltext": "experiment experiments type types experiment_type_filter experiment_type_filters",
       "text": "EXPERIMENT TYPE:",
       "display_name": "EXPERIMENT TYPE:",
       "name": "experiment_type_filters",
-      "qtip": "EXPERIMENT TYPE:",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "EXPERIMENT TYPE:",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "1isah9pb"
+      "leaf": false,
+      "id": "xsg9zvcz"
     },
     {
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "species name names  s comma commas separated separateds species_name species_names",
           "text": "Species name(s) (comma separated)",
           "display_name": "Species name(s) (comma separated)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "species_name",
           "model_reference": null,
+          "name": "species_name",
           "options": null,
-          "qtip": "Species name(s) (comma separated)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Species name(s) (comma separated)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "84zaqaod"
+          "leaf": true,
+          "id": "gq5hnii0",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "species",
         "text": "Species",
         "display_name": "Species",
         "name": "species",
-        "qtip": "Species",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Species",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "2ujpz02a"
+        "leaf": false,
+        "id": "arbrernv"
       }],
-      "leaf": false,
       "fulltext": "species species_filter species_filters",
       "text": "SPECIES:",
       "display_name": "SPECIES:",
       "name": "species_filters",
-      "qtip": "SPECIES:",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "SPECIES:",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "xa5rr96u"
+      "leaf": false,
+      "id": "ii0lurgi"
     },
     {
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": ">",
           "fulltext": "resolution resolutions greater greaters resolution_more_than resolution_more_thans",
           "text": "Resolution greater than",
           "display_name": "Resolution greater than",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "resolution_more_than",
           "model_reference": null,
+          "name": "resolution_more_than",
           "options": null,
-          "qtip": "Resolution greater than",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Resolution greater than",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": false,
-          "id": "yf3tkt4c"
+          "default": true,
+          "leaf": true,
+          "id": "m1smdorx",
+          "iconCls": "filter-icon",
+          "qualifier": ">"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "<",
           "fulltext": "resolution resolutions les lesses resolution_less_than resolution_less_thans",
           "text": "Resolution less than",
           "display_name": "Resolution less than",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "resolution_less_than",
           "model_reference": null,
+          "name": "resolution_less_than",
           "options": null,
-          "qtip": "Resolution less than",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Resolution less than",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": true,
-          "id": "ogd63dgd"
+          "default": false,
+          "leaf": true,
+          "id": "8t7xtx1j",
+          "iconCls": "filter-icon",
+          "qualifier": "<"
         }],
-        "leaf": false,
         "fulltext": "resolution resolutions",
         "text": "Resolution",
         "display_name": "Resolution",
         "name": "resolution",
-        "qtip": "Resolution",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Resolution",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "zm03a7ns"
+        "leaf": false,
+        "id": "ryprmxn4"
       }],
-      "leaf": false,
       "fulltext": "resolution resolutions resolution_filter resolution_filters",
       "text": "RESOLUTION:",
       "display_name": "RESOLUTION:",
       "name": "resolution_filters",
-      "qtip": "RESOLUTION:",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "RESOLUTION:",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "t7vdpjcv"
+      "leaf": false,
+      "id": "d005lr51"
     },
     {
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "assembly assemblies clas classes assembly_clas assembly_classes",
           "text": "Assembly Class",
           "display_name": "Assembly Class",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "assembly_class",
           "model_reference": null,
+          "name": "assembly_class",
           "options": "IV,HETERO,HV,HOMO",
-          "qtip": "Assembly Class",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Class",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "l20pb1kp"
+          "leaf": true,
+          "id": "9hqune6k",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "assembly assemblies clas classes",
         "text": "Assembly Class",
         "display_name": "Assembly Class",
         "name": "class",
-        "qtip": "Assembly Class",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Assembly Class",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "7tbkt73d"
+        "leaf": false,
+        "id": "2t0he9h0"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "assembly assemblies type types assembly_type assembly_types",
           "text": "Assembly Type",
           "display_name": "Assembly Type",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "assembly_type",
           "model_reference": null,
+          "name": "assembly_type",
           "options": "32MERIC,22MERIC,EICOSAMERIC,HEPTAMERIC,DIMERIC,24MERIC,TRIDECAMERIC,NONAMERIC,29MERIC,42MERIC,60MERIC,OCTAMERIC,TETRADECAMERIC,26MERIC,UNDECAMERIC,MONOMERIC,30MERIC,HEPTADECAMERIC,TETRAMERIC,27MERIC,HEXAMERIC,31MERIC,DECAMERIC,36MERIC,23MERIC,PENTAMERIC,TRIMERIC,33MERIC,21MERIC,NONADECAMERIC,PENTADECAMERIC,DODECAMERIC,OCTADECAMERIC,28MERIC,HEXADECAMERIC",
-          "qtip": "Assembly Type",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Type",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": true,
-          "id": "o9i1ixcr"
+          "default": false,
+          "leaf": true,
+          "id": "pc2ixmv3",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "assembly assemblies type types",
         "text": "Assembly Type",
         "display_name": "Assembly Type",
         "name": "type",
-        "qtip": "Assembly Type",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Assembly Type",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "eerrgvu4"
+        "leaf": false,
+        "id": "o7wglwm1"
       }],
-      "leaf": false,
       "fulltext": "assembly assemblies assembly_filter assembly_filters",
       "text": "ASSEMBLY:",
       "display_name": "ASSEMBLY:",
       "name": "assembly_filters",
-      "qtip": "ASSEMBLY:",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "ASSEMBLY:",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "rlh4os7"
+      "leaf": false,
+      "id": "iuki6br2"
     },
     {
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "3 3s letter letters molecule molecules code codes e es g gs gco gcos small_molecule_code small_molecule_codes",
           "text": "3 letter molecule code (e.g GCO)",
           "display_name": "3 letter molecule code (e.g GCO)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "small_molecule_code",
           "model_reference": null,
+          "name": "small_molecule_code",
           "options": null,
-          "qtip": "3 letter molecule code (e.g GCO)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "3 letter molecule code (e.g GCO)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "ykba2u8v"
+          "leaf": true,
+          "id": "ht5kuhyg",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "small smalls molecule molecules 3 3s letter letters code codes three_letter_code three_letter_codes",
         "text": "Small Molecule (3 letter code)",
         "display_name": "Small Molecule (3 letter code)",
         "name": "three_letter_code",
-        "qtip": "Small Molecule (3 letter code)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Small Molecule (3 letter code)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "xxhoxywh"
+        "leaf": false,
+        "id": "k2r0vwbu"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "molecule molecules name names e es g gs gluconic gluconics acid acids small_molecule_name small_molecule_names",
           "text": "Molecule name (e.g Gluconic acid)",
           "display_name": "Molecule name (e.g Gluconic acid)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "small_molecule_name",
           "model_reference": null,
+          "name": "small_molecule_name",
           "options": null,
-          "qtip": "Molecule name (e.g Gluconic acid)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Molecule name (e.g Gluconic acid)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "hc8lcay2"
+          "leaf": true,
+          "id": "hrjg50bv",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "small smalls molecule molecules full fulls name names full_molecular_name full_molecular_names",
         "text": "Small Molecule (full name)",
         "display_name": "Small Molecule (full name)",
         "name": "full_molecular_name",
-        "qtip": "Small Molecule (full name)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Small Molecule (full name)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "5sajpmbo"
+        "leaf": false,
+        "id": "smsb8u2w"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "space spaces group groups e es g gs 1 1s 2 2s space_group space_groups",
           "text": "Space group (e.g A 1 2 1)",
           "display_name": "Space group (e.g A 1 2 1)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "space_group",
           "model_reference": null,
+          "name": "space_group",
           "options": null,
-          "qtip": "Space group (e.g A 1 2 1)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Space group (e.g A 1 2 1)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "guvc30m8"
+          "leaf": true,
+          "id": "unsul0lc",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "space spaces group groups eg egs 1 1s 2 2s space_group_filter space_group_filters",
         "text": "Space Group (eg A 1 2 1)",
         "display_name": "Space Group (eg A 1 2 1)",
         "name": "space_group_filters",
-        "qtip": "Space Group (eg A 1 2 1)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Space Group (eg A 1 2 1)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "gueiis7o"
+        "leaf": false,
+        "id": "xkh91m9f"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "header headers term terms comma commas separated separateds",
           "text": "Header terms(comma separated)",
           "display_name": "Header terms(comma separated)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "header",
           "model_reference": null,
+          "name": "header",
           "options": null,
-          "qtip": "Header terms(comma separated)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Header terms(comma separated)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "3zrhirmu"
+          "leaf": true,
+          "id": "96gguw94",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "header headers term terms comma commas separated separateds header_filter header_filters",
         "text": "Header Terms (comma separated)",
         "display_name": "Header Terms (comma separated)",
         "name": "header_filters",
-        "qtip": "Header Terms (comma separated)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Header Terms (comma separated)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "vuaoouqi"
+        "leaf": false,
+        "id": "zvcmognz"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "keyword keywords comma commas separated separateds keywords_concat keywords_concats",
           "text": "Keywords (comma separated)",
           "display_name": "Keywords (comma separated)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "keywords_concat",
           "model_reference": null,
+          "name": "keywords_concat",
           "options": null,
-          "qtip": "Keywords (comma separated)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Keywords (comma separated)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "aw3vqyjk"
+          "leaf": true,
+          "id": "9tkj6eq4",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "keyword keywords comma commas separated separateds",
         "text": "Keywords (comma separated)",
         "display_name": "Keywords (comma separated)",
         "name": "keywords",
-        "qtip": "Keywords (comma separated)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Keywords (comma separated)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "n8rtt4ii"
+        "leaf": false,
+        "id": "tm0b9vu"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=",
           "fulltext": "author authors last lasts name names",
           "text": "Author last name",
           "display_name": "Author last name",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "authors",
           "model_reference": null,
+          "name": "authors",
           "options": null,
-          "qtip": "Author last name",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Author last name",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "kisipzy"
+          "leaf": true,
+          "id": "q1evhrsc",
+          "iconCls": "filter-icon",
+          "qualifier": "="
         }],
-        "leaf": false,
         "fulltext": "author authors last lasts name names author_last_name author_last_names",
         "text": "Author (last name)",
         "display_name": "Author (last name)",
         "name": "author_last_name",
-        "qtip": "Author (last name)",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Author (last name)",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "ubm3uu9h"
+        "leaf": false,
+        "id": "nhuic8dn"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "only,excluded",
           "fulltext": "scop scops id ids  s has_scop has_scops",
           "text": "with SCOP ID(s)",
           "display_name": "with SCOP ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "has_scop",
           "model_reference": null,
+          "name": "has_scop",
           "options": null,
-          "qtip": "with SCOP ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "with SCOP ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "wcpmuajs"
+          "leaf": true,
+          "id": "pkwg150p",
+          "iconCls": "filter-icon",
+          "qualifier": "only,excluded"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "only,excluded",
           "fulltext": "cath caths id ids  s has_cath has_caths",
           "text": "with CATH ID(s)",
           "display_name": "with CATH ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "has_cath",
           "model_reference": null,
+          "name": "has_cath",
           "options": null,
-          "qtip": "with CATH ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "with CATH ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "t524niyi"
+          "leaf": true,
+          "id": "g5zccttm",
+          "iconCls": "filter-icon",
+          "qualifier": "only,excluded"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "only,excluded",
           "fulltext": "pfam pfams id ids  s has_pfam_info has_pfam_infos",
           "text": "with PFAM ID(s)",
           "display_name": "with PFAM ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "has_pfam_info",
           "model_reference": null,
+          "name": "has_pfam_info",
           "options": null,
-          "qtip": "with PFAM ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "with PFAM ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "r7t9ghk3"
+          "leaf": true,
+          "id": "q757bk7f",
+          "iconCls": "filter-icon",
+          "qualifier": "only,excluded"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "only,excluded",
           "fulltext": "interpro interpros id ids  s has_interpro_info has_interpro_infos",
           "text": "with InterPro ID(s)",
           "display_name": "with InterPro ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "has_interpro_info",
           "model_reference": null,
+          "name": "has_interpro_info",
           "options": null,
-          "qtip": "with InterPro ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "with InterPro ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "732z82f5"
+          "leaf": true,
+          "id": "9f06r2rq",
+          "iconCls": "filter-icon",
+          "qualifier": "only,excluded"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "only,excluded",
           "fulltext": "ec ecs id ids  s has_ec_info has_ec_infos",
           "text": "with EC ID(s)",
           "display_name": "with EC ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "has_ec_info",
           "model_reference": null,
+          "name": "has_ec_info",
           "options": null,
-          "qtip": "with EC ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "with EC ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "jqv4vc1a"
+          "leaf": true,
+          "id": "1bzspm70",
+          "iconCls": "filter-icon",
+          "qualifier": "only,excluded"
         }],
-        "leaf": false,
         "fulltext": "external externals reference references id_list_bool_filter id_list_bool_filters",
         "text": "External references",
         "display_name": "External references",
         "name": "id_list_bool_filters",
-        "qtip": "External references",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "External references",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "uc9gm2hh"
+        "leaf": false,
+        "id": "ky3ab8o8"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "ec ecs id ids  s ec_id_list ec_id_lists",
           "text": "EC ID(s)",
           "display_name": "EC ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "ec_id_list",
           "model_reference": null,
+          "name": "ec_id_list",
           "options": null,
-          "qtip": "EC ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "EC ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "8zcd6k8y"
+          "leaf": true,
+          "id": "f1w0kzkm",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "interpro interpros id ids  s interpro_id_list interpro_id_lists",
           "text": "InterPro ID(s)",
           "display_name": "InterPro ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "interpro_id_list",
           "model_reference": null,
+          "name": "interpro_id_list",
           "options": null,
-          "qtip": "InterPro ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "InterPro ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "so619hzc"
+          "leaf": true,
+          "id": "rjqa6dm0",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "pfma pfmas id ids  s pfam_id_list pfam_id_lists",
           "text": "PFMA ID(s)",
           "display_name": "PFMA ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "pfam_id_list",
           "model_reference": null,
+          "name": "pfam_id_list",
           "options": null,
-          "qtip": "PFMA ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "PFMA ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "bxr5nnk8"
+          "leaf": true,
+          "id": "kzpwtxp4",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "cath caths id ids  s cath_id_list cath_id_lists",
           "text": "CATH ID(s)",
           "display_name": "CATH ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "cath_id_list",
           "model_reference": null,
+          "name": "cath_id_list",
           "options": null,
-          "qtip": "CATH ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "CATH ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "ng2mjzs5"
+          "leaf": true,
+          "id": "gwfvl3ja",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "scop scops id ids  s scop_id_list scop_id_lists",
           "text": "SCOP ID(s)",
           "display_name": "SCOP ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "scop_id_list",
           "model_reference": null,
+          "name": "scop_id_list",
           "options": null,
-          "qtip": "SCOP ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "SCOP ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "uxk51525"
+          "leaf": true,
+          "id": "92rk0jcv",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "uniprot uniprots id ids  s sprot_id_list sprot_id_lists",
           "text": "UniProt ID(s)",
           "display_name": "UniProt ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "sprot_id_list",
           "model_reference": null,
+          "name": "sprot_id_list",
           "options": null,
-          "qtip": "UniProt ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "UniProt ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "779sh58f"
+          "leaf": true,
+          "id": "rhngyqkf",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         },
         {
           "children": [],
-          "leaf": true,
-          "qualifier": "=,in",
           "fulltext": "pdb pdbs id ids  s pdb_id_list pdb_id_lists",
           "text": "PDB ID(s)",
           "display_name": "PDB ID(s)",
           "description": null,
-          "iconCls": "filter-icon",
-          "name": "pdb_id_list",
           "model_reference": null,
+          "name": "pdb_id_list",
           "options": null,
-          "qtip": "PDB ID(s)",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "PDB ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "rfce4uki"
+          "leaf": true,
+          "id": "ymcop0ub",
+          "iconCls": "filter-icon",
+          "qualifier": "=,in"
         }],
-        "leaf": false,
         "fulltext": "limit limits protein proteins id ids id_list_filter id_list_filters",
         "text": "Limit to proteins with these IDs",
         "display_name": "Limit to proteins with these IDs",
         "name": "id_list_filter",
-        "qtip": "Limit to proteins with these IDs",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "Limit to proteins with these IDs",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "fqvau6xg"
+        "leaf": false,
+        "id": "d571iegl"
       }],
-      "leaf": false,
       "fulltext": "external externals identifier identifiers external_identifier external_identifiers",
       "text": "EXTERNAL IDENTIFIERS:",
       "display_name": "EXTERNAL IDENTIFIERS:",
       "name": "external_identifiers",
-      "qtip": "EXTERNAL IDENTIFIERS:",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "EXTERNAL IDENTIFIERS:",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "3bd8hd9g"
+      "leaf": false,
+      "id": "qxzewno1"
     }],
-    "leaf": false,
     "fulltext": "filter filters",
     "text": "FILTERS",
     "display_name": "FILTERS",
     "name": "filters",
-    "qtip": "FILTERS",
     "qtipCfg": {
-      "autoWidth": true,
+      "title": "FILTERS",
+      "text": null,
       "dismissDelay": 0
     },
-    "id": "bjmvsrse"
+    "leaf": false,
+    "id": "zeac31uj"
   }],
   "name": "msd",
-  "mart_display_name": "MSD PROTOTYPE (EBI UK)",
   "visible": false,
+  "keywords": ["msd", "proteins", "structures", "x-ray", "crystallography", "pdb"],
+  "dataset_name": "msd",
+  "itemId": "msd",
+  "dataset_display_name": "MSD protein structures",
   "attributes": [{
     "children": [{
       "children": [{
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "pdb pdbs id ids  s pdb_id pdb_ids",
           "text": "PDB ID(s)",
           "display_name": "PDB ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "pdb_id",
           "model_reference": "http://www.embracegrid.info/ws/sawsdl/spec/ontology/databases#PDB_Identifier",
-          "qtip": "PDB ID(s)",
+          "name": "pdb_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "PDB ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": true,
-          "id": "mchlxgm1"
+          "leaf": true,
+          "id": "3vf04lgy",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "title titles",
           "text": "Title",
           "display_name": "Title",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "title",
           "model_reference": null,
-          "qtip": "Title",
+          "name": "title",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Title",
+            "text": null,
             "dismissDelay": 0
           },
           "default": true,
-          "id": "uzunwk3s"
+          "leaf": true,
+          "id": "e20zeo23",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "experiment experiments type types experiment_type experiment_types",
           "text": "Experiment Type",
           "display_name": "Experiment Type",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "experiment_type",
           "model_reference": null,
-          "qtip": "Experiment Type",
+          "name": "experiment_type",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Experiment Type",
+            "text": null,
             "dismissDelay": 0
           },
           "default": true,
-          "id": "qdpok3t1"
+          "leaf": true,
+          "id": "sw9wmpb5",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "header headers",
           "text": "Header",
           "display_name": "Header",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "header",
           "model_reference": null,
-          "qtip": "Header",
+          "name": "header",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Header",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "lcated3s"
+          "leaf": true,
+          "id": "o77ss10m",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "author authors",
           "text": "Authors",
           "display_name": "Authors",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "authors",
           "model_reference": null,
-          "qtip": "Authors",
+          "name": "authors",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Authors",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "gjza24q5"
+          "leaf": true,
+          "id": "i859xy9i",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "keyword keywords keywords_concat keywords_concats",
           "text": "Keywords",
           "display_name": "Keywords",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "keywords_concat",
           "model_reference": null,
-          "qtip": "Keywords",
+          "name": "keywords_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Keywords",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "6opk9vm"
+          "leaf": true,
+          "id": "pibjg3zz",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "submission submissions date dates submission_date submission_dates",
           "text": "Submission Date",
           "display_name": "Submission Date",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "submission_date",
           "model_reference": null,
-          "qtip": "Submission Date",
+          "name": "submission_date",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Submission Date",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "1csla8kq"
+          "leaf": true,
+          "id": "pqw4te67",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "release releases date dates release_date release_dates",
           "text": "Release Date",
           "display_name": "Release Date",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "release_date",
           "model_reference": null,
-          "qtip": "Release Date",
+          "name": "release_date",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Release Date",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "aoqmoq23"
+          "leaf": true,
+          "id": "os7vjwkx",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "resolution resolutions",
           "text": "Resolution",
           "display_name": "Resolution",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "resolution",
           "model_reference": null,
-          "qtip": "Resolution",
+          "name": "resolution",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Resolution",
+            "text": null,
             "dismissDelay": 0
           },
           "default": true,
-          "id": "wo7vbw0n"
+          "leaf": true,
+          "id": "f552h0jo",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "space spaces group groups space_group space_groups",
           "text": "Space Group",
           "display_name": "Space Group",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "space_group",
           "model_reference": null,
-          "qtip": "Space Group",
+          "name": "space_group",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Space Group",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": true,
-          "id": "2ym6cdyr"
+          "default": false,
+          "leaf": true,
+          "id": "zbsdfi2z",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "r rs work works r_work r_works",
           "text": "R Work",
           "display_name": "R Work",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "r_work",
           "model_reference": null,
-          "qtip": "R Work",
+          "name": "r_work",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "R Work",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": true,
-          "id": "zsr5lkd7"
+          "default": false,
+          "leaf": true,
+          "id": "kvwclrxq",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "msd msds entry entries datum datas",
         "text": "MSD ENTRY DATA:",
         "display_name": "MSD ENTRY DATA:",
-        "name": "entry",
-        "qtip": "MSD ENTRY DATA:",
         "max_select": null,
+        "name": "entry",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "MSD ENTRY DATA:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "miqfsr1j"
+        "leaf": false,
+        "id": "poijox10"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "assembly assemblies type types assembly_type assembly_types",
           "text": "Assembly Type",
           "display_name": "Assembly Type",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "assembly_type",
           "model_reference": null,
-          "qtip": "Assembly Type",
+          "name": "assembly_type",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Type",
+            "text": null,
             "dismissDelay": 0
           },
-          "default": true,
-          "id": "6eclqoi2"
+          "default": false,
+          "leaf": true,
+          "id": "eif18w8j",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "assembly assemblies code codes assembly_code assembly_codes",
           "text": "Assembly Code",
           "display_name": "Assembly Code",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "assembly_code",
           "model_reference": null,
-          "qtip": "Assembly Code",
+          "name": "assembly_code",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Code",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "ldsfl1kw"
+          "leaf": true,
+          "id": "vqaolg6w",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "assembly assemblies form forms assembly_form assembly_forms",
           "text": "Assembly Form",
           "display_name": "Assembly Form",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "assembly_form",
           "model_reference": null,
-          "qtip": "Assembly Form",
+          "name": "assembly_form",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Form",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "vfvmhbxt"
+          "leaf": true,
+          "id": "brqeq4fp",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "assembly assemblies clas classes assembly_clas assembly_classes",
           "text": "Assembly Class",
           "display_name": "Assembly Class",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "assembly_class",
           "model_reference": null,
-          "qtip": "Assembly Class",
+          "name": "assembly_class",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Assembly Class",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "2gpjdf2d"
+          "leaf": true,
+          "id": "j69g6dj3",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "msd msds assembly assemblies datum datas",
         "text": "MSD ASSEMBLY DATA:",
         "display_name": "MSD ASSEMBLY DATA:",
-        "name": "assembly",
-        "qtip": "MSD ASSEMBLY DATA:",
         "max_select": null,
+        "name": "assembly",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "MSD ASSEMBLY DATA:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "wuidm1gf"
+        "leaf": false,
+        "id": "cwt7prhw"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "chain chains code codes chain_code chain_codes",
           "text": "Chain Code",
           "display_name": "Chain Code",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "chain_code",
           "model_reference": null,
-          "qtip": "Chain Code",
+          "name": "chain_code",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Chain Code",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "23g77aau"
+          "leaf": true,
+          "id": "xhml4fua",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "chain chains length lengths chain_length chain_lengths",
           "text": "Chain Length",
           "display_name": "Chain Length",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "chain_length",
           "model_reference": null,
-          "qtip": "Chain Length",
+          "name": "chain_length",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Chain Length",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "r1x2libj"
+          "leaf": true,
+          "id": "rx91xvp4",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "ebi ebis chain chains code codes chain_ebi_code_1_letter chain_ebi_code_1_letters",
           "text": "EBI Chain Code",
           "display_name": "EBI Chain Code",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "chain_ebi_code_1_letter",
           "model_reference": null,
-          "qtip": "EBI Chain Code",
+          "name": "chain_ebi_code_1_letter",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "EBI Chain Code",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "re0nuysq"
+          "leaf": true,
+          "id": "ybir260h",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "molecule molecules name names molecule_name molecule_names",
           "text": "Molecule Name",
           "display_name": "Molecule Name",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "molecule_name",
           "model_reference": null,
-          "qtip": "Molecule Name",
+          "name": "molecule_name",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Molecule Name",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "apfh31b"
+          "leaf": true,
+          "id": "xid0ck3i",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "tax taxes id ids  s ncbi_tax_id ncbi_tax_ids",
           "text": "Tax ID(s)",
           "display_name": "Tax ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "ncbi_tax_id",
           "model_reference": null,
-          "qtip": "Tax ID(s)",
+          "name": "ncbi_tax_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Tax ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "crpftgc1"
+          "leaf": true,
+          "id": "a2b9m71n",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds tax taxes id ids  s tax_concat tax_concats",
           "text": "Concatenated Tax ID(s)",
           "display_name": "Concatenated Tax ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "tax_concat",
           "model_reference": null,
-          "qtip": "Concatenated Tax ID(s)",
+          "name": "tax_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated Tax ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "itw473vy"
+          "leaf": true,
+          "id": "zj3rmapl",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "organism organisms name names scientific_name scientific_names",
           "text": "Organism Name",
           "display_name": "Organism Name",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "scientific_name",
           "model_reference": null,
-          "qtip": "Organism Name",
+          "name": "scientific_name",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Organism Name",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "g1ugwium"
+          "leaf": true,
+          "id": "qyorzdvy",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "uniprot uniprots accession accessions id ids  s uniprot_ac uniprot_acs",
           "text": "UniProt Accession ID(s)",
           "display_name": "UniProt Accession ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "uniprot_ac",
           "model_reference": null,
-          "qtip": "UniProt Accession ID(s)",
+          "name": "uniprot_ac",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "UniProt Accession ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "oj06p2vi"
+          "leaf": true,
+          "id": "2l7wwtq4",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "uniprot uniprots id ids  s uniprot_id uniprot_ids",
           "text": "UniProt ID(s)",
           "display_name": "UniProt ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "uniprot_id",
           "model_reference": null,
-          "qtip": "UniProt ID(s)",
+          "name": "uniprot_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "UniProt ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "p68f7sw3"
+          "leaf": true,
+          "id": "h6b5c77p",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds uniprot uniprots accession accessions id ids  s sws_concat_uniprot_ac sws_concat_uniprot_acs",
           "text": "Concatenated UniProt Accession ID(s)",
           "display_name": "Concatenated UniProt Accession ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "sws_concat_uniprot_ac",
           "model_reference": null,
-          "qtip": "Concatenated UniProt Accession ID(s)",
+          "name": "sws_concat_uniprot_ac",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated UniProt Accession ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "962uheh5"
+          "leaf": true,
+          "id": "xdc2uf3o",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "molecule molecules code codes molecule_code molecule_codes",
           "text": "Molecule Code",
           "display_name": "Molecule Code",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "molecule_code",
           "model_reference": null,
-          "qtip": "Molecule Code",
+          "name": "molecule_code",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Molecule Code",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "984ioso9"
+          "leaf": true,
+          "id": "dzlrwq5q",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "molecule molecules source sources method methods molecule_src_method molecule_src_methods",
           "text": "Molecule Source Method",
           "display_name": "Molecule Source Method",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "molecule_src_method",
           "model_reference": null,
-          "qtip": "Molecule Source Method",
+          "name": "molecule_src_method",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Molecule Source Method",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "71pa6u9h"
+          "leaf": true,
+          "id": "jkrvlou9",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "msd msds chain chains datum datas",
         "text": "MSD CHAIN DATA:",
         "display_name": "MSD CHAIN DATA:",
-        "name": "chain",
-        "qtip": "MSD CHAIN DATA:",
         "max_select": null,
+        "name": "chain",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "MSD CHAIN DATA:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "3e3c3j9k"
+        "leaf": false,
+        "id": "clz3b9hw"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds pfam pfams id ids  s pfam_concat pfam_concats",
           "text": "Concatenated PFAM ID(s)",
           "display_name": "Concatenated PFAM ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "pfam_concat",
           "model_reference": null,
-          "qtip": "Concatenated PFAM ID(s)",
+          "name": "pfam_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated PFAM ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "sxt8122z"
+          "leaf": true,
+          "id": "o0lrzz5p",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "pfam pfams id ids  s pfam_id pfam_ids",
           "text": "PFAM ID(s)",
           "display_name": "PFAM ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "pfam_id",
           "model_reference": null,
-          "qtip": "PFAM ID(s)",
+          "name": "pfam_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "PFAM ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "s53tj9j2"
+          "leaf": true,
+          "id": "jy0kjvyo",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds go gos id ids  s go_concat go_concats",
           "text": "Concatenated GO ID(s)",
           "display_name": "Concatenated GO ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "go_concat",
           "model_reference": null,
-          "qtip": "Concatenated GO ID(s)",
+          "name": "go_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated GO ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "pqum1oux"
+          "leaf": true,
+          "id": "ps75comn",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds interpro interpros id ids  s interpro_concat interpro_concats",
           "text": "Concatenated InterPro ID(s)",
           "display_name": "Concatenated InterPro ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "interpro_concat",
           "model_reference": null,
-          "qtip": "Concatenated InterPro ID(s)",
+          "name": "interpro_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated InterPro ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "7df4gym6"
+          "leaf": true,
+          "id": "bnlk4n7i",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "interpro interpros id ids  s interpro_id interpro_ids",
           "text": "InterPro ID(s)",
           "display_name": "InterPro ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "interpro_id",
           "model_reference": null,
-          "qtip": "InterPro ID(s)",
+          "name": "interpro_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "InterPro ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "lw1x06lm"
+          "leaf": true,
+          "id": "av3o97yf",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds ec ecs id ids  s ec_concat ec_concats",
           "text": "Concatenated EC ID(s)",
           "display_name": "Concatenated EC ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "ec_concat",
           "model_reference": null,
-          "qtip": "Concatenated EC ID(s)",
+          "name": "ec_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated EC ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "98aahlfu"
+          "leaf": true,
+          "id": "osqfpnod",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "ec ecs id ids  s ec_number ec_numbers",
           "text": "EC ID(s)",
           "display_name": "EC ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "ec_number",
           "model_reference": null,
-          "qtip": "EC ID(s)",
+          "name": "ec_number",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "EC ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "nagak4pw"
+          "leaf": true,
+          "id": "3y2o67yl",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds cath caths id ids  s cath_concat cath_concats",
           "text": "Concatenated CATH ID(s)",
           "display_name": "Concatenated CATH ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "cath_concat",
           "model_reference": null,
-          "qtip": "Concatenated CATH ID(s)",
+          "name": "cath_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated CATH ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "dnvajq7x"
+          "leaf": true,
+          "id": "b9b4jo8q",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "cath caths id ids  s cath_code cath_codes",
           "text": "CATH ID(s)",
           "display_name": "CATH ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "cath_code",
           "model_reference": null,
-          "qtip": "CATH ID(s)",
+          "name": "cath_code",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "CATH ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "3v4bkllp"
+          "leaf": true,
+          "id": "mzi2wl42",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "concatenated concatenateds scop scops id ids  s scop_concat scop_concats",
           "text": "Concatenated SCOP ID(s)",
           "display_name": "Concatenated SCOP ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "scop_concat",
           "model_reference": null,
-          "qtip": "Concatenated SCOP ID(s)",
+          "name": "scop_concat",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Concatenated SCOP ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "nvwnu4su"
+          "leaf": true,
+          "id": "z4j451nm",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "scop scops id ids  s sun_id sun_ids",
           "text": "SCOP ID(s)",
           "display_name": "SCOP ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "sun_id",
           "model_reference": null,
-          "qtip": "SCOP ID(s)",
+          "name": "sun_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "SCOP ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "38ch06pq"
+          "leaf": true,
+          "id": "i8975ypd",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "external externals identifier identifiers xref xrefs",
         "text": "EXTERNAL IDENTIFIERS:",
         "display_name": "EXTERNAL IDENTIFIERS:",
-        "name": "xrefs",
-        "qtip": "EXTERNAL IDENTIFIERS:",
         "max_select": null,
+        "name": "xrefs",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "EXTERNAL IDENTIFIERS:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "p2v2j1m6"
+        "leaf": false,
+        "id": "vseide2b"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "hetgroup hetgroups id ids  s hetgroup_id hetgroup_ids",
           "text": "Hetgroup ID(s)",
           "display_name": "Hetgroup ID(s)",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "hetgroup_id",
           "model_reference": null,
-          "qtip": "Hetgroup ID(s)",
+          "name": "hetgroup_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Hetgroup ID(s)",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "4plhdlg8"
+          "leaf": true,
+          "id": "5vvvarnb",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "hetgroup hetgroups name names hetgroup_name hetgroup_names",
           "text": "Hetgroup Name",
           "display_name": "Hetgroup Name",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "hetgroup_name",
           "model_reference": null,
-          "qtip": "Hetgroup Name",
+          "name": "hetgroup_name",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Hetgroup Name",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "ro43wwzt"
+          "leaf": true,
+          "id": "jxb0jnfa",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "hetgroup hetgroups formula formulas hetgroup_formula hetgroup_formulas",
           "text": "Hetgroup Formula",
           "display_name": "Hetgroup Formula",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "hetgroup_formula",
           "model_reference": null,
-          "qtip": "Hetgroup Formula",
+          "name": "hetgroup_formula",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Hetgroup Formula",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "5dsimwbi"
+          "leaf": true,
+          "id": "699l5ht9",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "hetgroup hetgroups weight weights hetgroup_weight hetgroup_weights",
           "text": "Hetgroup Weight",
           "display_name": "Hetgroup Weight",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "hetgroup_weight",
           "model_reference": null,
-          "qtip": "Hetgroup Weight",
+          "name": "hetgroup_weight",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Hetgroup Weight",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "7nsmdh0g"
+          "leaf": true,
+          "id": "1r3xy6ny",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "hetgroup hetgroups",
         "text": "HETGROUP:",
         "display_name": "HETGROUP:",
-        "name": "hetgroup",
-        "qtip": "HETGROUP:",
         "max_select": null,
+        "name": "hetgroup",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "HETGROUP:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "lihputl6"
+        "leaf": false,
+        "id": "6e8xxda1"
       },
       {
         "children": [{
           "children": [],
-          "leaf": true,
           "fulltext": "id ids",
           "text": "ID",
           "display_name": "ID",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "id",
           "model_reference": null,
-          "qtip": "ID",
+          "name": "id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "ID",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "gwd5segh"
+          "leaf": true,
+          "id": "m98j5qvu",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "year years",
           "text": "Year",
           "display_name": "Year",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "year",
           "model_reference": null,
-          "qtip": "Year",
+          "name": "year",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Year",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "x2hgs9bk"
+          "leaf": true,
+          "id": "dwy3ss9p",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "title titles title_journal title_journals",
           "text": "Title",
           "display_name": "Title",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "title_journal",
           "model_reference": null,
-          "qtip": "Title",
+          "name": "title_journal",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Title",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "l302wg6f"
+          "leaf": true,
+          "id": "t4342pm5",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "full fulls journal journals journal_full journal_fulls",
           "text": "Full journal",
           "display_name": "Full journal",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "journal_full",
           "model_reference": null,
-          "qtip": "Full journal",
+          "name": "journal_full",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Full journal",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "eae7tfaf"
+          "leaf": true,
+          "id": "3e6ss8ca",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "volume volumes journal_volume journal_volumes",
           "text": "Volume",
           "display_name": "Volume",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "journal_volume",
           "model_reference": null,
-          "qtip": "Volume",
+          "name": "journal_volume",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Volume",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "kaiyvt4s"
+          "leaf": true,
+          "id": "vjq71z11",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "issue issues journal_issue journal_issues",
           "text": "Issue",
           "display_name": "Issue",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "journal_issue",
           "model_reference": null,
-          "qtip": "Issue",
+          "name": "journal_issue",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Issue",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "awt1nklw"
+          "leaf": true,
+          "id": "669jmlkw",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "month months ebi_journal_month ebi_journal_months",
           "text": "Month",
           "display_name": "Month",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "ebi_journal_month",
           "model_reference": null,
-          "qtip": "Month",
+          "name": "ebi_journal_month",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Month",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "yb9zc1iw"
+          "leaf": true,
+          "id": "mvf1ll3u",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "issn issns journal_id_issn journal_id_issns",
           "text": "ISSN",
           "display_name": "ISSN",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "journal_id_issn",
           "model_reference": null,
-          "qtip": "ISSN",
+          "name": "journal_id_issn",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "ISSN",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "463vdjm4"
+          "leaf": true,
+          "id": "sttonha2",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "mesh meshes term terms ebi_mesh_term ebi_mesh_terms",
           "text": "Mesh terms",
           "display_name": "Mesh terms",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "ebi_mesh_terms",
           "model_reference": null,
-          "qtip": "Mesh terms",
+          "name": "ebi_mesh_terms",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Mesh terms",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "tkzuvzov"
+          "leaf": true,
+          "id": "r58o5h5w",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "page pages range ranges range_page range_pages",
           "text": "Page range",
           "display_name": "Page range",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "range_pages",
           "model_reference": null,
-          "qtip": "Page range",
+          "name": "range_pages",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Page range",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "rkyv2g7j"
+          "leaf": true,
+          "id": "emiy9prw",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "pubmed pubmeds id ids pubmed_id pubmed_ids",
           "text": "Pubmed ID",
           "display_name": "Pubmed ID",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "pubmed_id",
           "model_reference": null,
-          "qtip": "Pubmed ID",
+          "name": "pubmed_id",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Pubmed ID",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "ui5in47b"
+          "leaf": true,
+          "id": "mtumbroa",
+          "iconCls": "attribute-icon"
         },
         {
           "children": [],
-          "leaf": true,
           "fulltext": "author authors author_list author_lists",
           "text": "Authors",
           "display_name": "Authors",
           "description": null,
-          "iconCls": "attribute-icon",
-          "name": "author_list",
           "model_reference": null,
-          "qtip": "Authors",
+          "name": "author_list",
           "qtipCfg": {
-            "autoWidth": true,
+            "title": "Authors",
+            "text": null,
             "dismissDelay": 0
           },
           "default": false,
-          "id": "imp9ubg9"
+          "leaf": true,
+          "id": "fyi9f283",
+          "iconCls": "attribute-icon"
         }],
-        "leaf": false,
         "fulltext": "journal journals",
         "text": "JOURNAL:",
         "display_name": "JOURNAL:",
-        "name": "journal",
-        "qtip": "JOURNAL:",
         "max_select": null,
+        "name": "journal",
         "qtipCfg": {
-          "autoWidth": true,
+          "title": "JOURNAL:",
+          "text": null,
           "dismissDelay": 0
         },
-        "id": "zs1k1a0v"
+        "leaf": false,
+        "id": "6egjr8r2"
       }],
-      "leaf": false,
       "fulltext": "feature features",
       "text": "Features",
       "display_name": "Features",
-      "name": "features",
-      "qtip": "Features",
       "max_select": null,
+      "name": "features",
       "qtipCfg": {
-        "autoWidth": true,
+        "title": "Features",
+        "text": null,
         "dismissDelay": 0
       },
-      "id": "2j7ldvqb"
+      "leaf": false,
+      "id": "t26px2qh"
     }],
-    "leaf": false,
     "fulltext": "attribute attributes feature_page feature_pages",
     "text": "ATTRIBUTES",
     "display_name": "ATTRIBUTES",
-    "name": "feature_page",
-    "qtip": "ATTRIBUTES",
     "max_select": null,
+    "name": "feature_page",
     "qtipCfg": {
-      "autoWidth": true,
+      "title": "ATTRIBUTES",
+      "text": null,
       "dismissDelay": 0
     },
     "formatters": "html,txt,csv,tsv,xls",
-    "id": "gtnpubjz"
+    "leaf": false,
+    "id": "3ii2q500"
   }],
-  "keywords": ["msd", "proteins", "structures", "x-ray", "crystallography", "pdb"],
-  "dataset_name": "msd"
+  "iconCls": "dataset-icon",
+  "mart_name": "msd"
 }
