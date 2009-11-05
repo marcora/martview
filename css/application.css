@@ -64,6 +64,8 @@ legend { font-weight: normal !important; }
 
 .error-msg { color: #d00000 !important }
 
+.filter-description { font-size: 0.9em !important; color: #888 !important; margin: 0 !important; padding: 0 !important; }
+
 .item { width: 100%; }
 .item .title { color: #333; font-size: 1.4em; font-weight: bold; margin: 0; padding: 0; margin-top: 4px; margin-bottom: 2px; }
 .item .title img { margin-right: 4px !important; vertical-align: top !important; }

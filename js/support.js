@@ -132,6 +132,19 @@ Ext.override(Ext.form.Field, {
   }
 });
 
+// add tooltip to field
+Ext.sequence(Ext.form.Field.prototype, 'afterRender', function() {
+  var title = this.fieldLabel;
+  var text = this.tooltip;
+  if (title && text) {
+    Ext.QuickTips.register({
+      target: this,
+      title: title,
+      text: text
+    });
+  }
+});
+
 // add the focus method to Ext.form.FormPanel
 Ext.override(Ext.form.FormPanel, {
   focus: function() {

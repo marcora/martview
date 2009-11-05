@@ -61,7 +61,7 @@ Martview.Results = Ext.extend(Ext.Panel, {
           itemId: 'customize',
           ref: '../customizeButton',
           cls: 'x-btn-text-icon',
-          text: 'Customize columns',
+          text: 'Add/remove columns',
           iconCls: 'customize-icon',
           disabled: true,
           tooltip: 'Click to customize the results grid by adding/removing columns',
@@ -154,19 +154,25 @@ Martview.Results = Ext.extend(Ext.Panel, {
 
     // update results panel
     results.removeAll();
-    results.add({
-      xtype: args.results + 'results',
-      itemId: args.results,
-      ref: args.results,
-      fields: args.fields,
-      columns: args.columns
-    });
+    if (args.results == 'tabular' && (!args.columns || args.columns.length == 0)) {
+      Ext.MessageBox.alert(Martview.APP_TITLE, 'To see the results, please click on the "Add/remove columns" button to add at least one column to the results grid.');
+    } else {
+      results.add({
+        xtype: args.results + 'results',
+        itemId: args.results,
+        ref: args.results,
+        fields: args.fields,
+        columns: args.columns
+      });
+    }
 
     // refresh results panel
     results.doLayout();
 
     // load rows
-    results.items.first().load(args);
+    if (results.items.first()) {
+      results.items.first().load(args);
+    }
 
     // remember current results view
     results.current = args.results;

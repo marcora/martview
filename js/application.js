@@ -28,10 +28,10 @@ Ext.onReady(function() {
 
   // init tips
   Ext.QuickTips.init();
-  Ext.apply(Ext.QuickTips.getQuickTip(), {
-    // dismissDelay: 0,
-    autoWidth: true
-  });
+  // Ext.apply(Ext.QuickTips.getQuickTip(), {
+  //   // dismissDelay: 0,
+  //   autoWidth: true
+  // });
 
   // service, viewport, and windows global vars
   var service = new Martview.Service();

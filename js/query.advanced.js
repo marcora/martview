@@ -48,6 +48,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               itemId: filter.name,
               name: filter.name,
               // value: filter.default,
+              tooltip: filter.description,
               fieldLabel: filter.display_name || filter.name,
               editable: false,
               forceSelection: true,
@@ -62,6 +63,7 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
               itemId: filter.name,
               name: filter.name,
               // value: filter.default,
+              tooltip: filter.description,
               fieldLabel: filter.display_name || filter.name
             }]);
           }
@@ -74,12 +76,11 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             itemId: filter.name,
             name: filter.name,
             // value: filter.default,
+            tooltip: filter.description,
             fieldLabel: filter.display_name || filter.name
           });
           form.filters.add({
             xtype: 'fileuploadfield',
-            itemId: filter.name + '__fileupload',
-            name: filter.name + '__fileupload',
             hideLabel: true,
             buttonText: 'Upload file&hellip;'
           });
@@ -101,10 +102,22 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
             itemId: filter.name,
             name: filter.name,
             // value: filter.default,
+            tooltip: filter.description,
             fieldLabel: filter.display_name || filter.name,
             items: items
             // vertical: true,
             // columns: 1,
+          });
+        }
+
+        // add description below field
+        if (filter.description) {
+          form.filters.add({
+            xtype: 'displayfield',
+            anchor: '100%',
+            hideLabel: true,
+            cls: 'filter-description',
+            value: filter.description
           });
         }
       }

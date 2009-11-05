@@ -17,7 +17,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       // null is important!
       removed_fields_names: [],
       added_fields_names: [],
-      title: 'Customize ' + this.display_name,
+      title: 'Add/remove ' + this.display_name,
       modal: true,
       width: 900,
       height: 500,
@@ -31,7 +31,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       buttonAlign: 'left',
       buttons: [{
         xtype: 'tbtext',
-        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to add it to the "Selected ' + this.display_name + '" panel'
+        text: '<img src="./ico/information.png" style="vertical-align: text-bottom;" />&nbsp;Double-click on a folder to expand/collapse it or on a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to add it to the selected ' + this.display_name
       },
       {
         xtype: 'tbfill'
@@ -160,7 +160,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: '../selected',
         items: [],
         autoScroll: true,
-        padding: 10,
+        padding: 20,
         title: 'Selected ' + this.display_name,
         // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
@@ -190,14 +190,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           text: 'Add',
           iconCls: 'add-icon',
           cls: 'x-btn-text-icon',
-          tooltip: 'Click to add the ' + this.display_name.substr(0, this.display_name.length - 1) + '/folder currently selected in the tree',
+          tooltip: 'Click to add the ' + this.display_name.substr(0, this.display_name.length - 1) + ' currently selected in the tree',
           handler: function() {
             var window = this;
             var selNode = window.all.selModel.selNode;
             if (selNode) {
               window.addFields(selNode);
             } else {
-              Ext.MessageBox.alert(Martview.APP_TITLE, 'To add a ' + this.display_name.substr(0, this.display_name.length - 1) + ' to the the "Selected ' + this.display_name + '" panel, you must first select it in the "All ' + this.display_name + '" tree.');
+              Ext.MessageBox.alert(Martview.APP_TITLE, 'To add a ' + this.display_name.substr(0, this.display_name.length - 1) + ', you must first select it in the tree.');
             }
           },
           scope: this // window
