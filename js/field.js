@@ -12,16 +12,18 @@ Martview.Field = Ext.extend(Ext.Panel, {
   initComponent: function() {
     var config = {
       itemId: this.node.id,
+      cls: 'field',
+      border: false,
       shadow: new Ext.Shadow(),
       draggable: {
         ddGroup: 'allDDGroup',
+        containerScroll: true,
         startDrag: function(x, y) {
           // get panel ghost
           var ghost = Ext.get(this.getDragEl());
-
           // customize panel ghost
           try {
-            ghost.child('ul').remove(); // remove spurios ul element!?!
+            ghost.child('ul').remove(); // remove multi element drag "ghost" if present
           } catch(e) {
             // pass
           }
@@ -32,7 +34,6 @@ Martview.Field = Ext.extend(Ext.Panel, {
             tag: 'div',
             cls: 'x-dd-drop-icon'
           });
-
           // copy field html into panel ghost
           var el = Ext.get(this.proxy.panel.getEl());
           Ext.DomHelper.append(ghost, {
@@ -40,7 +41,6 @@ Martview.Field = Ext.extend(Ext.Panel, {
             cls: 'x-dd-drag-ghost field-ghost',
             html: el.child('div.x-panel-tbar').dom.innerHTML
           });
-
           // add shadow to panel ghost
           this.shadow = new Ext.Shadow();
           this.shadow.show(ghost);
@@ -67,27 +67,28 @@ Martview.Field = Ext.extend(Ext.Panel, {
           ghost.removeClass('x-dd-drop-ok');
         }
       },
-      cls: 'field',
-      border: false,
       tbar: [{
-        text: '<span style="color: #444 !important; font-weight: bold !important;">' + this.node.attributes.display_name || this.node.attributes.name + '</span>',
-        tooltip: this.node.parentNode.parentNode.text + ' > ' + this.node.parentNode.text,
-        iconCls: this.field_iconCls,
-        cls: 'x-btn-text-icon'
+        xtype: 'tbtext',
+        itemId: 'title',
+        ref: '../title',
+        text: '<span class="title"><img src="./ico/' + ((this.field_iconCls == 'filter-icon') ? 'ui-search-field' : 'table-select-column') + '.png"/>&nbsp;' + this.node.attributes.display_name || this.node.attributes.name + '</span>',
+        listeners: {
+          afterrender: function(title) {
+            var field = this;
+
+            // create tooltip
+            Ext.QuickTips.register({
+              target: title.el.child('span.title'),
+              title: field.node.parentNode.parentNode.text + ' > ' + field.node.parentNode.text + ' > ' + field.node.text,
+              text: field.node.attributes.description,
+              dismissDelay: 0,
+              showDelay: 0
+            });
+          },
+          scope: this // field
+        }
       },
-      {
-        xtype: 'tbfill',
-        hidden: !this.editable
-      },
-      {
-        xtype: 'textfield',
-        hidden: !this.editable
-      },
-      {
-        xtype: 'tbspacer',
-        hidden: !this.editable
-      },
-      {
+      '->', {
         itemId: 'moveup',
         ref: '../moveUpButton',
         text: 'Up',
@@ -144,8 +145,30 @@ Martview.Field = Ext.extend(Ext.Panel, {
       afterrender: function(field) {
         // disable node
         field.node.disable();
+
+        // make field a drop target for other fields and tree nodes
+        field.dd.addToGroup('selectedDDGroup');
+        var selectedDropTargetEl = field.el;
+        var selectedDropTarget = new Ext.dd.DropTarget(selectedDropTargetEl, {
+          ddGroup: 'selectedDDGroup',
+          notifyDrop: function(dd, e, data) {
+            var window = field.ownerCt.ownerCt;
+            if (dd.tree) { // treenode
+              var node = dd.tree.selModel.selNode;
+              window.moveFieldTo(node, field);
+              return true;
+            } else if (dd.panel) { // field
+              var node = dd.panel.node;
+              window.moveFieldTo(node, field);
+              return true;
+            } else {
+              return false;
+            }
+          }
+        });
       },
       beforedestroy: function(field) {
+        // enable node
         field.node.enable();
       }
     });

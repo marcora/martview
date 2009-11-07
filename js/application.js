@@ -7,7 +7,7 @@
 // TODO:  Column order for query results should follow attribute order
 // TODO:  Logged in users can mark datasets as favorites
 // FIXME: Remember filter values and reset filter values doesn't work for radiogroup
-
+// FIXME: Selected filter/attribute tooltip doesn't work
 try {
   console.log(); // http://code.google.com/p/fbug/issues/detail?id=1014
   var debug = true;
@@ -17,7 +17,7 @@ try {
 
 Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
 Ext.chart.Chart.CHART_URL = './ext/resources/charts.swf';
-Ext.state.Manager.setProvider(new Ext.state.CookieProvider());
+// Ext.state.Manager.setProvider(new Ext.state.CookieProvider()); // disable during development
 Ext.ns('Martview');
 
 Ext.onReady(function() {
@@ -28,10 +28,10 @@ Ext.onReady(function() {
 
   // init tips
   Ext.QuickTips.init();
-  // Ext.apply(Ext.QuickTips.getQuickTip(), {
-  //   // dismissDelay: 0,
-  //   autoWidth: true
-  // });
+  Ext.apply(Ext.QuickTips.getQuickTip(), {
+    // dismissDelay: 0,
+    autoWidth: true
+  });
 
   // service, viewport, and windows global vars
   var service = new Martview.Service();

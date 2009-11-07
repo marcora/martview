@@ -74,7 +74,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         lines: true,
         enableDrag: true,
         dragConfig: {
-          ddGroup: 'selectedDDGroup'
+          ddGroup: 'selectedDDGroup',
+          containerScroll: true
         },
         autoScroll: true,
         // containerScroll: true,
@@ -87,14 +88,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             ref: '../search',
             flex: 1,
             emptyText: 'Enter terms to find a specific ' + this.display_name.substr(0, this.display_name.length - 1)
-            // listeners: {
-            //   'render': {
-            //     fn: function () {
-            //       this.focus();
-            //     },
-            //     delay: 500
-            //   }
-            // }
           },
           ' ', {
             itemId: 'expand_all',
@@ -124,12 +117,12 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           }]
         },
         listeners: {
-          'beforerender': function() {
+          beforerender: function() {
             this.filter = new Ext.ux.tree.TreeFilterX(this, {
               expandOnFilter: true
             });
           },
-          'dblclick': {
+          dblclick: {
             fn: function(node) {
               var window = this;
               if (node.isLeaf()) {
@@ -138,14 +131,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
             },
             scope: this // window
           },
-          'render': {
+          afterrender: {
             fn: function() {
               var window = this;
-              var allDropTargetEl = window.items.get('all').body.dom;
+              var allDropTargetEl = window.items.get('all').body;
               var allDropTarget = new Ext.dd.DropTarget(allDropTargetEl, {
                 ddGroup: 'allDDGroup',
-                notifyDrop: function(ddSource, e, data) {
-                  window.removeFields(ddSource.panel.itemId);
+                notifyDrop: function(dd, e, data) {
+                  window.removeFields(dd.panel.itemId);
                   return true;
                 }
               });
@@ -160,30 +153,17 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: '../selected',
         items: [],
         autoScroll: true,
-        padding: 20,
+        padding: 10,
         title: 'Selected ' + this.display_name,
         // iconCls: 'node-selected-icon',
         bodyStyle: 'background-color:#dfe8f6;',
-        //         layout: 'vbox',
-        //         layoutConfig: {
-        //           align: 'stretch',
-        //           pack: 'start'
-        //         },
-        listeners: {
-          'render': {
-            fn: function() {
-              var window = this;
-              var selectedDropTargetEl = this.items.get('selected').body.dom;
-              var selectedDropTarget = new Ext.dd.DropTarget(selectedDropTargetEl, {
-                ddGroup: 'selectedDDGroup',
-                notifyDrop: function(ddSource, e, data) {
-                  var selNode = ddSource.tree.selModel.selNode;
-                  window.addFields(selNode);
-                  return true;
-                }
-              });
-            },
-            scope: this // window
+        layout: 'table',
+        layoutConfig: {
+          columns: 1,
+          tableAttrs: {
+            style: {
+              width: '100%'
+            }
           }
         },
         tbar: [{
@@ -258,7 +238,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           window.all.search.getEl().frame("ff0000", 1);
         }).defer(300);
       },
-      'hide': function(window) {
+      hide: function(window) {
         window.reset();
       }
     });
@@ -278,6 +258,13 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
 
   // add field to selected
   addFields: function(field_or_node_or_id_or_array) {
+    var window = this;
+    window.removeLastDrop();
+    window._addFields(field_or_node_or_id_or_array);
+    window.addLastDrop();
+  },
+
+  _addFields: function(field_or_node_or_id_or_array) {
     if (!field_or_node_or_id_or_array) {
       return false;
     } else {
@@ -291,7 +278,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         Ext.each(field_or_node_or_id_or_array, function(node) {
           window.addFields(node);
         });
-      } else if (field_or_node_or_id_or_array.xtype == 'treenode') { // if treenode
+      } else if (typeof(field_or_node_or_id_or_array.firstChild) != 'undefined') { // if treenode
         node = field_or_node_or_id_or_array;
       } else if (field_or_node_or_id_or_array.xtype == 'field') { // if field
         node = field_or_node_or_id_or_array.node;
@@ -300,6 +287,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       }
       if (node && !node.disabled) {
         if (node.isLeaf()) {
+          // add field
           selected.add({
             xtype: 'field',
             itemId: node.id,
@@ -313,14 +301,19 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           });
         }
       }
-      selected.doLayout();
-      window.updateFields();
       return true;
     }
   },
 
   // remove field from selected
   removeFields: function(field_or_node_or_id_or_array) {
+    var window = this;
+    window.removeLastDrop();
+    window._removeFields(field_or_node_or_id_or_array);
+    window.addLastDrop();
+  },
+
+  _removeFields: function(field_or_node_or_id_or_array) {
     if (!field_or_node_or_id_or_array) {
       return false;
     } else {
@@ -334,7 +327,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         Ext.each(field_or_node_or_id_or_array, function(node) {
           window.removeFields(node);
         });
-      } else if (field_or_node_or_id_or_array.xtype == 'treenode') { // if treenode
+      } else if (typeof(field_or_node_or_id_or_array.firstChild) != 'undefined') { // if treenode
         node = field_or_node_or_id_or_array;
       } else if (field_or_node_or_id_or_array.xtype == 'field') { // if field
         node = field_or_node_or_id_or_array.node;
@@ -343,15 +336,14 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       }
       if (node && node.disabled) {
         if (node.isLeaf()) {
-          selected.remove(node.id);
+          // remove field
+          selected.remove(node.id, true);
         } else {
           node.eachChild(function(node) {
             window.removeFields(node);
           });
         }
       }
-      selected.doLayout();
-      window.updateFields();
       return true;
     }
   },
@@ -397,7 +389,9 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     // remember selected fields
     window.selected_fields = [];
     selected.items.each(function(item) {
-      window.selected_fields.push(item.node.attributes);
+      if (item.node) { // all except last drop
+        window.selected_fields.push(item.node.attributes);
+      }
     });
 
     // build array of selected fields names (after)
@@ -454,10 +448,24 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     return valid_fields;
   },
 
-  // update move up/dn buttons of all fields
-  updateFields: function() {
+  // remove last drop target
+  removeLastDrop: function() {
     var window = this;
     var selected = window.get('selected');
+
+    // remove last drop target
+    selected.remove('lastdrop');
+    selected.doLayout();
+  },
+
+  // add last drop target and update move up/dn buttons
+  addLastDrop: function() {
+    var window = this;
+    var selected = window.get('selected');
+
+    // remove last drop target
+    selected.remove('lastdrop');
+    selected.doLayout();
 
     // disable move up/dn buttons of first/last field
     selected.items.each(function(field) {
@@ -474,7 +482,69 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         field.moveDnButton.enable();
       }
     });
+
+    // add last drop target
+    var field = selected.add({
+      xtype: 'panel',
+      itemId: 'lastdrop',
+      height: 52,
+      border: false,
+      bodyStyle: 'background-color:#dfe8f6;'
+    });
     selected.doLayout();
+    var selectedDropTargetEl = field.el;
+    var selectedDropTarget = new Ext.dd.DropTarget(selectedDropTargetEl, {
+      ddGroup: 'selectedDDGroup',
+      notifyDrop: function(dd, e, data) {
+        if (dd.tree) { // treenode
+          var node = dd.tree.selModel.selNode;
+          window.addFields(node);
+          return true;
+        } else if (dd.panel) { // field
+          var dropped_field = dd.panel;
+          window.moveFieldToEnd(dropped_field);
+          return true;
+        } else {
+          return false;
+        }
+      }
+    });
+  },
+
+  // move field to specific position
+  moveFieldTo: function(node_or_field, index_or_field) {
+    var window = this;
+    var selected = window.selected;
+    var nodes = [];
+
+    // remove last drop target
+    window.removeLastDrop();
+
+    var fields = selected.items;
+
+    if (node_or_field.xtype == 'field') {
+      var node = node_or_field.node;
+    } else {
+      var node = node_or_field;
+    }
+    if (typeof(index_or_field) == 'number') {
+      var index = index_or_field;
+    } else {
+      var index = fields.indexOf(index_or_field);
+    }
+
+    // collect all field nodes below index or field
+    for (var i = index; i < fields.length; i++) {
+      nodes.push(fields.get(i).node);
+    }
+
+    // insert field at index
+    nodes.remove(node);
+    nodes.unshift(node);
+    window._removeFields(nodes);
+    window.removeLastDrop();
+    window._addFields(nodes);
+    window.addLastDrop();
   },
 
   // move field up
@@ -482,22 +552,8 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     var window = this;
     var selected = window.selected;
     var fields = selected.items;
-    var nodes = [];
-
-    // manipulate fields
     var index = fields.indexOf(field) - 1;
-    if (index >= 0 && index < fields.length) {
-      selected.remove(field, false);
-      fields.insert(index, field);
-
-      // copy nodes from fields
-      fields.each(function(field) {
-        nodes.push(field.node);
-      });
-
-      // add nodes to selected
-      window.resetSelectedFields(nodes);
-    }
+    window.moveFieldTo(field, index);
   },
 
   // move field dn
@@ -505,22 +561,15 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
     var window = this;
     var selected = window.selected;
     var fields = selected.items;
-    var nodes = [];
+    var index = fields.indexOf(field) + 2;
+    window.moveFieldTo(field, index);
+  },
 
-    // manipulate fields
-    var index = fields.indexOf(field) + 1;
-    if (index >= 0 && index < fields.length) {
-      selected.remove(field, false);
-      fields.insert(index, field);
-
-      // copy nodes from fields
-      fields.each(function(field) {
-        nodes.push(field.node);
-      });
-
-      // add nodes to selected
-      window.resetSelectedFields(nodes);
-    }
+  // move field to end
+  moveFieldToEnd: function(field) {
+    var window = this;
+    var node = field.node;
+    window.removeFields(node);
+    window.addFields(node);
   }
-
 });

@@ -110,16 +110,16 @@ Martview.query.Advanced = Ext.extend(Ext.form.FormPanel, {
           });
         }
 
-        // add description below field
-        if (filter.description) {
-          form.filters.add({
-            xtype: 'displayfield',
-            anchor: '100%',
-            hideLabel: true,
-            cls: 'filter-description',
-            value: filter.description
-          });
-        }
+        // // // add description below field
+        // if (filter.description) {
+        //   form.filters.add({
+        //     xtype: 'displayfield',
+        //     anchor: '100%',
+        //     hideLabel: true,
+        //     cls: 'filter-description',
+        //     value: filter.description
+        //   });
+        // }
       }
     });
 

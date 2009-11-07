@@ -18,7 +18,7 @@ body > .x-toolbar {
     border-bottom: 0 !important;
 }
 
-.field .x-toolbar {
+.x-table-layout .field .x-toolbar {
     background-color: #dfe8f6 !important;
     background-image: none !important;
     border-bottom: 1px #b5b8c8 solid  !important;
@@ -27,10 +27,19 @@ body > .x-toolbar {
     border-top: 0 !important;
 }
 
-.fields .field:first-child .x-toolbar {
+.x-table-layout .field:first-child .x-toolbar {
     border-top: 1px #b5b8c8 solid  !important;
 }
 
+/* .fields .x-table-layout { */
+/*     border: 1px #b5b8c8 solid  !important; */
+/*     border-collapse: collapse !important; */
+/* } */
+
+/* .fields .x-table-layout-cell { */
+/*     border: 1px #b5b8c8 solid  !important; */
+/*     border-collapse: collapse !important; */
+/* } */
 
 .field-ghost .x-toolbar {
     border: 1px #b5b8c8 solid  !important;
@@ -76,6 +85,9 @@ legend { font-weight: normal !important; }
 
 .start { font-weight: bold !important; }
 .start img { vertical-align: top !important; }
+
+.field .title { color: #444 !important; font-weight: bold !important; cursor: move !important; }
+.field .title img { vertical-align: top !important; }
 
 .selectdb-icon { background-image: url('../ico/database--arrow.png') !important; }
 .attribute-icon { background-image: url('../ico/table-select-column.png') !important; }

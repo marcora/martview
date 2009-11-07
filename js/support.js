@@ -36,7 +36,7 @@ String.prototype.capitalize = function() {
 };
 
 // add the has method to array
-Array.prototype.has = function(o) {
+Array.prototype.contains = function(o) {
   return this.indexOf(o) > -1;
 };
 
@@ -134,14 +134,47 @@ Ext.override(Ext.form.Field, {
 
 // add tooltip to field
 Ext.sequence(Ext.form.Field.prototype, 'afterRender', function() {
+
+  var findLabel = function(field) {
+    var wrapDiv = null;
+    var label = null;
+    // find form-element and label?
+    wrapDiv = field.getEl().up('div.x-form-element');
+    if (wrapDiv) {
+      label = wrapDiv.child('label');
+    }
+    if (label) {
+      return label;
+    }
+
+    //find form-item and label
+    wrapDiv = field.getEl().up('div.x-form-item');
+    if (wrapDiv) {
+      label = wrapDiv.child('label');
+    }
+    if (label) {
+      return label;
+    }
+    return null;
+  };
+
   var title = this.fieldLabel;
   var text = this.tooltip;
-  if (title && text) {
-    Ext.QuickTips.register({
-      target: this,
-      title: title,
-      text: text
-    });
+  var label = findLabel(this);
+
+  if (title) {
+    // Ext.QuickTips.register({
+    //   target: this,
+    //   title: title,
+    //   text: text
+    // });
+    if (label) {
+      Ext.QuickTips.register({
+        target: label,
+        title: title,
+        text: text
+      });
+    }
   }
 });
 
