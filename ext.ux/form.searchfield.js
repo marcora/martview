@@ -45,7 +45,11 @@ Ext.ux.form.SearchField = Ext.extend(Ext.form.TwinTriggerField, {
 
     // generate search regexp that matches all complete permutations of search terms
     var terms = val.split(/\s+/);
-    var permutations = permute(terms);
+    var stems = [];
+    Ext.each(terms, function(term) {
+      stems.push(stemmer(term));
+    });
+    var permutations = permute(stems);
     var s = '';
     Ext.each(permutations, function(permutation) {
       if (permutation.length == terms.length) {

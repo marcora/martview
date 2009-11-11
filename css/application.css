@@ -21,6 +21,7 @@ body > .x-toolbar {
 .x-table-layout .field .x-toolbar {
     background-color: #dfe8f6 !important;
     background-image: none !important;
+    /* border: 0 !important; */
     border-bottom: 1px #b5b8c8 solid  !important;
     border-left: 1px #b5b8c8 solid  !important;
     border-right: 1px #b5b8c8 solid  !important;

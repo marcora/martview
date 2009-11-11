@@ -25,7 +25,6 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
       closeAction: 'hide',
       plain: true,
       border: false,
-      autoDestroy: true,
       cls: 'fields',
       iconCls: 'customize-icon',
       buttonAlign: 'left',
@@ -153,6 +152,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         ref: '../selected',
         items: [],
         autoScroll: true,
+        autoDestroy: true,
         padding: 10,
         title: 'Selected ' + this.display_name,
         // iconCls: 'node-selected-icon',
@@ -276,7 +276,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         node = all.getNodeById(field_or_node_or_id_or_array);
       } else if (field_or_node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
         Ext.each(field_or_node_or_id_or_array, function(node) {
-          window.addFields(node);
+          window._addFields(node);
         });
       } else if (typeof(field_or_node_or_id_or_array.firstChild) != 'undefined') { // if treenode
         node = field_or_node_or_id_or_array;
@@ -297,7 +297,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           });
         } else {
           node.eachChild(function(node) {
-            window.addFields(node);
+            window._addFields(node);
           });
         }
       }
@@ -325,7 +325,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
         node = all.getNodeById(field_or_node_or_id_or_array);
       } else if (field_or_node_or_id_or_array.constructor.toString().indexOf("Array") != -1) { // if array
         Ext.each(field_or_node_or_id_or_array, function(node) {
-          window.removeFields(node);
+          window._removeFields(node);
         });
       } else if (typeof(field_or_node_or_id_or_array.firstChild) != 'undefined') { // if treenode
         node = field_or_node_or_id_or_array;
@@ -340,7 +340,7 @@ Martview.windows.Fields = Ext.extend(Ext.Window, {
           selected.remove(node.id, true);
         } else {
           node.eachChild(function(node) {
-            window.removeFields(node);
+            window._removeFields(node);
           });
         }
       }
