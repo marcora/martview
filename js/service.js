@@ -59,7 +59,7 @@ Martview.Service = Ext.extend(Ext.util.Observable, {
     });
   },
 
-  // search for results
+  // query martservice for results
   query: function(query_params) {
     var service = this;
     var query_url = '../martservice';

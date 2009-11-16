@@ -3,6 +3,7 @@ Ext.ns('Martview.windows');
 /* ------------------
    Save query window
    ------------------ */
+
 Martview.windows.SaveQuery = Ext.extend(Ext.Window, {
 
   // hard config
@@ -27,7 +28,7 @@ Martview.windows.SaveQuery = Ext.extend(Ext.Window, {
         handler: function() {
           this.destroy();
         },
-        scope: this // scope button to window
+        scope: this // window
       },
       {
         text: 'Save',

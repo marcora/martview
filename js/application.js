@@ -1,3 +1,9 @@
+Ext.ns('Martview');
+
+Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
+Ext.chart.Chart.CHART_URL = './ext/resources/charts.swf';
+// Ext.state.Manager.setProvider(new Ext.state.CookieProvider()); // disable during development
+
 /*jslint rhino: true, nomen: true, debug: true, onevar: true, indent: 2, white: false, eqeqeq: false, browser: true, undef: true */
 /*global Ext, Martview */
 
@@ -12,11 +18,6 @@ try {
 } catch(e) {
   var debug = false;
 }
-
-Ext.BLANK_IMAGE_URL = './ext/resources/images/default/s.gif';
-Ext.chart.Chart.CHART_URL = './ext/resources/charts.swf';
-// Ext.state.Manager.setProvider(new Ext.state.CookieProvider()); // disable during development
-Ext.ns('Martview');
 
 Ext.onReady(function() {
 
@@ -49,28 +50,28 @@ Ext.onReady(function() {
     attributes: []
   });
 
-  // transform filters param into an array of objects
-  (function() {
-    // var filters = [];
-    // Ext.each(params.filters.split('|'), function(filter) {
-    //   filters.push({
-    //     id: filter.split(':').first(),
-    //     value: filter.split(':').last()
-    //   });
-    // });
-    // params.filters = filters;
-  } ());
+  // // transform filters param into an array of objects
+  // (function() {
+  //   var filters = [];
+  //   Ext.each(params.filters.split('|'), function(filter) {
+  //     filters.push({
+  //       id: filter.split(':').first(),
+  //       value: filter.split(':').last()
+  //     });
+  //   });
+  //   params.filters = filters;
+  // } ());
 
-  // transform attributes param into an array of objects
-  (function() {
-    // var attributes = [];
-    // Ext.each(params.attributes.split('|'), function(attribute) {
-    //   attributes.push({
-    //     id: attribute
-    //   });
-    // });
-    // params.attributes = attributes;
-  } ());
+  // // transform attributes param into an array of objects
+  // (function() {
+  //   var attributes = [];
+  //   Ext.each(params.attributes.split('|'), function(attribute) {
+  //     attributes.push({
+  //       id: attribute
+  //     });
+  //   });
+  //   params.attributes = attributes;
+  // } ());
 
   /* ==============
      Event handlers
@@ -129,7 +130,7 @@ Ext.onReady(function() {
     // var selected_attributes = params.attributes;
     Ext.apply(params, dataset);
 
-    // create filters window
+    // destroy and create filters window
     try {
       filters_win.destroy();
     } catch(e) {
@@ -145,7 +146,7 @@ Ext.onReady(function() {
       selected_fields: [] // selected_filters
     });
 
-    // create attributes window
+    // destroy and create attributes window
     try {
       attributes_win.destroy();
     } catch(e) {
@@ -217,7 +218,7 @@ Ext.onReady(function() {
     // build query params
     var query_params = main.query.build(params);
 
-    // submit query
+    // query service
     service.query(query_params);
   });
 

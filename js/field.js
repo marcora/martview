@@ -3,10 +3,9 @@ Ext.ns('Martview');
 Martview.Field = Ext.extend(Ext.Panel, {
 
   // soft config
-  node: null,
-  editable: false,
-  field_iconCls: '',
-  display_name: '',
+  // - node
+  // - field_iconCls
+  // - display_name
 
   // hard config
   initComponent: function() {

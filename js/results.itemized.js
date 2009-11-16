@@ -1,6 +1,7 @@
 Ext.ns('Martview.results');
 
 Martview.results.Itemized = Ext.extend(Ext.grid.GridPanel, {
+                                         
   // soft config
   fields: [],
   columns: [],

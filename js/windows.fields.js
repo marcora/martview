@@ -4,12 +4,13 @@ Ext.ns('Martview.windows');
    Filters/attributes window
    ------------------------- */
 Martview.windows.Fields = Ext.extend(Ext.Window, {
-  // soft config:
-  // id
-  // display_name
-  // dataset
+
+  // soft config
+  // - id
+  // - display_name
+  // - dataset
   selected_fields: null,
-  // null is important!
+
   // hard config
   initComponent: function() {
     var config = {

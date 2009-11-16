@@ -4,6 +4,7 @@ Ext.ns('Martview.windows');
    Datasets window
    --------------- */
 Martview.windows.Datasets = Ext.extend(Ext.Window, {
+
   // hard config
   initComponent: function() {
     var config = {
@@ -31,7 +32,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         handler: function() {
           this.hide();
         },
-        scope: this // scope button to window
+        scope: this // window
       },
       {
         cls: 'x-btn-text-icon',
@@ -40,7 +41,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
         handler: function() {
           this.select();
         },
-        scope: this // scope button to window
+        scope: this // window
       }],
       items: [{
         xtype: 'treegrid',
@@ -67,7 +68,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             handler: function() {
               this.all.getStore().expandAll();
             },
-            scope: this // scope to window
+            scope: this // window
           },
           {
             itemId: 'collapse_all',
@@ -78,7 +79,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             handler: function() {
               this.all.getStore().collapseAll();
             },
-            scope: this // scope to window
+            scope: this // window
           }]
         },
         listeners: {
@@ -86,7 +87,7 @@ Martview.windows.Datasets = Ext.extend(Ext.Window, {
             fn: function() {
               this.select();
             },
-            scope: this
+            scope: this // window
           }
         },
         hideHeaders: true,

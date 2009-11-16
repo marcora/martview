@@ -3,6 +3,7 @@ Ext.ns('Martview.windows');
 /* --------------
    Loading window
    -------------- */
+
 Martview.windows.Loading = Ext.extend(Object, {
   show: function() {
     if (!this.msg || !this.msg.isVisible()) {
